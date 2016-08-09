@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="js/jquery/jquery-2.0.3.min.js"></script>
+
+</head>
+<body>
+
+<script src="js/Highcharts-4.2.4/js/highcharts.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        Highcharts.setOptions({
+            colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        });
+        $('#container1').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '2015 stations statistics'
+            },
+            subtitle: {
+                text: 'line13'
+            },
+            xAxis: {
+                categories: [
+                    'XIZHIMEN',
+                    'DAZHONGSI',
+                    'ZHICHUNLU',
+                    'SHANGDI',
+                    'XIERQI'
+                ],
+                crosshair: true
+            },
+
+            exporting: {
+                enabled: false
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'workOrder number'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: '0',
+                    data: [49, 71, 106]
+                },
+                {
+                    name: '1',
+                    data: [129, 144, 176]
+                },
+                {
+                    name: '2',
+                    data: [194, 95, 54]
+                },
+                {
+                    name: '3',
+                    data: [106, 129, 144, 176]
+                },
+                {
+                    name: '4',
+                    data: [176, 216, 54]
+                }]
+        });
+    });
+</script>
+<div id="container1" style="height:240px"></div>
+</body>
+</html>

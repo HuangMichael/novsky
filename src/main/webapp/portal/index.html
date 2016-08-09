@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="js/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            Highcharts.setOptions({
+                colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+            });
+            var workOrderStatus = [
+                {'name': '0', description: '已报修'},
+                {'name': '1', description: '维修中'},
+                {'name': '2', description: '已完工'},
+                {'name': '3', description: '已挂起'},
+                {'name': '4', description: '已评价'}
+            ];
+            var seriesOptions = [];
+            var option;
+            for (var x in workOrderStatus) {
+                if (workOrderStatus[x].description) {
+                    option = {
+                        "name": workOrderStatus[x].name,
+                        "data": [Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100), Math.floor(Math.random() * 100)]
+                    }
+                    seriesOptions.push(option);
+                }
+            }
+
+
+            var chart = $('#container').highcharts({
+                chart: {
+                    type: 'column'
+                },
+
+                exporting: {
+                    enabled: false
+                },
+                title: {
+                    text: '设备维修统计分析'
+                },
+                subtitle: {
+                    text: '测试数据'
+                },
+                plotOptions: {
+                    column: {
+                        depth: 25
+                    }
+                },
+                xAxis: {
+                    categories: loadStations()
+                },
+                yAxis: {
+                    title: {
+                        text: null
+                    }
+                }
+
+                ,
+                series: seriesOptions
+            });
+
+
+            function loadStations() {
+                var lines = [];
+                var url = "/line/findByStatus";
+                $.getJSON(url, function (data) {
+                    for (var x in data) {
+                        lines.push("line " + data[x]["lineNo"]);
+
+
+                    }
+                });
+                return lines;
+            }
+
+
+        });
+    </script>
+</head>
+<body>
+
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script>
+</script>
+<div id="container" style="height: 400px"></div>
+</body>
+</html>
