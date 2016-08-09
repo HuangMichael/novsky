@@ -1,8 +1,10 @@
 package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
+import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportDetailRepository;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
@@ -11,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +26,9 @@ public class WorkOrderDispatchService extends BaseService {
     WorkOrderReportDetailRepository workOrderReportDetailRepository;
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
+
+    @Autowired
+    WorkOrderReportCartRepository workOrderReportCartRepository;
 
     /**
      * @return 查询 报修单明细信息
@@ -67,14 +70,15 @@ public class WorkOrderDispatchService extends BaseService {
      * @param unitId
      * @return 返回更新了维修单位的报修明细信息
      */
-    public WorkOrderReportDetail updateDetailUnit(Long detailId, Long unitId) {
-        WorkOrderReportDetail workOrderReportDetail = workOrderReportDetailRepository.findById(detailId);
+    public WorkOrderReportCart updateDetailUnit(Long detailId, Long unitId) {
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(detailId);
         OutsourcingUnit outsourcingUnit = outsourcingUnitRepository.findById(unitId);
-        if (workOrderReportDetail != null && outsourcingUnit != null) {
-            workOrderReportDetail.setUnit(outsourcingUnit);
-            workOrderReportDetail = workOrderReportDetailRepository.save(workOrderReportDetail);
+        if (workOrderReportCart != null && outsourcingUnit != null) {
+            workOrderReportCart.setUnit(outsourcingUnit);
+            workOrderReportCart.setNodeState("已派工");
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
         }
-        return workOrderReportDetail;
+        return workOrderReportCart;
     }
 
 
@@ -82,13 +86,13 @@ public class WorkOrderDispatchService extends BaseService {
      * @param ids
      * @return 根据id查询维修车信息集合
      */
-    public List<WorkOrderReportDetail> findWorkOrderReportCartByIds(String ids) {
-        List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
+    public List<WorkOrderReportCart> findWorkOrderReportCartByIds(String ids) {
+        List<WorkOrderReportCart> workOrderReportCartList = new ArrayList<WorkOrderReportCart>();
         List<Long> longList = StringUtils.str2List(ids, ",");
         for (int i = 0; i < longList.size(); i++) {
-            WorkOrderReportDetail workOrderReportDetail = workOrderReportDetailRepository.findById(longList.get(i));
-            workOrderReportDetailList.add(workOrderReportDetail);
+            WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(longList.get(i));
+            workOrderReportCartList.add(workOrderReportCart);
         }
-        return workOrderReportDetailList;
+        return workOrderReportCartList;
     }
 }

@@ -163,14 +163,21 @@ public class WorkOrderReportService extends BaseService {
      * @version 0.1
      */
     public List mapByUnitId(String ids) {
-        List<Long> idList = new ArrayList<Long>();
-        String array[] = ids.split(",");
-        for (String str : array) {
-            if (str != null && !str.equals("")) {
-                idList.add(Long.parseLong(str));
-            }
+        List<WorkOrderReportCart> workOrderReportCartList = new ArrayList<WorkOrderReportCart>();
+        List<Long> idsList = StringUtils.str2List(ids, ",");
+        for (Long id : idsList) {
+            WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
+            workOrderReportCart.setNodeState("已派工");
+            workOrderReportCartRepository.save(workOrderReportCart);
+            WorkOrderHistory workOrderHistory = new WorkOrderHistory();
+            workOrderHistory.setNodeDesc("已派工");
+            workOrderHistory.setNodeTime(new Date());
+            workOrderHistory.setStatus("1");
+            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            workOrderReportCartList.add(workOrderReportCart);
         }
-        return workOrderReportDetailRepository.mapByUnitId(idList);
+        return workOrderReportCartList;
 
     }
 
@@ -200,7 +207,6 @@ public class WorkOrderReportService extends BaseService {
      * @return
      */
     public List<WorkOrderFix> createReport(List<Object> list, String personName, String location) {
-        log.info(this.getClass().getName() + "----保存维修单");
         List<WorkOrderFix> workOrderFixList = new ArrayList<WorkOrderFix>();
         //对于每个维修队 创建一个新的维修单
         WorkOrderFix workOrderFix = null;
@@ -398,5 +404,6 @@ public class WorkOrderReportService extends BaseService {
     public List<VworkOrderNumFinish> selectFinishNumIn3Months() {
         return vworkOrderNumFinishRepository.findAll();
     }
+
 
 }

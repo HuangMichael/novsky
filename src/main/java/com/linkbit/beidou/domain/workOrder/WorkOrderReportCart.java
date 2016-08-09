@@ -4,6 +4,7 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,6 +36,11 @@ public class WorkOrderReportCart {
     @OneToOne
     @JoinColumn(name = "eqClass_id")
     private EquipmentsClassification equipmentsClassification;
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id", referencedColumnName = "id")
+    OutsourcingUnit unit;
+
     @Column(length = 20)
     private String reporter; //报修人
     @Column(length = 20)
@@ -48,6 +54,10 @@ public class WorkOrderReportCart {
 
     @Column(length = 10)
     private String nodeState; //节点状态
+
+
+    @Column(length = 20)
+    private String fixDesc; //节点状态
 
     @Column(length = 1)
     private String status;

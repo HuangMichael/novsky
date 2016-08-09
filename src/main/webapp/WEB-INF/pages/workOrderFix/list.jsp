@@ -71,18 +71,7 @@
                                                             <td>${d.orderDesc}</td>
                                                             <td>${d.equipmentsClassification.description}</td>
                                                             <td>
-                                                                <c:if test="${d.status=='0'}">
-                                                                    <span class="badge badge-info">已派工</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='1'}">
-                                                                    <span class="badge badge-success">已完工</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='2'}">
-                                                                    <span class="badge badge-important">已暂停</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='3'}">
-                                                                    <span class="badge badge-important"> 已取消</span>
-                                                                </c:if>
+                                                                    ${d.nodeState}
                                                             </td>
                                                             <td>${d.fixDesc}</td>
                                                             <td><fmt:formatDate value="${d.reportTime}"
@@ -125,18 +114,7 @@
                                                             <td>${d.orderDesc}</td>
                                                             <td>${d.equipmentsClassification.description}</td>
                                                             <td>
-                                                                <c:if test="${d.status=='0'}">
-                                                                    <span class="badge badge-info">已分配</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='1'}">
-                                                                    <span class="badge badge-success">已完工</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='2'}">
-                                                                    <span class="badge badge-important">已暂停</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='3'}">
-                                                                    <span class="badge badge-important"> 已取消</span>
-                                                                </c:if>
+                                                                    ${d.nodeState}
                                                             </td>
                                                             <td>${d.fixDesc}</td>
                                                             <td><fmt:formatDate value="${d.reportTime}"
@@ -182,18 +160,7 @@
                                                             <td>${d.orderDesc}</td>
                                                             <td>${d.equipmentsClassification.description}</td>
                                                             <td>
-                                                                <c:if test="${d.status=='0'}">
-                                                                    <span class="badge badge-info">已分配</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='1'}">
-                                                                    <span class="badge badge-success">已完工</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='2'}">
-                                                                    <span class="badge badge-important">已暂停</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='3'}">
-                                                                    <span class="badge badge-important"> 已取消</span>
-                                                                </c:if>
+                                                                    ${d.nodeState}
                                                             </td>
                                                             <td>${d.fixDesc}</td>
                                                             <td><fmt:formatDate value="${d.reportTime}"
@@ -236,18 +203,7 @@
                                                             <td>${d.orderDesc}</td>
                                                             <td>${d.equipmentsClassification.description}</td>
                                                             <td>
-                                                                <c:if test="${d.status=='0'}">
-                                                                    <span class="badge badge-info">已分配</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='1'}">
-                                                                    <span class="badge badge-success">已完工</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='2'}">
-                                                                    <span class="badge badge-important">已暂停</span>
-                                                                </c:if>
-                                                                <c:if test="${d.status=='3'}">
-                                                                    <span class="badge badge-important"> 已取消</span>
-                                                                </c:if>
+                                                                    ${d.nodeState}
                                                             </td>
                                                             <td>${d.fixDesc}</td>
                                                             <td><fmt:formatDate value="${d.reportTime}"

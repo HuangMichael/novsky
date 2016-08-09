@@ -84,11 +84,11 @@ public class WorkOrderReportController {
     @RequestMapping(value = "/mapByUnitId", method = RequestMethod.POST)
     @ResponseBody
     public List mapByUnitId(@RequestParam("ids") String ids, HttpSession session) {
-        List list = workOrderReportService.mapByUnitId(ids);
-        User user = SessionUtil.getCurrentUserBySession(session);
-        if (user != null && user.getPerson() != null && user.getLocation() != null)
-            workOrderReportService.createReport(list, user.getPerson().getPersonName(), user.getLocation());
-        return list;
+
+//生成历史信息  并且更新状态
+
+
+        return workOrderReportService.mapByUnitId(ids);
     }
 
     @RequestMapping(value = "/findReportHistory/{equipmentId}", method = RequestMethod.GET)

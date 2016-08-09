@@ -11,6 +11,7 @@ import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
@@ -310,6 +311,11 @@ public class WorkOrderReportCartService extends BaseService {
         return monthsNameList;
     }
 
+
+    public List<WorkOrderReportCart> findWorkOrderReportDetailByIds(String ids) {
+        List<Long> longList = StringUtils.str2List(ids, ",");
+        return workOrderReportCartRepository.findWorkOrderReportDetailByIds(longList);
+    }
 
 }
 

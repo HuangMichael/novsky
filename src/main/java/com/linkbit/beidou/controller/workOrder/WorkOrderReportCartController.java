@@ -9,7 +9,6 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
-import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -47,9 +46,8 @@ public class WorkOrderReportCartController {
 
         User user = SessionUtil.getCurrentUserBySession(session);
         String userLocation = user.getLocation();
-        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByLocationsAndStatus(userLocation, CommonStatusType.CART_CREATED);
-
-        System.out.println();
+        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByLocationStartingWithAndNodeState(userLocation, "报修车");
+        System.out.println("workOrderReportCartList------------" + workOrderReportCartList.size());
         modelMap.put("workOrderReportCartList", workOrderReportCartList);
         return "/workOrderReportCart/list";
     }

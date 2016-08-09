@@ -49,6 +49,9 @@ public class WorkOrderFixService extends BaseService {
     LocationsService locationsService;
 
     @Autowired
+    WorkOrderReportCartRepository workOrderReportCartRepository;
+
+    @Autowired
     EquipmentAccountService equipmentAccountService;
 
     @Autowired
@@ -293,28 +296,28 @@ public class WorkOrderFixService extends BaseService {
     /**
      * @return 查询已派工的维修单
      */
-    public List<WorkOrderFixDetail> findDistributedOrders(String location) {
-        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("0",location);
+    public List<WorkOrderReportCart> findDistributedOrders(String location) {
+        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已派工");
     }
 
     /**
      * @return 查询已完工的维修单
      */
-    public List<WorkOrderFixDetail> findFinishOrders(String location) {
-        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("1",location);
+    public List<WorkOrderReportCart> findFinishOrders(String location) {
+        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已完工");
     }
 
     /**
      * @return 查询已暂停的维修单
      */
-    public List<WorkOrderFixDetail> findPausedOrders(String location) {
-        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("2",location);
+    public List<WorkOrderReportCart> findPausedOrders(String location) {
+        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已暂停");
     }
 
     /**
      * @return 查询已取消的维修单
      */
-    public List<WorkOrderFixDetail> findRemovedOrders(String location) {
-        return workOrderFixDetailRepository.findByStatusAndLocationStartingWith("3",location);
+    public List<WorkOrderReportCart> findRemovedOrders(String location) {
+        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已取消");
     }
 }

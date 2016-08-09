@@ -1,12 +1,12 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
-import com.linkbit.beidou.dao.workOrder.WorkOrderFixDetailRepository;
-import com.linkbit.beidou.dao.workOrder.WorkOrderFixRepository;
-import com.linkbit.beidou.dao.workOrder.WorkOrderReportDetailRepository;
+import com.linkbit.beidou.dao.workOrder.*;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderFix;
 import com.linkbit.beidou.domain.workOrder.WorkOrderFixDetail;
+import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
@@ -18,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +46,15 @@ public class WorkOrderFixController {
 
     WorkOrderFixService workOrderFixService;
 
+
+    @Autowired
+
+    WorkOrderHistoryRepository workOrderHistoryRepository;
+
+    @Autowired
+
+    WorkOrderReportCartRepository workOrderReportCartRepository;
+
    /* *//**
      * @param modelMap
      * @return 显示维修工单列表
@@ -70,10 +80,10 @@ public class WorkOrderFixController {
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
 
-        List<WorkOrderFixDetail> workOrderFixDetailListList0 = workOrderFixService.findDistributedOrders(location);
-        List<WorkOrderFixDetail> workOrderFixDetailListList1 = workOrderFixService.findFinishOrders(location);
-        List<WorkOrderFixDetail> workOrderFixDetailListList2 = workOrderFixService.findPausedOrders(location);
-        List<WorkOrderFixDetail> workOrderFixDetailListList3 = workOrderFixService.findRemovedOrders(location);
+        List<WorkOrderReportCart> workOrderFixDetailListList0 = workOrderFixService.findDistributedOrders(location);
+        List<WorkOrderReportCart> workOrderFixDetailListList1 = workOrderFixService.findFinishOrders(location);
+        List<WorkOrderReportCart> workOrderFixDetailListList2 = workOrderFixService.findPausedOrders(location);
+        List<WorkOrderReportCart> workOrderFixDetailListList3 = workOrderFixService.findRemovedOrders(location);
         modelMap.put("workOrderFixDetailListList0", workOrderFixDetailListList0);
         modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
         modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
@@ -129,14 +139,19 @@ public class WorkOrderFixController {
     @RequestMapping(value = "/finishDetail", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc, HttpSession httpSession) {
-        WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
-        if (!workOrderFixDetail.getStatus().equals("1")) {
-            workOrderFixDetail.setStatus("1");
-            workOrderFixDetail.setFixDesc(fixDesc);
-            workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
-            String personName = (String) httpSession.getAttribute("personName");
-            workOrderFixService.finishDetailBatch(fixId + "", personName);
+        if (!workOrderReportCart.getNodeState().equals("已完工")) {
+            workOrderReportCart.setStatus("1");
+            workOrderReportCart.setNodeState("已完工");
+            workOrderReportCart.setFixDesc(fixDesc);
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            WorkOrderHistory workOrderHistory = new WorkOrderHistory();
+            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderHistory.setStatus("1");
+            workOrderHistory.setNodeTime(new Date());
+            workOrderHistory.setNodeDesc("已完工");
+            workOrderHistoryRepository.save(workOrderHistory);
             returnObject.setResult(true);
             returnObject.setResultDesc("维修单已完工！");
         } else {
@@ -154,17 +169,24 @@ public class WorkOrderFixController {
     @RequestMapping(value = "/pauseDetail", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject pauseDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
-
-        System.out.println("fixDesc--------------------" + fixDesc);
-        WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
-        if (workOrderFixDetail.getStatus().equals("0")) {
-            workOrderFixService.pauseDetailBatch(fixId + "", fixDesc);
+        if (!workOrderReportCart.getNodeState().equals("已暂停")) {
+            workOrderReportCart.setStatus("1");
+            workOrderReportCart.setNodeState("已暂停");
+            workOrderReportCart.setFixDesc(fixDesc);
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            WorkOrderHistory workOrderHistory = new WorkOrderHistory();
+            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderHistory.setStatus("1");
+            workOrderHistory.setNodeTime(new Date());
+            workOrderHistory.setNodeDesc("已暂停");
+            workOrderHistoryRepository.save(workOrderHistory);
             returnObject.setResult(true);
-            returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "暂停成功！");
+            returnObject.setResultDesc("维修单已暂停！");
         } else {
             returnObject.setResult(false);
-            returnObject.setResultDesc("维修单已经处理,无法暂停！");
+            returnObject.setResultDesc("维修单无法暂停！");
         }
 
 
@@ -179,20 +201,25 @@ public class WorkOrderFixController {
     @RequestMapping(value = "/abortDetail", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject abortDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
-        WorkOrderFixDetail workOrderFixDetail = workOrderFixDetailRepository.findById(fixId);
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
-        if (workOrderFixDetail.getStatus().equals("0")) {
-            workOrderFixDetail.setStatus("3");
-            workOrderFixDetail.setFixDesc(fixDesc);
-            workOrderFixDetail = workOrderFixDetailRepository.save(workOrderFixDetail);
+        if (!workOrderReportCart.getNodeState().equals("已暂停")) {
+            workOrderReportCart.setStatus("1");
+            workOrderReportCart.setNodeState("已暂停");
+            workOrderReportCart.setFixDesc(fixDesc);
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            WorkOrderHistory workOrderHistory = new WorkOrderHistory();
+            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderHistory.setStatus("1");
+            workOrderHistory.setNodeTime(new Date());
+            workOrderHistory.setNodeDesc("已暂停");
+            workOrderHistoryRepository.save(workOrderHistory);
             returnObject.setResult(true);
-            returnObject.setResultDesc("维修单" + workOrderFixDetail.getOrderLineNo() + "取消成功！");
+            returnObject.setResultDesc("维修单已暂停！");
         } else {
             returnObject.setResult(false);
-            returnObject.setResultDesc("维修单已经处理，无法取消！");
+            returnObject.setResultDesc("维修单无法暂停！");
         }
-
-
         return returnObject;
     }
 

@@ -5,10 +5,11 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderFix;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.workOrder.WorkOrderDispatchService;
+import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
-import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -40,6 +41,9 @@ public class WorkOrderDispatchController {
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
 
+    @Autowired
+    WorkOrderReportCartService workOrderReportCartService;
+
     /**
      * @param modelMap
      * @return 显示报修工单明细列表
@@ -48,15 +52,15 @@ public class WorkOrderDispatchController {
     public String list(ModelMap modelMap, HttpSession session) {
         User user = SessionUtil.getCurrentUserBySession(session);
         //查询当前登录用户location下的未完工的报修单明细
-        List<WorkOrderReportDetail> workOrderReportDetailList = null;
+        List<WorkOrderReportCart> workOrderReportDetailList = null;
 
         List<OutsourcingUnit> unitList = null;
         if (user != null && user.getLocation() != null) {
-            workOrderReportDetailList = workOrderDispatchService.findReportList(user.getLocation(), CommonStatusType.ORDER_DISTRIBUTED);
+            workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWithAndNodeState(user.getLocation(), "已报修");
             unitList = outsourcingUnitRepository.findByStatus("1");
+            System.out.println("workOrderReportDetailList--------------"+workOrderReportDetailList.size());
             modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
             modelMap.put("unitList", unitList);
-
         }
         return "/workOrderDispatcher/list";
     }
@@ -105,7 +109,7 @@ public class WorkOrderDispatchController {
      */
     @RequestMapping(value = "/loadOrderDesc", method = RequestMethod.POST)
     public String loadOrderDesc(@RequestParam("ids") String ids, ModelMap modelMap) {
-        List<WorkOrderReportDetail> WorkOrderReportDetailList = workOrderDispatchService.findWorkOrderReportDetailByIds(ids);
+        List<WorkOrderReportCart> WorkOrderReportDetailList = workOrderReportCartService.findWorkOrderReportDetailByIds(ids);
         modelMap.put("WorkOrderReportDetailList", WorkOrderReportDetailList);
         return "/workOrderDispatcher/orderDescList";
     }
@@ -118,9 +122,9 @@ public class WorkOrderDispatchController {
      */
     @RequestMapping(value = "/updateDetailUnit", method = RequestMethod.POST)
     @ResponseBody
-    public WorkOrderReportDetail updateDetailUnit(@RequestParam("detailId") Long detailId, @RequestParam("unitId") Long unitId) {
-        WorkOrderReportDetail workOrderReportDetail = workOrderDispatchService.updateDetailUnit(detailId, unitId);
-        return workOrderReportDetail;
+    public WorkOrderReportCart updateDetailUnit(@RequestParam("detailId") Long detailId, @RequestParam("unitId") Long unitId) {
+        WorkOrderReportCart workOrderReportCart = workOrderDispatchService.updateDetailUnit(detailId, unitId);
+        return workOrderReportCart;
     }
 
 
@@ -129,7 +133,7 @@ public class WorkOrderDispatchController {
      */
     @RequestMapping(value = "/loadCommitPage", method = RequestMethod.POST)
     public String loadCommitPage(@RequestParam("ids") String ids, ModelMap modelMap) {
-        List<WorkOrderReportDetail> workOrderReportDetailList = workOrderDispatchService.findWorkOrderReportCartByIds(ids);
+        List<WorkOrderReportCart> workOrderReportDetailList = workOrderDispatchService.findWorkOrderReportCartByIds(ids);
         modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
         return "/workOrderDispatcher/orderCommitList";
     }
