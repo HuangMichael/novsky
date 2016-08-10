@@ -283,6 +283,7 @@ public class WorkOrderReportCartService extends BaseService {
     public WorkOrderReportCart updateOrderDesc(Long id, String orderDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
         workOrderReportCart.setOrderDesc(orderDesc);
+        workOrderReportCart.setNodeState("已报修");
         workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
         return workOrderReportCart;
 

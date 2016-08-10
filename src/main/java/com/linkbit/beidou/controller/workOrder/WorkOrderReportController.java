@@ -52,10 +52,10 @@ public class WorkOrderReportController {
      */
     @RequestMapping(value = "/generateReport", method = RequestMethod.POST)
     @ResponseBody
-    public List<WorkOrderReportDetail> generateReport(@RequestParam("ids") String ids, HttpSession session) {
+    public List<WorkOrderReportCart> generateReport(@RequestParam("ids") String ids, HttpSession session) {
         WorkOrderReport workOrderReport = null;
         User user = SessionUtil.getCurrentUserBySession(session);
-        List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
+        List<WorkOrderReportCart> workOrderReportDetailList = new ArrayList<WorkOrderReportCart>();
         if (user != null && user.getLocation() != null && user.getPerson() != null) {
             String location = user.getLocation();
             String personName = user.getPerson().getPersonName();

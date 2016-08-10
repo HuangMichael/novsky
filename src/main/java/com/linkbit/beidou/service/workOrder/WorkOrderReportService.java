@@ -120,16 +120,16 @@ public class WorkOrderReportService extends BaseService {
      * @param reporter 当前登录用户 报修人
      * @return
      */
-    public List<WorkOrderReportDetail> generateReport(String ids, String reporter, String location) {
+    public List<WorkOrderReportCart> generateReport(String ids, String reporter, String location) {
         List<Long> idList = new ArrayList<Long>();
         if (ids != null && !ids.equals("")) {
             idList = StringUtils.str2List(ids, ",");
         }
-        List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
-
+        List<WorkOrderReportCart> workOrderReportCartList = new ArrayList<WorkOrderReportCart>();
         WorkOrderReportCart workOrderReportCart;
         for (Long id : idList) {
             workOrderReportCart = workOrderReportCartRepository.findById(id);
+            workOrderReportCart.setNodeState("已报修");
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setNodeDesc("已报修");
             workOrderHistory.setNodeTime(new Date());
@@ -137,7 +137,7 @@ public class WorkOrderReportService extends BaseService {
             workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
             workOrderHistoryRepository.save(workOrderHistory);
         }
-        return workOrderReportDetailList;
+        return workOrderReportCartList;
     }
 
 

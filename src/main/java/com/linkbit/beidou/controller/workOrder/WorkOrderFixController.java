@@ -203,22 +203,22 @@ public class WorkOrderFixController {
     public ReturnObject abortDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
-        if (!workOrderReportCart.getNodeState().equals("已暂停")) {
+        if (!workOrderReportCart.getNodeState().equals("已取消")) {
             workOrderReportCart.setStatus("1");
-            workOrderReportCart.setNodeState("已暂停");
+            workOrderReportCart.setNodeState("已取消");
             workOrderReportCart.setFixDesc(fixDesc);
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
             workOrderHistory.setStatus("1");
             workOrderHistory.setNodeTime(new Date());
-            workOrderHistory.setNodeDesc("已暂停");
+            workOrderHistory.setNodeDesc("已取消");
             workOrderHistoryRepository.save(workOrderHistory);
             returnObject.setResult(true);
-            returnObject.setResultDesc("维修单已暂停！");
+            returnObject.setResultDesc("维修单已取消！");
         } else {
             returnObject.setResult(false);
-            returnObject.setResultDesc("维修单无法暂停！");
+            returnObject.setResultDesc("维修单无法取消！");
         }
         return returnObject;
     }
