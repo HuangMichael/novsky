@@ -138,7 +138,7 @@ public class WorkOrderFixController {
      */
     @RequestMapping(value = "/finishDetail", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc, HttpSession httpSession) {
+    public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (!workOrderReportCart.getNodeState().equals("已完工")) {
@@ -146,12 +146,18 @@ public class WorkOrderFixController {
             workOrderReportCart.setNodeState("已完工");
             workOrderReportCart.setFixDesc(fixDesc);
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+
+            workOrderFixService.updateNodeStatus(workOrderReportCart);
+
+            //插入一条最新状态记录
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
             workOrderHistory.setStatus("1");
             workOrderHistory.setNodeTime(new Date());
             workOrderHistory.setNodeDesc("已完工");
-            workOrderHistoryRepository.save(workOrderHistory);
+            workOrderHistory = workOrderHistoryRepository.save(workOrderHistory);
+
+            //将其他节点状态修改为0
             returnObject.setResult(true);
             returnObject.setResultDesc("维修单已完工！");
         } else {
@@ -176,6 +182,9 @@ public class WorkOrderFixController {
             workOrderReportCart.setNodeState("已暂停");
             workOrderReportCart.setFixDesc(fixDesc);
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+
+            workOrderFixService.updateNodeStatus(workOrderReportCart);
+
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
             workOrderHistory.setStatus("1");
@@ -208,6 +217,8 @@ public class WorkOrderFixController {
             workOrderReportCart.setNodeState("已取消");
             workOrderReportCart.setFixDesc(fixDesc);
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            //更新节点状态
+            workOrderFixService.updateNodeStatus(workOrderReportCart);
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
             workOrderHistory.setStatus("1");

@@ -13,6 +13,7 @@ import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +52,9 @@ public class WorkOrderReportService extends BaseService {
 
     @Autowired
     WorkOrderHistoryRepository workOrderHistoryRepository;
+
+    @Autowired
+    WorkOrderFixService workOrderFixService;
 
 
     /**
@@ -117,10 +121,10 @@ public class WorkOrderReportService extends BaseService {
 
     /**
      * @param ids      选中的报修车列表id集合
-     * @param reporter 当前登录用户 报修人
      * @return
      */
-    public List<WorkOrderReportCart> generateReport(String ids, String reporter, String location) {
+    @Transactional
+    public List<WorkOrderReportCart> generateReport(String ids) {
         List<Long> idList = new ArrayList<Long>();
         if (ids != null && !ids.equals("")) {
             idList = StringUtils.str2List(ids, ",");
@@ -130,6 +134,8 @@ public class WorkOrderReportService extends BaseService {
         for (Long id : idList) {
             workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已报修");
+            workOrderReportCartRepository.save(workOrderReportCart);
+            workOrderFixService.updateNodeStatus(workOrderReportCart);
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setNodeDesc("已报修");
             workOrderHistory.setNodeTime(new Date());
@@ -169,11 +175,13 @@ public class WorkOrderReportService extends BaseService {
             WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已派工");
             workOrderReportCartRepository.save(workOrderReportCart);
+            workOrderFixService.updateNodeStatus(workOrderReportCart);
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
             workOrderHistory.setNodeDesc("已派工");
             workOrderHistory.setNodeTime(new Date());
             workOrderHistory.setStatus("1");
             workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderHistoryRepository.save(workOrderHistory);
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
             workOrderReportCartList.add(workOrderReportCart);
         }

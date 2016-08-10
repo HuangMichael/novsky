@@ -57,6 +57,9 @@ public class WorkOrderFixService extends BaseService {
     @Autowired
     VlocationsRepository vlocationsRepository;
 
+    @Autowired
+    WorkOrderHistoryRepository workOrderHistoryRepository;
+
 
     /**
      * @param arrayStr
@@ -319,5 +322,20 @@ public class WorkOrderFixService extends BaseService {
      */
     public List<WorkOrderReportCart> findRemovedOrders(String location) {
         return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已取消");
+    }
+
+
+    /**
+     * @param workOrderReportCart
+     */
+    public void updateNodeStatus(WorkOrderReportCart workOrderReportCart) {
+        if (workOrderReportCart != null) {
+            List<WorkOrderHistory> workOrderHistoryList = workOrderHistoryRepository.findByWorkOrderReportCart(workOrderReportCart);
+            for (WorkOrderHistory workOrderHistory : workOrderHistoryList) {
+                workOrderHistory.setStatus("0");
+                workOrderHistoryRepository.save(workOrderHistory);
+            }
+
+        }
     }
 }
