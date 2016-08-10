@@ -1,10 +1,7 @@
 package com.linkbit.beidou.dao.workOrder;
 
-import com.linkbit.beidou.domain.workOrder.WorkOrderFix;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReport;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

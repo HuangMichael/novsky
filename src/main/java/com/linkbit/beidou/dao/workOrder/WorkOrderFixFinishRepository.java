@@ -1,6 +1,5 @@
 package com.linkbit.beidou.dao.workOrder;
 
-import com.linkbit.beidou.domain.workOrder.WorkOrderFixDetail;
 import com.linkbit.beidou.domain.workOrder.WorkOrderFixFinish;
 import org.springframework.data.repository.CrudRepository;
 
