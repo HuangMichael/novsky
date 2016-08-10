@@ -30,7 +30,8 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
-                                                <table id="fixListTable" class=" table table-striped table-bordered table-hover  table-responsive">
+                                                <table id="fixListTable"
+                                                       class=" table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="index" width="5%">序号</th>
@@ -40,22 +41,25 @@
                                                         <th data-column-id="location" width="10%">设备位置</th>
                                                         <th data-column-id="eqClass" width="10%">设备分类</th>
                                                         <th data-column-id="reportTime" width="10%">生成时间</th>
+                                                        <th data-column-id="nodeState" width="10%">报修状态</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <c:forEach items="${workOrderReportDetailList}" var="d" varStatus="ds">
-                                                            <tr >
-                                                                <td>${ds.index+1} </td>
-                                                                <td>${d.orderLineNo}</td>
-                                                                <td>${d.equipments.description}</td>
-                                                                <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
-                                                                <td>${d.vlocations.locName}</td>
-                                                                <td>${d.equipmentsClassification.description}</td>
-                                                                <td>
+                                                    <c:forEach items="${workOrderReportDetailList}" var="d"
+                                                               varStatus="ds">
+                                                        <tr>
+                                                            <td>${ds.index+1} </td>
+                                                            <td>${d.orderLineNo}</td>
+                                                            <td>${d.equipments.description}</td>
+                                                            <td class="hidden-xs hidden-sm">${d.orderDesc}</td>
+                                                            <td>${d.vlocations.locName}</td>
+                                                            <td>${d.equipmentsClassification.description}</td>
+                                                            <td>
                                                                 <fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
+                                                            </td>
+                                                            <td>${d.nodeState}</td>
+                                                        </tr>
+                                                    </c:forEach>
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -38,10 +38,7 @@ public class WorkOrderReportController {
     public String list(ModelMap modelMap, HttpSession session) {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
-        List<WorkOrderReportCart> workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWithAndNodeState(location, "报修车");
-
-
-        //  List<WorkOrderReportDetail> workOrderReportDetailList = workOrderReportService.findByLocationStartingWithOrderByReportTimeDesc(location);
+        List<WorkOrderReportCart> workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWith(location);
         modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
         return "/workOrderReport/list";
     }

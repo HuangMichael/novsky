@@ -135,7 +135,11 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findByLocationStartingWithAndNodeState(String location, String nodeState);
 
 
-
+    /**
+     * @param location
+     * @return 根据位置和节点的状态查询
+     */
+    List<WorkOrderReportCart> findByLocationStartingWith(String location);
 
     @Query("SELECT r from WorkOrderReportCart r where r.id in :ids ")
     List<WorkOrderReportCart> findWorkOrderReportDetailByIds(@Param("ids") List<Long> ids);

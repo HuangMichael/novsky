@@ -11,7 +11,6 @@ import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
-import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
@@ -118,12 +117,21 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setCreator(creator);
         workOrderReportCart.setEquipmentsClassification(equipmentsClassificationRepository.findById(eqClassId));
         workOrderReportCart.setReportTime(new Date());
+        workOrderReportCart.setNodeState("报修车");
         workOrderReportCart.setOrderDesc(orderDesc);
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_LOC); //根据位置报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
         //加入关联位置信息
         workOrderReportCart.setVlocations(vlocationsRepository.findById(locationId));
         workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+
+        WorkOrderHistory workOrderHistory = new WorkOrderHistory();
+        workOrderHistory.setNodeDesc("报修车");
+        workOrderHistory.setNodeTime(new Date());
+        workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+        workOrderHistory.setStatus("1");
+        workOrderHistoryRepository.save(workOrderHistory);
+
         if (!locations.getStatus().equals(CommonStatusType.LOC_ABNORMAL)) {
             locations.setStatus(CommonStatusType.LOC_ABNORMAL); //位置不正常
             locationsService.save(locations); //报修之后更改位置状态为不正常状态
@@ -209,6 +217,18 @@ public class WorkOrderReportCartService extends BaseService {
         List<WorkOrderReportCart> workOrderReportCartList = null;
         if (location != null) {
             workOrderReportCartList = workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, nodeState);
+        }
+        return workOrderReportCartList;
+    }
+
+    /**
+     * @param location
+     * @return 根据状态查询所有报修车信息
+     */
+    public List<WorkOrderReportCart> findByLocationStartingWith(String location) {
+        List<WorkOrderReportCart> workOrderReportCartList = null;
+        if (location != null) {
+            workOrderReportCartList = workOrderReportCartRepository.findByLocationStartingWith(location);
         }
         return workOrderReportCartList;
     }
