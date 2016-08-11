@@ -2,8 +2,10 @@ package com.linkbit.beidou.service.unit;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
+import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class OutsoucingUnitService extends BaseService {
     EquipmentsClassificationRepository equipmentsClassificationRepository;
     @Autowired
     EquipmentsClassificationService equipmentsClassificationService;
+    @Autowired
+    WorkOrderReportCartRepository workOrderReportCartRepository;
 
     /**
      * @return 查询所有外委单位信息
@@ -104,17 +108,17 @@ public class OutsoucingUnitService extends BaseService {
         return outsourcingUnitSet;
     }
 
-   /* *//**
+    /**
      * @param cid 设备种类id
      * @param ids 外委单位id集合字符串
      * @return 加入外委单位 返回外委单位集合
-     *//*
+     */
     @Transactional
     public List<OutsourcingUnit> addU2c(Long cid, String ids, Long workOrderId) {
-        WorkOrderReportDetail workOrderReportDetail = workOrderReportDetailRepository.findById(workOrderId);
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(workOrderId);
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
-        workOrderReportDetail.setEquipmentsClassification(equipmentsClassification);
-        workOrderReportDetailRepository.save(workOrderReportDetail);
+        workOrderReportCart.setEquipmentsClassification(equipmentsClassification);
+        workOrderReportCartRepository.save(workOrderReportCart);
         List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
         List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
         if (equipmentsClassification != null && ids != null) {
@@ -127,7 +131,7 @@ public class OutsoucingUnitService extends BaseService {
             equipmentsClassificationRepository.save(equipmentsClassification);
         }
         return outsourcingUnitSet;
-    }*/
+    }
 
 
     /**
