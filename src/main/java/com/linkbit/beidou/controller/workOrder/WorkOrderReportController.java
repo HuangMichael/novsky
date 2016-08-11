@@ -2,7 +2,9 @@ package com.linkbit.beidou.controller.workOrder;
 
 
 import com.linkbit.beidou.domain.user.User;
-import com.linkbit.beidou.domain.workOrder.*;
+import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
+import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -10,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -62,57 +67,13 @@ public class WorkOrderReportController {
 
     /**
      * @return 按照设备分类进行规约
+     * //生成历史信息  并且更新状态
      */
     @RequestMapping(value = "/mapByUnitId", method = RequestMethod.POST)
     @ResponseBody
     public List mapByUnitId(@RequestParam("ids") String ids, HttpSession session) {
-
-//生成历史信息  并且更新状态
-
-
         return workOrderReportService.mapByUnitId(ids);
     }
-
-
-    //查询已经提交的报修单
-
-    /**
-     * @param httpSession
-     * @return 查询没有提交的维修单
-     */
-    @RequestMapping(value = "/findCommitted", method = RequestMethod.GET)
-    @ResponseBody
-    public List<WorkOrderReport> findCommittedReportedOrders(HttpSession httpSession) {
-
-        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
-        return workOrderReportService.findByLocationStartingWithAndStatus(location, "1");
-    }
-
-    /**
-     * @param httpSession
-     * @return 查询没有被完全提交的维修单
-     */
-    @RequestMapping(value = "/findNew", method = RequestMethod.GET)
-    @ResponseBody
-    public List<WorkOrderReport> findNewReportedOrders(HttpSession httpSession) {
-        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
-        return workOrderReportService.findByLocationStartingWithAndStatus(location, "0");
-    }
-
-
-
-
-  /*  *//**
-     * @param perPageCount     每页显示多少条记录
-     * @param currentPageIndex 当前是第几页
-     * @return 查询没有被完全提交的维修单
-     *//*
-    @RequestMapping(value = "/getRecortsByPage/{perPageCount}/{currentPageIndex}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Object> getRecortsByPage(@PathVariable("perPageCount") Long perPageCount, @PathVariable("currentPageIndex") Long currentPageIndex) {
-
-        return workOrderReportService.getRecortsByPage(perPageCount * currentPageIndex, perPageCount);
-    }*/
 
     /**
      * @return 查询近期三个月的报修单

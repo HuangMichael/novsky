@@ -28,8 +28,7 @@ public class WorkOrderFixService extends BaseService {
     @Autowired
     EquipmentsRepository equipmentsRepository;
 
-    @Autowired
-    WorkOrderReportRepository workOrderReportRepository;
+
 
 
     @Autowired

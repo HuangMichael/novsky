@@ -27,8 +27,7 @@ public class WorkOrderReportService extends BaseService {
     @Autowired
     EquipmentsRepository equipmentsRepository;
 
-    @Autowired
-    WorkOrderReportRepository workOrderReportRepository;
+
 
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
@@ -50,14 +49,7 @@ public class WorkOrderReportService extends BaseService {
     WorkOrderFixService workOrderFixService;
 
 
-    /**
-     * @param status
-     * @return 根据状态查询所有的报修单
-     */
-    public List<WorkOrderReport> findByStatus(String status) {
 
-        return workOrderReportRepository.findByStatus(status);
-    }
 
 
     /**
@@ -112,22 +104,7 @@ public class WorkOrderReportService extends BaseService {
         return workOrderReportCartList;
 
     }
-
-
-    /**
-     * @param location 位置编码
-     * @param status   状态
-     * @return 模糊查询位置编码下对应的报修单信息
-     */
-    public List<WorkOrderReport> findByLocationStartingWithAndStatus(String location, String status) {
-        List<WorkOrderReport> workOrderReportList = null;
-        if (location != null && !location.equals("") && status != null && !status.equals("")) {
-            workOrderReportList = workOrderReportRepository.findByLocationStartingWithAndStatus(location, status);
-        }
-        return workOrderReportList;
-    }
-
-
+    
     /**
      * @param equipmentsClassification
      * @return 根据设备分类信息获取维修单位
