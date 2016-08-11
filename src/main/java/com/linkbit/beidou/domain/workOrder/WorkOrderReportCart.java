@@ -1,5 +1,6 @@
 package com.linkbit.beidou.domain.workOrder;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -8,7 +9,9 @@ import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "T_WORK_ORDER_REPORT_CART")
@@ -64,4 +67,10 @@ public class WorkOrderReportCart {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations;  //所属位置
+
+
+    //一个分类有多个子分类
+    @JsonBackReference("workOrderHistoryList")
+    @OneToMany(targetEntity = WorkOrderHistory.class, cascade = CascadeType.ALL, mappedBy = "workOrderReportCart")
+    List<WorkOrderHistory> workOrderHistoryList = new ArrayList<WorkOrderHistory>();
 }

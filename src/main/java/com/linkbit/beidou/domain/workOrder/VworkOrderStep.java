@@ -26,19 +26,11 @@ public class VworkOrderStep {
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "equipments_id", referencedColumnName = "id")
     Equipments equipments;
-
     String orderDesc;
-
     Date reportTime;
-
-
     String status;
-
     String flowDesc;
-    //关联位置
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "locations_id", referencedColumnName = "id")
     Locations locations;
-
-
 }

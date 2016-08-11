@@ -46,6 +46,9 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     WorkOrderReportCart findById(Long id);
 
 
+    void delete(Long id);
+
+
     /**
      * @param personName
      * @return 查询我的报修车
