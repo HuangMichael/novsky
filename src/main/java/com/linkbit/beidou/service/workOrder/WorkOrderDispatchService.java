@@ -2,10 +2,8 @@ package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
-import com.linkbit.beidou.dao.workOrder.WorkOrderReportDetailRepository;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
-import com.linkbit.beidou.domain.workOrder.WorkOrderReportDetail;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.StringUtils;
@@ -23,47 +21,15 @@ import java.util.List;
 public class WorkOrderDispatchService extends BaseService {
 
     @Autowired
-    WorkOrderReportDetailRepository workOrderReportDetailRepository;
-    @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
 
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
 
-    /**
-     * @return 查询 报修单明细信息
-     */
-    public List<WorkOrderReportDetail> findReportDetailList() {
-
-        return workOrderReportDetailRepository.findByStatus(CommonStatusType.ORDER_CREATED);
-
-    }
-
-    /**
-     * @param location
-     * @param status
-     * @return 查询 报修单明细信息
-     */
-    public List<WorkOrderReportDetail> findReportList(String location, String status) {
-
-        return workOrderReportDetailRepository.findByLocationStartingWithAndStatusLessThan(location, status);
-
-    }
 
 
-    /**
-     * @param ids
-     * @return 根据id查询维修车信息集合
-     */
-    public List<WorkOrderReportDetail> findWorkOrderReportDetailByIds(String ids) {
 
-        String array[] = ids.split(",");
-        List<Long> list = new ArrayList<Long>();
-        for (String a : array) {
-            list.add(Long.parseLong(a));
-        }
-        return workOrderReportDetailRepository.findWorkOrderReportDetailByIds(list);
-    }
+
 
     /**
      * @param detailId

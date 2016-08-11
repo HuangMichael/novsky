@@ -285,10 +285,10 @@ public class EquipmentController extends BaseController {
         return equipmentAccountService.findById(eid);
     }
 
-    /**
+   /* *//**
      * @param eid 设备编号
      * @return 根据设备id获取设备维修节点信息信息
-     */
+     *//*
     @RequestMapping(value = "/getFixSteps/{eid}")
     @ResponseBody
     public List<Object> getFixSteps(@PathVariable("eid") Long eid) {
@@ -298,7 +298,7 @@ public class EquipmentController extends BaseController {
             fixSteps = equipmentAccountService.findFixStepsByOrderLineNo(orderLineNo);
         }
         return fixSteps;
-    }
+    }*/
 
     /**
      * @param eid 设备编号

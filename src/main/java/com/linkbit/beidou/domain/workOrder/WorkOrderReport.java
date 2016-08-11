@@ -33,8 +33,5 @@ public class WorkOrderReport {
     private String status;
     @Column(length = 20, nullable = false)
     private String location;
-    //一个分类有多个子分类
-    @JsonBackReference("workOrderReportDetailList")
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = WorkOrderReportDetail.class, cascade = CascadeType.ALL, mappedBy = "workOrderReport")
-    List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
+
 }

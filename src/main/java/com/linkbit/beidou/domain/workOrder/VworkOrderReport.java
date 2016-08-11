@@ -32,8 +32,5 @@ public class VworkOrderReport {
     private String status;
     @Column(length = 20, nullable = false)
     private String location;
-    //一个分类有多个子分类
-    @JsonBackReference("workOrderReportDetailList")
-    @OneToMany(targetEntity = WorkOrderReportDetail.class, cascade = CascadeType.ALL, mappedBy = "workOrderReport")
-    List<WorkOrderReportDetail> workOrderReportDetailList = new ArrayList<WorkOrderReportDetail>();
+
 }

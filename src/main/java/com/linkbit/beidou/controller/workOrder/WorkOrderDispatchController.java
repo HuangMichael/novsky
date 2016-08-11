@@ -4,7 +4,6 @@ package com.linkbit.beidou.controller.workOrder;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
-import com.linkbit.beidou.domain.workOrder.WorkOrderFix;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.workOrder.WorkOrderDispatchService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
@@ -65,42 +64,10 @@ public class WorkOrderDispatchController {
     }
 
 
-    /**
-     * @param ids          选择报修信息id列表
-     * @param selectedType 选择的规约方式
-     * @param session      用户当前会话
-     * @return 按照用户自定义类型进行规约
-     */
-    @RequestMapping(value = "/mapBySelectedType", method = RequestMethod.POST)
-    public String mapBySelectedType(@RequestParam("ids") String ids, @RequestParam("selectedType") String selectedType, HttpSession session, ModelMap modelMap) {
-        List list = workOrderReportService.mapBySelectedType(ids, selectedType);
-        List<WorkOrderFix> workOrderFixList = new ArrayList<WorkOrderFix>();
-        User user = SessionUtil.getCurrentUserBySession(session);
-        if (user != null && user.getPerson() != null && user.getLocation() != null) {
-            workOrderFixList = workOrderReportService.preViewFixReport(list, user.getPerson().getPersonName(), user.getLocation());
-        }
-        modelMap.put("workOrderFixList", workOrderFixList);
-        return "/workOrderDispatch/report-view-list";
-    }
 
 
-    /**
-     * @param ids          选择报修信息id列表
-     * @param selectedType 选择的规约方式
-     * @param session      用户当前会话
-     * @return 按照用户自定义类型进行规约
-     */
-    @RequestMapping(value = "/generateFixRptByType", method = RequestMethod.POST)
-    @ResponseBody
-    public List<WorkOrderFix> generateFixRptByType(@RequestParam("ids") String ids, @RequestParam("selectedType") String selectedType, HttpSession session) {
-        List list = workOrderReportService.mapBySelectedType(ids, selectedType);
-        List<WorkOrderFix> workOrderFixList = new ArrayList<WorkOrderFix>();
-        User user = SessionUtil.getCurrentUserBySession(session);
-        if (user != null && user.getPerson() != null && user.getLocation() != null) {
-            workOrderFixList = workOrderReportService.createReport(list, user.getPerson().getPersonName(), user.getLocation());
-        }
-        return workOrderFixList;
-    }
+
+
 
 
     /**
