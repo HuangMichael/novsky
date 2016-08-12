@@ -37,6 +37,8 @@ public class WorkOrderDispatchService extends BaseService {
      * @return 返回更新了维修单位的报修明细信息
      */
     public WorkOrderReportCart updateDetailUnit(Long detailId, Long unitId) {
+
+        System.out.println("更新单位detailId----------"+detailId);
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(detailId);
         OutsourcingUnit outsourcingUnit = outsourcingUnitRepository.findById(unitId);
         if (workOrderReportCart != null && outsourcingUnit != null) {

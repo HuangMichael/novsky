@@ -56,7 +56,6 @@ public class WorkOrderDispatchController {
         if (user != null && user.getLocation() != null) {
             workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWithAndNodeState(user.getLocation(), "已报修");
             unitList = outsourcingUnitRepository.findByStatus("1");
-            System.out.println("workOrderReportDetailList--------------"+workOrderReportDetailList.size());
             modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
             modelMap.put("unitList", unitList);
         }

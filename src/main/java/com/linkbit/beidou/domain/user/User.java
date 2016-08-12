@@ -1,9 +1,11 @@
 package com.linkbit.beidou.domain.user;
 
 
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.domain.role.Role;
 import lombok.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class User {
     private long id;
     @Column(length = 20, unique = true, nullable = false)
     private String userName;
+    @JsonIgnore
     @Column(length = 50, unique = false, nullable = true)
     private String password;
     @Column(scale = 1000, nullable = true)
@@ -35,6 +38,10 @@ public class User {
     @OneToOne
     @JoinColumn(name = "person_id")
     private Person person;
+
+    @OneToOne
+    @JoinColumn(name = "vlocations_id")
+    private Vlocations vlocations;
 
     @Column(length = 20)
     private String location;

@@ -39,9 +39,19 @@ public class UserController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-        List<User> userList = userRepository.findAll();
+        List<User> userList = userService.findAllUsers();
         modelMap.put("userList", userList);
         return "/user/list";
+    }
+
+
+    /**
+     * @return 查询所有的用户信息
+     */
+    @RequestMapping(value = "/findAll")
+    @ResponseBody
+    public List<User> findAll() {
+        return userService.findAllUsers();
     }
 
 
