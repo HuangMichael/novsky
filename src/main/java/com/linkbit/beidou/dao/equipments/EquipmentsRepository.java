@@ -108,7 +108,7 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     List<Object> findFixStepsByOrderLineNo(@Param("orderLineNo") String orderLineNo);
 
 
-    @Query(nativeQuery = true, value = "SELECT   date_format(v0.report_Time,'%Y-%m-%d %H:%i:%s'), v0.flow_desc,v0.order_Desc,v0.fix_Desc FROM v_work_order_step v0 WHERE v0.order_Line_No = :orderLineNo ORDER BY v0.report_time")
+    @Query(nativeQuery = true, value = "SELECT h.node_desc AS flow_desc,date_format(h.node_time,'%Y-%m-%d %H:%i:%s') ,c.order_desc,c.fix_desc FROM t_work_order_history h LEFT JOIN t_work_order_report_cart c ON h.order_id = c.id WHERE c.order_Line_No =:orderLineNo ORDER BY h.node_time")
     List<Object> findAllFixStepsByOrderLineNo(@Param("orderLineNo") String orderLineNo);
 
 
@@ -116,6 +116,6 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     List<Object> findAllFixStepsByEid(@Param("eid") Long eid);
 
 
-    @Query(nativeQuery = true, value = "select v.order_line_no,v.fix_desc as aaa,v.report_time ,v.fix_desc,v.node_state  from v_work_order_last_status v where v.equipments_id =:eid")
+    @Query(nativeQuery = true, value = "select v.order_line_no,v.fix_desc as aaa,DATE_FORMAT(v.report_time,'%Y-%m-%d %H:%i:%s') ,v.fix_desc,v.node_state  from v_work_order_last_status v where v.equipments_id =:eid")
     List<Object> findEndFixStepsByEid(@Param("eid") Long eid);
 }

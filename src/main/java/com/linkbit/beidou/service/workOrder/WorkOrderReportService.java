@@ -69,6 +69,7 @@ public class WorkOrderReportService extends BaseService {
         for (Long id : idList) {
             workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已报修");
+            workOrderReportCart.setStatus("1");
             workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();

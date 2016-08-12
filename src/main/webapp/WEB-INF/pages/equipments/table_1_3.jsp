@@ -54,24 +54,8 @@
             <td>{{h[0]}}</td>
             <td>{{h[1]}}</td>
             <td>{{h[2]}}</td>
+            <td>{{h[4]}}</td>
            <%-- <td>{{h[3]}}</td>--%>
-            <td>
-                <div v-if="h[4]==0">
-                    报修车
-                </div>
-                <div v-if="h[4]==1">
-                    已报修
-                </div>
-                <div v-if="h[4]==2">
-                    已分配
-                </div>
-                <div v-if="h[4]==3">
-                    已暂停
-                </div>
-                <div v-if="h[4]==4">
-                    已完工
-                </div>
-            </td>
             <td><a class="btn btn-xs" @click="showDetailHistory(h[0])"><i class="glyphicon glyphicon-eye-open"></i></a>
             </td>
         </tr>
