@@ -3,10 +3,16 @@ package com.linkbit.beidou.service.workOrder;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.dao.workOrder.*;
+import com.linkbit.beidou.dao.workOrder.VworkOrderNumFinishRepository;
+import com.linkbit.beidou.dao.workOrder.VworkOrderNumReportRepository;
+import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
+import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
-import com.linkbit.beidou.domain.workOrder.*;
+import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
+import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
+import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +34,6 @@ public class WorkOrderReportService extends BaseService {
     EquipmentsRepository equipmentsRepository;
 
 
-
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
 
@@ -47,9 +52,6 @@ public class WorkOrderReportService extends BaseService {
 
     @Autowired
     WorkOrderFixService workOrderFixService;
-
-
-
 
 
     /**
@@ -90,6 +92,7 @@ public class WorkOrderReportService extends BaseService {
         for (Long id : idsList) {
             WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已派工");
+            workOrderReportCart = setDefaultUnit(workOrderReportCart);//设置默认的维修单位
             workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);
             WorkOrderHistory workOrderHistory = new WorkOrderHistory();
@@ -104,7 +107,7 @@ public class WorkOrderReportService extends BaseService {
         return workOrderReportCartList;
 
     }
-    
+
     /**
      * @param equipmentsClassification
      * @return 根据设备分类信息获取维修单位
@@ -136,4 +139,12 @@ public class WorkOrderReportService extends BaseService {
     }
 
 
+    public WorkOrderReportCart setDefaultUnit(WorkOrderReportCart workOrderReportCart) {
+        EquipmentsClassification equipmentsClassification = workOrderReportCart.getEquipmentsClassification();
+
+        if (equipmentsClassification != null) {
+            workOrderReportCart.setUnit(getDefaultUnitByEqClass(equipmentsClassification));
+        }
+        return workOrderReportCart;
+    }
 }

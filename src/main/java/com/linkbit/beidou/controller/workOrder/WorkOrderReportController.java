@@ -71,7 +71,7 @@ public class WorkOrderReportController {
      */
     @RequestMapping(value = "/mapByUnitId", method = RequestMethod.POST)
     @ResponseBody
-    public List mapByUnitId(@RequestParam("ids") String ids, HttpSession session) {
+    public List mapByUnitId(@RequestParam("ids") String ids) {
         return workOrderReportService.mapByUnitId(ids);
     }
 
