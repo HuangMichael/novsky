@@ -29,7 +29,7 @@ public class VworkOrderStep {
     String orderDesc;
     Date reportTime;
     String status;
-    String flowDesc;
+    String nodeState;
     @ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "locations_id", referencedColumnName = "id")
     Locations locations;

@@ -116,6 +116,6 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     List<Object> findAllFixStepsByEid(@Param("eid") Long eid);
 
 
-    @Query(nativeQuery = true, value = "select v.order_line_no,v.fix_desc as aaa,DATE_FORMAT(v.report_time,'%Y-%m-%d %H:%i:%s') ,v.fix_desc,v.node_state  from v_work_order_last_status v where v.equipments_id =:eid")
+    @Query(nativeQuery = true, value = "select v.order_line_no,v.fix_desc as aaa,date_format(v.report_time,'%Y-%m-%d %H:%i:%s') ,v.fix_desc,v.node_state  from v_work_order_last_status v where v.equipments_id =:eid")
     List<Object> findEndFixStepsByEid(@Param("eid") Long eid);
 }
