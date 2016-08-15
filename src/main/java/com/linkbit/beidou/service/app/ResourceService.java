@@ -26,6 +26,14 @@ public class ResourceService {
         return resourceRepository.findAll();
     }
 
+
+    /**
+     * 查询所有数据资源
+     */
+    public List<Resource> findApps() {
+        return resourceRepository.findByResourceLevel(1l);
+    }
+
     /**
      * 根据状态查询数据资源
      */
@@ -92,6 +100,16 @@ public class ResourceService {
     public List<Resource> findByResourceLevel(Long resourceLevel) {
 
         return resourceRepository.findByResourceLevel(resourceLevel);
+
+    }
+
+
+    /**
+     * 根据状态查询数据资源
+     */
+    public List<Resource> findByResourceLevelLessThan(Long resourceLevel) {
+
+        return resourceRepository.findByResourceLevelLessThan(resourceLevel);
 
     }
 

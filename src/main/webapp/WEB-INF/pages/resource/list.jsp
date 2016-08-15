@@ -37,9 +37,7 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-body">
-                            <div id="contentDiv">
-                                <%@include file="detail.jsp" %>
-                            </div>
+                            <%@include file="detail.jsp" %>
                         </div>
                     </div>
                 </div>
@@ -50,11 +48,4 @@
     <!-- /CONTENT-->
 </div>
 <script type="text/javascript" src="js/zTree_v3-master/js/jquery.ztree.core.js"></script>
-<script src="js/app/resource/resource.js"></script>
-
-<%--<script type="text/javascript">
-    jQuery(document).ready(function () {
-        App.setPage("portal");  //Set current page
-        App.init(); //Initialise plugins and elements
-    });
-</script>--%>
+<script type="text/javascript" src="js/app/resource/resource.js"></script>

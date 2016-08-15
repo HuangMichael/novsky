@@ -25,7 +25,7 @@ public class ResourceController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-        List<Resource> resourceList = resourceService.findByResourceLevel(2l);
+        List<Resource> resourceList = resourceService.findByResourceLevelLessThan(2l);
         Resource resource = resourceList.get(0);
         modelMap.put("resourceList", resourceList);
         modelMap.put("resource", resource);
@@ -44,6 +44,18 @@ public class ResourceController {
         List<Resource> resourceList = resourceService.findAll(); //查询二级模块
         return resourceList;
     }
+
+    /**
+     * 查询所有的节点
+     */
+
+    @RequestMapping(value = "/findApps", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Resource> findApps() {
+        List<Resource> resourceList = resourceService.findAll(); //查询二级模块
+        return resourceList;
+    }
+
 
 
     /**

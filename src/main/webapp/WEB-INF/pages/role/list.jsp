@@ -1,48 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="modal fade" id="createRole_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">新建角色</h4>
-            </div>
-            <div class="modal-body">
-                <form id="productCreateForm">
-                    <div class="form-group">
-                        <label for="roleName">角色名</label>
-                        <input type="text" class="form-control"
-                               id="roleName"
-                               name="roleName">
-                    </div>
-                    <div class="form-group">
-                        <label for="roleName">角色描述</label>
-                        <input type="text" class="form-control"
-                               id="roleDesc"
-                               name="roleDesc">
-                    </div>
-                    <div class="form-group">
-                        <label for="sortNo">排序</label>
-                        <input type="text" class="form-control" id="sortNo" name="sortNo">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">角色状态</label>
-                        <select class="form-control" id="status" name="status">
-                            <option value="0">禁用</option>
-                            <option value="1">启用</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="saveBtn" onclick="save()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+<%@include file="../common/common-head.jsp" %>
 <div class="container">
     <div class="row">
         <div id="content" class="col-lg-12">
@@ -53,50 +11,76 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4><i class="fa fa-table"></i>角色信息</h4>
+                            <h4><i class="fa fa-users"></i>角色信息</h4>
+                        </div>
+
+                        <div class="box-body" style="padding: 5px 20px 5px 5px">
+                            <!-- Split button -->
+                            <div class="btn-group">
+
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="loadNew()">
+                                    <i class="glyphicon glyphicon-plus"></i>新建记录
+                                </button>
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
+                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveEq()">
+                                    <i class="glyphicon glyphicon-save"></i>保存记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
+                                    <i class="glyphicon glyphicon-remove"></i>删除记录
+                                </button>
+
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="backwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
+                                </button>
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="forwards()"><i
+                                        class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
+                                </button>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm myNavBtn dropdown-toggle active"
+                                            data-toggle="dropdown">
+                                        操作菜单 <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a onclick="deleteEq()" class="optionMenu"> <i
+                                                class="glyphicon glyphicon-remove"></i>删除记录</a></li>
+                                        <li class="divider"></li>
+                                        <li><a onclick="abandonEq()" class="optionMenu"> <i
+                                                class="glyphicon glyphicon-question-sign"></i>设备报废</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="box-body">
-
-                            <div id="contentDiv">
-                                <a class="btn btn-default btn-mini navbar-btn">信息列表
-                                </a>
-                                <a class="btn btn-default btn-mini navbar-btn" href="#createRole_modal"
-                                   data-toggle="modal"
-                                   class="config">
-                                    新建记录
-                                </a>
-                                <table id="datatable1" cellpadding="0" cellspacing="0" border="0"
-                                       class=" table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th data-column-id="id">序号</th>
-                                        <th data-column-id="roleName">角色名</th>
-                                        <th data-column-id="roleDesc">角色描述</th>
-                                        <th data-column-id="status"> 使用状态</th>
-                                        <th data-column-id="sortNo">排序</th>
-                                        <%-- <th>编辑</th>
-                                         <th>删除</th>--%>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${roleList}" var="role" varStatus="s">
-                                        <tr class="gradeX">
-                                            <td>${s.index+1}</td>
-                                            <td>
-                                                <a onclick="showRole(${role.id})"> ${role.roleName}</a>
-                                            </td>
-                                            <td>
-                                                    ${role.roleDesc}
-                                            </td>
-                                            <td class="center">${role.status}</td>
-                                            <td class="center">${role.sortNo}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                    <tfoot>
-                                    </tfoot>
-                                </table>
+                            <div class="tabbable">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active"><a href="#tab_1_0" data-toggle="tab"
+                                                          style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-home" id="eq"></i>角色信息</a>
+                                    </li>
+                                    <li><a href="#tab_1_1" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-flag" id="eqDetail"></i>角色详细信息</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab_1_0">
+                                        <%@include file="roleList.jsp" %>
+                                    </div>
+                                    <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
+                                        <%@include file="create.jsp" %>
+                                    </div>
+                                </div>
                             </div>
+
+
                         </div>
                     </div>
                     <!-- /BOX -->
@@ -107,54 +91,5 @@
         <!-- /CONTENT-->
     </div>
 </div>
-<script>
-    $(function () {
-        /* App.setPage("dynamic_table");  //Set current page
-         App.init(); //Initialise plugins and elements
-         */
-
-        $("#datatable1").bootgrid();
-
-        //点击显示角色详细信息
-
-    });
-
-
-    function save() {
-
-        var roleName = $("#roleName").val();
-        var roleDesc = $("#roleDesc").val();
-        var sortNo = $("#sortNo").val();
-        var status = $("#status  option:selected").val();
-        var url = "/role/save";
-        var role = {roleName: roleName, roleDesc: roleDesc, sortNo: sortNo, status: status};
-        $.ajax({
-            type: "post",
-            url: url,
-            data: role,
-            dataType: "json",
-            success: function (data) {
-                $.bootstrapGrowl("角色信息添加成功！", {
-                    type: 'info',
-                    align: 'right',
-                    stackup_spacing: 30
-                });
-
-            }, error: function (data) {
-                $.bootstrapGrowl("角色信息添加失败！", {
-                    type: 'danger',
-                    align: 'right',
-                    stackup_spacing: 30
-                });
-            }
-        });
-    }
-
-    function showRole(roleId) {
-        var url = "/role/detail/" + roleId;
-        $("#contentDiv").load(url, function () {
-
-        });
-    }
-</script>
-
+<%@include file="../common/common-foot.jsp" %>
+<script type="text/javascript" src="/js/app/user/user.js"></script>

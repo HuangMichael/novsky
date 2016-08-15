@@ -1,6 +1,7 @@
 package com.linkbit.beidou.domain.app.resoure;
 
 import lombok.*;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -28,7 +29,7 @@ public class Resource {
     private String description;//表名称
     @Column(length = 1)
     private Long resourceLevel;//资源级别
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     Resource parent;
     @Column(length = 1)

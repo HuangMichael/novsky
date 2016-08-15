@@ -21,7 +21,7 @@
                     <li><a data-url="/user/list"><span class="sub-menu-text">用户信息</span></a></li>
                     <li><a data-url="/person/list"><span class="sub-menu-text">人员信息</span></a></li>
                     <li><a data-url="/role/list"><span class="sub-menu-text">角色信息</span></a></li>
-                    <li><a data-url="/authority/list"><span class="sub-menu-text">角色授权</span></a>
+                    <li><a data-url="/authority/list"><span class="sub-menu-text">应用授权</span></a>
                     </li>
                 </ul>
             </li>

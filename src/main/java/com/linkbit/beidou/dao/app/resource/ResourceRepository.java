@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 
 /**
@@ -56,6 +57,13 @@ public interface ResourceRepository extends CrudRepository<Resource, Long> {
      * 根据资源级别查询
      */
     List<Resource> findByResourceLevel(Long resourceLevel);
+
+
+    /**
+     * 根据资源级别查询
+     */
+    @OrderBy("parent ,sortNo asc")
+    List<Resource> findByResourceLevelLessThan(Long resourceLevel);
 
 
     /**
