@@ -26,7 +26,9 @@ public class Resource {
     @Column(length = 20, nullable = false)
     private String resourceUrl;//资源路径
     @Column(length = 50, nullable = false)
-    private String description;//表名称
+    private String description;//资源描述
+    @Column(length = 20, nullable = true)
+    private String iconClass;//资源描述
     @Column(length = 1)
     private Long resourceLevel;//资源级别
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
