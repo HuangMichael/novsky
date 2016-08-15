@@ -32,7 +32,6 @@ public class AuthorityController {
         //初始化加载资源树
         List<Resource> resourceList = resourceService.findByStatus("1");
         modelMap.put("resourceList", resourceList);
-        modelMap.put("groupsList", groupsList);
         return "/authority/list";
     }
 }

@@ -23,33 +23,6 @@ public class UserService extends BaseService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    GroupsRepository groupsRepository;
-
-    /**
-     * 将用户加入到用户组中
-     */
-    public Groups addUser2Group(String userIdStrArrary, Long groupId) {
-        if (StringUtils.isEmpty(userIdStrArrary)) {
-            return null;
-        }
-        if (null == groupId || groupId == 0) {
-            return null;
-        }
-        User user;
-        Set<User> userSet = new HashSet<User>();
-        Groups groups = groupsRepository.findById(groupId);
-        String[] userIdsArray = userIdStrArrary.split(",");
-        for (String userId : userIdsArray) {
-            user = userRepository.findById(Long.valueOf(userId));
-            userSet.add(user);
-        }
-        groups.setUsers(userSet);
-        groups = groupsRepository.save(groups);
-        return groups;
-    }
-
     /**
      * 根据状态查询用户
      */
