@@ -67,7 +67,7 @@
                 type: 'column'
             },
             title: {
-                text: '报修单按线别统计'
+                text: '维修单状态按线别统计'
             },
             xAxis: {
                 categories: lines,
@@ -136,7 +136,7 @@
                 type: 'pie'
             },
             title: {
-                text: (new Date().getMonth() + 1) + '月报修单统计'
+                text: (new Date().getMonth() + 1) + '月报修按设备类型统计'
             },
             plotOptions: {
                 series: {
@@ -185,7 +185,7 @@
                 enabled: false
             },
             title: {
-                text: '最近3个月报修完成率统计'
+                text: '最近3个月报修完成情况统计'
             },
         /*    subtitle: {
                 text: get3MonthTitle()
