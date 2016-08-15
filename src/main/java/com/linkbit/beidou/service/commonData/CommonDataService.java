@@ -1,9 +1,11 @@
 package com.linkbit.beidou.service.commonData;
 
+import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -34,6 +36,9 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
+
+    @Autowired
+    ResourceRepository resourceRepository;
 
     /**
      * @param location 位置编号
@@ -123,10 +128,31 @@ public class CommonDataService extends BaseService {
     }
 
 
+    /**
+     * @param httpSession
+     * @return 查询设备种类信息
+     */
+    public List<Resource> findMenus(HttpSession httpSession) {
+        List<Resource> menusList = null;
+        Object object = httpSession.getAttribute("menusList");
+        if (object != null) {
+            menusList = (ArrayList<Resource>) object;
+            log.info(this.getClass().getCanonicalName() + "------------从缓存中查询菜单");
+        } else {
+            menusList = resourceRepository.findByResourceLevel(1L);
+            log.info(this.getClass().getCanonicalName() + "------------从数据库中查询菜单");
+            httpSession.setAttribute("menusList", menusList);
+            log.info(this.getClass().getCanonicalName() + "------------将菜单放入缓存");
+        }
+        return menusList;
+
+
+    }
+
 
     /**
      * @param httpSession
-     * @return  (0:停用 1:投用 2报废)
+     * @return (0:停用 1:投用 2报废)
      */
     public List<ListObject> getEqStatus(HttpSession httpSession) {
         List<ListObject> eqStatusList = new ArrayList<ListObject>();
@@ -145,9 +171,6 @@ public class CommonDataService extends BaseService {
         return eqStatusList;
 
     }
-
-
-
 
 
     /**

@@ -1,9 +1,10 @@
 package com.linkbit.beidou.domain.app.resoure;
 
 import lombok.*;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HUANGBIN on 2016/4/15.
@@ -27,13 +28,16 @@ public class Resource {
     private String resourceUrl;//资源路径
     @Column(length = 50, nullable = false)
     private String description;//资源描述
-    @Column(length = 20, nullable = true)
+    @Column(length = 50, nullable = true)
     private String iconClass;//资源描述
     @Column(length = 1)
     private Long resourceLevel;//资源级别
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     Resource parent;
+
+/*    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    List<Resource> subResourceList = new ArrayList<Resource>();*/
     @Column(length = 1)
     private String status;
     private Long sortNo; //排序

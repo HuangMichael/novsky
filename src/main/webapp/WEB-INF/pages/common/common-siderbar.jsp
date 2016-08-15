@@ -3,6 +3,8 @@
     <div class="sidebar-menu nav-collapse">
         <%--    <div class="divide-20"></div>--%>
         <ul id="menuL1">
+
+            <c:forEach items="${menuList}" var="menu">${menu.description}</c:forEach>
             <li class="has-sub">
                 <a>
                     <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">统计分析</span>
@@ -57,7 +59,7 @@
                 <ul class="sub">
                     <li><a data-url="/equipmentsClassification/list"><span class="sub-menu-text">设备分类管理</span></a></li>
                     <li><a data-url="/outsourcingUnit/list"><span class="sub-menu-text">外委单位管理</span></a></li>
-                    <li><a data-url="/line/list"><span class="sub-menu-text">线路管理</span></a> </li>
+                    <li><a data-url="/line/list"><span class="sub-menu-text">线路管理</span></a></li>
                     <li><a data-url="/station/list"><span class="sub-menu-text">车站管理</span></a></li>
                 </ul>
             </li>
