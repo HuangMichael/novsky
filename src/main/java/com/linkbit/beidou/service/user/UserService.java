@@ -1,8 +1,6 @@
 package com.linkbit.beidou.service.user;
 
-import com.linkbit.beidou.dao.groups.GroupsRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
-import com.linkbit.beidou.domain.user.Groups;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.service.app.BaseService;
