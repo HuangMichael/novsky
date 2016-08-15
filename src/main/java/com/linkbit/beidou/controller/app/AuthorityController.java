@@ -1,8 +1,9 @@
 package com.linkbit.beidou.controller.app;
 
 
-import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -21,17 +22,17 @@ public class AuthorityController {
     @Autowired
     ResourceService resourceService;
 
+    @Autowired
+    RoleService roleService;
 
     /**
      * 初始化展示授权列表
      */
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-        // 初始化加载用户组
-
-        //初始化加载资源树
-        List<Resource> resourceList = resourceService.findByStatus("1");
-        modelMap.put("resourceList", resourceList);
+        //加载角色列表 显示所有的角色
+        List<Role> roleList = roleService.findByStatus("1");
+        modelMap.put("roleList", roleList);
         return "/authority/list";
     }
 }

@@ -7,7 +7,7 @@ var setting = {
     view: {
         dblClickExpand: false,
         showLine: true,
-        selectedMulti: false
+        selectedMulti: true
     },
     data: {
         simpleData: {
@@ -41,7 +41,7 @@ $(document).ready(function () {
             if (data) {
                 obj = data[x];
                 pid = (!obj["parent"]) ? 0 : obj["parent"].id;
-                zNodes[x] = {id: obj.id, pId: pid, name: obj.description, open: !pid, isParent: 1};
+                zNodes[x] = {id: obj.id, pId: pid, name: obj.description, open: 1, isParent: 1};
             } else {
                 alert("信息加载出错");
             }
@@ -64,5 +64,16 @@ $(document).ready(function () {
     }
 
 
+    $("#authListTable").bootgrid();
     $("select").select2({theme: "bootstrap"});
 });
+
+
+/**
+ *  授权
+ */
+function grant() {
+    var tree = getTreeRoot();
+    var treeNodes = tree.getSelectedNodes();
+    alert("--------------" + treeNodes.length);
+}

@@ -58,33 +58,7 @@ $(document).ready(function () {
         demoIframe.height(h);
     }
 
-    $('.modal').on('hide.bs.modal', function () {
-        reload();
-    })
-})
-;
 
 
-function reload() {
-    var selectedId = getSelectedNodeId();
-    $("#contentDiv").load("/resource/detail/" + selectedId);
+});
 
-}
-
-/**
- *当前选中树节点id
- * */
-function getSelectedNodeId() {
-    var zTree = $.fn.zTree.getZTreeObj("tree");
-    var selectedNode = zTree.getSelectedNodes()[0];
-    var id = selectedNode.id;
-    return id;
-}
-/**
- * 返回当前选中节点
- * */
-function getSelectedNode() {
-    var zTree = $.fn.zTree.getZTreeObj("tree");
-    var selectedNode = zTree.getSelectedNodes()[0];
-    return selectedNode;
-}

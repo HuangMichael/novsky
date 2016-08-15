@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container">
     <div class="row">
         <div id="content" class="col-lg-12">
@@ -20,14 +21,12 @@
                     <div class="box border blue">
                         <div class="row">
                             <div class="col-md-8">
-                                <select class="form-control" id="role" name="resourceLevel">
-                                    <option value="">--请选择角色--</option>
-                                    <option value="1">管理员</option>
-                                    <option value="2">超级管理员</option>
-                                    <option value="3">普通用户</option>
-                                </select>
+                                <form:select path="roleList" class="form-control" id="role_id">
+                                    <form:options itemLabel="roleDesc" items="${roleList}"
+                                                  itemValue="id"></form:options>
+                                </form:select>
                             </div>
-                            <div class="col-md-4"><a class="btn  btn-sm btn-danger">授权</a></div>
+                            <div class="col-md-4"><a class="btn  btn-sm btn-danger" onclick="grant()">授权</a></div>
                         </div>
                         <%-- <div class="col-md-1"><a class="btn btn-danger">授权</a></div>--%>
                         <div class="box-body treeContainer" id="treeDiv">
