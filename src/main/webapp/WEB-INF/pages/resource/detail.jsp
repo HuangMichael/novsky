@@ -3,31 +3,25 @@
 <table id="authListTable" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th width="5%">序号</th>
-        <th width="15%">资源名称</th>
-        <th width="15%">资源描述</th>
-        <th width="5%">资源级别</th>
-        <th width="5%">使用状态</th>
-        <th width="5%">排序</th>
+        <th width="5%" data-column-id="id">序号</th>
+        <th width="15%" data-column-id="resourceCode">资源编号</th>
+        <th width="15%" data-column-id="resourceName">资源名称</th>
+        <th width="5%" data-column-id="roleDesc">角色描述</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="1,2,3,4,5,6,7,8,9,10" var="resource" varStatus="s">
+    <c:forEach items="${vRoleAuthViews}" var="auth" varStatus="s">
         <tr class="gradeX">
             <td>${s.index+1}</td>
             <td>
-                    ${resource}
+                    ${auth.resourceCode}
             </td>
             <td>
-                    ${resource}
+                    ${auth.resourceName}
             </td>
             <td>
-                    ${resource}
+                    ${auth.role.roleDesc}
             </td>
-            <td class="center">
-                    ${resource}
-            </td>
-            <td class="center">${resource}</td>
         </tr>
     </c:forEach>
     </tbody>

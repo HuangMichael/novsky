@@ -1,7 +1,9 @@
 package com.linkbit.beidou.controller.app;
 
 
+import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
@@ -29,6 +31,8 @@ public class AuthorityController {
 
     @Autowired
     RoleService roleService;
+    @Autowired
+    VRoleAuthViewRepository vRoleAuthViewRepository;
 
     /**
      * 初始化展示授权列表
@@ -38,6 +42,10 @@ public class AuthorityController {
         //加载角色列表 显示所有的角色
         List<Role> roleList = roleService.findByStatus("1");
         modelMap.put("roleList", roleList);
+
+        Role role = roleService.findById(1l);
+        List<VRoleAuthView> vRoleAuthViews = vRoleAuthViewRepository.findByRole(role);
+        modelMap.put("vRoleAuthViews", vRoleAuthViews);
         return "/authority/list";
     }
 

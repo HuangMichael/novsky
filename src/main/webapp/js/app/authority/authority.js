@@ -108,6 +108,5 @@ function onCheck(e, treeId, treeNode) {
     for (var i = 0; i < nodes.length; i++) {
         v += nodes[i].id + ",";
     }
-    console.log("v-----------------" + v);
     checkedNodeIds = v;
 }
