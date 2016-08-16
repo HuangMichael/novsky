@@ -100,6 +100,16 @@ function grant() {
 }
 
 
+function loadAuthView() {
+    var roleId = $("#role_id").val();
+    var url = "/authority/loadAuthView/" + roleId;
+    $("#authViewDiv").load(url, function () {
+
+        $("#authListTable").bootgrid();
+    });
+
+}
+
 var checkedNodeIds = null;
 function onCheck(e, treeId, treeNode) {
     var zTree = $.fn.zTree.getZTreeObj("tree");

@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,6 +30,7 @@ public class AuthorityController {
     RoleService roleService;
     @Autowired
     VRoleAuthViewRepository vRoleAuthViewRepository;
+
 
     /**
      * 初始化展示授权列表
@@ -76,5 +74,18 @@ public class AuthorityController {
             returnObject.setResultDesc("应用授权成功!");
         }
         return returnObject;
+    }
+
+    /**
+     * @param roleId
+     * @param modelMap
+     * @return 根据角色ID载入用户权限预览
+     */
+    @RequestMapping(value = "/loadAuthView/{roleId}", method = RequestMethod.GET)
+    public String loadAuthView(@PathVariable("roleId") Long roleId, ModelMap modelMap) {
+        Role role = roleService.findById(roleId);
+        List<VRoleAuthView> vRoleAuthViews = vRoleAuthViewRepository.findByRole(role);
+        modelMap.put("vRoleAuthViews", vRoleAuthViews);
+        return "resource/detail";
     }
 }

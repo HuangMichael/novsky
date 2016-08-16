@@ -21,7 +21,7 @@
                     <div class="box border blue">
                         <div class="row">
                             <div class="col-md-8">
-                                <form:select path="roleList" class="form-control" id="role_id">
+                                <form:select path="roleList" class="form-control" id="role_id" onchange="loadAuthView()">
                                     <form:options itemLabel="roleDesc" items="${roleList}"
                                                   itemValue="id"></form:options>
                                 </form:select>
