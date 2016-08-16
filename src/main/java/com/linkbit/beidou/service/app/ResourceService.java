@@ -1,7 +1,11 @@
 package com.linkbit.beidou.service.app;
 
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
+import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.role.Role;
+import com.linkbit.beidou.service.role.RoleService;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +22,12 @@ public class ResourceService {
 
     @Autowired
     public ResourceRepository resourceRepository;
+
+    @Autowired
+    VRoleAuthViewRepository vRoleAuthViewRepository;
+
+    @Autowired
+    RoleService roleService;
 
 
     /**
@@ -182,5 +192,27 @@ public class ResourceService {
         List<Long> idList = StringUtils.str2List(idStr, ",");
         List<Resource> resourceList = resourceRepository.findResourceIdInIdList(idList);
         return resourceList;
+    }
+
+
+    /**
+     * @param roleId
+     * @param resourceLevel
+     * @return 根据角色和资源级别查询资源
+     */
+    public List<VRoleAuthView> findAppsByRoleId(Long roleId, Long resourceLevel) {
+        Role role = roleService.findById(roleId);
+        return vRoleAuthViewRepository.findByRoleAndResourceLevel(role, resourceLevel);
+    }
+
+
+    /**
+     * @param roleId
+     * @param resourceLevel
+     * @return 根据角色和资源级别查询资源
+     */
+    public List<VRoleAuthView> findAppsByRoleIdAndParentId(Long roleId, Long resourceLevel, Long parentId) {
+        Role role = roleService.findById(roleId);
+        return vRoleAuthViewRepository.findByRoleAndResourceLevelAndParentId(role, resourceLevel, parentId);
     }
 }

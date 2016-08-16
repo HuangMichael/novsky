@@ -57,7 +57,7 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
 
 /*    @Query(nativeQuery = true,value ="SELECT v.loc_Name,ec.description FROM t_work_order_report_cart c LEFT JOIN v_locations v ON c.vlocations_id = v.id LEFT JOIN t_equipments_classification ec ON c.eq_class_id = ec.id where c.status =0 and c.reporter =:personName limit :n")
     List<Object> findMyCart(@Param("personName") String personName, @Param("n") Long n);*/
-    @Query("select c from  WorkOrderReportCart c where c.status =0 and c.creator =:personName")
+    @Query("select c from  WorkOrderReportCart c where c.status =0 and c.creator =:personName and c.nodeState='报修车'")
     List<WorkOrderReportCart> findMyCart(@Param("personName") String personName);
 
 

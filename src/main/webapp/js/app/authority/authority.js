@@ -87,7 +87,9 @@ function grant() {
 
     $.post(url, data, function (value) {
         if (value.result) {
+            loadAuthView();
             showMessageBox("info", value.resultDesc);
+
         } else {
             showMessageBox("danger", value.resultDesc);
         }
@@ -104,9 +106,19 @@ function loadAuthView() {
     var roleId = $("#role_id").val();
     var url = "/authority/loadAuthView/" + roleId;
     $("#authViewDiv").load(url, function () {
-
         $("#authListTable").bootgrid();
+       /* //设置已授权的选项选中
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        var authorities = checkedNodeIds.split(",");
+        for (var id in authorities) {
+            console.log("id----------------" + id);
+            if (!isNaN(id)) {
+                var node = zTree.getNodeByParam("id", id);
+                zTree.selectNode(node);
+            }
+        }*/
     });
+
 
 }
 

@@ -1,10 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div id="sidebar" class="sidebar">
     <div class="sidebar-menu nav-collapse">
-        <%--    <div class="divide-20"></div>--%>
         <ul id="menuL1">
-
-            <c:forEach items="${menuList}" var="menu">${menu.description}</c:forEach>
             <li class="has-sub">
                 <a>
                     <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">统计分析</span>
@@ -71,6 +68,13 @@
 <script type="text/javascript">
     $(function () {
 
+        var modules = [];
+        var url = "/findResources/1";
+        $.getJSON(url, function (data) {
+            modules = data;
+            console.log("请求加载菜单----------------" + JSON.stringify(modules));
+        });
+
 
         $(".sub-menu-text").parent().on("click", function () {
             $(this).css("cursor", "hand");
@@ -82,4 +86,6 @@
             }
         });
     })
+
+
 </script>

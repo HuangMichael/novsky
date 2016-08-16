@@ -1,5 +1,6 @@
 package com.linkbit.beidou.domain.app.resoure;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.linkbit.beidou.domain.role.Role;
 import lombok.*;
 
@@ -25,8 +26,20 @@ public class VRoleAuthView {
     private String resourceCode;//编号
     @Column(length = 20, nullable = false)
     private String resourceName;//资源名称
+    @Column(length = 50, nullable = false)
+    private String resourceDesc;// 资源描述
+    @Column(length = 2, nullable = false)
+    private Long resourceLevel;//资源级别
+    @Column(length = 20, nullable = true)
+    private String iconClass;//菜单样式
+    @Column(length = 20, nullable = false)
+    private String resourceUrl;//资源路径
+    @JsonBackReference("role")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;  //所属位置
+    private Long parentId;//上级id
+
+
 }
 

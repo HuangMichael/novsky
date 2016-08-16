@@ -2,6 +2,7 @@ package com.linkbit.beidou.controller.app;
 
 
 import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.service.app.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -56,6 +57,32 @@ public class ResourceController {
         return resourceList;
     }
 
+    /**
+     * 查询一级模块
+     */
+
+    @RequestMapping(value = "/findResources/{roleId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VRoleAuthView> findAppsByRoleId(@PathVariable("roleId") Long roleId) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findAppsByRoleId(roleId, 1l);
+        return vRoleAuthViews;
+    }
+
+
+    /**
+     * 查询二级应用
+     *
+     * @param roleId   角色ID
+     * @param parentId 上级Id
+     * @return 查询模块下的应用菜单
+     */
+
+    @RequestMapping(value = "/findResources/{roleId}/{parentId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VRoleAuthView> findAppsByRoleIdAndParentId(@PathVariable("roleId") Long roleId, @PathVariable("parentId") Long parentId) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findAppsByRoleIdAndParentId(roleId, 2l, parentId);
+        return vRoleAuthViews;
+    }
 
 
     /**
@@ -156,4 +183,6 @@ public class ResourceController {
             return false;
         }
     }
+
+    //加载一级模块
 }

@@ -35,12 +35,11 @@ public class Resource {
     private String iconClass;//资源描述
     @Column(length = 1)
     private Long resourceLevel;//资源级别
+
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     Resource parent;
 
-    /*    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-        List<Resource> subResourceList = new ArrayList<Resource>();*/
     @Column(length = 1)
     private String status;
     private Long sortNo; //排序
