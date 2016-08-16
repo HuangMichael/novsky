@@ -187,9 +187,9 @@
             title: {
                 text: '最近3个月报修完成情况统计'
             },
-        /*    subtitle: {
-                text: get3MonthTitle()
-            },*/
+            /*    subtitle: {
+             text: get3MonthTitle()
+             },*/
             plotOptions: {
                 column: {
                     depth: 25
@@ -214,8 +214,9 @@
     function loadReportCartNum() {
         var url = "/workOrderReportCart/findMyCartSize";
         $.getJSON(url, function (data) {
-            console.log(data);
-            $("#reportOrderSize").html(data);
+            if (data) {
+                $("#reportOrderSize").html(data);
+            }
         })
     }
 

@@ -61,7 +61,7 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findMyCart(@Param("personName") String personName);
 
 
-    @Query("select count(c) from  WorkOrderReportCart c where c.status =0 and c.creator =:personName")
+    @Query("select count(c) from  WorkOrderReportCart c where c.status =0 and c.creator =:personName and c.nodeState='报修车'")
     Long findMyCartSize(@Param("personName") String personName);
 
 
