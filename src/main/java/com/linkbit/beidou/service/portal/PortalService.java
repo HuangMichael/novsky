@@ -4,14 +4,8 @@ package com.linkbit.beidou.service.portal;
  * Created by Administrator on 2016/7/24.
  */
 
-import com.linkbit.beidou.dao.workOrder.VworkOrderLineNumFixedRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderLineNumFixingRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderLineNumReportRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderLineNumSuspendRepository;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixed;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixing;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumReport;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumSuspend;
+import com.linkbit.beidou.dao.workOrder.*;
+import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +27,8 @@ public class PortalService extends BaseService {
     VworkOrderLineNumFixingRepository vworkOrderLineNumFixingRepository;
     @Autowired
     VworkOrderLineNumSuspendRepository vworkOrderLineNumSuspendRepository;
+    @Autowired
+    VworkOrderLineNumAbortRepository vworkOrderLineNumAbortRepository;
 
 
     /**
@@ -59,6 +55,15 @@ public class PortalService extends BaseService {
     public List<VworkOrderLineNumFixing> getLineFixingNum() {
 
         return vworkOrderLineNumFixingRepository.findAll();
+    }
+
+    /**
+     * @return 获取线路总维修中数量
+     */
+    public List<VworkOrderLineNumAbort> getLineAbortNum() {
+
+
+        return vworkOrderLineNumAbortRepository.findAll();
     }
 
 

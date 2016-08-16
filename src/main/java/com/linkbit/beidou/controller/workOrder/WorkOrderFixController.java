@@ -1,7 +1,8 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
-import com.linkbit.beidou.dao.workOrder.*;
+import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
+import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
@@ -33,8 +34,6 @@ public class WorkOrderFixController {
 
     @Autowired
     WorkOrderReportService workOrderReportService;
-
-
 
 
     @Autowired
@@ -149,7 +148,7 @@ public class WorkOrderFixController {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
         if (!workOrderReportCart.getNodeState().equals("已取消")) {
-            workOrderReportCart.setStatus("1");
+            workOrderReportCart.setStatus("0");
             workOrderReportCart.setNodeState("已取消");
             workOrderReportCart.setFixDesc(fixDesc);
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);

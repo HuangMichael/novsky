@@ -119,7 +119,12 @@
                 name: '暂停',
                 data: getSuspendNumByLine()
 
-            }
+            },
+                {
+                    name: '取消',
+                    data: getAbortNumByLine()
+
+                }
             ]
         });
 
@@ -272,6 +277,18 @@
             }
         });
         return reportLineNum;
+    }
+
+
+    function getAbortNumByLine() {
+        var abortLineNum = [];
+        var url = "/portal/getLineAbortNum";
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                abortLineNum[x] = data[x]["abortNum"];
+            }
+        });
+        return abortLineNum;
     }
 
 

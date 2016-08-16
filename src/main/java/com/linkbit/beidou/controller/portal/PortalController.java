@@ -1,10 +1,7 @@
 package com.linkbit.beidou.controller.portal;
 
 
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixed;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixing;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumReport;
-import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumSuspend;
+import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.portal.PortalService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +76,13 @@ public class PortalController {
     public List<VworkOrderLineNumFixing> getLineFixingNum() {
         return portalService.getLineFixingNum();
     }
+
+    @RequestMapping(value = "/getLineAbortNum", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VworkOrderLineNumAbort> getLineAbortNum() {
+        return portalService.getLineAbortNum();
+    }
+
 
     @RequestMapping(value = "/getLineSuspendNum", method = RequestMethod.GET)
     @ResponseBody
