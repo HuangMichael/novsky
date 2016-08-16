@@ -24,4 +24,21 @@ public class RoleService extends BaseService {
     public List<Role> findByStatus(String status) {
         return roleRepository.findByStatus(status);
     }
+
+
+    /**
+     * 根据ID查询角色
+     */
+    public Role findById(Long id) {
+        return roleRepository.findById(id);
+    }
+
+
+    /**
+     * @param role
+     * @return 保存角色信息
+     */
+    public Role save(Role role) {
+        return roleRepository.save(role);
+    }
 }

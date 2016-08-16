@@ -2,6 +2,7 @@ package com.linkbit.beidou.service.app;
 
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -170,5 +171,16 @@ public class ResourceService {
             resource = resourceRepository.save(resource);
         }
         return resource;
+    }
+
+
+    /**
+     * @param idStr
+     * @return 根据ID列表查询对应的资源集合
+     */
+    public List<Resource> findResourceListInIdStr(String idStr) {
+        List<Long> idList = StringUtils.str2List(idStr, ",");
+        List<Resource> resourceList = resourceRepository.findResourceIdInIdList(idList);
+        return resourceList;
     }
 }

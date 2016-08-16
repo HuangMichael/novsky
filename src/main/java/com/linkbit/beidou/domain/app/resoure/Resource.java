@@ -1,9 +1,10 @@
 package com.linkbit.beidou.domain.app.resoure;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.linkbit.beidou.domain.role.Role;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class Resource {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(length = 20, nullable = false)
+    private String resourceCode;//编号
+    @Column(length = 20, nullable = false)
     private String resourceName;//资源名称
     @Column(length = 20, nullable = false)
     private String resourceUrl;//资源路径
@@ -36,11 +39,22 @@ public class Resource {
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     Resource parent;
 
-/*    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-    List<Resource> subResourceList = new ArrayList<Resource>();*/
+    /*    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+        List<Resource> subResourceList = new ArrayList<Resource>();*/
     @Column(length = 1)
     private String status;
     private Long sortNo; //排序
     @Column(length = 1)
     private boolean staticFlag;
+
+    @JsonBackReference("roleList")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "t_role_resource",
+            joinColumns = {@JoinColumn(name = "role_id")},
+            inverseJoinColumns = {@JoinColumn(name = "resource_id")
+            }
+    )
+    private List<Role> roleList;
 }
+

@@ -72,4 +72,12 @@ public interface ResourceRepository extends CrudRepository<Resource, Long> {
     List<Resource> findBystaticFlag(boolean staticOrNot);
 
 
+    /**
+     * @param idList
+     * @return 按照id in查询
+     */
+    @Query("select r from Resource r where r.id in :idList")
+    List<Resource> findResourceIdInIdList(@Param("idList") List<Long> idList);
+
+
 }

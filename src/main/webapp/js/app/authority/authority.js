@@ -1,36 +1,27 @@
 var zTree;
 var demoIframe;
 var setting = {
-    check: {
-        enable: true
-    },
-    view: {
-        dblClickExpand: false,
-        showLine: true,
-        selectedMulti: true
-    },
-    data: {
-        simpleData: {
-            enable: true,
-            idKey: "id",
-            pIdKey: "pId",
-            rootPId: ""
-        }
-    },
-    callback: {
-        onClick: function (event, treeId, treeNode, clickFlag) {
-            var url = "/resource/detail/" + treeNode.id;
-            $("#contentDiv").load(url);
-            $.getJSON(url, function (data) {
-                fillForm(data, "#form");
-                loadTable();
-            });
-
-
-            return true;
+        check: {
+            enable: true
+        },
+        view: {
+            dblClickExpand: false,
+            showLine: true,
+            selectedMulti: true
+        },
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pId",
+                rootPId: ""
+            }
+        },
+        callback: {
+            onCheck: onCheck
         }
     }
-};
+    ;
 var zNodes = [];
 $(document).ready(function () {
     var url = "/resource/findApps";
@@ -73,7 +64,50 @@ $(document).ready(function () {
  *  授权
  */
 function grant() {
-    var tree = getTreeRoot();
-    var treeNodes = tree.getSelectedNodes();
-    alert("--------------" + treeNodes.length);
+
+    var roleId = $("#role_id").val();
+    var resourceIds = checkedNodeIds;
+
+    var url = "authority/grant";
+
+    if (!roleId) {
+        showMessageBox("danger", "请选择授权角色!");
+        return;
+    }
+
+    if (!resourceIds) {
+        showMessageBox("danger", "请选择授权的资源信息!");
+        return;
+    }
+    var data = {
+        roleId: roleId,
+        resourceIds: resourceIds
+    }
+
+
+    $.post(url, data, function (value) {
+        if (value.result) {
+            showMessageBox("info", value.resultDesc);
+        } else {
+            showMessageBox("danger", value.resultDesc);
+        }
+    });
+
+
+    //先根据roleID获取role
+
+    //保存set
+}
+
+
+var checkedNodeIds = null;
+function onCheck(e, treeId, treeNode) {
+    var zTree = $.fn.zTree.getZTreeObj("tree");
+    var nodes = zTree.getCheckedNodes(true),
+        v = "";
+    for (var i = 0; i < nodes.length; i++) {
+        v += nodes[i].id + ",";
+    }
+    console.log("v-----------------" + v);
+    checkedNodeIds = v;
 }

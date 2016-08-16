@@ -1,10 +1,13 @@
 package com.linkbit.beidou.domain.role;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,8 +33,12 @@ public class Role {
     private long sortNo;
     @Column(nullable = false, length = 1)
     private String status;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "t_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<User> userList;
+    @JsonBackReference("resourceList")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "t_role_resource", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "resource_id")})
+    private List<Resource> resourceList;
 }
 
