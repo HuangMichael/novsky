@@ -11,14 +11,14 @@
                 <div class="col-md-4">
                     <input type="hidden" name="orderId">
                     <input class="Wdate form-control" id="fixAdjust0"
-                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
                            name="fixAdjust"
                            style="height:34px;border:1px solid #cccccc" readonly/>
                 </div>
                 <div class="col-md-2">调整到</div>
                 <div class="col-md-4">
                     <input class="Wdate form-control" id="fixAdjust1"
-                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'fixAdjust0\')}'})"
+                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'fixAdjust0\')}'})"
                            name="fixAdjust"
                            style="height:34px;border:1px solid #cccccc"/>
                 </div>

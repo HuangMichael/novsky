@@ -2,21 +2,17 @@ package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
-import com.linkbit.beidou.dao.workOrder.*;
-import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.workOrder.*;
+import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
+import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
-import com.linkbit.beidou.utils.CommonStatusType;
-import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +23,6 @@ import java.util.List;
 public class WorkOrderFixService extends BaseService {
     @Autowired
     EquipmentsRepository equipmentsRepository;
-
-
 
 
     @Autowired
@@ -45,7 +39,6 @@ public class WorkOrderFixService extends BaseService {
 
     @Autowired
     WorkOrderHistoryRepository workOrderHistoryRepository;
-
 
 
     /**
@@ -89,5 +82,22 @@ public class WorkOrderFixService extends BaseService {
             }
 
         }
+    }
+
+    /**
+     * @param orderId     维修单id
+     * @param deadLineStr
+     * @return
+     */
+    public WorkOrderReportCart updateDeadLine(Long orderId, String deadLineStr) {
+        Date deadLine = null;
+        try {
+            deadLine = DateUtils.convertStr2Date(deadLineStr, "yyyy-MM-dd");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(orderId);
+        workOrderReportCart.setDeadLine(deadLine);
+        return workOrderReportCartRepository.save(workOrderReportCart);
     }
 }

@@ -185,4 +185,28 @@ public class WorkOrderFixController {
         }
         return outDate;
     }
+
+    /**
+     * @param orderId
+     * @return 取消单个维修工单
+     */
+    @RequestMapping(value = "/updateDeadLine", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject updateDeadLine(@RequestParam("orderId") Long orderId, @RequestParam("deadLine") String deadLineStr) {
+        //根据维修单id查询分配订单时间
+
+        ReturnObject returnObject = new ReturnObject();
+        WorkOrderReportCart workOrderReportCart = workOrderFixService.updateDeadLine(orderId, deadLineStr);
+        if (workOrderReportCart.getDeadLine() != null) {
+
+            returnObject.setResult(true);
+            returnObject.setResultDesc("维修单维修时限修改成功!");
+
+        } else {
+            returnObject.setResult(false);
+            returnObject.setResultDesc("维修单维修时限修改失败!");
+        }
+        return returnObject;
+    }
+
 }

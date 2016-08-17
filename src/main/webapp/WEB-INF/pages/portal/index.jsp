@@ -104,22 +104,25 @@
                 }
             },
             series: [{
-                name: '报修',
+                name: '待分配',
                 data: getReportNumByLine()
-
-            }, {
-                name: '完工',
-                data: getFixedNumByLine()
 
             }, {
                 name: '维修中',
                 data: getFixingNumByLine()
 
-            }, {
-                name: '暂停',
-                data: getSuspendNumByLine()
-
             },
+
+                {
+                    name: '完工',
+                    data: getFixedNumByLine()
+
+                },
+                {
+                    name: '暂停',
+                    data: getSuspendNumByLine()
+
+                },
                 {
                     name: '取消',
                     data: getAbortNumByLine()

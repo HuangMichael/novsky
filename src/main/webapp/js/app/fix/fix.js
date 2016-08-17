@@ -131,9 +131,21 @@ function adjust(id) {
  * @param deadLine
  */
 function confirmAdjust() {
-    console.log("orderId---" + $("#orderId").val());
-    console.log("deadLine---" + $("#fixAdjust1").val());
-    $("#fix_adjust_modal").modal("hide");
+    var url = "workOrderFix/updateDeadLine";
+    var data = {
+        orderId: $("#orderId").val(),
+        deadLine: $("#fixAdjust1").val()
+    }
+    $.post(url, data, function (data) {
+        if (data.result) {
+            showMessageBox("info", data.resultDesc);
+        } else {
+            showMessageBox("danger", data.resultDesc);
+        }
+        $("#fix_adjust_modal").modal("hide");
+        $('#fixListTable').bootgrid();
+    });
+
 }
 
 
