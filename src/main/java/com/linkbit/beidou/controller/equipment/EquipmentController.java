@@ -10,7 +10,6 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
-import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
@@ -349,12 +348,12 @@ public class EquipmentController extends BaseController {
      *
      * @param eid
      * @return 根据设备id查询维修历史信息
-     */
+     *//*
     @RequestMapping(value = "/findFixHisory/{eid}")
     @ResponseBody
     public List<VworkOrderStep> findFixHisory(@PathVariable("eid") Long eid) {
         return equipmentAccountService.findFixHistory(eid);
-    }
+    }*/
 
 
     /**

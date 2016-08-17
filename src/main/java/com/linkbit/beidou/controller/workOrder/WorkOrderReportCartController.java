@@ -1,10 +1,8 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
-import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.user.User;
-import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.locations.LocationsService;
@@ -30,13 +28,9 @@ public class WorkOrderReportCartController {
     @Autowired
     WorkOrderReportCartService workOrderReportCartService;
 
-
     @Autowired
     LocationsService locationsService;
 
-
-    @Autowired
-    VworkOrderStepRepository vworkOrderStepRepository;
 
     /**
      * 显示所有的报修车列表信息
@@ -100,18 +94,18 @@ public class WorkOrderReportCartController {
     }
 
 
-    /**
+   /* *//**
      * @param lid
      * @param modelMap
      * @return 在加入报修车之前检查是否已有该设备报修未完成的维修任务 objectList
-     */
+     *//*
     @RequestMapping(value = "/loadWorkOrderStep/{lid}", method = RequestMethod.GET)
     public String loadWorkOrderStep(@PathVariable("lid") Long lid, ModelMap modelMap) {
         Locations locations = locationsService.findById(lid);
         List<VworkOrderStep> vworkOrderStepList = workOrderReportCartService.findByLocations(locations);
         modelMap.put("vworkOrderStepList", vworkOrderStepList);
         return "/location/locList";
-    }
+    }*/
 
 
     /**

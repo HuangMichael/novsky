@@ -2,11 +2,9 @@ package com.linkbit.beidou.service.equipments;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
-import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
@@ -40,8 +38,7 @@ public class EquipmentAccountService extends BaseService {
     LocationsService locationsService;
 
 
-    @Autowired
-    VworkOrderStepRepository vworkOrderStepRepository;
+
 
 
     /**
@@ -169,10 +166,10 @@ public class EquipmentAccountService extends BaseService {
         return equipmentsRepository.findEndFixStepsByEid(eid);
     }
 
-    /**
+/*    *//**
      * @param eid
      * @return 查询维修历史信息
-     */
+     *//*
     public List<VworkOrderStep> findFixHistory(Long eid) {
         List<VworkOrderStep> vworkOrderStepList = null;
         Equipments equipments = equipmentsRepository.findById(eid);
@@ -180,7 +177,7 @@ public class EquipmentAccountService extends BaseService {
             vworkOrderStepList = vworkOrderStepRepository.findByEquipments(equipments);
         }
         return vworkOrderStepList;
-    }
+    }*/
 
 
     /**
@@ -219,15 +216,15 @@ public class EquipmentAccountService extends BaseService {
     }
 
 
-    /**
+   /* *//**
      * @param equipmentId
      * @return 判断设备是否还在维修流程中
-     */
+     *//*
     public Boolean isEquipmentsOutOfFlow(Long equipmentId) {
         List<VworkOrderStep> stepList = new ArrayList<VworkOrderStep>();
         if (equipmentId != null) {
             stepList = vworkOrderStepRepository.EquipmentsStepsInFlow(equipmentId);
         }
         return stepList.isEmpty();
-    }
+    }*/
 }

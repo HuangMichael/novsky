@@ -27,7 +27,7 @@ public class Resource {
     private String resourceCode;//编号
     @Column(length = 20, nullable = false)
     private String resourceName;//资源名称
-    @Column(length = 20, nullable = false)
+    @Column(length = 100, nullable = false)
     private String resourceUrl;//资源路径
     @Column(length = 50, nullable = false)
     private String description;//资源描述

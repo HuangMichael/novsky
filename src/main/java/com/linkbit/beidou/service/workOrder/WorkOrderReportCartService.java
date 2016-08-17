@@ -3,12 +3,10 @@ package com.linkbit.beidou.service.workOrder;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderStepRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.workOrder.VworkOrderStep;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
@@ -44,11 +42,8 @@ public class WorkOrderReportCartService extends BaseService {
     @Autowired
     LocationsService locationsService;
 
-
     @Autowired
     EquipmentAccountService equipmentAccountService;
-    @Autowired
-    VworkOrderStepRepository vworkOrderStepRepository;
 
     @Autowired
     VlocationsRepository vlocationsRepository;
@@ -263,10 +258,10 @@ public class WorkOrderReportCartService extends BaseService {
     /**
      * @param locations
      * @return 根据位置查询维修流程
-     */
+     *//*
     public List<VworkOrderStep> findByLocations(Locations locations) {
         return vworkOrderStepRepository.findByLocations(locations);
-    }
+    }*/
 
 
     /**
