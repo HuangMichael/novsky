@@ -8,7 +8,8 @@
                 <label for="unitNo" class="col-md-1 control-label">单位编号</label>
 
                 <div class="col-md-3">
-                    <input class="form-control" name="unitNo" id="unitNo" v-model="unit.unitNo" required  lazy @change="checkUnitNo()"/>
+                    <input class="form-control" name="unitNo" id="unitNo" v-model="unit.unitNo" required lazy
+                           @change="checkUnitNo()"/>
                     <input class="form-control" type="hidden" name="id" id="id" v-model="unit.id"/>
                 </div>
 
@@ -39,6 +40,20 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="status" class="col-md-1 control-label">工作制</label>
+
+                <div class="col-md-3">
+                    <select class="form-control" id="workDays" name="workDays" style="width:100%"
+                            v-model="unit.workDays">
+                        <option value="5">5</option>
+                        <option value="7">7</option>
+                    </select>
+                </div>
+            </div>
+
+
         </div>
     </div>
     <div class="modal-footer">

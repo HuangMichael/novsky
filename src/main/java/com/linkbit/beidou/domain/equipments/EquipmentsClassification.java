@@ -42,17 +42,19 @@ public class EquipmentsClassification {
 
     @Column(length = 1)
     private Long level;
+
+    @Column(length = 4)
+    private Long limitHours; //时限单位小时
+
     @Column(length = 20)
     private Long sortNo;
     @JsonBackReference("unitSet")
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    @JoinTable(name = "t_unit_class",  joinColumns = {
-            @JoinColumn(name = "unit_id", nullable = false, updatable = true) },
-            inverseJoinColumns = { @JoinColumn(name = "class_id",
-                    nullable = false, updatable = true) })
+    @JoinTable(name = "t_unit_class", joinColumns = {
+            @JoinColumn(name = "unit_id", nullable = false, updatable = true)},
+            inverseJoinColumns = {@JoinColumn(name = "class_id",
+                    nullable = false, updatable = true)})
     private List<OutsourcingUnit> unitSet;
-
-
 
 
 }

@@ -9,6 +9,7 @@
         <th data-column-id="description" width="20%">单位名称</th>
         <th data-column-id="linkman" width="10%">联系人</th>
         <th data-column-id="telephone" width="10%">电话</th>
+        <th data-column-id="workDays" width="10%">工作制</th>
         <th width="5%" data-column-id="status" width="10%">使用状态</th>
     </tr>
     </thead>
@@ -29,6 +30,9 @@
         </td>
         <td width="10%">
             {{unit.telephone}}
+        </td>
+        <td width="10%">
+            {{unit.workDays}}
         </td>
         <td width="10%">
 

@@ -24,18 +24,19 @@
             </div>
             <div class="form-group">
                 <label for="description" class="col-md-1 control-label">上级分类</label>
+
                 <div class="col-md-3">
                     <input class="form-control" id="parent"
                            type="text"
                            name="parent"
                            value="${equipmentsClassification.parent.description}" readonly/>
                 </div>
-                <label for="sortNo"
-                       class="col-md-1 control-label">排序</label>
+                <label for="limitHours"
+                       class="col-md-1 control-label">维修时限</label>
 
                 <div class="col-md-3">
-                    <input class="form-control" id="sortNo" type="number"
-                           name="sortNo" value="${equipmentsClassification.sortNo}"/>
+                    <input class="form-control" id="limitHours" type="limitHours"
+                           name="limitHours" value="${equipmentsClassification.limitHours}"/>
                 </div>
             </div>
         </div>

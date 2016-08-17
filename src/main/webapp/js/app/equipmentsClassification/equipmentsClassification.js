@@ -101,9 +101,17 @@ function save() {
     var parentId = $("#parentId").val();
     var description = $("#description").val();
     var classId = $("#classId").val();
+    var limitHours = $("#limitHours").val();
     var classType = $("#classType").find("option:selected").val();
     var url = "/equipmentsClassification/save";
-    var obj = {description: description, parentId: parentId, classId: classId, lid: lid, classType: classType};
+    var obj = {
+        description: description,
+        parentId: parentId,
+        classId: classId,
+        lid: lid,
+        classType: classType,
+        limitHours: limitHours
+    };
     var operation = (!lid) ? "添加" : "更新";
     $.post(url, obj, function (data) {
         if (data) {

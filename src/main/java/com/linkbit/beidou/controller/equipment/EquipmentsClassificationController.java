@@ -107,17 +107,19 @@ public class EquipmentsClassificationController {
                                          @RequestParam("description") String description,
                                          @RequestParam("parentId") Long parentId,
                                          @RequestParam("classId") String classId,
-                                         @RequestParam(value = "classType", required = false) String classType) {
+                                         @RequestParam(value = "limitHours", required = false) Long limitHours) {
         EquipmentsClassification newObj;
         if (lid == null || lid == 0) {
             newObj = new EquipmentsClassification();
             newObj.setClassId(classId);
             newObj.setDescription(description);
+            newObj.setLimitHours(limitHours);
             newObj.setParent(equipmentsClassificationService.findById(parentId));
         } else {
             newObj = equipmentsClassificationService.findById(lid);
             newObj.setDescription(description);
             newObj.setParent(equipmentsClassificationService.findById(parentId));
+            newObj.setLimitHours(limitHours);
         }
         newObj = equipmentsClassificationService.save(newObj);
         return newObj;
@@ -197,9 +199,9 @@ public class EquipmentsClassificationController {
     @ResponseBody
     public List<OutsourcingUnit> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
         EquipmentsClassification equipmentsClassification = null;
-        List<OutsourcingUnit> outsourcingUnitList=null;
+        List<OutsourcingUnit> outsourcingUnitList = null;
         if (cid != null && ids != null) {
-             outsourcingUnitList = outsoucingUnitService.addUnits(cid, ids);
+            outsourcingUnitList = outsoucingUnitService.addUnits(cid, ids);
         }
         return outsourcingUnitList;
     }
@@ -207,10 +209,10 @@ public class EquipmentsClassificationController {
 
     @RequestMapping(value = "/addU2c", method = RequestMethod.POST)
     @ResponseBody
-    public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids,@RequestParam("workOrderId") Long workOrderId) {
+    public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, @RequestParam("workOrderId") Long workOrderId) {
         List<OutsourcingUnit> outsourcingUnitList = null;
         if (cid != null && ids != null) {
-            outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids,workOrderId);
+            outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids, workOrderId);
         }
         return outsourcingUnitList;
     }

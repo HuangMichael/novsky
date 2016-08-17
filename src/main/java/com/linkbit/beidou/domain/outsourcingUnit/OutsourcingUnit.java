@@ -49,6 +49,9 @@ public class OutsourcingUnit implements java.io.Serializable {
     @Column(length = 1, columnDefinition = "default '1'")
     private String status;  //使用状态
 
+    @Column(length = 1)
+    private String workDays;  //工作制
+
 
     //一对多关联合同信息
     @JsonBackReference("contractList")

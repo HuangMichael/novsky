@@ -86,16 +86,18 @@ public class OutsourcingUnitController {
     @RequestMapping(value = "/saveLink", method = RequestMethod.POST)
     @ResponseBody
     public List<OutsourcingUnit> saveLink(@RequestParam("unitNo") String unitNo,
-                                             @RequestParam("description") String description,
-                                             @RequestParam("linkman") String linkman,
-                                             @RequestParam("telephone") String telephone,
-                                             @RequestParam("eqClassId") Long eqClassId
+                                          @RequestParam("description") String description,
+                                          @RequestParam("linkman") String linkman,
+                                          @RequestParam("telephone") String telephone,
+                                          @RequestParam("eqClassId") Long eqClassId,
+                                          @RequestParam("workDays") String workDays
     ) {
         OutsourcingUnit outsourcingUnit = new OutsourcingUnit();
         outsourcingUnit.setUnitNo(unitNo);
         outsourcingUnit.setDescription(description);
         outsourcingUnit.setLinkman(linkman);
         outsourcingUnit.setTelephone(telephone);
+        outsourcingUnit.setWorkDays(workDays);
         outsourcingUnit.setStatus("1");
         outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
         return outsourcingUnitService.saveLink(outsourcingUnit, eqClassId);

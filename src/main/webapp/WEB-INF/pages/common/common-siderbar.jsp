@@ -2,6 +2,64 @@
 <div id="sidebar" class="sidebar">
     <div class="sidebar-menu nav-collapse">
         <ul id="menuL1">
+            <li class="has-sub">
+                <a>
+                    <i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">统计分析</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a href="/portal/index"><span class="sub-menu-text">我的门户</span></a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a>
+                    <i class="fa fa-group fa-fw"></i> <span class="menu-text">用户管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a data-url="/user/list"><span class="sub-menu-text">用户信息</span></a></li>
+                    <li><a data-url="/person/list"><span class="sub-menu-text">人员信息</span></a></li>
+                    <li><a data-url="/role/list"><span class="sub-menu-text">角色信息</span></a></li>
+                    <li><a data-url="/authority/list"><span class="sub-menu-text">应用授权</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a>
+                    <i class="fa fa-file-text fa-fw"></i> <span class="menu-text">设备管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a data-url="/location/list"><span class="sub-menu-text">位置信息</span></a>
+                    </li>
+                    <li><a data-url="/equipment/list"><span class="sub-menu-text">设备信息</span></a></li>
+
+                </ul>
+            </li>
+
+            <li class="has-sub">
+                <a>
+                    <i class="fa fa-table fa-fw"></i> <span class="menu-text">维修管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a data-url="/workOrderReportCart/list"><span class="sub-menu-text">报修车信息</span></a></li>
+                    <li><a data-url="/workOrderReport/list"><span class="sub-menu-text">报修单查询</span></a></li>
+                    <li><a data-url="/workOrderDispatch/list"><span class="sub-menu-text">调度台信息</span></a></li>
+                    <li><a data-url="/workOrderFix/list"><span class="sub-menu-text">维修单查询</span></a></li>
+                </ul>
+            </li>
+            <li class="has-sub">
+                <a>
+                    <i class="fa fa-briefcase fa-fw"></i> <span class="menu-text">系统管理</span><span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a data-url="/equipmentsClassification/list"><span class="sub-menu-text">设备分类管理</span></a></li>
+                    <li><a data-url="/outsourcingUnit/list"><span class="sub-menu-text">外委单位管理</span></a></li>
+                    <li><a data-url="/line/list"><span class="sub-menu-text">线路管理</span></a></li>
+                    <li><a data-url="/station/list"><span class="sub-menu-text">车站管理</span></a></li>
+                </ul>
+            </li>
         </ul>
         <!-- /SIDEBAR MENU -->
     </div>
@@ -9,29 +67,23 @@
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        //先查询出所有的模块
-        var modules = getAllModules("admin");
-        var html = '';
-        var moduleId = null;
-        var apps = [];
-        for (var x in modules) {
-            if (modules[x][2]) {
-                html += '<li class="has-sub">';
-                html += '   <a><i class="' + modules[x][3] + '"></i> <span class="menu-text">' + modules[x][2] + '</span><span class="arrow"></span></a>';
-                html += '     <ul class="sub" id="sub' + moduleId + '">';
-                moduleId = modules[x][0];
-                console.log("moduleId---"+moduleId);
-                apps = getAppByModule("admin", moduleId);
-                for (var i in apps) {
-                    if (apps[i][3]) {
-                        html += '       <li><a ' + apps[i][3] + '><span class="sub-menu-text">' + apps[i][2] + '</span></a></li>';
-                    }
-                }
-                html += '     </ul>';
-                html += '</li>';
-            }
-        }
-        $("#menuL1").append(html);
+
+        var modules = [];
+        var url = "/findResources/1";
+        $.getJSON(url, function (data) {
+            modules = data;
+        });
+
+        var appVue = new Vue({});
+
+
+        //
+
+        console.log("请求加载菜单----------------");
+
+        //
+
+
         $(".sub-menu-text").parent().on("click", function () {
             $(this).css("cursor", "hand");
             var url = $(this).data("url");
@@ -44,33 +96,4 @@
     })
 
 
-    /**
-     *
-     * @returns {Array} 查询所有的一级模块
-     */
-    function getAllModules(userName) {
-        var modules = [];
-        $.ajaxSettings.async = false;
-        var url = "authority/loadAuthView/1/" + userName;
-        console.log(url);
-        $.getJSON(url, function (data) {
-            modules = data;
-        });
-        return modules;
-    }
-
-    /**
-     *
-     * @returns {Array} 查询所有的一级模块
-     */
-    function getAppByModule(userName, moduleId) {
-        var modules = [];
-        $.ajaxSettings.async = false;
-        var url = "authority/loadAuthView/2/" + moduleId + "/" + userName;
-        console.log(url);
-        $.getJSON(url, function (data) {
-            modules = data;
-        });
-        return modules;
-    }
 </script>
