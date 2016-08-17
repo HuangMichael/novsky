@@ -10,20 +10,21 @@
 <script type="text/javascript">
     $(function () {
         //先查询出所有的模块
-        var modules = getAllModules(1);
+        var modules = getAllModules("admin");
         var html = '';
         var moduleId = null;
         var apps = [];
         for (var x in modules) {
-            if (modules[x]["resourceDesc"]) {
+            if (modules[x][2]) {
                 html += '<li class="has-sub">';
-                html += '   <a><i class="' + modules[x]["iconClass"] + '"></i> <span class="menu-text">' + modules[x]["resourceDesc"] + '</span><span class="arrow"></span></a>';
+                html += '   <a><i class="' + modules[x][3] + '"></i> <span class="menu-text">' + modules[x][2] + '</span><span class="arrow"></span></a>';
                 html += '     <ul class="sub" id="sub' + moduleId + '">';
-                moduleId = modules[x]["id"];
-                apps = getAppByModule(moduleId);
+                moduleId = modules[x][0];
+                console.log("moduleId---"+moduleId);
+                apps = getAppByModule("admin", moduleId);
                 for (var i in apps) {
-                    if (apps[i]["resourceDesc"]) {
-                        html += '       <li><a ' + apps[i]["resourceUrl"] + '><span class="sub-menu-text">' + apps[i]["resourceDesc"] + '</span></a></li>';
+                    if (apps[i][3]) {
+                        html += '       <li><a ' + apps[i][3] + '><span class="sub-menu-text">' + apps[i][2] + '</span></a></li>';
                     }
                 }
                 html += '     </ul>';
@@ -47,12 +48,12 @@
      *
      * @returns {Array} 查询所有的一级模块
      */
-    function getAllModules(roleId) {
+    function getAllModules(userName) {
         var modules = [];
         $.ajaxSettings.async = false;
-        var url = "resource/findResources/" + roleId;
+        var url = "authority/loadAuthView/1/" + userName;
+        console.log(url);
         $.getJSON(url, function (data) {
-            console.log("查询出的模块----" + JSON.stringify(data));
             modules = data;
         });
         return modules;
@@ -62,12 +63,12 @@
      *
      * @returns {Array} 查询所有的一级模块
      */
-    function getAppByModule(moduleId) {
+    function getAppByModule(userName, moduleId) {
         var modules = [];
         $.ajaxSettings.async = false;
-        var url = "resource/findResources/1/" + moduleId;
+        var url = "authority/loadAuthView/2/" + moduleId + "/" + userName;
+        console.log(url);
         $.getJSON(url, function (data) {
-            console.log("查询出的APP----" + JSON.stringify(data));
             modules = data;
         });
         return modules;

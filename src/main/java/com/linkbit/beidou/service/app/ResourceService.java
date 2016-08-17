@@ -5,11 +5,14 @@ import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.role.Role;
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.role.RoleService;
+import com.linkbit.beidou.service.user.UserService;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +31,9 @@ public class ResourceService {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    UserService userService;
 
 
     /**
@@ -194,25 +200,65 @@ public class ResourceService {
         return resourceList;
     }
 
-
-    /**
+/*
+    *//**
      * @param roleId
      * @param resourceLevel
      * @return 根据角色和资源级别查询资源
-     */
+     *//*
     public List<VRoleAuthView> findAppsByRoleId(Long roleId, Long resourceLevel) {
         Role role = roleService.findById(roleId);
         return vRoleAuthViewRepository.findByRoleAndResourceLevel(role, resourceLevel);
     }
 
 
-    /**
+    *//**
      * @param roleId
      * @param resourceLevel
      * @return 根据角色和资源级别查询资源
-     */
+     *//*
     public List<VRoleAuthView> findAppsByRoleIdAndParentId(Long roleId, Long resourceLevel, Long parentId) {
         Role role = roleService.findById(roleId);
         return vRoleAuthViewRepository.findByRoleAndResourceLevelAndParentId(role, resourceLevel, parentId);
+    }*/
+
+
+    /**
+     * @param userName 用户名
+     * @return 根据userId和资源级别查询资源
+     */
+    public List<Object> findResourcesByUserNameAndResourceLevel(String userName, Long resouceLevel) {
+        //首先根据用户id查询出用户对应的角色
+        List<Object> vRoleAuthViewList = null;
+        List<Long> roleIds = new ArrayList<Long>();
+        User user = userService.findByUserNameAndStatus(userName, "1");
+        if (user != null) {
+            List<Role> roleList = user.getRoleList();
+            for (Role role : roleList) {
+                roleIds.add(role.getId());
+            }
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(roleIds, resouceLevel);
+        }
+        return vRoleAuthViewList;
     }
+
+    /**
+     * @param userName 用户名
+     * @return 根据userId和资源级别查询资源
+     */
+    public List<Object> findResourcesByUserNameAndResourceLevelAndParentId(String userName, Long resouceLevel,Long parentId) {
+        //首先根据用户id查询出用户对应的角色
+        List<Object> vRoleAuthViewList = null;
+        List<Long> roleIds = new ArrayList<Long>();
+        User user = userService.findByUserNameAndStatus(userName, "1");
+        if (user != null) {
+            List<Role> roleList = user.getRoleList();
+            for (Role role : roleList) {
+                roleIds.add(role.getId());
+            }
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(roleIds, resouceLevel,parentId);
+        }
+        return vRoleAuthViewList;
+    }
+
 }

@@ -33,9 +33,16 @@ public interface UserRepository extends CrudRepository<User, Long> {
     /**
      * 根据用户名和密码查询用户
      */
-    List<User> findByUserNameAndPasswordAndStatus(String userName, String password,String status);
+    List<User> findByUserNameAndPasswordAndStatus(String userName, String password, String status);
 
 
     User save(User user);
+
+    /**
+     * @param userName 用户名
+     * @param status   用户状态
+     * @return
+     */
+    List<User> findByUserNameAndStatus(String userName, String status);
 
 }

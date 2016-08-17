@@ -8,6 +8,7 @@ import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.role.RoleService;
+import com.linkbit.beidou.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class AuthorityController {
     RoleService roleService;
     @Autowired
     VRoleAuthViewRepository vRoleAuthViewRepository;
+
+    @Autowired
+    UserService userService;
 
 
     /**
@@ -87,5 +91,32 @@ public class AuthorityController {
         List<VRoleAuthView> vRoleAuthViews = vRoleAuthViewRepository.findByRole(role);
         modelMap.put("vRoleAuthViews", vRoleAuthViews);
         return "resource/detail";
+    }
+
+    /**
+     * @param userName
+     * @param modelMap
+     * @return 根据用户ID载入用户权限预览
+     */
+    @RequestMapping(value = "/loadAuthView/{resourceLevel}/{userName}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Object> loadAuthViewByUserId(@PathVariable("userName") String userName, @PathVariable("resourceLevel") Long resourceLevel, ModelMap modelMap) {
+        List<Object> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevel(userName, resourceLevel);
+        return vRoleAuthViews;
+    }
+
+
+    /**
+     * @param userName
+     * @param modelMap
+     * @return 根据用户ID载入用户权限预览
+     */
+
+
+    @RequestMapping(value = "/loadAuthView/{resourceLevel}/{moduleId}/{userName}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Object> loadAuthViewByUserIdAndModuleId(@PathVariable("resourceLevel") Long resourceLevel, @PathVariable("moduleId") Long moduleId, @PathVariable("userName") String userName, ModelMap modelMap) {
+        List<Object> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevelAndParentId(userName, resourceLevel, moduleId);
+        return vRoleAuthViews;
     }
 }

@@ -57,9 +57,9 @@ public class ResourceController {
         return resourceList;
     }
 
-    /**
+  /*  *//**
      * 查询一级模块
-     */
+     *//*
 
     @RequestMapping(value = "/findResources/{roleId}", method = RequestMethod.GET)
     @ResponseBody
@@ -69,20 +69,20 @@ public class ResourceController {
     }
 
 
-    /**
+    *//**
      * 查询二级应用
      *
      * @param roleId   角色ID
      * @param parentId 上级Id
      * @return 查询模块下的应用菜单
-     */
+     *//*
 
     @RequestMapping(value = "/findResources/{roleId}/{parentId}", method = RequestMethod.GET)
     @ResponseBody
     public List<VRoleAuthView> findAppsByRoleIdAndParentId(@PathVariable("roleId") Long roleId, @PathVariable("parentId") Long parentId) {
         List<VRoleAuthView> vRoleAuthViews = resourceService.findAppsByRoleIdAndParentId(roleId, 2l, parentId);
         return vRoleAuthViews;
-    }
+    }*/
 
 
     /**

@@ -35,7 +35,7 @@ public class Role {
     private String status;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "t_user_role", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<User> userList;
+    private List<User> userList;
     @JsonBackReference("resourceList")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "t_role_resource", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "resource_id")})

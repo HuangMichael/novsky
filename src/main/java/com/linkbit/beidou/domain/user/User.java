@@ -8,6 +8,7 @@ import lombok.*;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -53,7 +54,7 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id")
             }
     )
-    private Set<Role> roleList;
+    private List<Role> roleList;
 
 
 }
