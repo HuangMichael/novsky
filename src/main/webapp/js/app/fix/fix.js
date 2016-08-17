@@ -110,11 +110,30 @@ function finish(id) {
 }
 
 
+/**
+ *  调整维修期限
+ * @param id
+ */
 function adjust(id) {
     var orderId = id;
+    var url = "/workOrderFix/getCellingDate/" + orderId;
+    $("#orderId").val(orderId);
+    $.getJSON(url, function (data) {
+        $("#fixAdjust0").val(transformDate(data));
+        $("#fix_adjust_modal").modal("show");
+    })
+}
 
-    $("#fix_adjust_modal").modal("show");
-    //alert("调整时限");
+
+/**
+ *
+ * @param orderId
+ * @param deadLine
+ */
+function confirmAdjust() {
+    console.log("orderId---" + $("#orderId").val());
+    console.log("deadLine---" + $("#fixAdjust1").val());
+    $("#fix_adjust_modal").modal("hide");
 }
 
 

@@ -1,6 +1,7 @@
 package com.linkbit.beidou.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -41,5 +42,47 @@ public class DateUtils {
             e.printStackTrace();
         }
         return dateStr;
+    }
+
+
+    /**
+     * @param inputDateStr
+     * @return 返回次日 00:00:00
+     */
+    public static Date getCellingDate(String inputDateStr) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date inputDate = null;
+
+        try {
+            inputDate = simpleDateFormat.parse(inputDateStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(inputDate);
+        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date outDate = calendar.getTime();
+
+        return outDate;
+    }
+
+    /**
+     * @param inputDate
+     * @return 返回次日 00:00:00
+     */
+    public static Date getCellingDate(Date inputDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(inputDate);
+        calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date outDate = calendar.getTime();
+
+        return outDate;
     }
 }

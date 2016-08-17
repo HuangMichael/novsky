@@ -9,15 +9,13 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
+import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -167,5 +165,24 @@ public class WorkOrderFixController {
             returnObject.setResultDesc("维修单无法取消！");
         }
         return returnObject;
+    }
+
+
+    /**
+     * @param orderId
+     * @return 取消单个维修工单
+     */
+    @RequestMapping(value = "/getCellingDate/{orderId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Date getCellingDate(@PathVariable("orderId") Long orderId) {
+        //根据维修单id查询分配订单时间
+        Date outDate = null;
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(orderId);
+        List<WorkOrderHistory> workOrderHistoryList = workOrderHistoryRepository.findByWorkOrderReportCart(workOrderReportCart);
+        if (!workOrderHistoryList.isEmpty()) {
+            Date dispatchTime = workOrderHistoryList.get(0).getNodeTime();
+            outDate = DateUtils.getCellingDate(dispatchTime);
+        }
+        return outDate;
     }
 }

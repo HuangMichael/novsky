@@ -6,15 +6,19 @@
         <div class="col-md-12">
             <div class="form-group">
                 <input id="orderId" type="hidden">
+
                 <div class="col-md-2">原维修时限</div>
                 <div class="col-md-4">
-                    <input class="Wdate form-control" id="fixAdjust0" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
+                    <input type="hidden" name="orderId">
+                    <input class="Wdate form-control" id="fixAdjust0"
+                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"
                            name="fixAdjust"
                            style="height:34px;border:1px solid #cccccc" readonly/>
                 </div>
                 <div class="col-md-2">调整到</div>
                 <div class="col-md-4">
-                    <input class="Wdate form-control" id="fixAdjust1" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'fixAdjust0\')}'})"
+                    <input class="Wdate form-control" id="fixAdjust1"
+                           onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'fixAdjust0\')}'})"
                            name="fixAdjust"
                            style="height:34px;border:1px solid #cccccc"/>
                 </div>
@@ -25,7 +29,8 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
-        <button type="button" id="adjustDeadLine" name="adjustDeadLine" class="btn btn-primary btn-danger">确认
+        <button type="button" id="adjustDeadLine" name="adjustDeadLine" class="btn btn-primary btn-danger"
+                onclick="confirmAdjust()">确认
         </button>
     </div>
 </form>

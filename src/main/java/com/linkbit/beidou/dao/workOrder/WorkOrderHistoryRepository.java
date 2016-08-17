@@ -2,7 +2,9 @@ package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -34,11 +36,13 @@ public interface WorkOrderHistoryRepository extends CrudRepository<WorkOrderHist
      */
     WorkOrderHistory findById(Long id);
 
+
     /**
      * @param workOrderReportCart 根据订单查询订单历史信息
      * @return
      */
-    List<WorkOrderHistory> findByWorkOrderReportCart(WorkOrderReportCart workOrderReportCart);
+    @Query("select h from WorkOrderHistory h where h.workOrderReportCart =:workOrderReportCart and h.nodeDesc='已派工' ")
+    List<WorkOrderHistory> findByWorkOrderReportCart(@Param("workOrderReportCart") WorkOrderReportCart workOrderReportCart);
 
 
 }
