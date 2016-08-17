@@ -31,17 +31,7 @@
                 <div class="col-md-3">
                     <input class="form-control" id="telephone" name="telephone" v-model="unit.telephone"/>
                 </div>
-                <label for="status" class="col-md-1 control-label">状态</label>
 
-                <div class="col-md-3">
-                    <select class="form-control" id="status" name="status" style="width:100%" v-model="unit.status">
-                        <option value="1">启用</option>
-                        <option value="0">禁用</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label for="status" class="col-md-1 control-label">工作制</label>
 
                 <div class="col-md-3">
@@ -51,9 +41,15 @@
                         <option value="7">7</option>
                     </select>
                 </div>
+                <label for="status" class="col-md-1 control-label">状态</label>
+
+                <div class="col-md-3">
+                    <select class="form-control" id="status" name="status" style="width:100%" v-model="unit.status">
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
             </div>
-
-
         </div>
     </div>
     <div class="modal-footer">

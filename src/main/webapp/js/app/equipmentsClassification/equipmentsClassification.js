@@ -215,7 +215,6 @@ function addMoreUnit() {
     var units = getUnitsByEqClass(selectEqClassId);
     for (var x in units) {
         if (!isNaN(units[x])) {
-            console.log("units--------------------" + units[x]);
             $("#unitListModal input[value='" + units[x] + "'] ").each(function () {
                 $(this).attr("checked", "checked");
             });

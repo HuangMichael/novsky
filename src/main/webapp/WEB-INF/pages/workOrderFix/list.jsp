@@ -52,9 +52,10 @@
                                                         <th data-column-id="fixDesc" style="height:20px" width="20%">
                                                             维修描述
                                                         </th>
+                                                        <th data-column-id="deadLine" width="5%">维修期限</th>
                                                         <th data-column-id="reportTime" width="5%">处理时间</th>
                                                         <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
+                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工&nbsp;调整
                                                         </th>
                                                     </tr>
                                                     </thead>
@@ -74,6 +75,9 @@
                                                                     ${d.nodeState}
                                                             </td>
                                                             <td>${d.fixDesc}</td>
+
+                                                            <td><fmt:formatDate value="${d.deadLine}"
+                                                                                pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                             <td><fmt:formatDate value="${d.reportTime}"
                                                                                 pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                                         </tr>
@@ -260,6 +264,23 @@
             </div>
             <div class="modal-body" id="fix_desc_modal_div">
                 <%@include file="fixDescForm.jsp" %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="fix_adjust_modal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="fix_adjust_modal_desc">请选择调整后的时间</h4>
+            </div>
+            <div class="modal-body" id="fix_adjust_modal_div">
+                <%@include file="fixAdujstForm.jsp" %>
             </div>
         </div>
     </div>

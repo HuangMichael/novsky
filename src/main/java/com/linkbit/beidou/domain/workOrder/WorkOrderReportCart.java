@@ -58,9 +58,11 @@ public class WorkOrderReportCart {
     @Column(length = 10)
     private String nodeState; //节点状态
 
-
     @Column(length = 20)
     private String fixDesc; //节点状态
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deadLine;  //维修期限
 
     @Column(length = 1)
     private String status;
