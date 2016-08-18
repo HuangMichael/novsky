@@ -37,19 +37,19 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
 
 
     /**
-     * @param roleIds
      * @param resourceLevel
      * @return 根据角色和资源级别查询
      */
-    @Query(nativeQuery = true, value = "select  v.id,v.resource_code,v.resource_desc,v.icon_class,v.resource_url from v_role_auth_view v where v.role_id in :roleList and v.resource_Level =:resourceLevel ")
-    List<Object> findByRoleListAndResourceLevel(@Param("roleList") List<Long> roleIds, @Param("resourceLevel") Long resourceLevel);
-
+    @Query("select distinct v from VRoleAuthView v where v.role in :roleList and  v.resourceLevel =:resourceLevel ")
+    List<VRoleAuthView> findByRoleListAndResourceLevel(@Param("roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel);
+    //@Param("roleIdStr") String roleIdStr,
 
     /**
-     * @param roleIds
      * @param resourceLevel
+     * @param parentId
      * @return 根据角色和资源级别查询
      */
-    @Query(nativeQuery = true, value = "select  v.id,v.resource_code,v.resource_desc,v.icon_class,v.resource_url from v_role_auth_view v where v.role_id in :roleList and v.resource_Level =:resourceLevel and v.parent_id =:parentId")
-    List<Object> findByRoleListAndResourceLevelAndParentId(@Param("roleList") List<Long> roleIds, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
+    @Query("select  distinct v  from VRoleAuthView v where 1=1 and v.role in :roleList and v.resourceLevel =:resourceLevel and v.parentId =:parentId")
+    List<VRoleAuthView> findByRoleListAndResourceLevelAndParentId(@Param("roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
+    //@Param("roleList") List<Long> roleIds,
 }

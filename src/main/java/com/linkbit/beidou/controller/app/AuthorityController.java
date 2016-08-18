@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.app;
 import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.menu.Menu;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
@@ -100,8 +101,8 @@ public class AuthorityController {
      */
     @RequestMapping(value = "/loadAuthView/{resourceLevel}/{userName}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> loadAuthViewByUserId(@PathVariable("userName") String userName, @PathVariable("resourceLevel") Long resourceLevel, ModelMap modelMap) {
-        List<Object> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevel(userName, resourceLevel);
+    public List<VRoleAuthView> loadAuthViewByUserId(@PathVariable("userName") String userName, @PathVariable("resourceLevel") Long resourceLevel, ModelMap modelMap) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevel(userName, resourceLevel);
         return vRoleAuthViews;
     }
 
@@ -115,8 +116,8 @@ public class AuthorityController {
 
     @RequestMapping(value = "/loadAuthView/{resourceLevel}/{moduleId}/{userName}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> loadAuthViewByUserIdAndModuleId(@PathVariable("resourceLevel") Long resourceLevel, @PathVariable("moduleId") Long moduleId, @PathVariable("userName") String userName, ModelMap modelMap) {
-        List<Object> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevelAndParentId(userName, resourceLevel, moduleId);
+    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId(@PathVariable("resourceLevel") Long resourceLevel, @PathVariable("moduleId") Long moduleId, @PathVariable("userName") String userName, ModelMap modelMap) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevelAndParentId(userName, resourceLevel, moduleId);
         return vRoleAuthViews;
     }
 }

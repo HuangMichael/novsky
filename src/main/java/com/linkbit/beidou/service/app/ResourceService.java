@@ -12,7 +12,6 @@ import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -227,17 +226,13 @@ public class ResourceService {
      * @param userName 用户名
      * @return 根据userId和资源级别查询资源
      */
-    public List<Object> findResourcesByUserNameAndResourceLevel(String userName, Long resouceLevel) {
+    public List<VRoleAuthView> findResourcesByUserNameAndResourceLevel(String userName, Long resourceLevel) {
         //首先根据用户id查询出用户对应的角色
-        List<Object> vRoleAuthViewList = null;
-        List<Long> roleIds = new ArrayList<Long>();
+        List<VRoleAuthView> vRoleAuthViewList = null;
         User user = userService.findByUserNameAndStatus(userName, "1");
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            for (Role role : roleList) {
-                roleIds.add(role.getId());
-            }
-            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(roleIds, resouceLevel);
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(roleList, resourceLevel);
         }
         return vRoleAuthViewList;
     }
@@ -246,17 +241,13 @@ public class ResourceService {
      * @param userName 用户名
      * @return 根据userId和资源级别查询资源
      */
-    public List<Object> findResourcesByUserNameAndResourceLevelAndParentId(String userName, Long resouceLevel,Long parentId) {
+    public List<VRoleAuthView> findResourcesByUserNameAndResourceLevelAndParentId(String userName, Long resourceLevel, Long parentId) {
         //首先根据用户id查询出用户对应的角色
-        List<Object> vRoleAuthViewList = null;
-        List<Long> roleIds = new ArrayList<Long>();
+        List<VRoleAuthView> vRoleAuthViewList = null;
         User user = userService.findByUserNameAndStatus(userName, "1");
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            for (Role role : roleList) {
-                roleIds.add(role.getId());
-            }
-            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(roleIds, resouceLevel,parentId);
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(roleList, resourceLevel, parentId);
         }
         return vRoleAuthViewList;
     }
