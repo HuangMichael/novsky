@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -82,6 +83,17 @@ public class UserController {
         User user = SessionUtil.getCurrentUserBySession(session);
         modelMap.put("user", user);
         return "/user/profile";
+    }
+
+
+    /**
+     * @param id 用户id
+     * @return 根据用户id查询
+     */
+    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public User findById(@PathVariable("id") Long id) {
+        return userService.findById(id);
     }
 
 
