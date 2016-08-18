@@ -1,8 +1,13 @@
 <%@ page import="com.linkbit.beidou.domain.user.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    User user = (User) session.getAttribute("currentUser");
-    String userName = user.getUserName();
+    User user = null;
+    String userName = "";
+    if (session != null) {
+        user = (User) session.getAttribute("currentUser");
+        userName = user.getUserName();
+    }
+
 %>
 <div id="sidebar" class="sidebar">
     <div class="sidebar-menu nav-collapse">
@@ -16,6 +21,10 @@
     $(function () {
         //先查询出所有的模块
         var userName = "<%= userName%>";
+        if (!userName) {
+            alert("用户未登录,请重新登录!");
+            window.location = "/";
+        }
         console.log(userName);
         var modules = getAllModules(userName);
         var html = '';

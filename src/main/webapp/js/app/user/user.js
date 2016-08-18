@@ -16,62 +16,16 @@ $.ajaxSettings.async = false;
 var validateOptions = {
     message: '该值无效 ',
     fields: {
-        "eqCode": {
-            message: '设备编号无效',
+        userName: {
+            message: '用户名号无效',
             validators: {
                 notEmpty: {
-                    message: '设备编号不能为空!'
+                    message: '用户名!'
                 },
                 stringLength: {
-                    min: 6,
+                    min: 3,
                     max: 20,
-                    message: '设备编号长度为6到20个字符'
-                }
-            }
-        },
-        "description": {
-            message: '设备描述无效',
-            validators: {
-                notEmpty: {
-                    message: '设备描述不能为空!'
-                },
-                stringLength: {
-                    min: 2,
-                    max: 20,
-                    message: '设备描述长度为2到20个字符'
-                }
-            }
-        },
-        "locations.id": {
-            message: '设备位置无效',
-            validators: {
-                notEmpty: {
-                    message: '设备位置不能为空!'
-                }
-            }
-        },
-        "userClassification.id": {
-            message: '设备分类无效',
-            validators: {
-                notEmpty: {
-                    message: '设备分类不能为空!'
-                }
-            }
-        },
-        "status": {
-            message: '设备状态无效',
-            validators: {
-                notEmpty: {
-                    message: '设备状态不能为空!'
-                }
-            }
-        }
-        ,
-        "running": {
-            message: '运行状态无效',
-            validators: {
-                notEmpty: {
-                    message: '运行状态不能为空!'
+                    message: '用户名长度为3到20个字符'
                 }
             }
         }
@@ -85,16 +39,12 @@ $(function () {
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        saveEquipment();
+
     });
     listTab.on('click', function () {
         refresh();
-
     });
-
-
     formTab.on('click', function () {
-
         var user = users[0];
         vdm = new Vue({
             el: "#detailForm",
@@ -103,8 +53,6 @@ $(function () {
                 user: user
             }
         });
-
-
         activeTab = "detail";
         setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
@@ -257,6 +205,23 @@ function forwards() {
 
 
 /**
+ * 编辑设备信息
+ */
+function edit() {
+    var uid = selectedIds[0];
+    var user = getUserByIdInUsers(uid);
+    if (uid) {
+        vdm.$set("user", user);
+        formTab.tab('show');
+        setFormReadStatus("#detailForm", false);
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+        return;
+    }
+}
+
+
+/**
  *
  * @param formId 设置form为只读
  */
@@ -270,6 +235,7 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " #status").attr("disabled", "disabled");
     }
 }
+
 
 /**
  *
