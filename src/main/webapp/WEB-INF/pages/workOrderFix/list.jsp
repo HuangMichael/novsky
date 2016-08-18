@@ -55,7 +55,7 @@
                                                         <th data-column-id="deadLine" width="5%">维修期限</th>
                                                         <th data-column-id="reportTime" width="5%">处理时间</th>
                                                         <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工&nbsp;调整
+                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
                                                         </th>
                                                     </tr>
                                                     </thead>

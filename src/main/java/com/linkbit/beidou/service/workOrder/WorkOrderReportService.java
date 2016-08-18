@@ -93,6 +93,7 @@ public class WorkOrderReportService extends BaseService {
         for (Long id : idsList) {
             WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已派工");
+           
             workOrderReportCart = setDefaultUnit(workOrderReportCart);//设置默认的维修单位
             workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);

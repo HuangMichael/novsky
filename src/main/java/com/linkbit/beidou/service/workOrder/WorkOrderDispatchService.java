@@ -5,7 +5,6 @@ import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
-import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,18 +26,15 @@ public class WorkOrderDispatchService extends BaseService {
     WorkOrderReportCartRepository workOrderReportCartRepository;
 
 
-
-
-
-
     /**
      * @param detailId
      * @param unitId
      * @return 返回更新了维修单位的报修明细信息
+     *
      */
     public WorkOrderReportCart updateDetailUnit(Long detailId, Long unitId) {
 
-        System.out.println("更新单位detailId----------"+detailId);
+        log.info("更新单位detailId----------" + detailId);
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(detailId);
         OutsourcingUnit outsourcingUnit = outsourcingUnitRepository.findById(unitId);
         if (workOrderReportCart != null && outsourcingUnit != null) {

@@ -1,9 +1,11 @@
 package com.linkbit.beidou.service.workOrder;
 
+import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
@@ -40,6 +42,8 @@ public class WorkOrderFixService extends BaseService {
     @Autowired
     WorkOrderHistoryRepository workOrderHistoryRepository;
 
+    @Autowired
+    EquipmentsClassificationRepository equipmentsClassificationRepository;
 
     /**
      * @return 查询已派工的维修单
@@ -99,5 +103,25 @@ public class WorkOrderFixService extends BaseService {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(orderId);
         workOrderReportCart.setDeadLine(deadLine);
         return workOrderReportCartRepository.save(workOrderReportCart);
+    }
+
+
+    //根据设备分类设置维修期限
+
+
+    /**
+     * @param eqClassId
+     * @return 根据设备分类查询维修时限 返回小时
+     */
+    public Long findLimitHoursByEqClass(Long eqClassId) {
+
+        Long limitHours = 0l;
+        EquipmentsClassification equipmentsClassification = null;
+
+        if (eqClassId != null) {
+            equipmentsClassification = equipmentsClassificationRepository.findById(eqClassId);
+            limitHours = equipmentsClassification.getLimitHours();
+        }
+        return limitHours;
     }
 }

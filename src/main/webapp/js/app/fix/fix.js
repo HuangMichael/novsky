@@ -7,8 +7,8 @@ $(document).ready(function () {
             "opMenus": function (column, row) {
                 return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
                     '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="adjust(' + row.id + ')" title="调整" ><i class="glyphicon glyphicon glyphicon-time"></i></a>'
+                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>'
+                   // '<a class="btn btn-default btn-xs"  onclick="adjust(' + row.id + ')" title="调整" ><i class="glyphicon glyphicon glyphicon-time"></i></a>'
             }
         }
     });
