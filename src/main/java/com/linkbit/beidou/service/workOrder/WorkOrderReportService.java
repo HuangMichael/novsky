@@ -69,6 +69,7 @@ public class WorkOrderReportService extends BaseService {
         for (Long id : idList) {
             workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已报修");
+            workOrderReportCart.setDeadLine(workOrderFixService.getDeadLineByEqClass(workOrderReportCart));
             workOrderReportCart.setStatus("1");
             workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);
@@ -87,13 +88,14 @@ public class WorkOrderReportService extends BaseService {
      * @return 根据维修单位Id规约
      * @version 0.1
      */
+    @Transactional
     public List mapByUnitId(String ids) {
         List<WorkOrderReportCart> workOrderReportCartList = new ArrayList<WorkOrderReportCart>();
         List<Long> idsList = StringUtils.str2List(ids, ",");
         for (Long id : idsList) {
             WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已派工");
-           
+
             workOrderReportCart = setDefaultUnit(workOrderReportCart);//设置默认的维修单位
             workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);

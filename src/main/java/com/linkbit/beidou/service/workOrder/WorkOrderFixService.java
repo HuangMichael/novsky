@@ -15,6 +15,7 @@ import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -110,18 +111,19 @@ public class WorkOrderFixService extends BaseService {
 
 
     /**
-     * @param eqClassId
+     * @param workOrderReportCart
      * @return 根据设备分类查询维修时限 返回小时
      */
-    public Long findLimitHoursByEqClass(Long eqClassId) {
-
+    public Date getDeadLineByEqClass(WorkOrderReportCart workOrderReportCart) {
         Long limitHours = 0l;
         EquipmentsClassification equipmentsClassification = null;
-
-        if (eqClassId != null) {
-            equipmentsClassification = equipmentsClassificationRepository.findById(eqClassId);
+        Date deadLine = null;
+        if (workOrderReportCart != null) {
+            equipmentsClassification = workOrderReportCart.getEquipmentsClassification();
             limitHours = equipmentsClassification.getLimitHours();
+            Date reportDate = DateUtils.getCellingDate(workOrderReportCart.getReportTime());
+            deadLine = DateUtils.addDate(reportDate, Calendar.HOUR, limitHours.intValue());
         }
-        return limitHours;
+        return deadLine;
     }
 }

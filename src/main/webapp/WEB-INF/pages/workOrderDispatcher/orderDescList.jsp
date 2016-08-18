@@ -13,6 +13,7 @@
         <th width="10%">设备分类</th>
         <th width="20%">故障描述</th>
         <th width="20%">维修单位</th>
+        <th width="20%">维修期限</th>
         <th width="5%">操作菜单</th>
     </tr>
     </thead>
@@ -28,13 +29,22 @@
             <td>${workOrder.orderDesc}</td>
             <td>
                 <select class="form-control" id="selUnit${workOrder.id}" onchange="selectUnit('selUnit${workOrder.id}')"
-                        style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1;"
-                    <option value="">请选择外委单位</option>
-                    <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
-                        <option value="${u.id}"
-                                <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
-                    </c:forEach>
+                        style="height:24px;padding: 2px 2px;font-size: 12px;line-height: 1"
+                <option value="">请选择外委单位</option>
+                <c:forEach var="u" items="${workOrder.equipmentsClassification.unitSet}">
+                    <option value="${u.id}"
+                            <c:if test="${workOrder.unit.id==u.id}">selected</c:if>>${u.description}</option>
+                </c:forEach>
                 </select>
+            </td>
+            <td>
+                <input class="Wdate form-control" type="text"
+                       onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d'})"
+                       id="deadLine${workOrder.id}"
+                       name="deadLine"
+                       style="height:24px;padding: 2px 2px ;border:1px solid #cccccc" value="${workOrder.deadLine}"
+                       onchange="changeDeadLine(${workOrder.id})"/>
+
             </td>
             <td>
 
@@ -137,4 +147,18 @@
     </div>
 </div>
 
-
+<script type="text/javascript">
+    function changeDeadLine(id) {
+        var url = "workOrderFix/updateDeadLine";
+        var data = {
+            orderId: id,
+            deadLine: $("#deadLine" + id).val()
+        }
+        $.post(url, data, function (data) {
+            if (data.result) {
+                showMessageBox("info", data.resultDesc);
+            } else {
+                showMessageBox("danger", data.resultDesc);
+            }
+        });
+    }</script>

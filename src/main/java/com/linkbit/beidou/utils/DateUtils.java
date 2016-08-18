@@ -85,4 +85,21 @@ public class DateUtils {
 
         return outDate;
     }
+
+
+    /**
+     * @param inputDate
+     * @return 返回次日 00:00:00
+     */
+    public static Date addDate(Date inputDate, int type, int num) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(inputDate);
+        calendar.add(type, num);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date outDate = calendar.getTime();
+
+        return outDate;
+    }
 }
