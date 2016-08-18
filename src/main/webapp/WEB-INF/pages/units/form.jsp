@@ -37,8 +37,8 @@
                 <div class="col-md-3">
                     <select class="form-control" id="workDays" name="workDays" style="width:100%"
                             v-model="unit.workDays">
-                        <option value="5">5</option>
-                        <option value="7">7</option>
+                        <option value="5">5天</option>
+                        <option value="7">7天</option>
                     </select>
                 </div>
                 <label for="status" class="col-md-1 control-label">状态</label>
