@@ -13,7 +13,7 @@
                 <h4 class="modal-title">新建用户</h4>
             </div>
             <div class="modal-body">
-                <%@include file="form.jsp" %>
+               <%-- <%@include file="form.jsp" %>--%>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -64,20 +64,6 @@
                                         onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
-
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm myNavBtn dropdown-toggle active"
-                                            data-toggle="dropdown">
-                                        操作菜单 <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a onclick="deleteEq()" class="optionMenu"> <i
-                                                class="glyphicon glyphicon-remove"></i>删除记录</a></li>
-                                        <li class="divider"></li>
-                                        <li><a onclick="abandonEq()" class="optionMenu"> <i
-                                                class="glyphicon glyphicon-question-sign"></i>设备报废</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <div class="box-body">
@@ -98,7 +84,10 @@
                                                class=" table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th data-column-id="id">序号</th>
+                                                <th data-column-id="index">序号</th>
+                                                <th data-column-id="id" data-type="numeric" data-identifier="true"
+                                                    data-visible="false">ID
+                                                </th>
                                                 <th data-column-id="userName">用户名</th>
                                                 <th data-column-id="person">人员</th>
                                                 <th data-column-id="status">使用状态</th>
@@ -107,26 +96,22 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <c:forEach items="${userList}" var="user" varStatus="s">
-                                                <tr class="gradeX">
-                                                    <td>${s.index+1}</td>
-                                                    <td> ${user.userName}</td>
-                                                    <td> ${user.person.personName}</td>
-                                                    <td class="center"><c:if test="${user.status=='1'}">启用
-                                                    </c:if>
-                                                        <c:if test="${user.status!='1'}">禁用
-                                                    </td>
-                                                    </c:if>
-                                                    <td> ${user.location}</td>
-                                                </tr>
-                                            </c:forEach>
+                                            <tr class="gradeX" data-rowId="{{user.id}}" id="tr{{user.id}}"
+                                                v-for="user in users">
+                                                <td>{{$index+1}}</td>
+                                                <td> {{user.id}}</td>
+                                                <td> {{user.userName}}</td>
+                                                <td> {{user.person.personName}}</td>
+                                                <td class="center"></td>
+                                                <td></td>
+                                            </tr>
                                             </tbody>
                                             <tfoot>
                                             </tfoot>
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                         <%@include file="create.jsp" %>
+                                        <%@include file="create.jsp" %>
                                     </div>
                                 </div>
                             </div>

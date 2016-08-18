@@ -80,7 +80,7 @@ public class WorkOrderReportCartService extends BaseService {
         equipmentAccountService.save(equipments);
         WorkOrderHistory workOrderHistory = new WorkOrderHistory();
         workOrderHistory.setNodeDesc("报修车");
-        workOrderHistory.setNodeTime(new Date());
+        workOrderHistory.setNodeTime(workOrderReportCart.getReportTime());
         workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
         workOrderHistory.setStatus("1");
         workOrderHistoryRepository.save(workOrderHistory);
@@ -332,7 +332,6 @@ public class WorkOrderReportCartService extends BaseService {
         List<Long> longList = StringUtils.str2List(ids, ",");
         return workOrderReportCartRepository.findWorkOrderReportDetailByIds(longList);
     }
-
 
 
 }

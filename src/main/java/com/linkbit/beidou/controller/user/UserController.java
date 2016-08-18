@@ -40,8 +40,8 @@ public class UserController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-        List<User> userList = userService.findAllUsers();
-        modelMap.put("userList", userList);
+/*        List<User> userList = userService.findAllUsers();
+        modelMap.put("userList", userList);*/
         return "/user/list";
     }
 

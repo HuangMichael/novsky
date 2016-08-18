@@ -26,6 +26,14 @@ public class UserService extends BaseService {
         return userRepository.findByStatus(status);
     }
 
+
+    /**
+     * 根据状态查询用户
+     */
+    public User findById(Long id) {
+        return userRepository.findById(id);
+    }
+
     /**
      * @return 查询所有的用户
      */
@@ -57,7 +65,7 @@ public class UserService extends BaseService {
 
     /**
      * @param userName 用户名
-     * @param status 状态
+     * @param status   状态
      * @return
      */
     public User findByUserNameAndStatus(String userName, String status) {
