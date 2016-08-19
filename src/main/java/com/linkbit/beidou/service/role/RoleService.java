@@ -3,6 +3,7 @@ package com.linkbit.beidou.service.role;
 import com.linkbit.beidou.dao.role.RoleRepository;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,13 @@ public class RoleService extends BaseService {
      */
     public Role save(Role role) {
         return roleRepository.save(role);
+    }
+
+
+    /**
+     * @return 查询在用角色
+     */
+    public List<Role> findActiveRole() {
+        return roleRepository.findByStatus(CommonStatusType.STATUS_YES);
     }
 }

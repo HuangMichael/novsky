@@ -22,11 +22,11 @@
                                         onclick="loadNew()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="edit()">
                                     <i class="glyphicon glyphicon-edit"></i>编辑记录
                                 </button>
 
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveEq()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="save()">
                                     <i class="glyphicon glyphicon-save"></i>保存记录
                                 </button>
 
@@ -75,7 +75,7 @@
                                         <%@include file="roleList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                        <%@include file="create.jsp" %>
+                                        <%@include file="detail.jsp" %>
                                     </div>
                                 </div>
                             </div>
@@ -92,4 +92,4 @@
     </div>
 </div>
 <%@include file="../common/common-foot.jsp" %>
-<script type="text/javascript" src="/js/app/user/user.js"></script>
+<script type="text/javascript" src="/js/app/role/role.js"></script>

@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.role;
 
 import com.linkbit.beidou.dao.role.RoleRepository;
 import com.linkbit.beidou.domain.role.Role;
+import com.linkbit.beidou.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ public class RoleController {
 
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    RoleService roleService;
 
     @RequestMapping(value = "/index")
     public String index() {
@@ -29,15 +32,10 @@ public class RoleController {
     }
 
 
-   /* @RequestMapping(value = "/list")
-    public ModelAndView list(ModelMap modelMap) {
-        List<User> userList = userRepository.findAll();
-        modelMap.put("userList", userList);
-        ModelAndView modelAndView = new ModelAndView("/user/list");
-        modelAndView.addObject("userList");
-        return modelAndView;
-    }*/
-
+    @RequestMapping(value = "/create")
+    public String create() {
+        return "/role/create";
+    }
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
@@ -52,14 +50,20 @@ public class RoleController {
      */
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public Role save(@RequestParam("roleName") String roleName, @RequestParam("roleDesc") String roleDesc, @RequestParam("sortNo") Long sortNo, @RequestParam("status") String status) {
-        Role role = new Role();
-        role.setRoleName(roleName);
+    public Role save(Role role) {
+        return roleRepository.save(role);
+    }
+
+
+    /**
+     * 保存角色信息
+     */
+    @RequestMapping(value = "/update", method = {RequestMethod.POST})
+    @ResponseBody
+    public Role update(@RequestParam("roleId") Long roleId, @RequestParam("roleDesc") String roleDesc) {
+        Role role = roleService.findById(roleId);
         role.setRoleDesc(roleDesc);
-        role.setSortNo(sortNo);
-        role.setStatus(status);
-        role = roleRepository.save(role);
-        return role;
+        return roleRepository.save(role);
     }
 
 
@@ -74,4 +78,25 @@ public class RoleController {
     }
 
 
+    /**
+     * 保存角色信息
+     *
+     * @return 查询在用的角色
+     */
+    @RequestMapping(value = "/findActiveRole", method = {RequestMethod.GET})
+    @ResponseBody
+    public List<Role> findActiveRole() {
+        return roleService.findActiveRole();
+
+    }
+
+
+    /**
+     * @return 查询在用的角色
+     */
+    @RequestMapping(value = "/findById/{id}", method = {RequestMethod.GET})
+    @ResponseBody
+    public Role findById(@PathVariable Long id) {
+        return roleService.findById(id);
+    }
 }

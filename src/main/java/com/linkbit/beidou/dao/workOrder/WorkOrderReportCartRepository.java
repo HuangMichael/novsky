@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 
 /**
@@ -123,6 +124,7 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param status   状态信息
      * @return
      */
+    @OrderBy("reportTime desc")
     List<WorkOrderReportCart> findByLocationStartingWithAndStatus(String location, String status);
 
 
@@ -135,6 +137,7 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param nodeState
      * @return 根据位置和节点的状态查询
      */
+    @OrderBy("id desc")
     List<WorkOrderReportCart> findByLocationStartingWithAndNodeState(String location, String nodeState);
 
 
