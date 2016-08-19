@@ -1,6 +1,8 @@
 package com.linkbit.beidou.controller.user;
 
 
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
@@ -10,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -31,6 +30,11 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
 
     @RequestMapping(value = "/index")
     public String index() {
@@ -40,11 +44,33 @@ public class UserController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-/*        List<User> userList = userService.findAllUsers();
-        modelMap.put("userList", userList);*/
         return "/user/list";
     }
 
+
+    @RequestMapping(value = "/create")
+    public String create(ModelMap modelMap) {
+        return "/user/create";
+    }
+
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject update(@RequestParam("userId") Long userId, @RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId,@RequestParam("status") String status) {
+        ReturnObject returnObject = new ReturnObject();
+        User user = null;
+        if (userId != null && personId != null && locationId != null) {
+            user = userService.update(userId, personId, locationId, status);
+        }
+        if (user != null) {
+            returnObject.setResult(true);
+            returnObject.setResultDesc("用户更新成功!");
+        } else {
+            returnObject.setResult(false);
+            returnObject.setResultDesc("用户更新失败 !");
+        }
+        return returnObject;
+    }
 
     /**
      * @return 查询所有的用户信息
@@ -61,8 +87,10 @@ public class UserController {
      */
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public ReturnObject save(User user) {
-        user.setPassword("123456");
+    public ReturnObject save(@RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId) {
+        User user = new User();
+        user.setPerson(personRepository.findById(personId));
+        user.setVlocations(vlocationsRepository.findById(locationId));
         user = userService.save(user);
         ReturnObject returnObject = new ReturnObject();
         returnObject.setResult(user != null);
@@ -72,6 +100,29 @@ public class UserController {
         return returnObject;
     }
 
+
+    /**
+     * 保存用户信息
+     *
+     * @param personId
+     * @param locationId
+     * @return 创建用户
+     */
+    @RequestMapping(value = "/createUser", method = {RequestMethod.POST})
+    @ResponseBody
+    public ReturnObject createUser(@RequestParam("userName") String userName, @RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId) {
+        User user = new User();
+        user.setUserName(userName);
+        user.setPerson(personRepository.findById(personId));
+        user.setVlocations(vlocationsRepository.findById(locationId));
+        user = userService.createUser(user);
+        ReturnObject returnObject = new ReturnObject();
+        returnObject.setResult(user != null);
+        String resStr = returnObject.getResult() ? "成功" : "失败";
+        returnObject.setResultDesc("用户信息创建" + resStr);
+        returnObject.getObjectsList().add(user);
+        return returnObject;
+    }
 
     /**
      * @param session  当前会话

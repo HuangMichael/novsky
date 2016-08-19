@@ -5,13 +5,16 @@ import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +42,10 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     ResourceRepository resourceRepository;
+
+
+    @Autowired
+    PersonRepository personRepository;
 
     /**
      * @param location 位置编号
@@ -191,6 +198,28 @@ public class CommonDataService extends BaseService {
             httpSession.setAttribute("eqRunStatusList", eqRunStatusList);
         }
         return eqRunStatusList;
+
+    }
+
+
+    /**
+     * @param httpSession
+     * @return 查询设备种类信息
+     */
+    public List<Person> findActivePerson(HttpSession httpSession) {
+        List<Person> activePerson = null;
+        Object object = httpSession.getAttribute("activePerson");
+        if (object != null) {
+            activePerson = (ArrayList<Person>) object;
+            log.info(this.getClass().getCanonicalName() + "------------从缓存中查询人员");
+        } else {
+            activePerson = personRepository.findByStatus(CommonStatusType.STATUS_YES);
+            log.info(this.getClass().getCanonicalName() + "------------从数据库中查询人员");
+            httpSession.setAttribute("activePerson", activePerson);
+            log.info(this.getClass().getCanonicalName() + "------------将人员放入缓存");
+        }
+        return activePerson;
+
 
     }
 

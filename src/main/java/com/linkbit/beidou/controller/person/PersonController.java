@@ -2,8 +2,8 @@ package com.linkbit.beidou.controller.person;
 
 
 import com.linkbit.beidou.dao.department.DepartmentRepository;
-import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController {
     @Autowired
-    PersonRepository personRepository;
+    PersonService personService;
 
 
     @Autowired
@@ -29,7 +29,7 @@ public class PersonController {
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
-        List<Person> personList = personRepository.findAll();
+        List<Person> personList = personService.findAll();
         modelMap.put("personList", personList);
         return "/person/list";
     }
@@ -40,9 +40,21 @@ public class PersonController {
     @RequestMapping(value = "/findAll")
     @ResponseBody
     public List<Person> findAll() {
-        List<Person> personList = personRepository.findAll();
+        List<Person> personList = personService.findAll();
         return personList;
     }
+
+
+    /**
+     * 查询根节点
+     */
+    @RequestMapping(value = "/findActivePerson")
+    @ResponseBody
+    public List<Person> findActivePerson() {
+        List<Person> personList = personService.findActivePerson();
+        return personList;
+    }
+
 
     /**
      * 根据ID查询人员信息
@@ -50,7 +62,7 @@ public class PersonController {
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Person findById(@PathVariable("id") Long id) {
-        return personRepository.findById(id);
+        return personService.findById(id);
     }
 
 
@@ -67,7 +79,6 @@ public class PersonController {
                        @RequestParam("status") String status
 
     ) {
-        System.out.println("personNo---------------" + personNo);
         Person person = new Person();
         person.setPersonNo(personNo);
         person.setPersonName(personName);
@@ -80,7 +91,7 @@ public class PersonController {
             e.printStackTrace();
         }
         person.setStatus(status);
-        person = personRepository.save(person);
+        person = personService.save(person);
         return person;
     }
 

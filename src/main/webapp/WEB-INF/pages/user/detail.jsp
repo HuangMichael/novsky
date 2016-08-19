@@ -1,13 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form class="form-horizontal myform" role="form" id="createForm">
-
+<form class="form-horizontal myform" role="form" id="detailForm">
     <div class="form-group">
         <label class="col-md-2 col-sm-2 col-lg-2" for="userName">用户名</label>
 
         <div class="col-md-4 col-sm-4 col-lg-4">
-            <input type="text" class="form-control" id="userName" name="userName" v-model="user.userName">
-            <input type="hidden" class="form-control" id="userId" name="userId" v-model="user.id">
+            <input type="text" class="form-control" id="userName" name="userName" v-model="user.userName" readonly>
+            <input type="hidden" class="form-control" id="userId" name="userId" v-model="user.id" readonly>
         </div>
         <div class="col-md-2 col-sm-2 col-lg-2">
             <label for="person_id">人员</label>
@@ -55,22 +54,5 @@
             </select>
         </div>
     </div>
-  <%--  <div class="modal-footer">
-        <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">创建用户
-        </button>
-    </div>--%>
 </form>
-
-
-<script type="text/javascript">
-
-
-    $(function () {
-
-        $("select").select2({theme: "bootstrap"});
-
-    });
-
-
-</script>
 

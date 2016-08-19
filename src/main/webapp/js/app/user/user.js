@@ -1,6 +1,8 @@
 var dataTableName = '#userDataTable';
 var users = [];
 var selectedIds = []; //获取被选择记录集合
+var activePerson = []; //激活状态人员
+var locs = [];
 var allSize = 0;
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
@@ -32,27 +34,45 @@ var validateOptions = {
     }
 };
 $(function () {
+
+
+
     //初始化从数据库获取列表数据
     initLoadData("/user/findAll", dataTableName);
-
-
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
 
     });
-    listTab.on('click', function () {
-        refresh();
+
+    var url_location = "/commonData/findMyLoc";
+    $.getJSON(url_location, function (data) {
+        locs = data;
     });
+
+    var url = "/commonData/findActivePerson";
+    $.getJSON(url, function (data) {
+        activePerson = data;
+    });
+
+
+    users = getAllUsers();
+
+    vdm = new Vue({
+        el: "#detailForm",
+        data: {
+            formLocked: formLocked,
+            user: users[0],
+            activePerson: activePerson,
+            locs: locs
+        }
+    });
+
+
+    //初始化人员信息
+
+
     formTab.on('click', function () {
-        var user = users[0];
-        vdm = new Vue({
-            el: "#detailForm",
-            data: {
-                formLocked: formLocked,
-                user: user
-            }
-        });
         activeTab = "detail";
         setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
@@ -64,6 +84,8 @@ $(function () {
             user = getUserByIdInUsers(users[0]["id"]);
             selectedIds = setAllInSelectedList(users);
         }
+
+        console.log(JSON.stringify(user));
         vdm.user = user;
     });
 
@@ -71,6 +93,41 @@ $(function () {
         activeTab = "list";
     });
     $('select').select2({theme: "bootstrap"});
+
+
+    $("#saveBtn").on("click", function (data) {
+        var userId = $("#userId").val();
+        var userName = $("#userName").val();
+        var personId = $("#person_id").val();
+        var locationId = $("#locations_id").val();
+        var status = $("#status").val();
+
+        var user = null;
+        var url = "";
+        if (userId) {
+            user = {
+                userId: userId,
+                personId: personId,
+                locationId: locationId,
+                status:status
+            }
+            url = "user/update";
+        } else {
+            url = "user/createUser";
+            user = {
+                userName: userName,
+                personId: personId,
+                locationId: locationId
+            }
+        }
+        $.post(url, user, function (data) {
+            if (data.result) {
+                showMessageBox("info", data.resultDesc);
+            } else {
+                showMessageBox("danger", data.resultDesc);
+            }
+        });
+    })
 });
 
 
@@ -79,6 +136,14 @@ $(function () {
  */
 function loadNew() {
     $("#tab_1_1").load("/user/create");
+    var newVue = new Vue({
+        el: "#createForm",
+        data: {
+            user: null,
+            locs: locs,
+            activePerson: activePerson
+        }
+    });
     formTab.tab('show');
 
 }
@@ -90,7 +155,6 @@ function loadNew() {
  * @param elementName 渲染元素名称
  */
 function initLoadData(url, elementName) {
-    console.log("初始化载入列表数据---" + url);
     $.getJSON(url, function (data) {
         users = data;
         allSize = data.length; //计算所有记录的个数
@@ -153,7 +217,7 @@ function getAllUsers() {
     $.getJSON(url, function (data) {
         users = data;
     });
-    return user;
+    return users;
 }
 
 
@@ -208,12 +272,12 @@ function forwards() {
  * 编辑设备信息
  */
 function edit() {
-    var uid = selectedIds[0];
+    var uid = selectedIds[pointer];
     var user = getUserByIdInUsers(uid);
     if (uid) {
         vdm.$set("user", user);
         formTab.tab('show');
-        setFormReadStatus("#detailForm", false);
+        setFormReadStatus("#detailForm", false, ["userName"]);
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
         return;
@@ -221,18 +285,26 @@ function edit() {
 }
 
 
+function saveUser() {
+    $("#saveBtn").trigger("click");
+}
+
+
 /**
  *
  * @param formId 设置form为只读
  */
-function setFormReadStatus(formId, formLocked) {
+function setFormReadStatus(formId, formLocked, except) {
     if (formLocked) {
         $(formId + " input").attr("readonly", "readonly");
         $(formId + " select").attr("disabled", "disabled");
     } else {
         $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
         $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
-        $(formId + " #status").attr("disabled", "disabled");
+       // $(formId + " #status").attr("disabled", "disabled");
+        for (var x in except) {
+            $("#" + except[x]).attr("readonly", "readonly");
+        }
     }
 }
 
@@ -249,5 +321,15 @@ function reload(url) {
     })
     return dataList;
 }
+/**
+ * 查询人员信息列表
+ */
+function getPersonList() {
+    var url = "/person/findActivePerson";
+    $.getJSON(url, function (data) {
+        activePerson = data;
+        console.log("data----" + JSON.stringify(data));
+    });
 
 
+}

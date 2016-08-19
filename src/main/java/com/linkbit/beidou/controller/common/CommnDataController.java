@@ -5,6 +5,7 @@ import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -109,6 +110,17 @@ public class CommnDataController extends BaseController {
     public List<ListObject> getEqRunStatus(HttpSession httpSession) {
 
         return commonDataService.getRunningStatus(httpSession);
+    }
+
+
+    /**
+     * @param httpSession 当前会话
+     * @return 获得设备状态
+     */
+    @RequestMapping(value = "/findActivePerson", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Person> findActivePerson(HttpSession httpSession) {
+        return commonDataService.findActivePerson(httpSession);
     }
 }
 

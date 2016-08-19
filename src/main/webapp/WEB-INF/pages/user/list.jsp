@@ -13,7 +13,7 @@
                 <h4 class="modal-title">新建用户</h4>
             </div>
             <div class="modal-body">
-               <%-- <%@include file="form.jsp" %>--%>
+                <%-- <%@include file="form.jsp" %>--%>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -48,14 +48,9 @@
                                     <i class="glyphicon glyphicon-edit"></i>编辑记录
                                 </button>
 
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveEq()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveUser()">
                                     <i class="glyphicon glyphicon-save"></i>保存记录
                                 </button>
-
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
-                                    <i class="glyphicon glyphicon-remove"></i>删除记录
-                                </button>
-
                                 <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
@@ -90,9 +85,7 @@
                                                 </th>
                                                 <th data-column-id="userName">用户名</th>
                                                 <th data-column-id="person">人员</th>
-                                                <th data-column-id="status">使用状态</th>
                                                 <th data-column-id="location">位置</th>
-                                                <th data-column-id="edit" data-formatter="edit">编辑</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -102,8 +95,7 @@
                                                 <td> {{user.id}}</td>
                                                 <td> {{user.userName}}</td>
                                                 <td> {{user.person.personName}}</td>
-                                                <td class="center"></td>
-                                                <td></td>
+                                                <td>{{user.vlocations.locName}}</td>
                                             </tr>
                                             </tbody>
                                             <tfoot>
@@ -111,7 +103,7 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                        <%@include file="create.jsp" %>
+                                        <%@include file="detail.jsp" %>
                                     </div>
                                 </div>
                             </div>

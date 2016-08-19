@@ -1,6 +1,10 @@
 package com.linkbit.beidou.service.user;
 
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
+import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.MD5Util;
@@ -18,6 +22,12 @@ public class UserService extends BaseService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PersonRepository personRepository;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
 
     /**
      * 根据状态查询用户
@@ -50,6 +60,34 @@ public class UserService extends BaseService {
             user.setPassword(MD5Util.md5(password));
         }
         user.setStatus("1");
+        return userRepository.save(user);
+    }
+
+
+    /**
+     * 对用户进行加密
+     */
+    public User createUser(User user) {
+        user.setPassword("123456");
+        String password = user.getPassword();
+        if (user.getPassword() != null) {
+            user.setPassword(MD5Util.md5(password));
+        }
+        user.setStatus("1");
+        return userRepository.save(user);
+    }
+
+
+    /**
+     * 对用户进行加密
+     */
+    public User update(Long userId, Long personId, Long locationId, String status) {
+        User user = userRepository.findById(userId);
+        Person person = personRepository.findById(personId);
+        Vlocations vlocations = vlocationsRepository.findById(locationId);
+        user.setPerson(person);
+        user.setVlocations(vlocations);
+        user.setStatus(status);
         return userRepository.save(user);
     }
 
