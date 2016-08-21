@@ -5,23 +5,27 @@
     <thead>
     <tr>
         <th>序号</th>
+        <th>位置</th>
         <th>故障描述</th>
         <th>报修时间</th>
         <th>维修状态</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${vworkOrderStepList}" var="e" varStatus="s">
+    <c:forEach items="${reportedList}" var="c" varStatus="s">
         <tr class="gradeX">
             <td>${s.index+1}</td>
             <td>
-                    ${e.orderDesc}
+                    ${c.vlocations.locName}
             </td>
             <td>
-                    ${e.reportTime}
+                    ${c.orderDesc}
             </td>
             <td>
-                    ${e.node_state}
+                    ${c.reportTime}
+            </td>
+            <td>
+                    ${c.nodeState}
             </td>
         </tr>
     </c:forEach>

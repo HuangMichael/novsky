@@ -1,7 +1,6 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
-import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
@@ -64,8 +63,8 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/checkEqs/{equipmentId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> checkEqBeforeAdd2Cart(@PathVariable("equipmentId") Long equipmentId) {
-        List<Object> workOrderReportCartList = workOrderReportCartService.checkEqsBeforeAdd2Cart(equipmentId);
+    public List<WorkOrderReportCart> checkEqBeforeAdd2Cart(@PathVariable("equipmentId") Long equipmentId) {
+        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.checkEqsBeforeAdd2Cart(equipmentId);
         return workOrderReportCartList;
     }
 
@@ -76,7 +75,7 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/loadReportedEqPage/{equipmentId}", method = RequestMethod.GET)
     public String loadReportEqPage(@PathVariable("equipmentId") Long equipmentId, ModelMap modelMap) {
-        List<Object> reportedEqList = workOrderReportCartService.checkEqsBeforeAdd2Cart(equipmentId);
+        List<WorkOrderReportCart> reportedEqList = workOrderReportCartService.checkEqsBeforeAdd2Cart(equipmentId);
         modelMap.put("reportedEqList", reportedEqList);
         return "/location/eqList";
     }
@@ -88,8 +87,8 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/loadReportedLocPage/{location}", method = RequestMethod.GET)
     public String loadReportLocPage(@PathVariable("location") String location, ModelMap modelMap) {
-        List<Object> reportedEqList = workOrderReportCartService.checkLocsBeforeAdd2Cart(location);
-        modelMap.put("reportedEqList", reportedEqList);
+        List<WorkOrderReportCart> reportedList = workOrderReportCartService.checkLocsBeforeAdd2Cart(location);
+        modelMap.put("reportedList", reportedList);
         return "/location/locList";
     }
 

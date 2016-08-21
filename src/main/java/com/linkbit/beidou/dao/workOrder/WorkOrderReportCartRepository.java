@@ -1,5 +1,6 @@
 package com.linkbit.beidou.dao.workOrder;
 
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import org.springframework.data.jpa.repository.Query;
@@ -13,17 +14,6 @@ import java.util.List;
  * Created by huangbin on 2016/5/20.
  */
 public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderReportCart, Long> {
-
-
-    String SQL0 = "       SELECT  c.equipments_id,c.order_desc, DATE_FORMAT(c.report_time,'%Y-%m-%d %H:%m:%s '),c.status,'报修车' FROM  t_work_order_report_cart   c";
-    String SQL0WHERE = " where c.equipments_id=:equipmentId and c.status <>:status  ";
-    String SQL1 = " UNION SELECT  d.equipments_id,d.order_desc, DATE_FORMAT(d.report_time,'%Y-%m-%d %H:%m:%s '),d.status,'报修单' FROM  t_work_order_report_detail d ";
-    String SQL1WHERE = " where d.equipments_id=:equipmentId and d.status <>:status ";
-    String SQL2 = " UNION SELECT  e.equipments_id,e.order_desc, DATE_FORMAT(e.report_time,'%Y-%m-%d %H:%m:%s '),e.status,'维修单' FROM  t_work_order_fix_detail    e ";
-    String SQL2WHERE = " where e.equipments_id=:equipmentId and e.status <>:status ";
-    //String ORDERBY = " order by e.equipments_id=:equipmentId and e.status <>:status ";
-
-
     String SQL0L = "       SELECT  c.location,c.order_desc, DATE_FORMAT(c.report_time,'%Y-%m-%d %H:%m:%s '),c.status,'报修车' FROM  t_work_order_report_cart   c";
     String SQL0WHEREL = " where c.location like :location and c.status <>:status  ";
     String SQL1L = " UNION SELECT  d.location,d.order_desc, DATE_FORMAT(d.report_time,'%Y-%m-%d %H:%m:%s '),d.status,'报修单' FROM  t_work_order_report_detail d ";
@@ -102,13 +92,10 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<Object> findReportedEquipments(@Param("equipmentId") Long equipmentId, @Param("status") String status);
 
 
-    /**
-     * @param location 位置编号
-     * @param status   完工状态
-     * @return 查询已报修未完工的位置信息
-     */
-    @Query(nativeQuery = true, value = SQL0L + SQL0WHEREL + SQL1L + SQL1WHEREL + SQL2L + SQL2WHEREL)
-    List<Object> findReportedLocations(@Param("location") String location, @Param("status") String status);
+    List<WorkOrderReportCart> findByLocationStartingWithAndNodeStateNot(@Param("location") String location, @Param("nodeState") String nodeState);
+
+
+    List<WorkOrderReportCart> findByEquipmentsAndNodeStateNot(@Param("equipment") Equipments equipment, @Param("nodeState") String nodeState);
 
 
     /**

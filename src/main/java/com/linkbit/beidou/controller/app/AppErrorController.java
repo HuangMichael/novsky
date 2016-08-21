@@ -1,4 +1,4 @@
-/*
+
 
 package com.linkbit.beidou.controller.app;
 
@@ -13,7 +13,7 @@ public class AppErrorController implements ErrorController {
 
     @RequestMapping(value = ERROR_PATH)
     public String handleError() {
-        return "redirect:/";
+        return "/pages/error";
     }
 
     @Override
@@ -22,4 +22,4 @@ public class AppErrorController implements ErrorController {
     }
 }
 
-*/
+

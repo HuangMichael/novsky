@@ -293,7 +293,7 @@ function reportByLocation() {
         }
     });
     if (status == "2") {
-        var curl = "/workOrderReportCart/loadWorkOrderStep/" + locationId;
+        var curl = "/workOrderReportCart/loadReportedLocPage/" + location;
         $("#locList").load(curl, function (data) {
             $("#show_loc_modal").modal("show")
         })

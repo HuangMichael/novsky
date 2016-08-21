@@ -30,10 +30,6 @@
                                     <i class="glyphicon glyphicon-save"></i>保存记录
                                 </button>
 
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteEq()">
-                                    <i class="glyphicon glyphicon-remove"></i>删除记录
-                                </button>
-
                                 <button type="button" class="btn btn-sm myNavBtn active"
                                         onclick="backwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-backward"></i>上一条
@@ -42,20 +38,6 @@
                                         onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
-
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm myNavBtn dropdown-toggle active"
-                                            data-toggle="dropdown">
-                                        操作菜单 <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a onclick="deleteEq()" class="optionMenu"> <i
-                                                class="glyphicon glyphicon-remove"></i>删除记录</a></li>
-                                        <li class="divider"></li>
-                                        <li><a onclick="abandonEq()" class="optionMenu"> <i
-                                                class="glyphicon glyphicon-question-sign"></i>设备报废</a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                         <div class="box-body">

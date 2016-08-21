@@ -7,7 +7,8 @@ var personList = [];
 var pointer = 0;
 var listModel = null;
 var personDetail = null;
-
+var formLocked = true;
+var vdm = null;
 
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
@@ -34,10 +35,10 @@ $(function () {
             personList: personList
         }
     });
-    //新建一个listModel
-    personDetail = new Vue({
+    vdm = new Vue({
         el: "#detailForm",
         data: {
+            formLocked: formLocked,
             person: personList[0]
         }
     });
@@ -65,10 +66,50 @@ $(function () {
     $('select').select2({theme: "bootstrap"});
 
 
+    //初始化人员信息
+
+
+    formTab.on('click', function () {
+        activeTab = "detail";
+        setFormReadStatus("#detailForm", true, []);
+        //首先判断是否有选中的
+        var person = null;
+        if (selectedIds.length > 0) {
+            person = getPersonByIdInPerson(selectedIds[0]);
+        } else {
+            //没有选中的 默认显示整个列表的第一条
+            person = getPersonByIdInPerson(personList[0]["id"]);
+            selectedIds = setAllInSelectedList(personList);
+        }
+        console.log(JSON.stringify(person));
+        vdm.person = person;
+    });
+
+
 });
 
 
+/**
+ *
+ * @param roles 所有的记录
+ * @returns {Array}将所有的放入选中集合
+ */
+function setAllInSelectedList(personList) {
+    var selecteds = [];
+    for (var x in personList) {
+        if (!isNaN(personList[x]["id"])) {
+            selecteds.push(personList[x]["id"]);
+        }
+    }
+    return selecteds;
+
+}
+
+
 function backwards() {
+
+
+    console.log("上一条");
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
         return;
@@ -76,18 +117,19 @@ function backwards() {
         pointer = pointer - 1;
         //判断当前指针位置
         var person = getPersonById(selectedIds[pointer]);
-        personDetail.$set("person", person);
+        vdm.$set("person", person);
     }
 
 }
 function forwards() {
+    console.log("下一条");
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
         return;
     } else {
         pointer = pointer + 1;
         var person = getPersonById(selectedIds[pointer]);
-        personDetail.$set("person", person);
+        vdm.$set("person", person);
 
     }
 }
@@ -184,7 +226,6 @@ function addNew() {
     formTab.tab('show');
 }
 
-
 /**
  *  造人方法
  */
@@ -207,4 +248,54 @@ function createPerson() {
     });
 
 
+}
+
+
+/**
+ * 根据ID获取设备信息
+ * @param users 设备信息集合
+ * @param eid 设备ID
+ */
+function getPersonByIdInPerson(eid) {
+    var person = null;
+    var url = "/person/findById/" + eid;
+    $.getJSON(url, function (data) {
+        person = data;
+    });
+    return person;
+}
+
+
+/**
+ *
+ * @returns {*}
+ *
+ * 获取所有人信息
+ */
+function getAllPerson() {
+    var person = null;
+    var url = "/person/findActivePerson";
+    $.getJSON(url, function (data) {
+        person = data;
+    });
+    return person;
+}
+
+
+/**
+ *
+ * @param formId 设置form为只读
+ */
+function setFormReadStatus(formId, formLocked, except) {
+    if (formLocked) {
+        $(formId + " input").attr("readonly", "readonly");
+        $(formId + " select").attr("disabled", "disabled");
+    } else {
+        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
+        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
+        // $(formId + " #status").attr("disabled", "disabled");
+        for (var x in except) {
+            $("#" + except[x]).attr("readonly", "readonly");
+        }
+    }
 }

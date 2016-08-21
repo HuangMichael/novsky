@@ -161,11 +161,10 @@ public class WorkOrderReportCartService extends BaseService {
      * @param equipmentId 设备id
      * @return 设备按照设备equipmentId查询是否有未完成的维修任务
      */
-    public List<Object> checkEqsBeforeAdd2Cart(Long equipmentId) {
-        List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedEquipments(equipmentId, CommonStatusType.FIX_ACCOMPLISHED);
+    public List<WorkOrderReportCart> checkEqsBeforeAdd2Cart(Long equipmentId) {
+        Equipments equipment = equipmentsRepository.findById(equipmentId);
+        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartRepository.findByEquipmentsAndNodeStateNot(equipment, "已完工");
         return workOrderReportCartList;
-
-
     }
 
 
@@ -173,11 +172,9 @@ public class WorkOrderReportCartService extends BaseService {
      * @param locations 位置编号
      * @return 设备按照设备equipmentId查询是否有未完成的维修任务
      */
-    public List<Object> checkLocsBeforeAdd2Cart(String locations) {
-        List<Object> workOrderReportCartList = workOrderReportCartRepository.findReportedLocations(locations + "%", CommonStatusType.FIX_ACCOMPLISHED);
+    public List<WorkOrderReportCart> checkLocsBeforeAdd2Cart(String locations) {
+        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartRepository.findByLocationStartingWithAndNodeStateNot(locations, "已完工");
         return workOrderReportCartList;
-
-
     }
 
     /**

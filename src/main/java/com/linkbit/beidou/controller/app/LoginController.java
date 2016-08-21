@@ -142,4 +142,16 @@ public class LoginController {
         return returnObject;
     }
 
+
+    // 异步请求sessionId
+
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
+    @ResponseBody
+    public User checkSession(HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        return user;
+    }
 }

@@ -59,7 +59,7 @@
                                         <%@include file="personList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                        <%@include file="create.jsp" %>
+                                        <%@include file="detail.jsp" %>
                                     </div>
                                 </div>
                             </div>

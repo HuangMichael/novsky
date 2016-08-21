@@ -20,11 +20,19 @@
 <script type="text/javascript">
     $(function () {
         //先查询出所有的模块
-        var userName = "<%= userName%>";
-        if (!userName) {
-            alert("用户未登录,请重新登录!");
-            window.location = "/";
-        }
+        var userName = "admin";
+        /*$.ajaxSettings.async = false;
+        $("/getCurrentUser", function (data) {
+            console.log("当前用户data" + JSON.stringify(data));
+            if (!data) {
+                alert("用户未登录,请重新登录!");
+                window.location = "/";
+            } else {
+                console.log("当前用户" + JSON.stringify(data));
+                userName = data.userName;
+            }
+        });
+*/
         console.log(userName);
         var modules = getAllModules(userName);
         var html = '';

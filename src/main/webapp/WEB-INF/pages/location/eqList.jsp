@@ -5,28 +5,27 @@
     <thead>
     <tr>
         <th>序号</th>
+        <th>位置</th>
         <th>故障描述</th>
-        <%--<th>报修人</th>--%>
         <th>报修时间</th>
         <th>维修状态</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${reportedEqList}" var="e" varStatus="s">
+    <c:forEach items="${reportedEqList}" var="c" varStatus="s">
         <tr class="gradeX">
             <td>${s.index+1}</td>
             <td>
-                    ${e[1]}
+                    ${c.vlocations.locName}
             </td>
             <td>
-                    ${e[2]}
+                    ${c.orderDesc}
             </td>
             <td>
-                <c:if test="${e[4]=='0'}">报修车</c:if>
-                <c:if test="${e[4]=='1'}">已报修</c:if>
-                <c:if test="${e[4]=='2'}">已分配</c:if>
-                <c:if test="${e[4]=='3'}">已暂停</c:if>
-                <c:if test="${e[4]=='4'}">已完工</c:if>
+                    ${c.reportTime}
+            </td>
+            <td>
+                    ${c.nodeState}
             </td>
         </tr>
     </c:forEach>

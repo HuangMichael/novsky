@@ -5,7 +5,7 @@
             <%@include file="common/common-breadcrumb.jsp" %>
             <div class="row">
                 <div class="col-md-12">
-                    <img src="/img/error.jpg" class="img-responsive img-thumbnail img-rounded"/>
+                    <H1>用户会话已过期，请重新<a href="/">登录</a>！</H1>
                 </div>
             </div>
         </div>
