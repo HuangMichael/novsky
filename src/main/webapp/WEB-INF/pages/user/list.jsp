@@ -48,7 +48,7 @@
                                     <i class="glyphicon glyphicon-edit"></i>编辑记录
                                 </button>
 
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveUser()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="savePerson()">
                                     <i class="glyphicon glyphicon-save"></i>保存记录
                                 </button>
                                 <button type="button" class="btn btn-sm myNavBtn active"

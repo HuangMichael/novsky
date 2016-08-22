@@ -5,6 +5,7 @@
         <label class="col-md-1 control-label" for="personNo">人员编号</label>
 
         <div class="col-md-3">
+            <input type="hidden" class="form-control" id="personId" name="personId" v-model="person.id" />
             <input type="text" class="form-control" id="personNo" name="personNo" v-model="person.personNo" required/>
         </div>
         <label class="col-md-1 control-label" for="personName">人员姓名</label>
@@ -36,14 +37,14 @@
 
         <div class="col-md-3"><select class="form-control" id="status" name="status" v-model="person.status">
             <option value="0">禁用</option>
-            <option value="1">启用</option>
+            <option value="1">启用  </option>
         </select>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭
         </button>
-        <button type="button" id="saveBtn" name="saveBtn"  class="btn btn-danger" onclick="createPerson()">保存
+        <button type="submit" id="saveBtn" name="saveBtn"  class="btn btn-danger">保存
         </button>
     </div>
 </form>

@@ -43,7 +43,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭
         </button>
-        <button type="button" id="saveBtn" name="saveBtn"  class="btn btn-danger" onclick="createPerson()">保存
+        <button type="submit" id="saveBtn" name="saveBtn"  class="btn btn-danger">保存
         </button>
     </div>
 </form>

@@ -47,6 +47,61 @@ public class PersonController {
 
     /**
      * 查询根节点
+     *
+     * @param personId
+     * @param personNo
+     * @param personName
+     * @param telephone
+     * @param email
+     * @param birthDate
+     * @param status
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Person update(
+            @RequestParam("personId") Long personId,
+            @RequestParam("personNo") String personNo,
+            @RequestParam("personName") String personName,
+            @RequestParam("telephone") String telephone,
+            @RequestParam("email") String email,
+            @RequestParam("birthDate") String birthDate,
+            @RequestParam("status") String status
+    ) {
+        Person person = personService.findById(personId);
+        if (person != null) {
+            person.setPersonName(personName);
+            person.setPersonNo(personNo);
+            person.setPersonName(personName);
+            person.setTelephone(telephone);
+            try {
+                person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            person.setEmail(email);
+            person.setStatus(status);
+            person = personService.update(person);
+        }
+        return person;
+    }
+
+
+    /**
+     * @param person 人员信息
+     * @return 新建人员信息
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    public Person create(Person person) {
+        return personService.save(person);
+    }
+
+
+    /**
+     * 查询激活状态的人员信息
+     *
+     * @return
      */
     @RequestMapping(value = "/findActivePerson")
     @ResponseBody

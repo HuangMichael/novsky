@@ -20,11 +20,11 @@
                                         onclick="addNew()">
                                     <i class="glyphicon glyphicon-plus"></i>新建记录
                                 </button>
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="editEq()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="edit()">
                                     <i class="glyphicon glyphicon-edit"></i>编辑记录
                                 </button>
 
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="saveEq()">
+                                <button type="button" class="btn btn-sm myNavBtn active" onclick="savePerson()">
                                     <i class="glyphicon glyphicon-save"></i>保存记录
                                 </button>
 

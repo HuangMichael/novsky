@@ -19,6 +19,60 @@ var formTab = $('#myTab li:eq(1) a');
 //新建数据模型
 var createModel = null;
 
+var validationSettings = {
+    message: '该值无效 ',
+    fields: {
+        personNo: {
+            message: '人员编号无效',
+            validators: {
+                notEmpty: {
+                    message: '人员编号不能为空!'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 10,
+                    message: '人员编号长度为2到10个字符'
+                }
+            }
+        },
+        personName: {
+            message: '人员名称无效',
+            validators: {
+                notEmpty: {
+                    message: '人员名称不能为空!'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 20,
+                    message: '人员名称长度为2到20个字符'
+                }
+            }
+        },
+        telephone: {
+            validators: {
+                notEmpty: {
+                    message: '电话号码不能为空'
+                },
+                digits: {
+                    message: '请输入正确的电话号码'
+                },
+                stringLength: {
+                    min: 11,
+                    max: 11,
+                    message: '电话号码长度有误'
+                }
+            }
+        },
+        email: {
+            validators: {
+                emailAddress: {
+                    message: '请输入正确的邮箱'
+                }
+            }
+        }
+    }
+}
+
 
 $(function () {
     //ajax 请求personList集合
@@ -107,8 +161,6 @@ function setAllInSelectedList(personList) {
 
 
 function backwards() {
-
-
     console.log("上一条");
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
@@ -165,63 +217,11 @@ function addNew() {
     });
     //数据验证
     $('#createForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                personNo: {
-                    message: '人员编号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '人员编号不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 10,
-                            message: '人员编号长度为2到10个字符'
-                        }
-                    }
-                },
-                personName: {
-                    message: '人员名称无效',
-                    validators: {
-                        notEmpty: {
-                            message: '人员名称不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '人员名称长度为2到20个字符'
-                        }
-                    }
-                },
-                telephone: {
-                    validators: {
-                        notEmpty: {
-                            message: '电话号码不能为空'
-                        },
-                        digits: {
-                            message: '请输入正确的电话号码'
-                        },
-                        stringLength: {
-                            min: 11,
-                            max: 11,
-                            message: '电话号码长度有误'
-                        }
-                    }
-                },
-                email: {
-                    validators: {
-                        emailAddress: {
-                            message: '请输入正确的邮箱'
-                        }
-                    }
-                }
-            }
-        }).on('success.form.bv', function (e) {
+        .bootstrapValidator(validationSettings).on('success.form.bv', function (e) {
         // Prevent form submission
         e.preventDefault();
         // Get the form instance
-        createPerson();
+        save();
     });
     formTab.tab('show');
 }
@@ -229,26 +229,61 @@ function addNew() {
 /**
  *  造人方法
  */
-function createPerson() {
-    var person = createModel.$data.person;
-    var url = "/person/save";
-    $.post(url, {
-        personNo: person.personNo,
-        personName: person.personName,
-        telephone: person.telephone,
-        email: person.email,
-        birthDate: person.birthDate,
-        status: person.status
-    }, function () {
+function save() {
 
-    }).success(function (data) {
-        showMessageBoxCenter("info", "center", "人员信息添加成功!");
-    }).error(function (data) {
-        showMessageBoxCenter("danger", "center", "人员信息添加失败!");
-    });
+    var personId = $("#personId").val();
+    console.log(personId);
+
+    /*    var person = createModel.$data.person;
+     var url = "/person/save";
+     console.log("person.id---------------" + person.id);
+     $.post(url, {
+     personNo: person.personNo,
+     personName: person.personName,
+     telephone: person.telephone,
+     email: person.email,
+     birthDate: person.birthDate,
+     status: person.status
+     }, function () {
+
+     }).success(function (data) {
+     showMessageBoxCenter("info", "center", "人员信息添加成功!");
+     }).error(function (data) {
+     showMessageBoxCenter("danger", "center", "人员信息添加失败!");
+     });*/
 
 
 }
+
+$("#saveBtn").on("click", function (data) {
+    var personId = $("#personId").val();
+    var personNo = $("#personNo").val();
+    var telephone = $("#telephone").val();
+    var email = $("#email").val();
+    var birthDate = $("#birthDate").val();
+    var status = $("#status").val();
+    var url = "";
+    var person = {
+        personId: personId,
+        personNo: personNo,
+        telephone: telephone,
+        email: email,
+        birthDate: birthDate,
+        status: status
+    }
+    if (personId) {
+        url = "person/update";
+    } else {
+        url = "person/create";
+    }
+    $.post(url, person, function (data) {
+        if (data.result) {
+            showMessageBox("info", data.resultDesc);
+        } else {
+            showMessageBox("danger", data.resultDesc);
+        }
+    });
+});
 
 
 /**
@@ -299,3 +334,27 @@ function setFormReadStatus(formId, formLocked, except) {
         }
     }
 }
+
+
+/**
+ * 编辑设备信息
+ */
+function edit() {
+    var uid = selectedIds[pointer];
+    var person = getPersonByIdInPerson(uid);
+    if (uid) {
+        vdm.$set("person", person);
+        formTab.tab('show');
+        setFormReadStatus("#detailForm", false, ['personNo']);
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+        return;
+    }
+}
+
+
+function savePerson() {
+    $("#saveBtn").trigger("click");
+}
+
+

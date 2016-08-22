@@ -50,4 +50,13 @@ public class PersonService extends BaseService {
     public Person save(Person person) {
         return personRepository.save(person);
     }
+
+
+    /**
+     * @param person
+     * @return 更新人员信息
+     */
+    public Person update(Person person) {
+        return personRepository.save(person);
+    }
 }
