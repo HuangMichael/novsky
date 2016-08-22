@@ -1,7 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<a class="btn btn-default btn-mini navbar-btn">信息列表
-</a>
-<button type="button" class="btn btn-default btn-mini navbar-btn"
-        data-toggle="modal"
-        data-target="#createModal">新建记录
-</button>
+     <div class="box-body" style="padding: 5px 20px 5px 5px">
+                            <div class="btn-group">
+                            <c:forEach var="m" items="${appMenus}">
+                                <button type="button" class="btn btn-sm myNavBtn active"
+                                        onclick="loadNew()">
+                                    <i class="glyphicon glyphicon-plus"></i>${m.resourceName}
+                                </button>
+                             </c:forEach>
+                            </div>
+                        </div>

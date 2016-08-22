@@ -20,9 +20,6 @@
         </div>
     </div>
 </form>
-<script type="text/javascript">
-    $(function () {
-        $("select").select2({theme: "bootstrap"});
-    });
-</script>
+
+<div id ="myUsersDiv"></div>
 

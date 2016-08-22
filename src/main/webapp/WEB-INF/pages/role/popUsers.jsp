@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table id="usersNotInRole"   class="table table-striped table-bordered table-hover">
+<table id="usersNotInRole" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
         <th data-column-id="id">序号</th>
@@ -13,10 +13,10 @@
         <tr class="gradeX">
             <td>${s.index+1}</td>
             <td>
-                 ${u.id}
+                 ${u[0]}
             </td>
             <td>
-                 ${u.userName}
+                 ${u[1]}
             </td>
         </tr>
     </c:forEach>
@@ -24,3 +24,26 @@
     <tfoot>
     </tfoot>
 </table>
+
+<script type="text/javascript">
+
+var selectUsersId =[];
+ $("#usersNotInRole").bootgrid({
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: false,
+                    keepSelection: true
+                }
+            ).on("selected.rs.jquery.bootgrid", function (e, rows) {
+                for (var x in rows) {
+                    if (rows[x]["id"]) {
+                        selectedUsersId.push(rows[x]["id"]);
+                    }
+                }
+            }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+                for (var x in rows) {
+                    selectedUsersId.remove(rows[x]["id"]);
+                }
+            });
+
+</script>

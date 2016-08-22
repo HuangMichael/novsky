@@ -36,6 +36,10 @@ public class Resource {
     @Column(length = 1)
     private Long resourceLevel;//资源级别
 
+    @Column(length = 20, nullable = true)
+    private String appName;//应用名称
+
+
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     Resource parent;

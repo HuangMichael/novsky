@@ -2,7 +2,8 @@ var zTree;
 var demoIframe;
 var setting = {
         check: {
-            enable: true
+            enable: true,
+            chkboxType: { "Y" : "s", "N" : "s" }
         },
         view: {
             dblClickExpand: false,
@@ -21,7 +22,6 @@ var setting = {
             onCheck: onCheck
         }
     }
-    ;
 var zNodes = [];
 $(document).ready(function () {
     var url = "/resource/findApps";

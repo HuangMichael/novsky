@@ -2,16 +2,20 @@ package com.linkbit.beidou.controller.equipment;
 
 
 import com.linkbit.beidou.controller.common.BaseController;
+import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
@@ -25,6 +29,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,25 +51,24 @@ public class EquipmentController extends BaseController {
     EquipmentAccountService equipmentAccountService;
 
     @Autowired
-
     EquipmentsClassificationRepository equipmentsClassificationRepository;
 
     @Autowired
     LocationsService locationsService;
-    @Autowired
-    WorkOrderReportService workOrderReportService;
 
     @Autowired
     VlocationsRepository vlocationsRepository;
     @Autowired
     VequipmentsRepository vequipmentsRepository;
 
+    @Autowired
+    ResourceService resourceService;
+
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession session) {
-        return "/equipments/list";
+    public String list(HttpSession httpSession, ModelMap modelMap) {
+        return super.list(httpSession, modelMap);
     }
-
     /**
      * @param session 当前会话
      * @return 查询当前用户所在的位置下属的设备
@@ -81,8 +85,9 @@ public class EquipmentController extends BaseController {
     public String reload(@PathVariable("objId") long objId, ModelMap modelMap) {
         Equipments equipments = equipmentsRepository.findById(objId);
         modelMap.put("object", equipments);
-        return "/equipments/table_1_2";
+        return "/equipment/table_1_2";
     }
+
     /**
      * 查询根节点
      */
@@ -91,7 +96,7 @@ public class EquipmentController extends BaseController {
         List<OutsourcingUnit> outsourcingUnitList = equipmentAccountService.findAllUnit();
         //  modelMap.put("outsourcingUnitList", outsourcingUnitList);
         //查询出所有的设备分类
-        return "/equipments/create";
+        return "/equipment/create";
     }
 
 
@@ -306,9 +311,8 @@ public class EquipmentController extends BaseController {
     @RequestMapping(value = "/getFixStepsByEid/{eid}")
     @ResponseBody
     public List<Object> getFixStepsByEid(@PathVariable("eid") Long eid) {
-        return equipmentAccountService. findAllFixStepsByEid(eid);
+        return equipmentAccountService.findAllFixStepsByEid(eid);
     }
-
 
 
     /**
@@ -318,7 +322,7 @@ public class EquipmentController extends BaseController {
     public String loadHistoryByEid(@PathVariable("eid") Long eid, ModelMap modelMap) {
         List<Object> historyList = equipmentAccountService.findFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
-        return "/equipments/table_1_3";
+        return "/equipment/table_1_3";
     }
 
 
@@ -329,7 +333,7 @@ public class EquipmentController extends BaseController {
     public String loadLastHistory(@PathVariable("eid") Long eid, ModelMap modelMap) {
         List<Object> historyList = equipmentAccountService.findLastFixHistoryByEid(eid);
         modelMap.put("historyList", historyList);
-        return "/equipments/table_1_3";
+        return "/equipment/table_1_3";
     }
 
     /**
@@ -339,7 +343,7 @@ public class EquipmentController extends BaseController {
     public String loadFixHistory(@PathVariable("orderLineNo") String orderLineNo, ModelMap modelMap) {
         List<Object> fixHistoryList = equipmentAccountService.findAllFixStepsByOrderLineNo(orderLineNo);
         modelMap.put("fixHistoryList", fixHistoryList);
-        return "/equipments/table_1_4";
+        return "/equipment/table_1_4";
     }
 
 

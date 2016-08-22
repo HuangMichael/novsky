@@ -16,7 +16,7 @@ public interface LocationsRepository extends CrudRepository<Locations, Long> {
      * 查询所有设备类别
      */
     @Query("SELECT l FROM Locations l")
-    public List<Locations> findAll();
+    List<Locations> findAll();
 
 
     /**

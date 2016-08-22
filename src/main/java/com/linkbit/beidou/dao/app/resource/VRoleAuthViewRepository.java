@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,5 +52,11 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
      */
     @Query("select  distinct v  from VRoleAuthView v where 1=1 and v.role in :roleList and v.resourceLevel =:resourceLevel and v.parentId =:parentId")
     List<VRoleAuthView> findByRoleListAndResourceLevelAndParentId(@Param("roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
-    //@Param("roleList") List<Long> roleIds,
+
+
+    /**
+     * 根据应用名称查询菜单
+     */
+    @Query("select  distinct v  from VRoleAuthView v where  v.role in :roleList and v.appName =:appName ")
+    List<VRoleAuthView> findByRoleListAppName(@Param("roleList") List<Role> roleList, @Param("appName") String appName);
 }

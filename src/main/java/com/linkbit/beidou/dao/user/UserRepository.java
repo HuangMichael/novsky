@@ -52,7 +52,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     /**
      * 查询不在当前角色中的用户信息
      */
-    @Query(nativeQuery = true,value="SELECT  u.id,u.user_name FROM t_user u WHERE u.id NOT IN (SELECT ur.user_id FROM  t_user_role ur  WHERE ur.role_id = :roleId) AND u.status = 1")
+    @Query(nativeQuery = true,value="SELECT  u.id,u.user_name FROM t_user u WHERE u.id NOT IN (SELECT ur.user_id FROM  t_role_user ur  WHERE ur.role_id = :roleId) AND u.status = 1")
     List<Object> findUsersNotInRole(@Param("roleId") Long roleId);
 
 }

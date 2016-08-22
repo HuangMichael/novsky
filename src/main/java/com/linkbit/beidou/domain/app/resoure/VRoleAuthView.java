@@ -34,6 +34,10 @@ public class VRoleAuthView {
     private String iconClass;//菜单样式
     @Column(length = 20, nullable = false)
     private String resourceUrl;//资源路径
+
+    @Column(length = 20, nullable = false)
+    private String appName;//应用名称
+
     @JsonBackReference("role")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id")

@@ -8,10 +8,13 @@ import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.role.RoleService;
 import com.linkbit.beidou.service.user.UserService;
+import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -250,6 +253,18 @@ public class ResourceService {
             vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(roleList, resourceLevel, parentId);
         }
         return vRoleAuthViewList;
+    }
+
+
+    /**
+     * 根据AppName查询应用菜单
+     */
+    public List<VRoleAuthView> findAppMenusByController(HttpSession httpSession, String controllerName) {
+        User user = SessionUtil.getCurrentUserBySession(httpSession);
+        List<Role> roleList = user.getRoleList();
+        String appName[] = controllerName.split("Controller");
+        System.out.println("应用名称------------------------" + appName[0].toUpperCase());
+        return vRoleAuthViewRepository.findByRoleListAppName(roleList, appName[0].toUpperCase());
     }
 
 }
