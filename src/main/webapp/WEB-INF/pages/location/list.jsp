@@ -26,6 +26,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="box border blue">
+                    <%include file='../common/common-menubar.jsp' %>
                         <div class="box-body">
                             <button type="button" class="btn btn-sm myNavBtn active"
                                     onclick="loadCreateForm()"><i

@@ -1,5 +1,6 @@
 package com.linkbit.beidou.controller.locations;
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
@@ -39,7 +40,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/location")
-public class LocationController {
+public class LocationController extends BaseController {
 
     Log log = LogFactory.getLog(this.getClass());
 
@@ -51,20 +52,11 @@ public class LocationController {
 
     @Autowired
     LineService lineService;
-    @Autowired
-    EquipmentAccountService equipmentAccountService;
-
-    @Autowired
-    EquipmentsRepository equipmentsRepository;
 
     List<Line> lineList;
 
     List<Station> stationList;
 
-    @Autowired
-    LocationsRepository locationsRepository;
-    @Autowired
-    VlocationsRepository vlocationsRepository;
     @Autowired
     VequipmentsRepository vequipmentsRepository;
 
@@ -76,10 +68,10 @@ public class LocationController {
      */
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession session) {
-        User user = (User) session.getAttribute("currentUser");
+/*        User user = (User) session.getAttribute("currentUser");
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
-        modelMap.put("equipmentsList", equipmentsList);
-        return "/location/list";
+        modelMap.put("equipmentsList", equipmentsList);*/
+        return super.list(session, modelMap);
 
     }
 

@@ -25,6 +25,7 @@ public class BaseController {
     public String list(HttpSession httpSession, ModelMap modelMap) {
         //加载查询菜单
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        System.out.println("controllerName-----------------------"+controllerName);
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
         return "/" + controllerName.toLowerCase() + "/list";
