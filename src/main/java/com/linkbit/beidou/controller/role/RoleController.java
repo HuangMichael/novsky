@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.role;
 
 import com.linkbit.beidou.dao.role.RoleRepository;
 import com.linkbit.beidou.domain.role.Role;
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -99,4 +100,30 @@ public class RoleController {
     public Role findById(@PathVariable Long id) {
         return roleService.findById(id);
     }
+
+
+    /**
+     * 载入明细信息
+     */
+    @RequestMapping(value = "/popUsers", method = RequestMethod.POST)
+    public String popUsers(@RequestParam("roleId") Long roleId, ModelMap modelMap) {
+        List<Object> usersNotInRole = roleService.findUsersNotInRole(roleId);
+        modelMap.put("usersNotInRole", usersNotInRole);
+        return "/role/popUsers";
+    }
+
+
+    /**
+     * @return 查询不在当前角色中的用户
+     */
+    @RequestMapping(value = "/findUsersNotInRole/{roleId}", method = {RequestMethod.GET})
+    @ResponseBody
+    public List<Object> findUsersNotInRole(@PathVariable("roleId") Long roleId) {
+        return roleService.findUsersNotInRole(roleId);
+    }
 }
+
+
+
+
+

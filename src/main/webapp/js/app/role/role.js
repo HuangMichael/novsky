@@ -286,3 +286,17 @@ function getAllRoles() {
     });
     return roles;
 }
+
+/*
+*选择不在该角色中的人员 人员加入角色
+*/
+function addUsers(roleId){
+
+
+alert("弹出人员选择框 选择人员");
+
+//ajax请求数据和页面 弹出
+
+
+}
+

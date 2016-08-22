@@ -31,4 +31,6 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
      */
     Role save(Role role);
 
+
+
 }

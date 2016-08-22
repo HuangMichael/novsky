@@ -38,6 +38,7 @@
                                         onclick="forwards()"><i
                                         class="glyphicon glyphicon-glyphicon glyphicon-forward"></i>下一条
                                 </button>
+
                             </div>
                         </div>
                         <div class="box-body">

@@ -3,16 +3,20 @@
 <form class="form-horizontal myform" role="form" id="detailForm">
     <div class="form-group">
         <label class="col-md-2 col-sm-2 col-lg-2" for="roleName">角色名称</label>
-
-        <div class="col-md-4 col-sm-4 col-lg-4">
+        <div class="col-md-3 col-sm-3 col-lg-3">
             <input type="text" class="form-control" id="roleName" name="roleName" v-model="role.roleName">
             <input type="hidden" class="form-control" id="roleId" name="roleId" v-model="role.id">
         </div>
         <div class="col-md-2 col-sm-2 col-lg-2">
             <label for="roleDesc">角色描述</label>
         </div>
-        <div class="col-md-4 col-sm-4 col-lg-4">
+        <div class="col-md-3 col-sm-3 col-lg-3">
             <input type="text" class="form-control" id="roleDesc" name="roleDesc" v-model="role.roleDesc">
+        </div>
+        <div class="col-md-2 col-sm-2 col-lg-2">
+             <button type="button" class="btn btn-sm myNavBtn active" onclick="addUsers()">
+                 <i class="glyphicon glyphicon-plus"></i>添加人员
+             </button>
         </div>
     </div>
 </form>

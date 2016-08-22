@@ -1,12 +1,15 @@
 package com.linkbit.beidou.service.role;
 
 import com.linkbit.beidou.dao.role.RoleRepository;
+import com.linkbit.beidou.dao.user.UserRepository;
 import com.linkbit.beidou.domain.role.Role;
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +21,9 @@ public class RoleService extends BaseService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     /**
      * 根据状态查询用户
@@ -49,5 +55,14 @@ public class RoleService extends BaseService {
      */
     public List<Role> findActiveRole() {
         return roleRepository.findByStatus(CommonStatusType.STATUS_YES);
+    }
+
+
+    /**
+     * 查询出不在当前角色中的人员
+     */
+
+    public List<Object> findUsersNotInRole(Long roleId) {
+        return userRepository.findUsersNotInRole(roleId);
     }
 }
