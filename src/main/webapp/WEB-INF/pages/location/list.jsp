@@ -26,25 +26,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="box border blue">
-                    <%include file='../common/common-menubar.jsp' %>
-                        <div class="box-body">
-                            <button type="button" class="btn btn-sm myNavBtn active"
-                                    onclick="loadCreateForm()"><i
-                                    class="glyphicon glyphicon-glyphicon glyphicon-plus"></i>新建记录
-                            </button>
-                            <button type="button" class="btn btn-sm myNavBtn active"
-                                    onclick="save()"><i
-                                    class="glyphicon glyphicon-glyphicon glyphicon-floppy-disk"></i>保存记录
-                            </button>
-                            <button type="button" class="btn btn-sm myNavBtn active"
-                                    onclick="deleteObject()"><i
-                                    class="glyphicon glyphicon-glyphicon glyphicon-trash"></i>删除记录
-                            </button>
-                            <button type="button" class="btn btn-sm myNavBtn active"
-                                    onclick="reportByLocation()"><i
-                                    class="glyphicon glyphicon-glyphicon glyphicon-warning-sign"></i>位置报修
-                            </button>
-                        </div>
+                    <%@include file='../common/common-menubar.jsp' %>
                     </div>
                     <div class="divide-2"></div>
                     <!-- BOX -->

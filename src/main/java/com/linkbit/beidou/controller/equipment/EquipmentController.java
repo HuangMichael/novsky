@@ -67,8 +67,16 @@ public class EquipmentController extends BaseController {
 
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
-        return super.list(httpSession, modelMap);
+
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        System.out.println("controllerName-----------------------" + controllerName);
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
+
+
+        return "/equipment/list";
     }
+
     /**
      * @param session 当前会话
      * @return 查询当前用户所在的位置下属的设备

@@ -5,6 +5,7 @@ import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
@@ -12,6 +13,7 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
@@ -40,7 +42,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/location")
-public class LocationController extends BaseController {
+public class LocationController {
 
     Log log = LogFactory.getLog(this.getClass());
 
@@ -49,6 +51,9 @@ public class LocationController extends BaseController {
 
     @Autowired
     StationService stationService;
+
+    @Autowired
+    ResourceService resourceService;
 
     @Autowired
     LineService lineService;
@@ -63,15 +68,20 @@ public class LocationController extends BaseController {
 
     /**
      * @param modelMap
-     * @param session
+     * @param httpSession
      * @return 初始化载入界面
      */
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession session) {
-/*        User user = (User) session.getAttribute("currentUser");
+    public String list(ModelMap modelMap, HttpSession httpSession) {
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        System.out.println("controllerName-----------------------" + controllerName);
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
+
+        User user = (User) httpSession.getAttribute("currentUser");
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
-        modelMap.put("equipmentsList", equipmentsList);*/
-        return super.list(session, modelMap);
+        modelMap.put("equipmentsList", equipmentsList);
+        return "/location/list";
 
     }
 
