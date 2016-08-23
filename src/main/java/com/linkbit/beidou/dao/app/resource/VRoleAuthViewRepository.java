@@ -51,7 +51,7 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
      * @return 根据角色和资源级别查询
      */
     @Query("select  distinct v  from VRoleAuthView v where 1=1 and v.role in :roleList and v.resourceLevel =:resourceLevel and v.parentId =:parentId")
-    List<VRoleAuthView> findByRoleListAndResourceLevelAndParentId(@Param("roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
+    List<VRoleAuthView> findByRoleListAndResourceLevelAndParentId(@Param(value = "roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
 
 
     /**

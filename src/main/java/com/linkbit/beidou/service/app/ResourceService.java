@@ -240,14 +240,30 @@ public class ResourceService {
         return vRoleAuthViewList;
     }
 
+
     /**
-     * @param userName 用户名
+     * @param userId 用户名
      * @return 根据userId和资源级别查询资源
      */
-    public List<VRoleAuthView> findResourcesByUserNameAndResourceLevelAndParentId(String userName, Long resourceLevel, Long parentId) {
+    public List<VRoleAuthView> findResourcesByUserIdAndResourceLevel(Long userId, Long resourceLevel) {
         //首先根据用户id查询出用户对应的角色
         List<VRoleAuthView> vRoleAuthViewList = null;
-        User user = userService.findByUserNameAndStatus(userName, "1");
+        User user = userService.findById(userId);
+        if (user != null) {
+            List<Role> roleList = user.getRoleList();
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(roleList, resourceLevel);
+        }
+        return vRoleAuthViewList;
+    }
+
+    /**
+     * @param userId 用户名
+     * @return 根据userId和资源级别查询资源
+     */
+    public List<VRoleAuthView> findResourcesByUserIdAndResourceLevelAndParentId(Long userId, Long resourceLevel, Long parentId) {
+        //首先根据用户id查询出用户对应的角色
+        List<VRoleAuthView> vRoleAuthViewList = null;
+        User user = userService.findById(userId);
         if (user != null) {
             List<Role> roleList = user.getRoleList();
             vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(roleList, resourceLevel, parentId);

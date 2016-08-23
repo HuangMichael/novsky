@@ -95,29 +95,27 @@ public class AuthorityController {
     }
 
     /**
-     * @param userName
-     * @param modelMap
+     * @param userId
      * @return 根据用户ID载入用户权限预览
      */
-    @RequestMapping(value = "/loadAuthView/{resourceLevel}/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/loadModule/{resourceLevel}/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VRoleAuthView> loadAuthViewByUserId(@PathVariable("userName") String userName, @PathVariable("resourceLevel") Long resourceLevel, ModelMap modelMap) {
-        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevel(userName, resourceLevel);
+    public List<VRoleAuthView> loadAuthViewByUserId(@PathVariable("resourceLevel") Long resourceLevel,@PathVariable("userId") Long userId) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevel(userId, resourceLevel);
         return vRoleAuthViews;
     }
 
 
     /**
-     * @param userName
-     * @param modelMap
+     * @param userId
      * @return 根据用户ID载入用户权限预览
      */
 
 
-    @RequestMapping(value = "/loadAuthView/{resourceLevel}/{moduleId}/{userName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/loadApp/{resourceLevel}/{moduleId}/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId(@PathVariable("resourceLevel") Long resourceLevel, @PathVariable("moduleId") Long moduleId, @PathVariable("userName") String userName, ModelMap modelMap) {
-        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserNameAndResourceLevelAndParentId(userName, resourceLevel, moduleId);
+    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId(@PathVariable("resourceLevel") Long resourceLevel, @PathVariable("moduleId") Long moduleId, @PathVariable("userId") Long userId) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevelAndParentId(userId, resourceLevel, moduleId);
         return vRoleAuthViews;
     }
 }

@@ -20,20 +20,14 @@
 <script type="text/javascript">
     $(function () {
         //先查询出所有的模块
-        var userName = "admin";
-        /*$.ajaxSettings.async = false;
-        $("/getCurrentUser", function (data) {
-            console.log("当前用户data" + JSON.stringify(data));
-            if (!data) {
-                alert("用户未登录,请重新登录!");
-                window.location = "/";
-            } else {
-                console.log("当前用户" + JSON.stringify(data));
-                userName = data.userName;
-            }
+
+
+        var userName = "";
+        $.ajaxSettings.async=false;
+        $.getJSON("/getCurrentUser",function(data){
+        console.log("用户名---------------------"+data.id);
+        userName= data.id;
         });
-*/
-        console.log(userName);
         var modules = getAllModules(userName);
         var html = '';
         var moduleId = null;
@@ -74,7 +68,7 @@
     function getAllModules(userName) {
         var modules = [];
         $.ajaxSettings.async = false;
-        var url = "authority/loadAuthView/1/" + userName;
+        var url = "authority/loadModule/1/" + userName;
         $.getJSON(url, function (data) {
             modules = data;
         });
@@ -88,7 +82,7 @@
     function getAppByModule(userName, moduleId) {
         var modules = [];
         $.ajaxSettings.async = false;
-        var url = "authority/loadAuthView/2/" + moduleId + "/" + userName;
+        var url = "authority/loadApp/2/" + moduleId + "/" + userName;
         $.getJSON(url, function (data) {
             modules = data;
         });

@@ -48,6 +48,12 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/personal")
+    public String personal(ModelMap modelMap) {
+        return "/user/personal";
+    }
+
+
     @RequestMapping(value = "/create")
     public String create(ModelMap modelMap) {
         return "/user/create";
@@ -56,7 +62,7 @@ public class UserController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject update(@RequestParam("userId") Long userId, @RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId,@RequestParam("status") String status) {
+    public ReturnObject update(@RequestParam("userId") Long userId, @RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId, @RequestParam("status") String status) {
         ReturnObject returnObject = new ReturnObject();
         User user = null;
         if (userId != null && personId != null && locationId != null) {
@@ -144,6 +150,22 @@ public class UserController {
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ResponseBody
     public User findById(@PathVariable("id") Long id) {
+        return userService.findById(id);
+    }
+
+
+    /**
+     * @param id 用户id
+     * @return 修改密码
+     */
+    @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
+    @ResponseBody
+    public User changePwd(@PathVariable("id") Long id) {
+
+//首先获取到原密码
+
+
+        //验证输入密码与原密码相同  然后输入新密码
         return userService.findById(id);
     }
 
