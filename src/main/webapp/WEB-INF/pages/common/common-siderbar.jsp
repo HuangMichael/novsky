@@ -20,12 +20,9 @@
 <script type="text/javascript">
     $(function () {
         //先查询出所有的模块
-
-
         var userName = "";
         $.ajaxSettings.async=false;
         $.getJSON("/getCurrentUser",function(data){
-        console.log("用户名---------------------"+data.id);
         userName= data.id;
         });
         var modules = getAllModules(userName);
@@ -68,7 +65,7 @@
     function getAllModules(userName) {
         var modules = [];
         $.ajaxSettings.async = false;
-        var url = "authority/loadModule/1/" + userName;
+        var url = "authority/loadModule/" + userName;
         $.getJSON(url, function (data) {
             modules = data;
         });
@@ -82,7 +79,7 @@
     function getAppByModule(userName, moduleId) {
         var modules = [];
         $.ajaxSettings.async = false;
-        var url = "authority/loadApp/2/" + moduleId + "/" + userName;
+        var url = "authority/loadApp/" + moduleId + "/" + userName;
         $.getJSON(url, function (data) {
             modules = data;
         });

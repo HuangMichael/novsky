@@ -68,6 +68,10 @@
                          min: 6,
                          max: 20,
                          message: '密码长度为6到20个字符'
+                     },
+                     identical: {
+                         field: 'confirmPwd',
+                         message: '新密码和确认密码不相同！'
                      }
                  }
              },
@@ -81,6 +85,10 @@
                          min: 6,
                          max: 20,
                          message: '密码长度为6到20个字符'
+                     },
+                     identical: {
+                         field: 'newPwd',
+                         message: '新密码和确认密码不相同！'
                      }
                  }
              }
@@ -94,7 +102,8 @@
 
      });
 
-     $("#oldPwd").on("change", function(data) {
+     $("#oldPwd").on("change",
+     function(data) {
          var userName = $("#userName").val();
          var oldPwd = $("#oldPwd").val();
          var data = {
@@ -103,9 +112,10 @@
          };
 
          var url = "user/checkPwd";
-         $.post(url, data, function(data) {
+         $.post(url, data,
+         function(data) {
              if (data.result) {
-             $("#newDiv").show();
+                 $("#newDiv").show();
                  showMessageBox("info", data.resultDesc);
 
              } else {
@@ -118,18 +128,19 @@
  });
 
  function changePwd() {
- var userName = $("#userName").val();
-   var newPwd = $("#newPwd").val();
+     var userName = $("#userName").val();
+     var newPwd = $("#newPwd").val();
      var url = "user/changePwd";
      var data = {
          userName: userName,
          newPwd: newPwd
      }
-     $.post(url, data, function(data) {
+     $.post(url, data,
+     function(data) {
          if (data.result) {
-          $("#user_modal").modal("hide");
-             showMessageBox("info", data.resultDesc+"，请重新登录!");
-          setTimeout("window.location='/'",3000);
+             $("#user_modal").modal("hide");
+             showMessageBox("info", data.resultDesc + "，请重新登录!");
+             setTimeout("window.location='/'", 3000);
 
          } else {
              showMessageBox("danger", data.resultDesc);

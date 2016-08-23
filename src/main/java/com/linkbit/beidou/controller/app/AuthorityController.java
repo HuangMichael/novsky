@@ -98,10 +98,10 @@ public class AuthorityController {
      * @param userId
      * @return 根据用户ID载入用户权限预览
      */
-    @RequestMapping(value = "/loadModule/{resourceLevel}/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/loadModule/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VRoleAuthView> loadAuthViewByUserId(@PathVariable("resourceLevel") Long resourceLevel,@PathVariable("userId") Long userId) {
-        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevel(userId, resourceLevel);
+    public List<VRoleAuthView> loadAuthViewByUserId(@PathVariable("userId") Long userId) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevel(userId, 1l);
         return vRoleAuthViews;
     }
 
@@ -112,10 +112,10 @@ public class AuthorityController {
      */
 
 
-    @RequestMapping(value = "/loadApp/{resourceLevel}/{moduleId}/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/loadApp/{moduleId}/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId(@PathVariable("resourceLevel") Long resourceLevel, @PathVariable("moduleId") Long moduleId, @PathVariable("userId") Long userId) {
-        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevelAndParentId(userId, resourceLevel, moduleId);
+    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId( @PathVariable("moduleId") Long moduleId, @PathVariable("userId") Long userId) {
+        List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevelAndParentId(userId, 2l, moduleId);
         return vRoleAuthViews;
     }
 }

@@ -7,6 +7,7 @@ import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -116,4 +117,20 @@ public class UserService extends BaseService {
         }
         return user;
     }
+
+    /**
+     * 修改用户密码
+     */
+    public boolean changePwd(String userName, String password) {
+        List<User> userList = userRepository.findByUserNameAndStatus(userName, CommonStatusType.STATUS_YES);
+        if (!userList.isEmpty()) {
+            User user = userList.get(0);
+            user.setPassword(MD5Util.md5(password));
+            user = userRepository.save(user);
+            return user!=null;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -43,7 +43,6 @@
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu" id="dropdown">
-                    <li><a onclick="showUser()"><i class="fa fa-user"></i>个人信息</a></li>
                      <li><a onclick="showUser()"><i class="fa fa-lock"></i>修改密码</a></li>
                     <li><a href="/"><i class="fa fa-power-off"></i>退出登录</a></li>
                 </ul>

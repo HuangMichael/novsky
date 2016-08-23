@@ -46,9 +46,8 @@ public class User {
 
     @Column(length = 20)
     private String location;
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "t_role_user", joinColumns = {@JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    @JoinTable(name = "t_role_user", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roleList;
 
 

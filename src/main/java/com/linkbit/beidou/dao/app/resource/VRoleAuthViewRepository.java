@@ -22,27 +22,11 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
     List<VRoleAuthView> findByRole(Role role);
 
     /**
-     * @param role
      * @param resourceLevel
      * @return 根据角色和资源级别查询
      */
-    List<VRoleAuthView> findByRoleAndResourceLevel(Role role, Long resourceLevel);
-
-/*
-    *//**
-     * @param role
-     * @param resourceLevel
-     * @return 根据角色和资源级别查询
-     *//*
-    List<VRoleAuthView> findByRoleAndResourceLevelAndParentId(Role role, Long resourceLevel, Long parentId);*/
-
-
-    /**
-     * @param resourceLevel
-     * @return 根据角色和资源级别查询
-     */
-    @Query("select distinct v from VRoleAuthView v where v.role in :roleList and  v.resourceLevel =:resourceLevel ")
-    List<VRoleAuthView> findByRoleListAndResourceLevel(@Param("roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel);
+    @Query("select distinct v from VRoleAuthView v where v.role.id in :roleIdList and  v.resourceLevel =:resourceLevel ")
+    List<VRoleAuthView> findByRoleListAndResourceLevel(@Param("roleIdList") List<Long> roleIdList, @Param("resourceLevel") Long resourceLevel);
     //@Param("roleIdStr") String roleIdStr,
 
     /**
@@ -50,8 +34,8 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
      * @param parentId
      * @return 根据角色和资源级别查询
      */
-    @Query("select  distinct v  from VRoleAuthView v where 1=1 and v.role in :roleList and v.resourceLevel =:resourceLevel and v.parentId =:parentId")
-    List<VRoleAuthView> findByRoleListAndResourceLevelAndParentId(@Param(value = "roleList") List<Role> roleList, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
+    @Query("select  distinct v  from VRoleAuthView v where 1=1 and v.role.id in :idList and v.resourceLevel =:resourceLevel and v.parentId =:parentId")
+    List<VRoleAuthView> findByRoleListAndResourceLevelAndParentId(@Param(value = "idList") List<Long> idList, @Param("resourceLevel") Long resourceLevel, @Param("parentId") Long parentId);
 
 
     /**

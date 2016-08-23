@@ -224,23 +224,6 @@ public class ResourceService {
         return vRoleAuthViewRepository.findByRoleAndResourceLevelAndParentId(role, resourceLevel, parentId);
     }*/
 
-
-    /**
-     * @param userName 用户名
-     * @return 根据userId和资源级别查询资源
-     */
-    public List<VRoleAuthView> findResourcesByUserNameAndResourceLevel(String userName, Long resourceLevel) {
-        //首先根据用户id查询出用户对应的角色
-        List<VRoleAuthView> vRoleAuthViewList = null;
-        User user = userService.findByUserNameAndStatus(userName, "1");
-        if (user != null) {
-            List<Role> roleList = user.getRoleList();
-            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(roleList, resourceLevel);
-        }
-        return vRoleAuthViewList;
-    }
-
-
     /**
      * @param userId 用户名
      * @return 根据userId和资源级别查询资源
@@ -249,9 +232,14 @@ public class ResourceService {
         //首先根据用户id查询出用户对应的角色
         List<VRoleAuthView> vRoleAuthViewList = null;
         User user = userService.findById(userId);
+        List<Long> idList = new ArrayList<Long>();
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(roleList, resourceLevel);
+            System.out.println("roleList------------------"+roleList.size());
+            for(Role r :roleList){
+                idList.add(r.getId());
+            }
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(idList, resourceLevel);
         }
         return vRoleAuthViewList;
     }
@@ -264,9 +252,15 @@ public class ResourceService {
         //首先根据用户id查询出用户对应的角色
         List<VRoleAuthView> vRoleAuthViewList = null;
         User user = userService.findById(userId);
+        List<Long> idList = new ArrayList<Long>();
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(roleList, resourceLevel, parentId);
+            System.out.println("roleList------------------"+roleList.size());
+            for(Role r :roleList){
+                System.out.println("r------------------"+r.getRoleDesc());
+                idList.add(r.getId());
+            }
+            vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(idList, resourceLevel, parentId);
         }
         return vRoleAuthViewList;
     }

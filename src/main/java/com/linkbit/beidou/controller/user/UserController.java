@@ -7,6 +7,8 @@ import com.linkbit.beidou.dao.user.UserRepository;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.user.UserService;
+import com.linkbit.beidou.utils.CommonStatusType;
+import com.linkbit.beidou.utils.MD5Util;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -155,19 +157,41 @@ public class UserController {
 
 
     /**
-     * @param id 用户id
      * @return 修改密码
      */
-    @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
+    @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
     @ResponseBody
-    public User changePwd(@PathVariable("id") Long id) {
-
-//首先获取到原密码
-
-
-        //验证输入密码与原密码相同  然后输入新密码
-        return userService.findById(id);
+    public ReturnObject changePwd(@RequestParam("userName") String userName, @RequestParam("newPwd") String newPwd) {
+        ReturnObject returnObject = new ReturnObject();
+       boolean result = userService.changePwd(userName,newPwd);
+        returnObject.setResult(result);
+        if (returnObject.getResult()) {
+            returnObject.setResultDesc("用户密码修改成功!");
+        } else {
+            returnObject.setResultDesc("用户密码修改失败!");
+        }
+        return returnObject;
     }
 
+
+    /**
+     * 检查用户密码合法性
+     */
+    @RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject checkPwd(@RequestParam("userName") String userName, @RequestParam("oldPwd") String oldPwd) {
+        ReturnObject returnObject = new ReturnObject();
+        oldPwd = MD5Util.md5(oldPwd);
+        List<User> userList = userService.findByUserNameAndPasswordAndStatus(userName, oldPwd, CommonStatusType.STATUS_YES);
+        if (!userList.isEmpty()) {
+            returnObject.setResult(true);
+            returnObject.setResultDesc("用户密码验证通过!");
+        } else {
+            returnObject.setResult(false);
+            returnObject.setResultDesc("用户密码验证失败!");
+        }
+        return returnObject;
+
+    }
 
 }

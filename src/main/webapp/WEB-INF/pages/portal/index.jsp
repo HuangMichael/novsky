@@ -67,7 +67,7 @@
                 type: 'column'
             },
             title: {
-                text: '维修单状态按线别统计'
+                text:  (new Date().getMonth() + 1)+'月维修单状态按线别统计'
             },
             xAxis: {
                 categories: lines,
