@@ -74,10 +74,8 @@ public class LocationController {
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession httpSession) {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        System.out.println("controllerName-----------------------" + controllerName);
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-
         User user = (User) httpSession.getAttribute("currentUser");
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
         modelMap.put("equipmentsList", equipmentsList);
