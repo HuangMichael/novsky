@@ -19,7 +19,29 @@
              </button>
         </div>
     </div>
+
 </form>
 
-<div id ="myUsersDiv"></div>
+ <table id="myUsers" class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th data-column-id="id">序号</th>
+            <th data-column-id="userName">用户名</th>
+        </tr>
+        </thead>
+        <tbody id="usersDiv">
+
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+<script>
+$(function() {
+
+
+
+});
+</script>
+
+
 

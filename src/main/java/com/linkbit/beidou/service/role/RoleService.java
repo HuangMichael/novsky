@@ -89,4 +89,17 @@ public class RoleService extends BaseService {
     }
 
 
+    /**
+     * @param roleId
+     * @return
+     */
+    public List<User> findUsersOfRole(Long roleId) {
+        List<User> userList = new ArrayList<User>();
+        if(roleId!=null){
+            userList = userRepository.findUserListByRoleId(roleId);
+        }
+        return userList;
+    }
+
+
 }

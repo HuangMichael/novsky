@@ -125,6 +125,7 @@ function backwards() {
         //判断当前指针位置
         var role = getRoleByIdInRoles(selectedIds[--pointer]);
         vdm.role = role;
+        loadUsers(role.id);
 
     }
 
@@ -139,6 +140,7 @@ function forwards() {
     } else {
         var role = getRoleByIdInRoles(selectedIds[++pointer]);
         vdm.role = role;
+        loadUsers(role.id);
     }
 }
 
@@ -209,8 +211,8 @@ $(function() {
             role = getRoleByIdInRoles(roles[0]["id"]);
             selectedIds = setAllInSelectedList(roles);
         }
-        console.log(JSON.stringify(role));
         vdm.role = role;
+        loadUsers(role.id)
     });
 
     listTab.on('click',
@@ -323,3 +325,32 @@ function confirmAddUsers() {
        }
     });
 }
+
+
+/**
+ *
+ * @param roleId
+ * 根据角色载入包含用户
+ */
+function loadUsers(roleId){
+    var roleId = $("#roleId").val();
+    var url = "role/findUsersOfRole/" + roleId;
+    var html = "";
+    $.getJSON(url,function(data) {
+        for (var x in data) {
+            console.log(data[x]["userName"]);
+
+            if(data[x]['id']){
+
+                html += '<tr class="gradeX">';
+                html += '<td>' + parseInt(x+1) + '</td>';
+                html += '<td>' + data[x]['userName'] + '</td>';
+                html += '</tr>';
+            }
+
+        }
+        $("#usersDiv").html(html);
+    });
+
+}
+

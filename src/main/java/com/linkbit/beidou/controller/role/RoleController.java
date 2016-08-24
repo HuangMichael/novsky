@@ -142,6 +142,16 @@ public class RoleController {
     public ReturnObject addUsers(@RequestParam("roleId") Long roleId, @RequestParam("usersIdStr") String usersIdStr) {
         return roleService.addUsers(roleId, usersIdStr);
     }
+
+    /**
+     * @param roleId
+     * @return 根据角色查询用户列表
+     */
+    @RequestMapping(value = "/findUsersOfRole/{roleId}", method = {RequestMethod.GET})
+    @ResponseBody
+    public List<User> findUsersOfRole(@PathVariable("roleId") Long roleId) {
+        return roleService.findUsersOfRole(roleId);
+    }
 }
 
 
