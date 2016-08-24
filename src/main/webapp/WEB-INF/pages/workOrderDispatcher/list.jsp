@@ -123,6 +123,6 @@
         <!-- /CONTENT-->
     </div>
 </div>
-<script type="text/javascript" src="/js/app/user/dispatch-form-wizard.min.js"></script>
-<script type="text/javascript" src="/js/app/user/workOrderDispatcher.js"></script>
+<script type="text/javascript" src="/js/app/workOrder/dispatch-form-wizard.min.js"></script>
+<script type="text/javascript" src="/js/app/workOrder/workOrderDispatcher.js"></script>
 

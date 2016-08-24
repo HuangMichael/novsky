@@ -13,10 +13,6 @@
                             <h4><i class="fa fa-table"></i>线路信息</h4>
                         </div>
                         <div class="box-body">
-                            <a class="btn btn-default btn-xs" href="#createUser_modal" data-toggle="modal" >
-                                <i class="glyphicon glyphicon-plus"></i>
-                                新建记录
-                            </a>
                             <table id="datatable1" class=" table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>

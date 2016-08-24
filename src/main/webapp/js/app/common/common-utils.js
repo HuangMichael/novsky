@@ -115,7 +115,7 @@ function updateNode(tree, nodeName) {
 
 function getTreeRoot() {
     var zTree = $.fn.zTree.getZTreeObj("tree");
-    return zTree
+    return zTree;
 }
 function getSelectedNodeId() {
     var zTree = $.fn.zTree.getZTreeObj("tree");

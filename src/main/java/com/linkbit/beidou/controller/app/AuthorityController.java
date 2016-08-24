@@ -72,7 +72,8 @@ public class AuthorityController {
             returnObject.setResultDesc("应用授权失败,请选择要授权的资源!");
         } else {
             Role role = roleService.findById(roleId);
-            List<Resource> resouceList = resourceService.findResourceListInIdStr(resourceIds);
+            List<Resource> resouceList = role.getResourceList();
+            resouceList.addAll(resourceService.findResourceListInIdStr(resourceIds));
             role.setResourceList(resouceList);
             roleService.save(role);
             returnObject.setResult(true);
@@ -91,7 +92,7 @@ public class AuthorityController {
         Role role = roleService.findById(roleId);
         List<VRoleAuthView> vRoleAuthViews = vRoleAuthViewRepository.findByRole(role);
         modelMap.put("vRoleAuthViews", vRoleAuthViews);
-        return "resource/detail";
+        return "resource/authList";
     }
 
     /**

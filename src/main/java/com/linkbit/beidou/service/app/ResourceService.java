@@ -235,7 +235,6 @@ public class ResourceService {
         List<Long> idList = new ArrayList<Long>();
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            System.out.println("roleList------------------"+roleList.size());
             for(Role r :roleList){
                 idList.add(r.getId());
             }
@@ -255,9 +254,7 @@ public class ResourceService {
         List<Long> idList = new ArrayList<Long>();
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            System.out.println("roleList------------------"+roleList.size());
             for(Role r :roleList){
-                System.out.println("r------------------"+r.getRoleDesc());
                 idList.add(r.getId());
             }
             vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(idList, resourceLevel, parentId);

@@ -3,7 +3,7 @@ var demoIframe;
 var setting = {
         check: {
             enable: true,
-            chkboxType: { "Y" : "s", "N" : "s" }
+            chkboxType: { "Y" : "p", "N" : "s" }
         },
         view: {
             dblClickExpand: false,

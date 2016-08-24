@@ -88,6 +88,7 @@ public class UserService extends BaseService {
         Vlocations vlocations = vlocationsRepository.findById(locationId);
         user.setPerson(person);
         user.setVlocations(vlocations);
+        user.setLocation(vlocations.getLocation());
         user.setStatus(status);
         return userRepository.save(user);
     }

@@ -70,12 +70,10 @@ public class RoleService extends BaseService {
     //添加用户
     public ReturnObject addUsers(Long roleId, String usersIdStr) {
         ReturnObject returnObject = new ReturnObject();
-        System.out.println("roleId-----------" + roleId);
-        System.out.println("usersIdStr-----------" + usersIdStr);
         Role role = roleRepository.findById(roleId);
         if (usersIdStr != null && !usersIdStr.equals("")) {
             String[] ids = usersIdStr.split(",");
-            List<User> userList = new ArrayList<User>();
+            List<User> userList = role.getUserList();
             for (String id : ids) {
                 userList.add(userRepository.findById(Long.parseLong(id)));
             }

@@ -4,8 +4,11 @@ package com.linkbit.beidou.controller.user;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.user.UserService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
@@ -38,14 +41,14 @@ public class UserController {
     @Autowired
     VlocationsRepository vlocationsRepository;
 
-    @RequestMapping(value = "/index")
-    public String index() {
-
-        return "/user/index";
-    }
+    @Autowired
+    ResourceService resourceService;
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap) {
+    public String list(HttpSession httpSession,ModelMap modelMap) {
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
         return "/user/list";
     }
 
@@ -98,7 +101,9 @@ public class UserController {
     public ReturnObject save(@RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId) {
         User user = new User();
         user.setPerson(personRepository.findById(personId));
-        user.setVlocations(vlocationsRepository.findById(locationId));
+        Vlocations vlocations =vlocationsRepository.findById(locationId);
+        user.setVlocations(vlocations);
+        user.setLocation(vlocations.getLocation());
         user = userService.save(user);
         ReturnObject returnObject = new ReturnObject();
         returnObject.setResult(user != null);

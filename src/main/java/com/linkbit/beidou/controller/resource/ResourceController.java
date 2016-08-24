@@ -1,37 +1,47 @@
-package com.linkbit.beidou.controller.app;
-
+package com.linkbit.beidou.controller.resource;
 
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
+ * 位置控制器类
  */
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/resource")
 public class ResourceController {
 
+    Log log = LogFactory.getLog(this.getClass());
+
     @Autowired
     ResourceService resourceService;
 
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap) {
-        List<Resource> resourceList = resourceService.findByResourceLevelLessThan(2l);
-        Resource resource = resourceList.get(0);
-        modelMap.put("resourceList", resourceList);
-        modelMap.put("resource", resource);
-        return "/resource/list";
 
+    /**
+     * @param modelMap
+     * @param httpSession
+     * @return 初始化载入界面
+     */
+    @RequestMapping(value = "/list")
+    public String list(ModelMap modelMap, HttpSession httpSession) {
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
+        return "/resource/list";
 
     }
 
@@ -115,10 +125,7 @@ public class ResourceController {
             url += "/list/";
         }
         Resource resource = resourceService.findById(id);
-        List<Resource> resourceList = new ArrayList<Resource>();
-        if (resource != null) {
-            resourceList = resourceService.findByParent(resource);
-        }
+        List<Resource> resourceList = resourceService.findByParent(resource);
         modelMap.put("resource", resource);
         modelMap.put("resourceList", resourceList);
         return url;
@@ -139,33 +146,53 @@ public class ResourceController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Resource save(@RequestParam("resourceName") String resourceName,
-                         @RequestParam("description") String description,
-                         @RequestParam("resourceUrl") String resourceUrl,
-                         @RequestParam(value = "resourceLevel", required = false) Long resourceLevel,
-                         @RequestParam(value = "lid", required = false) Long lid,
-                         @RequestParam(value = "pid", required = false) Long pid,
-                         @RequestParam("status") String status,
-                         @RequestParam(value = "sortNo", required = false) Long sortNo
+    public ReturnObject save(Resource resource) {
+        ReturnObject returnObject = new ReturnObject();
+        resource = resourceService.save(resource);
+        returnObject.setResult(resource != null);
+        returnObject.setResultDesc("资源信息保存成功");
+        return returnObject;
+    }
 
+
+    /**
+     * 保存资源信息
+     * @param id
+     * @param resourceName
+     * @param description
+     * @param resourceUrl
+     * @param iconClass
+     * @param appName
+     * @param parentId
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject update(
+            @RequestParam("id") Long id,
+            @RequestParam("resourceName") String resourceName,
+            @RequestParam("description") String description,
+            @RequestParam("resourceUrl") String resourceUrl,
+            @RequestParam("iconClass") String iconClass,
+            @RequestParam("appName") String appName,
+            @RequestParam("parentId") Long parentId,
+            @RequestParam(value = "staticFlag" ,required = false) boolean staticFlag,
+            @RequestParam(value = "sortNo" ,required = false) Long sortNo
     ) {
-
-        Resource parent = resourceService.findById(pid);
-        Resource resource;
-        if (lid != null && lid != 0) {
-            resource = resourceService.findById(lid);
-        } else {
-            resource = new Resource();
-            resource.setParent(parent);
-        }
+        ReturnObject returnObject = new ReturnObject();
+        Resource resource =resourceService.findById(id);
         resource.setResourceName(resourceName);
         resource.setDescription(description);
         resource.setResourceUrl(resourceUrl);
-        resource.setResourceLevel(resourceLevel);
+        resource.setIconClass(iconClass);
+        resource.setAppName(appName);
+        resource.setParent(resourceService.findById(parentId));
+        resource.setStaticFlag(staticFlag);
         resource.setSortNo(sortNo);
-        resource.setStatus(status);
         resource = resourceService.save(resource);
-        return resource;
+        returnObject.setResult(resource!=null);
+        returnObject.setResultDesc("资源更新成功!");
+        return returnObject;
     }
 
 
@@ -184,5 +211,5 @@ public class ResourceController {
         }
     }
 
-    //加载一级模块
+
 }
