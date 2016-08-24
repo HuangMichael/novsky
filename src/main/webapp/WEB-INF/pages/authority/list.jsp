@@ -28,7 +28,6 @@
                             </div>
                             <div class="col-md-4"><a class="btn  btn-sm btn-danger" onclick="grant()">授权</a></div>
                         </div>
-                        <%-- <div class="col-md-1"><a class="btn btn-danger">授权</a></div>--%>
                         <div class="box-body treeContainer" id="treeDiv">
                             <ul id="tree" class="ztree"></ul>
                         </div>
@@ -37,7 +36,7 @@
                 <div class="col-md-9">
                     <div class="box border blue">
                         <div class="box-body">
-                            <%@include file="../resource/detail.jsp" %>
+                            <%@include file="../resource/authList.jsp" %>
                         </div>
                     </div>
                 </div>

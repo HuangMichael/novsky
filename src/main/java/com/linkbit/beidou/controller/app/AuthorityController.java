@@ -73,7 +73,11 @@ public class AuthorityController {
         } else {
             Role role = roleService.findById(roleId);
             List<Resource> resouceList = role.getResourceList();
-            resouceList.addAll(resourceService.findResourceListInIdStr(resourceIds));
+            List<Resource> resourceListInIdStr = resourceService.findResourceListInIdStr(resourceIds);
+            for (Resource resource : resourceListInIdStr) {
+                if (!resouceList.contains(resource))
+                    resouceList.add(resource);
+            }
             role.setResourceList(resouceList);
             roleService.save(role);
             returnObject.setResult(true);
@@ -115,7 +119,7 @@ public class AuthorityController {
 
     @RequestMapping(value = "/loadApp/{moduleId}/{userId}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId( @PathVariable("moduleId") Long moduleId, @PathVariable("userId") Long userId) {
+    public List<VRoleAuthView> loadAuthViewByUserIdAndModuleId(@PathVariable("moduleId") Long moduleId, @PathVariable("userId") Long userId) {
         List<VRoleAuthView> vRoleAuthViews = resourceService.findResourcesByUserIdAndResourceLevelAndParentId(userId, 2l, moduleId);
         return vRoleAuthViews;
     }

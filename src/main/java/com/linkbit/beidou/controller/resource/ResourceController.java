@@ -25,11 +25,8 @@ import java.util.List;
 @RequestMapping("/resource")
 public class ResourceController {
 
-    Log log = LogFactory.getLog(this.getClass());
-
     @Autowired
     ResourceService resourceService;
-
 
     /**
      * @param modelMap
@@ -66,33 +63,6 @@ public class ResourceController {
         List<Resource> resourceList = resourceService.findAll(); //查询二级模块
         return resourceList;
     }
-
-  /*  *//**
-     * 查询一级模块
-     *//*
-
-    @RequestMapping(value = "/findResources/{roleId}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<VRoleAuthView> findAppsByRoleId(@PathVariable("roleId") Long roleId) {
-        List<VRoleAuthView> vRoleAuthViews = resourceService.findAppsByRoleId(roleId, 1l);
-        return vRoleAuthViews;
-    }
-
-
-    *//**
-     * 查询二级应用
-     *
-     * @param roleId   角色ID
-     * @param parentId 上级Id
-     * @return 查询模块下的应用菜单
-     *//*
-
-    @RequestMapping(value = "/findResources/{roleId}/{parentId}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<VRoleAuthView> findAppsByRoleIdAndParentId(@PathVariable("roleId") Long roleId, @PathVariable("parentId") Long parentId) {
-        List<VRoleAuthView> vRoleAuthViews = resourceService.findAppsByRoleIdAndParentId(roleId, 2l, parentId);
-        return vRoleAuthViews;
-    }*/
 
 
     /**
@@ -146,8 +116,29 @@ public class ResourceController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject save(Resource resource) {
+    public ReturnObject save(@RequestParam("id") Long id,
+                             @RequestParam("resourceName") String resourceName,
+                             @RequestParam("resourceCode") String resourceCode,
+                             @RequestParam("description") String description,
+                             @RequestParam("resourceUrl") String resourceUrl,
+                             @RequestParam("iconClass") String iconClass,
+                             @RequestParam("appName") String appName,
+                             @RequestParam("parentId") Long parentId,
+                             @RequestParam(value = "staticFlag", required = false) boolean staticFlag,
+                             @RequestParam(value = "sortNo", required = false) Long sortNo) {
+
+
         ReturnObject returnObject = new ReturnObject();
+        Resource resource = new Resource();
+        resource.setResourceName(resourceName);
+        resource.setResourceCode(resourceCode);
+        resource.setDescription(description);
+        resource.setResourceUrl(resourceUrl);
+        resource.setIconClass(iconClass);
+        resource.setAppName(appName);
+        resource.setParent(resourceService.findById(parentId));
+        resource.setStaticFlag(staticFlag);
+        resource.setSortNo(sortNo);
         resource = resourceService.save(resource);
         returnObject.setResult(resource != null);
         returnObject.setResultDesc("资源信息保存成功");
@@ -157,6 +148,7 @@ public class ResourceController {
 
     /**
      * 保存资源信息
+     *
      * @param id
      * @param resourceName
      * @param description
@@ -176,11 +168,11 @@ public class ResourceController {
             @RequestParam("iconClass") String iconClass,
             @RequestParam("appName") String appName,
             @RequestParam("parentId") Long parentId,
-            @RequestParam(value = "staticFlag" ,required = false) boolean staticFlag,
-            @RequestParam(value = "sortNo" ,required = false) Long sortNo
+            @RequestParam(value = "staticFlag", required = false) boolean staticFlag,
+            @RequestParam(value = "sortNo", required = false) Long sortNo
     ) {
         ReturnObject returnObject = new ReturnObject();
-        Resource resource =resourceService.findById(id);
+        Resource resource = resourceService.findById(id);
         resource.setResourceName(resourceName);
         resource.setDescription(description);
         resource.setResourceUrl(resourceUrl);
@@ -190,7 +182,7 @@ public class ResourceController {
         resource.setStaticFlag(staticFlag);
         resource.setSortNo(sortNo);
         resource = resourceService.save(resource);
-        returnObject.setResult(resource!=null);
+        returnObject.setResult(resource != null);
         returnObject.setResultDesc("资源更新成功!");
         return returnObject;
     }
@@ -203,13 +195,11 @@ public class ResourceController {
     @ResponseBody
     public Boolean delete(@PathVariable("id") Long id) {
         boolean hasChildren = resourceService.hasChildren(id);
+        Resource resource =null;
         if (!hasChildren) {
             resourceService.delete(id);
-            return true;
-        } else {
-            return false;
+            resource = resourceService.findById(id);
         }
+        return (resource==null);
     }
-
-
 }

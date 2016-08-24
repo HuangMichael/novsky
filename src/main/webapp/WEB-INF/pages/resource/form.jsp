@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form class="form-horizontal" role="form" id="form">
+<form class="form-horizontal" role="form" id="form" method="post">
 	<div class="form-group">
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			<div class="form-group">
@@ -26,7 +26,7 @@
 				<div class="col-md-3 col-sm-3 col-lg-3">
 					<input class="form-control" id="resourceUrl" type="text" name="resourceUrl" value="${resource.resourceUrl}" />
 				</div>
-				<label class="col-md-1 col-sm-1 col-lg-1 control-label" for="classId">应用名称</label>
+				<label class="col-md-1 col-sm-1 col-lg-1 control-label" for="appName">应用名称</label>
 				<div class="col-md-3 col-sm-3 col-lg-3">
 					<input class="form-control" type="text" name="appName" id="appName" value="${resource.appName}" />
 				</div>
@@ -37,4 +37,8 @@
 			</div>
 		</div>
 	</div>
+	    <div class="modal-footer">
+            <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
+            </button>
+        </div>
 </form>

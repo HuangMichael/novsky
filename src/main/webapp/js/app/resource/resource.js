@@ -25,6 +25,60 @@ var setting = {
 		}
 	}
 };
+
+
+
+
+var validateOptions = {
+    message: '该值无效 ',
+    fields: {
+        "resourceCode": {
+            message: '资源编号无效',
+            validators: {
+                notEmpty: {
+                    message: '资源编号不能为空!'
+                },
+                stringLength: {
+                    min: 1,
+                    max: 10,
+                    message: '资源编号长度为1到10个字符'
+                }
+            }
+        },
+
+        "resourceName": {
+            message: '资源名称无效',
+            validators: {
+                notEmpty: {
+                    message: '资源名称不能为空!'
+                },
+                stringLength: {
+                    min: 1,
+                    max: 10,
+                    message: '资源名称长度为1到10个字符'
+                }
+            }
+        },
+
+        "description": {
+            message: '资源描述无效',
+            validators: {
+                notEmpty: {
+                    message: '资源描述不能为空!'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 20,
+                    message: '资源描述长度为2到20个字符'
+                }
+            }
+        }
+    }
+};
+
+
+
+
 var zNodes = [];
 $(document).ready(function() {
 	$.ajaxSettings.async = false;
@@ -65,6 +119,60 @@ $(document).ready(function() {
 		demoIframe.height(h);
 	}
 
+
+    $('#form')
+        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
+        e.preventDefault();
+        save();
+    });
+
+
+    $("#saveBtn").on("click",function(){
+        var resourceId = $("#resourceId").val();
+        var resourceName = $("#resourceName").val();
+        var resourceCode = $("#resourceCode").val();
+        var description = $("#description").val();
+        var resourceUrl = $("#resourceUrl").val();
+        var iconClass = $("#iconClass").val();
+        var parentId = getSelectedNodeId();
+        var appName = $("#appName").val();
+
+        var resource = {
+            id: resourceId,
+            resourceName: resourceName,
+            description: description,
+            resourceCode:resourceCode,
+            resourceUrl: resourceUrl,
+            iconClass: iconClass,
+            parentId: parentId,
+            appName: appName
+        }
+        var url = "resource/";
+        if(!resource.id) {
+            url += "save";
+        }else{
+            url+="update";
+        }
+        $.post(url,resource,function(obj){
+
+            //构造一个子节点
+            var childZNode = {
+                id: resourceId,
+                pId: parentId,
+                name: description
+            };
+            if (obj.id) {
+                updateNode(null, childZNode);
+                showMessageBox("info", "资源信息更新成功")
+            } else {
+                addNodeAfterChangeOperation(null, childZNode, parentId);
+                showMessageBox("info", "资源信息添加成功")
+            }
+        })
+    })
+
+
+
 });
 
 var flag = false;
@@ -79,49 +187,45 @@ function add() {
 		id = 0
 	}
 	var url = "/resource/create/" + id;
+    $("#parentId").val(id);
 	$("#contentDiv").load(url);
 }
+
+
+
 
 /**
  * 新建记录
  */
 function save() {
 
-	var resourceId = $("#resourceId").val();
-	var resourceName = $("#resourceName").val();
-	var description = $("#description").val();
-	var resourceUrl = $("#resourceUrl").val();
-	var iconClass = $("#iconClass").val();
-	var parentId = $("#parentId").val();
-	var appName = $("#appName").val();
 
-	var resource = {
-		id: resourceId,
-		resourceName: resourceName,
-		description: description,
-		resourceUrl: resourceUrl,
-		iconClass: iconClass,
-		parentId: parentId,
-		appName: appName
-	}
+    $("#saveBtn").trigger("click");
 
-	console.log("resource---------" + JSON.stringify(resource));
 
-	var url = "resource/";
 
-	if(!resource.id) {
-		url += "save";
-	}else{
-		url+="update";
-	}
-	$.post(url,resource,function(data){
-		
-		if(data.result){
-			showMessageBox("info",data.resultDesc);
-		}else{
-			showMessageBox("danger",data.resultDesc);
-		}
-		
-	})
+}
 
+
+/**
+ *  删除位置信息
+ */
+function del() {
+    if (!confirm("确定要删除该信息么？")) {
+        return;
+    }
+    var zTree = $.fn.zTree.getZTreeObj("tree");
+    var selectedNode = zTree.getSelectedNodes()[0];
+    var id = selectedNode.id;
+    var url = "/resource/delete/" + id;
+    $.getJSON(url, function (data) {
+        if (data) {
+            var zTree = $.fn.zTree.getZTreeObj("tree");
+            zTree.removeNode(zTree.getSelectedNodes()[0]);
+            zTree.selectNode(zTree.getNodeByParam("id", 1));
+            showMessageBox("info", "资源信息删除成功!");
+        } else {
+            showMessageBox("danger","资源信息删除失败!");
+        }
+    })
 }
