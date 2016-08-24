@@ -226,35 +226,8 @@ function addNew() {
     formTab.tab('show');
 }
 
-/**
- *  造人方法
- */
-function save() {
 
-    var personId = $("#personId").val();
-    console.log(personId);
-
-    /*    var person = createModel.$data.person;
-     var url = "/person/save";
-     console.log("person.id---------------" + person.id);
-     $.post(url, {
-     personNo: person.personNo,
-     personName: person.personName,
-     telephone: person.telephone,
-     email: person.email,
-     birthDate: person.birthDate,
-     status: person.status
-     }, function () {
-
-     }).success(function (data) {
-     showMessageBoxCenter("info", "center", "人员信息添加成功!");
-     }).error(function (data) {
-     showMessageBoxCenter("danger", "center", "人员信息添加失败!");
-     });*/
-
-
-}
-
+/*
 $("#saveBtn").on("click", function (data) {
     var personId = $("#personId").val();
     var personNo = $("#personNo").val();
@@ -283,7 +256,7 @@ $("#saveBtn").on("click", function (data) {
             showMessageBox("danger", data.resultDesc);
         }
     });
-});
+});*/
 
 
 /**
@@ -354,7 +327,35 @@ function edit() {
 
 
 function savePerson() {
-    $("#saveBtn").trigger("click");
+    var personId = $("#personId").val();
+    var personNo = $("#personNo").val();
+    var personName = $("#personName").val();
+    var telephone = $("#telephone").val();
+    var email = $("#email").val();
+    var birthDate = $("#birthDate").val();
+    var status = $("#status").val();
+    var url = "";
+    var person = {
+        personId: personId,
+        personNo: personNo,
+        personName:personName,
+        telephone: telephone,
+        email: email,
+        birthDate: birthDate,
+        status: status
+    }
+    if (personId) {
+        url = "person/update";
+    } else {
+        url = "person/save";
+    }
+    $.post(url, person, function (data) {
+        if (data.result) {
+            showMessageBox("info", data.resultDesc);
+        } else {
+            showMessageBox("danger", data.resultDesc);
+        }
+    });
 }
 
 

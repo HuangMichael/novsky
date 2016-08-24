@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.person;
 
 import com.linkbit.beidou.dao.department.DepartmentRepository;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -59,7 +60,7 @@ public class PersonController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Person update(
+    public ReturnObject update(
             @RequestParam("personId") Long personId,
             @RequestParam("personNo") String personNo,
             @RequestParam("personName") String personName,
@@ -68,12 +69,16 @@ public class PersonController {
             @RequestParam("birthDate") String birthDate,
             @RequestParam("status") String status
     ) {
+
+        ReturnObject returnObject = new ReturnObject();
         Person person = personService.findById(personId);
         if (person != null) {
             person.setPersonName(personName);
             person.setPersonNo(personNo);
             person.setPersonName(personName);
             person.setTelephone(telephone);
+            returnObject.setResult(true);
+            returnObject.setResultDesc("人员信息已更新");
             try {
                 person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
             } catch (Exception e) {
@@ -83,7 +88,7 @@ public class PersonController {
             person.setStatus(status);
             person = personService.update(person);
         }
-        return person;
+        return returnObject;
     }
 
 
@@ -126,7 +131,7 @@ public class PersonController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Person save(@RequestParam("personNo") String personNo,
+    public ReturnObject save(@RequestParam("personNo") String personNo,
                        @RequestParam("personName") String personName,
                        @RequestParam("telephone") String telephone,
                        @RequestParam("email") String email,
@@ -134,6 +139,8 @@ public class PersonController {
                        @RequestParam("status") String status
 
     ) {
+
+        ReturnObject returnObject = new ReturnObject();
         Person person = new Person();
         person.setPersonNo(personNo);
         person.setPersonName(personName);
@@ -147,7 +154,9 @@ public class PersonController {
         }
         person.setStatus(status);
         person = personService.save(person);
-        return person;
+        returnObject.setResult(person!=null);
+        returnObject.setResultDesc("人员信息保存成功!");
+        return returnObject;
     }
 
 

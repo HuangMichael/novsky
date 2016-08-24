@@ -1,3 +1,4 @@
+/*
 
 
 package com.linkbit.beidou.controller.app;
@@ -22,4 +23,5 @@ public class AppErrorController implements ErrorController {
     }
 }
 
+*/
 
