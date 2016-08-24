@@ -117,9 +117,10 @@
              if (data.result) {
                  $("#newDiv").show();
                  showMessageBox("info", data.resultDesc);
-
              } else {
+              $("#newDiv").hide();
                  showMessageBox("danger", data.resultDesc);
+                  $("#submitBtn").attr("disabled","disabled");
 
              }
 
@@ -130,6 +131,10 @@
  function changePwd() {
      var userName = $("#userName").val();
      var newPwd = $("#newPwd").val();
+
+     if(!newPwd){
+     return;
+     }
      var url = "user/changePwd";
      var data = {
          userName: userName,
