@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
+@RequestMapping("/error")
 public class AppErrorController implements ErrorController {
     private static final String ERROR_PATH = "/error";
 

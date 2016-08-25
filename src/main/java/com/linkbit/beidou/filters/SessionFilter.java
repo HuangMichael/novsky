@@ -46,19 +46,9 @@ public class SessionFilter implements javax.servlet.Filter {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        HttpSession httpSession = request.getSession(true);
         String url = request.getRequestURI();
         logger.info("url---" + url);
-        boolean result = (httpSession.getAttribute("currentUser") != null);
-        //经静态资源加入到resource中
-
         filterChain.doFilter(request, response);
-       /* if (result) {
-            filterChain.doFilter(request, response);
-        } else {
-            logger.info("过滤器----------------------destroy");
-            request.getRequestDispatcher("/").forward(request, response);
-        }*/
     }
 
     @Override

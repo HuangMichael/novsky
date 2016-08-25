@@ -46,41 +46,41 @@ var validateOptions = {
  */
 function initLoadData(url, elementName) {
     $.getJSON(url,
-    function(data) {
-        roles = data;
-        allSize = data.length; //计算所有记录的个数
-        if (dataTableName) {
-            vm = new Vue({
-                el: elementName,
-                data: {
-                    roles: roles
-                }
-            });
-            //ajax载入设备信息  并且监听选择事件
-            $(dataTableName).bootgrid({
-                selection: true,
-                multiSelect: true,
-                rowSelect: false,
-                keepSelection: true
-            }).on("selected.rs.jquery.bootgrid",
-            function(e, rows) {
-                //如果默认全部选中
-                if (selectedIds.length === roles.length) {
-                    selectedIds.clear();
-                }
-                for (var x in rows) {
-                    if (rows[x]["id"]) {
-                        selectedIds.push(rows[x]["id"]);
+        function (data) {
+            roles = data;
+            allSize = data.length; //计算所有记录的个数
+            if (dataTableName) {
+                vm = new Vue({
+                    el: elementName,
+                    data: {
+                        roles: roles
                     }
-                }
-            }).on("deselected.rs.jquery.bootgrid",
-            function(e, rows) {
-                for (var x in rows) {
-                    selectedIds.remove(rows[x]["id"]);
-                }
-            });
-        }
-    })
+                });
+                //ajax载入设备信息  并且监听选择事件
+                $(dataTableName).bootgrid({
+                    selection: true,
+                    multiSelect: true,
+                    rowSelect: false,
+                    keepSelection: true
+                }).on("selected.rs.jquery.bootgrid",
+                    function (e, rows) {
+                        //如果默认全部选中
+                        if (selectedIds.length === roles.length) {
+                            selectedIds.clear();
+                        }
+                        for (var x in rows) {
+                            if (rows[x]["id"]) {
+                                selectedIds.push(rows[x]["id"]);
+                            }
+                        }
+                    }).on("deselected.rs.jquery.bootgrid",
+                    function (e, rows) {
+                        for (var x in rows) {
+                            selectedIds.remove(rows[x]["id"]);
+                        }
+                    });
+            }
+        })
 }
 /**
  * 根据ID获取设备信息
@@ -91,9 +91,9 @@ function getRoleByIdInRoles(eid) {
     var user = null;
     var url = "/user/findById/" + eid;
     $.getJSON(url,
-    function(data) {
-        user = data;
-    });
+        function (data) {
+            user = data;
+        });
     return user;
 }
 
@@ -182,13 +182,13 @@ function setFormReadStatus(formId, formLocked, except) {
     }
 }
 
-$(function() {
+$(function () {
     initLoadData("/role/findActiveRole", dataTableName);
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
-    function(e) {
-        e.preventDefault();
+        function (e) {
+            e.preventDefault();
 
-    });
+        });
 
     vdm = new Vue({
         el: "#detailForm",
@@ -199,30 +199,31 @@ $(function() {
 
     //点击显示角色详细信息
     formTab.on('click',
-    function() {
-        activeTab = "detail";
-        setFormReadStatus("#detailForm", formLocked);
-        //首先判断是否有选中的
-        var role = null;
-        if (selectedIds.length > 0) {
-            role = getRoleByIdInRoles(selectedIds[0]);
-        } else {
-            //没有选中的 默认显示整个列表的第一条
-            role = getRoleByIdInRoles(roles[0]["id"]);
-            selectedIds = setAllInSelectedList(roles);
-        }
-        vdm.role = role;
-        loadUsers(role.id)
-    });
+        function () {
+            activeTab = "detail";
+            setFormReadStatus("#detailForm", formLocked);
+            //首先判断是否有选中的
+            var role = null;
+            if (selectedIds.length > 0) {
+                role = getRoleByIdInRoles(selectedIds[0]);
+            } else {
+                //没有选中的 默认显示整个列表的第一条
+                role = getRoleByIdInRoles(roles[0]["id"]);
+                selectedIds = setAllInSelectedList(roles);
+            }
+            vdm.role = role;
+            loadUsers(role.id)
+        });
 
     listTab.on('click',
-    function() {
-        activeTab = "list";
-    });
+        function () {
+            activeTab = "list";
+        });
     $('select').select2({
         theme: "bootstrap"
     });
 });
+
 function save() {
     var roleId = $("#roleId").val();
     var roleName = $("#roleName").val();
@@ -241,22 +242,22 @@ function save() {
         status: status
     };
     $.post(url, role,
-    function(data) {
-        if (data) {
-            showMessageBox("info", "角色信息保存成功！");
-        } else {
-            showMessageBox("danger", "角色信息保存失败！");
-        }
+        function (data) {
+            if (data) {
+                showMessageBox("info", "角色信息保存成功！");
+            } else {
+                showMessageBox("danger", "角色信息保存失败！");
+            }
 
-    });
+        });
 }
 
 function showRole(roleId) {
     var url = "/role/detail/" + roleId;
     $("#contentDiv").load(url,
-    function() {
+        function () {
 
-});
+        });
 }
 
 /**
@@ -282,9 +283,9 @@ function getRoleByIdInRoles(eid) {
     var role = null;
     var url = "/role/findById/" + eid;
     $.getJSON(url,
-    function(data) {
-        role = data;
-    });
+        function (data) {
+            role = data;
+        });
     return role;
 }
 
@@ -292,9 +293,9 @@ function getAllRoles() {
     var roles = null;
     var url = "/role/findActiveRole";
     $.getJSON(url,
-    function(data) {
-        roles = data;
-    });
+        function (data) {
+            roles = data;
+        });
     return roles;
 }
 
@@ -302,15 +303,16 @@ function addUsers() {
     var roleId = roles[pointer].id;
     var url = "role/popUsers/" + roleId;
     $("#mBody").load(url,
-    function(data) {
-        $("#userListModal").modal("show");
-    });
+        function (data) {
+            $("#userListModal").modal("show");
+        });
 
     //ajax请求数据和页面 弹出
 }
 
 function confirmAddUsers() {
-    var roleId = roles[pointer].id; $("#userListModal").modal("hide");
+    var roleId = roles[pointer].id;
+    $("#userListModal").modal("hide");
     usersIdStr = selectedUsersId.join(",");
     // ajax将选中的用户进行与角色关联
     var url = "role/addUser";
@@ -318,39 +320,58 @@ function confirmAddUsers() {
         roleId: roleId,
         usersIdStr: usersIdStr
     };
-    console.log("wahaha-------"+JSON.stringify(data));
-    $.post(url, data, function(data) {
-       if(data.result){
-       showMessageBox("info",data.resultDesc);
-       }
+    console.log("wahaha-------" + JSON.stringify(data));
+    $.post(url, data, function (data) {
+        if (data.result) {
+            showMessageBox("info", data.resultDesc);
+        }
     });
 }
-
 
 /**
  *
  * @param roleId
  * 根据角色载入包含用户
  */
-function loadUsers(roleId){
-    var roleId = $("#roleId").val();
+function loadUsers(roleId) {
+    var roleId = roles[pointer].id;
+    if (!roleId) {
+        showMessageBox("danger", "角色信息获取失败，请重新尝试!");
+        return;
+    }
     var url = "role/findUsersOfRole/" + roleId;
     var html = "";
-    $.getJSON(url,function(data) {
+    $.getJSON(url, function (data) {
         for (var x in data) {
-            console.log(data[x]["userName"]);
-
-            if(data[x]['id']){
-
-                html += '<tr class="gradeX">';
-                html += '<td>' + parseInt(x+1) + '</td>';
+            var id = data[x]['id']
+            if (id) {
+                html += '<tr class="gradeX" id="tr'+id+'">';
+                html += '<td>' + Number(Number(x) + Number(1)) + '</td>';
                 html += '<td>' + data[x]['userName'] + '</td>';
+                html += '<td><a class="btn btn-sm" onclick="removeUser(' + roleId + "," + id + ')">移除</a></td>';
                 html += '</tr>';
             }
-
         }
         $("#usersDiv").html(html);
     });
 
 }
 
+/**
+ *移除用户
+ */
+function removeUser(roleId, userId) {
+    var url = "role/removeUser/";
+    var data = {
+        roleId: roleId,
+        userId: userId
+    };
+    $.post(url, data, function (msg) {
+        if (msg.result) {
+            showMessageBox("info", "用户移除成功!");
+            $("#tr" + userId).remove();
+        } else {
+            showMessageBox("danger", "用户移除失败!");
+        }
+    });
+}

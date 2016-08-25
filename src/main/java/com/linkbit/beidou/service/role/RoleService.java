@@ -26,6 +26,7 @@ public class RoleService extends BaseService {
     @Autowired
     UserRepository userRepository;
 
+
     /**
      * 根据状态查询用户
      */
@@ -67,7 +68,12 @@ public class RoleService extends BaseService {
         return userRepository.findUsersNotInRole(roleId);
     }
 
-    //添加用户
+    /**
+     * @param roleId
+     * @param usersIdStr
+     * @return 添加用户
+     */
+
     public ReturnObject addUsers(Long roleId, String usersIdStr) {
         ReturnObject returnObject = new ReturnObject();
         Role role = roleRepository.findById(roleId);
@@ -93,10 +99,34 @@ public class RoleService extends BaseService {
      */
     public List<User> findUsersOfRole(Long roleId) {
         List<User> userList = new ArrayList<User>();
-        if(roleId!=null){
+        if (roleId != null) {
             userList = userRepository.findUserListByRoleId(roleId);
         }
         return userList;
+    }
+
+
+    /**
+     * @param roleId 角色id
+     * @param userId 用户id
+     * @return 移除用户
+     */
+    public ReturnObject removeUser(Long roleId, Long userId) {
+        ReturnObject returnObject = new ReturnObject();
+        Role role = roleRepository.findById(roleId);
+        List<User> usersOfRole = role.getUserList();
+        User user = userRepository.findById(userId);
+        if (usersOfRole.contains(user)) {
+            usersOfRole.remove(user);
+            role.setUserList(usersOfRole);
+            roleRepository.save(role);
+            returnObject.setResult(true);
+            returnObject.setResultDesc("角色移除用户成功!");
+        } else {
+            returnObject.setResult(false);
+            returnObject.setResultDesc("角色移除用户失败!");
+        }
+        return returnObject;
     }
 
 

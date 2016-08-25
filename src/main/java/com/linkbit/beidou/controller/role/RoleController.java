@@ -152,6 +152,20 @@ public class RoleController {
     public List<User> findUsersOfRole(@PathVariable("roleId") Long roleId) {
         return roleService.findUsersOfRole(roleId);
     }
+
+
+
+    /**
+     * @return 查询不在当前角色中的用户
+     */
+    @RequestMapping(value = "/removeUser", method = {RequestMethod.POST})
+    @ResponseBody
+    public ReturnObject removeUser(@RequestParam("roleId") Long roleId, @RequestParam("userId") Long userId) {
+        return roleService.removeUser(roleId, userId);
+    }
+
+
+
 }
 
 

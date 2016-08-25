@@ -1,14 +1,4 @@
-<%@ page import="com.linkbit.beidou.domain.user.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    User user = null;
-    String userName = "";
-    if (session != null) {
-        user = (User) session.getAttribute("currentUser");
-        userName = user.getUserName();
-    }
-
-%>
 <div id="sidebar" class="sidebar">
     <div class="sidebar-menu nav-collapse">
         <ul id="menuL1">
