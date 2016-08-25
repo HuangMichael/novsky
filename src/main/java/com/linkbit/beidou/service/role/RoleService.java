@@ -81,7 +81,10 @@ public class RoleService extends BaseService {
             String[] ids = usersIdStr.split(",");
             List<User> userList = role.getUserList();
             for (String id : ids) {
-                userList.add(userRepository.findById(Long.parseLong(id)));
+                User user =userRepository.findById(Long.parseLong(id));
+                if(!userList.contains(user)){
+                    userList.add(user);
+                }
             }
             role.setUserList(userList);
             roleRepository.save(role);

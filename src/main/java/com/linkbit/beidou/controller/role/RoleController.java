@@ -27,12 +27,6 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @RequestMapping(value = "/index")
-    public String index() {
-
-        return "/role/index";
-    }
-
 
     @RequestMapping(value = "/create")
     public String create() {

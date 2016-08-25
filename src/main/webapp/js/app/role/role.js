@@ -313,16 +313,16 @@ function addUsers() {
 function confirmAddUsers() {
     var roleId = roles[pointer].id;
     $("#userListModal").modal("hide");
-    usersIdStr = selectedUsersId.join(",");
+    var usersIdStr = selectedUsersId.join(",");
     // ajax将选中的用户进行与角色关联
     var url = "role/addUser";
     var data = {
         roleId: roleId,
         usersIdStr: usersIdStr
     };
-    console.log("wahaha-------" + JSON.stringify(data));
     $.post(url, data, function (data) {
         if (data.result) {
+            loadUsers();
             showMessageBox("info", data.resultDesc);
         }
     });
@@ -333,7 +333,7 @@ function confirmAddUsers() {
  * @param roleId
  * 根据角色载入包含用户
  */
-function loadUsers(roleId) {
+function loadUsers() {
     var roleId = roles[pointer].id;
     if (!roleId) {
         showMessageBox("danger", "角色信息获取失败，请重新尝试!");
@@ -345,7 +345,7 @@ function loadUsers(roleId) {
         for (var x in data) {
             var id = data[x]['id']
             if (id) {
-                html += '<tr class="gradeX" id="tr'+id+'">';
+                html += '<tr class="gradeX" id="tr' + id + '">';
                 html += '<td>' + Number(Number(x) + Number(1)) + '</td>';
                 html += '<td>' + data[x]['userName'] + '</td>';
                 html += '<td><a class="btn btn-sm" onclick="removeUser(' + roleId + "," + id + ')">移除</a></td>';
