@@ -41,8 +41,9 @@ public interface WorkOrderHistoryRepository extends CrudRepository<WorkOrderHist
      * @param workOrderReportCart 根据订单查询订单历史信息
      * @return
      */
-    @Query("select h from WorkOrderHistory h where h.workOrderReportCart =:workOrderReportCart and h.nodeDesc='已派工' ")
+    @Query("select h from WorkOrderHistory h where h.workOrderReportCart =:workOrderReportCart ")
     List<WorkOrderHistory> findByWorkOrderReportCart(@Param("workOrderReportCart") WorkOrderReportCart workOrderReportCart);
+
 
 
 }

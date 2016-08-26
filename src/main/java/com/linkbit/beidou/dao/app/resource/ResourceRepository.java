@@ -25,10 +25,17 @@ public interface ResourceRepository extends CrudRepository<Resource, Long> {
     List<Resource> findByStatus(String status);
 
 
+
     /**
      * 根据URL查询
      */
-    List<Resource> findByResourceUrl(String status);
+    List<Resource> findByResourceUrl(String resourceUrl);
+
+
+    /**
+     * 根据URL模糊查询
+     */
+    List<Resource> findByResourceUrlStartingWithAndStaticFlag(String resourceUrl,String  staticFlag);
 
     /**
      * 根据id查询数据资源
@@ -78,6 +85,8 @@ public interface ResourceRepository extends CrudRepository<Resource, Long> {
      */
     @Query("select r from Resource r where r.id in :idList")
     List<Resource> findResourceIdInIdList(@Param("idList") List<Long> idList);
+
+
 
 
 }

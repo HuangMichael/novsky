@@ -23,20 +23,20 @@ public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 20, nullable = false)
+    @Column(length = 100, nullable = false)
     private String resourceCode;//编号
-    @Column(length = 20, nullable = false)
+    @Column(length = 200, nullable = false)
     private String resourceName;//资源名称
     @Column(length = 100, nullable = false)
     private String resourceUrl;//资源路径
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String description;//资源描述
-    @Column(length = 50, nullable = true)
+    @Column(length = 100, nullable = true)
     private String iconClass;//资源描述
     @Column(length = 1)
     private Long resourceLevel;//资源级别
 
-    @Column(length = 20, nullable = true)
+    @Column(length = 100, nullable = true)
     private String appName;//应用名称
 
 

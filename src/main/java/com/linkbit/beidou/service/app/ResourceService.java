@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -235,7 +236,7 @@ public class ResourceService {
         List<Long> idList = new ArrayList<Long>();
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            for(Role r :roleList){
+            for (Role r : roleList) {
                 idList.add(r.getId());
             }
             vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevel(idList, resourceLevel);
@@ -254,7 +255,7 @@ public class ResourceService {
         List<Long> idList = new ArrayList<Long>();
         if (user != null) {
             List<Role> roleList = user.getRoleList();
-            for(Role r :roleList){
+            for (Role r : roleList) {
                 idList.add(r.getId());
             }
             vRoleAuthViewList = vRoleAuthViewRepository.findByRoleListAndResourceLevelAndParentId(idList, resourceLevel, parentId);
@@ -274,4 +275,52 @@ public class ResourceService {
         return vRoleAuthViewRepository.findByRoleListAppName(roleList, appName[0].toUpperCase());
     }
 
+
+    /**
+     * @param url
+     * @return 根据url查询资源集合
+     */
+    public Resource findByResourceUrlStartingWithAndStaticFlag(String url,String staticFlag) {
+        Resource resource = null;
+        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url,staticFlag);
+        if (!resourceList.isEmpty()) {
+            resource = resourceList.get(0);
+        }
+        return resource;
+    }
+
+
+    /**
+     * @param url
+     * @return 根据url查询资源集合
+     */
+    public Boolean exists(String url,String staticFlag) {
+        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url,staticFlag);
+        return !resourceList.isEmpty();
+    }
+
+
+    /**
+     * @param url
+     * @return 根据url查询资源集合
+     */
+    public Resource register(String url) {
+        Resource resource = null;
+        if (url != null && !url.equals("")) {
+            resource = new Resource();
+            resource.setResourceUrl(url);
+            resource.setResourceLevel(-1l);
+            resource.setResourceName("静态资源");
+            resource.setAppName("无");
+            resource.setDescription("静态资源");
+            resource.setIconClass("");
+            resource.setResourceCode(new Date().getTime()+"");
+            resource.setSortNo(0l);
+            resource.setStatus("1");
+            resourceRepository.save(resource);
+        }
+
+
+        return resource;
+    }
 }

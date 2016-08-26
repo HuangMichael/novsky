@@ -79,8 +79,6 @@ public class WorkOrderFixService extends BaseService {
      * @param workOrderReportCart
      */
     public void updateNodeStatus(WorkOrderReportCart workOrderReportCart) {
-
-        log.info("更新节点状态------------------------------------------");
         if (workOrderReportCart != null) {
             List<WorkOrderHistory> workOrderHistoryList = workOrderHistoryRepository.findByWorkOrderReportCart(workOrderReportCart);
             for (WorkOrderHistory workOrderHistory : workOrderHistoryList) {
@@ -90,6 +88,8 @@ public class WorkOrderFixService extends BaseService {
 
         }
     }
+
+
 
     /**
      * @param orderId     维修单id
