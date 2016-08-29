@@ -57,5 +57,13 @@ public class EquipmentsClassification {
     private List<OutsourcingUnit> unitSet;
 
 
+    @Column(length = 1)
+    private String classType; //设备分类类别 站区段区
+
+
+    @Column(length = 1)
+    private String status; //设备分类状态
+
+
 }
 

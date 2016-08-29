@@ -109,17 +109,24 @@ public class EquipmentsClassificationController {
                                          @RequestParam("classId") String classId,
                                          @RequestParam(value = "limitHours", required = false) Long limitHours) {
         EquipmentsClassification newObj;
+        EquipmentsClassification parent = equipmentsClassificationService.findById(parentId);
         if (lid == null || lid == 0) {
             newObj = new EquipmentsClassification();
             newObj.setClassId(classId);
             newObj.setDescription(description);
             newObj.setLimitHours(limitHours);
-            newObj.setParent(equipmentsClassificationService.findById(parentId));
+            newObj.setLevel(parent.getLevel() + 1);
+            newObj.setStatus("1");
+            newObj.setClassType(parent.getClassType());
+            newObj.setParent(parent);
         } else {
             newObj = equipmentsClassificationService.findById(lid);
             newObj.setDescription(description);
-            newObj.setParent(equipmentsClassificationService.findById(parentId));
+            newObj.setParent(parent);
             newObj.setLimitHours(limitHours);
+            newObj.setClassType(parent.getClassType());
+            newObj.setLevel(parent.getLevel() + 1);
+            newObj.setStatus("1");
         }
         newObj = equipmentsClassificationService.save(newObj);
         return newObj;
