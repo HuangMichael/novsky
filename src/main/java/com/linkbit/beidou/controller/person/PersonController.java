@@ -1,7 +1,6 @@
 package com.linkbit.beidou.controller.person;
 
 
-import com.linkbit.beidou.dao.department.DepartmentRepository;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.person.PersonService;
@@ -25,8 +24,7 @@ public class PersonController {
     PersonService personService;
 
 
-    @Autowired
-    DepartmentRepository departmentRepository;
+
 
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap) {
