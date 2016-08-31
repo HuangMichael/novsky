@@ -102,6 +102,8 @@ $(function () {
         var locationId = $("#locations_id").val();
         var status = $("#status").val();
 
+        console.log("locationId--------"+locationId);
+
         var user = null;
         var url = "";
         if (userId) {

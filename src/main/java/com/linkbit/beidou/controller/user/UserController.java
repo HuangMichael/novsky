@@ -101,8 +101,6 @@ public class UserController {
     public ReturnObject save(@RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId) {
         User user = new User();
         user.setPerson(personRepository.findById(personId));
-
-        System.out.println("personId------------------------"+personId);
         Vlocations vlocations =vlocationsRepository.findById(locationId);
         user.setVlocations(vlocations);
         user.setLocation(vlocations.getLocation());
@@ -129,7 +127,9 @@ public class UserController {
         User user = new User();
         user.setUserName(userName);
         user.setPerson(personRepository.findById(personId));
-        user.setVlocations(vlocationsRepository.findById(locationId));
+        Vlocations vlocations =vlocationsRepository.findById(locationId);
+        user.setVlocations(vlocations);
+        user.setLocation(vlocations.getLocation());
         user = userService.createUser(user);
         ReturnObject returnObject = new ReturnObject();
         returnObject.setResult(user != null);
