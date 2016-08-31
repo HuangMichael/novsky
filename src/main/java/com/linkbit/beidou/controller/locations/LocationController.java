@@ -34,18 +34,14 @@ import java.util.List;
 @RequestMapping("/location")
 public class LocationController {
 
-
     @Autowired
     LocationsService locationsService;
-
     @Autowired
     ResourceService resourceService;
     @Autowired
     VequipmentsRepository vequipmentsRepository;
-
     @Autowired
     CommonDataService commonDataService;
-
 
     /**
      * @param modelMap
@@ -74,17 +70,14 @@ public class LocationController {
     public String detail(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         String url = "/location";
         Locations object = null;
-        List<Line> lineList = null;
-        List<Station> stationList = null;
+
         if (id != 0) {
             url += "/detail";
             object = locationsService.findById(id);
-            lineList =   commonDataService.findLines(session);
-            stationList =   commonDataService.findStations(session);
+            commonDataService.findLines(session);
+            commonDataService.findStations(session);
         }
         modelMap.put("locations", object);
-        modelMap.put("lineList", lineList);
-        modelMap.put("stationList", stationList);
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(object.getLocation());
         modelMap.put("equipmentsList", equipmentsList);
         return url;
@@ -147,19 +140,15 @@ public class LocationController {
         newObj.setSuperior(user.getPerson().getPersonName());
         newObj.setStatus("1");
         modelMap.put("locations", newObj);
-        List<Line> lineList = null;
-        List<Station> stationList = null;
-        lineList =   commonDataService.findLines(session);
-        stationList =   commonDataService.findStations(session);
+        commonDataService.findLines(session);
+        commonDataService.findStations(session);
         List<Locations> locationsList = locationsService.findAll();
         modelMap.put("locationsList", locationsList);
-        modelMap.put("lineList", lineList);
-        modelMap.put("stationList", stationList);
         return "/location/create";
     }
 
 
-  /**
+    /**
      * @param locations
      * @return 保存位置信息
      */
@@ -169,42 +158,6 @@ public class LocationController {
         return locationsService.save(locations);
 
     }
-
-
-/*
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    @ResponseBody
-    public Locations save(@RequestParam("lid") Long lid,
-                          @RequestParam("location") String location,
-                          @RequestParam("description") String description,
-                          @RequestParam("stationId") Long stationId,
-                          @RequestParam("lineId") Long lineId,
-                          @RequestParam("superior") String superior,
-                          @RequestParam("parent_id") Long parent_id) {
-        Locations locations = null;
-        if (lid != null) {
-            locations = locationsService.findById(lid);
-            locations.setLocation(location);
-            locations.setDescription(description);
-            locations.setLine(lineService.findById(lineId));
-            locations.setStation(stationService.findById(stationId));
-            locations.setSuperior(superior);
-            locations.setParent(parent_id);
-        } else {
-
-            locations = new Locations();
-            locations.setLocation(location);
-            locations.setDescription(description);
-            locations.setLine(lineService.findById(lineId));
-            locations.setStation(stationService.findById(stationId));
-            locations.setSuperior(superior);
-            locations.setParent(parent_id);
-
-        }
-
-        return locationsService.save(locations);
-    }*/
-
 
     /**
      * @param id

@@ -40,4 +40,13 @@ public class LineService extends BaseService {
         return line;
 
     }
+
+
+    /**
+     * @param line
+     * @return保存线路信息
+     */
+    public Line save(Line line){
+       return  lineRepository.save(line);
+    }
 }
