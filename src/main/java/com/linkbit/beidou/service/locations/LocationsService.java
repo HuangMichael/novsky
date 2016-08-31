@@ -27,6 +27,7 @@ public class LocationsService extends BaseService {
 
 
 
+
     /**
      * 设置位置编码
      */
@@ -54,8 +55,10 @@ public class LocationsService extends BaseService {
      * @return
      */
     public Locations save(Locations locations) {
+
         return locationsRepository.save(locations);
     }
+
 
     public List<Locations> findAll() {
         return locationsRepository.findAll();

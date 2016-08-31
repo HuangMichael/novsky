@@ -1,12 +1,7 @@
 package com.linkbit.beidou.controller.locations;
 
-import com.linkbit.beidou.controller.common.BaseController;
-import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
-import com.linkbit.beidou.dao.locations.LocationsRepository;
-import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
@@ -14,13 +9,9 @@ import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
-import com.linkbit.beidou.service.equipments.EquipmentAccountService;
-import com.linkbit.beidou.service.line.LineService;
-import com.linkbit.beidou.service.line.StationService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.SessionUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -32,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,26 +34,17 @@ import java.util.List;
 @RequestMapping("/location")
 public class LocationController {
 
-    Log log = LogFactory.getLog(this.getClass());
 
     @Autowired
     LocationsService locationsService;
 
     @Autowired
-    StationService stationService;
-
-    @Autowired
     ResourceService resourceService;
-
-    @Autowired
-    LineService lineService;
-
-    List<Line> lineList;
-
-    List<Station> stationList;
-
     @Autowired
     VequipmentsRepository vequipmentsRepository;
+
+    @Autowired
+    CommonDataService commonDataService;
 
 
     /**
@@ -93,11 +74,17 @@ public class LocationController {
     public String detail(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         String url = "/location";
         Locations object = null;
+        List<Line> lineList = null;
+        List<Station> stationList = null;
         if (id != 0) {
             url += "/detail";
             object = locationsService.findById(id);
+            lineList =   commonDataService.findLines(session);
+            stationList =   commonDataService.findStations(session);
         }
         modelMap.put("locations", object);
+        modelMap.put("lineList", lineList);
+        modelMap.put("stationList", stationList);
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(object.getLocation());
         modelMap.put("equipmentsList", equipmentsList);
         return url;
@@ -160,8 +147,10 @@ public class LocationController {
         newObj.setSuperior(user.getPerson().getPersonName());
         newObj.setStatus("1");
         modelMap.put("locations", newObj);
-        lineList = lineService.findByStatus("1");
-        stationList = stationService.findByStatus("1");
+        List<Line> lineList = null;
+        List<Station> stationList = null;
+        lineList =   commonDataService.findLines(session);
+        stationList =   commonDataService.findStations(session);
         List<Locations> locationsList = locationsService.findAll();
         modelMap.put("locationsList", locationsList);
         modelMap.put("lineList", lineList);
@@ -170,7 +159,7 @@ public class LocationController {
     }
 
 
-    /**
+  /**
      * @param locations
      * @return 保存位置信息
      */
@@ -180,6 +169,41 @@ public class LocationController {
         return locationsService.save(locations);
 
     }
+
+
+/*
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Locations save(@RequestParam("lid") Long lid,
+                          @RequestParam("location") String location,
+                          @RequestParam("description") String description,
+                          @RequestParam("stationId") Long stationId,
+                          @RequestParam("lineId") Long lineId,
+                          @RequestParam("superior") String superior,
+                          @RequestParam("parent_id") Long parent_id) {
+        Locations locations = null;
+        if (lid != null) {
+            locations = locationsService.findById(lid);
+            locations.setLocation(location);
+            locations.setDescription(description);
+            locations.setLine(lineService.findById(lineId));
+            locations.setStation(stationService.findById(stationId));
+            locations.setSuperior(superior);
+            locations.setParent(parent_id);
+        } else {
+
+            locations = new Locations();
+            locations.setLocation(location);
+            locations.setDescription(description);
+            locations.setLine(lineService.findById(lineId));
+            locations.setStation(stationService.findById(stationId));
+            locations.setSuperior(superior);
+            locations.setParent(parent_id);
+
+        }
+
+        return locationsService.save(locations);
+    }*/
 
 
     /**

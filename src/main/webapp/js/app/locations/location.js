@@ -149,6 +149,8 @@ function loadCreateForm() {
 function save() {
     var objStr = getFormJsonData("form");
     var locations = JSON.parse(objStr);
+
+    console.log("locations------------"+JSON.stringify(locations));
     var url = "/location/save";
     if (!locations.description) {
         showMessageBox("danger", "位置描述不能为空!");

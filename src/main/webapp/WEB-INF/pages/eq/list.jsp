@@ -115,8 +115,8 @@
 	});
 
 	//载入页面
-	function loadPage(pageIndex, perPageCout) {
-		var url = "/eq/listVeq/" + startIndex + "/" + perPageCout;
+	function loadPage(pageIndex, pageSize) {
+		var url = "/eq/listVeq/" + startIndex + "/" + pageSize;
 		$.getJSON(url, function(data) {
 
 		});
