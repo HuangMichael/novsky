@@ -3,8 +3,6 @@ package com.linkbit.beidou.dao.equipments;
 
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -22,10 +20,9 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     List<Equipments> findAll();
 
 
-    /**
-     * 查询所有设备类别
-     */
-    Page<Equipments> findAll(Pageable pageable);
+
+
+
 
 
     /**

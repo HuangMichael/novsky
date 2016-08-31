@@ -181,15 +181,4 @@ function abort(id) {
     dealResult(orderId, operationType, operationDesc);
 }
 
-/**
- *
- * @param id 预览
- */
-function preview(id) {
-    PDFObject.embed("/report/fixReport.pdf", "#pdf_view",
-        {
-            width: "100%",
-            height: "750px"
-        }
-    );
-}
+
