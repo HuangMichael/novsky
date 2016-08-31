@@ -239,7 +239,6 @@ function save() {
         description: description
     };
 
-    console.log("data------------"+JSON.stringify(line));
     $.post(url, line,function (data) {
             if (data) {
                 showMessageBox("info", "线路信息保存成功！");
