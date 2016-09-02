@@ -43,22 +43,20 @@
                                                        class="table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        <th data-column-id="index" data-width="3%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" data-width="10%">跟踪号
                                                         </th>
-                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
-                                                        <th data-column-id="location" width="30%">设备位置</th>
-                                                        <th data-column-id="eqName" width="10%">设备名称</th>
-                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
-                                                        <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
-                                                            维修描述
-                                                        </th>
-                                                        <th data-column-id="deadLine" width="5%">维修期限</th>
-                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                        <th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
+
+                                                        <th data-column-id="eqName" data-width="7%">设备名称</th>
+                                                            <th data-column-id="location" data-width="8%">设备位置</th>
+                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" data-width="5%">设备分类</th>
+                                                        <th data-column-id="status" data-width="5%">设备状态</th>
+                                                        <th data-column-id="deadLine" data-width="8%">维修期限</th>
+                                                        <th data-column-id="reportTime" data-width="8%">处理时间</th>
                                                         <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" width="5%">暂停&nbsp;取消&nbsp;完工
+                                                            data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
                                                         </th>
                                                     </tr>
                                                     </thead>
@@ -70,14 +68,14 @@
                                                             <td>${ds.index+1}</td>
                                                             <td>${d.id}</td>
                                                             <td>${d.orderLineNo}</td>
-                                                            <td>${d.vlocations.locName}</td>
                                                             <td>${d.equipments.description}</td>
+                                                            <td>${d.vlocations.locName}</td>
                                                             <td>${d.orderDesc}</td>
                                                             <td>${d.equipmentsClassification.description}</td>
                                                             <td>
                                                                     ${d.nodeState}
                                                             </td>
-                                                            <td>${d.fixDesc}</td>
+
 
                                                             <td><fmt:formatDate value="${d.deadLine}"
                                                                                 pattern="yyyy-MM-dd HH:mm:ss"/></td>
@@ -93,19 +91,19 @@
                                                        class="table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        <th data-column-id="index" data-width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" data-width="10%">跟踪号
                                                         </th>
-                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
-                                                        <th data-column-id="location" width="30%">设备位置</th>
-                                                        <th data-column-id="eqName" width="10%">设备名称</th>
-                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
-                                                        <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                        <th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
+                                                        <th data-column-id="location" data-width="30%">设备位置</th>
+                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
+                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" data-width="10%">设备分类</th>
+                                                        <th data-column-id="status" data-width="5%">设备状态</th>
+                                                        <th data-column-id="fixDesc" style="height:20px" data-width="20%">
                                                             维修描述
                                                         </th>
-                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                        <th data-column-id="reportTime" data-width="5%">处理时间</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -136,21 +134,21 @@
                                                        class="table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        <th data-column-id="index" data-width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" data-width="10%">跟踪号
                                                         </th>
-                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
-                                                        <th data-column-id="location" width="30%">设备位置</th>
-                                                        <th data-column-id="eqName" width="10%">设备名称</th>
-                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
-                                                        <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                        <th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
+                                                        <th data-column-id="location" data-width="30%">设备位置</th>
+                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
+                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" data-width="10%">设备分类</th>
+                                                        <th data-column-id="status" data-width="5%">设备状态</th>
+                                                        <th data-column-id="fixDesc" style="height:20px" data-width="20%">
                                                             维修描述
                                                         </th>
-                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                        <th data-column-id="reportTime" data-width="5%">处理时间</th>
                                                         <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" width="5%">恢复&nbsp;取消&nbsp;完工
+                                                            data-sortable="false" data-width="5%">恢复&nbsp;取消&nbsp;完工
                                                         </th>
                                                     </tr>
                                                     </thead>
@@ -182,19 +180,19 @@
                                                        class="table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="id" data-visible="false" width="10%">跟踪号
+                                                        <th data-column-id="index" data-width="5%">序号</th>
+                                                        <th data-column-id="id" data-visible="false" data-width="10%">跟踪号
                                                         </th>
-                                                        <th data-column-id="orderLineNo" width="10%">跟踪号</th>
-                                                        <th data-column-id="location" width="30%">设备位置</th>
-                                                        <th data-column-id="eqName" width="10%">设备名称</th>
-                                                        <th data-column-id="eqDesc" width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
-                                                        <th data-column-id="status" width="5%">设备状态</th>
-                                                        <th data-column-id="fixDesc" style="height:20px" width="20%">
+                                                        <th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
+                                                        <th data-column-id="location" data-width="30%">设备位置</th>
+                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
+                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" data-width="10%">设备分类</th>
+                                                        <th data-column-id="status" data-width="5%">设备状态</th>
+                                                        <th data-column-id="fixDesc" style="height:20px" data-width="20%">
                                                             维修描述
                                                         </th>
-                                                        <th data-column-id="reportTime" width="5%">处理时间</th>
+                                                        <th data-column-id="reportTime" data-width="5%">处理时间</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -222,7 +220,7 @@
                                             </div>
 
                                             <div class="tab-pane fade" id="report">
-                                             <iframe id="reportFrame" width="100%" height="800" src="http://localhost:8080/web/ReportServer?reportlet=/equipment.cpt" style="border: none;"></iframe>
+                                             <iframe id="reportFrame" data-width="100%" height="800" src="http://localhost:8080/web/ReportServer?reportlet=/equipment.cpt" style="border: none;"></iframe>
                                              </div>
                                         </div>
                                     </div>
