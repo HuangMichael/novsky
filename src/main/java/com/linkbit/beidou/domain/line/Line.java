@@ -35,4 +35,6 @@ public class Line implements java.io.Serializable {
     @JsonBackReference("stationList")
     @OneToMany(mappedBy = "line")
     List<Station> stationList = new ArrayList<Station>();
+    @Column(length = 1)
+    private String type;//(1为线 2为段)
 }

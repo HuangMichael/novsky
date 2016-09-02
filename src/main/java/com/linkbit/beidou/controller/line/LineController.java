@@ -39,8 +39,8 @@ public class LineController {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-        System.out.println("appMenus----------" + appMenus.size());
-        commonDataService.findLines(httpSession);
+        List<Line> lineList = lineService.findByStatus("1");
+        modelMap.put("lineList", lineList);
         return "/line/list";
     }
 
@@ -94,11 +94,14 @@ public class LineController {
      */
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
     @ResponseBody
-    public Line update(@RequestParam("lineId") Long lineId,@RequestParam("lineNo") String lineNo,@RequestParam("sortNo") Long sortNo, @RequestParam("description") String description) {
+    public Line update(@RequestParam("lineId") Long lineId,
+                       @RequestParam("lineNo") String lineNo,
+                       @RequestParam("sortNo") Long sortNo,
+                       @RequestParam("description") String description) {
 
-        System.out.println("lineId--"+lineId);
-        System.out.println("lineNo--"+lineNo);
-        System.out.println("description--"+description);
+        System.out.println("lineId--" + lineId);
+        System.out.println("lineNo--" + lineNo);
+        System.out.println("description--" + description);
         Line line = lineService.findById(lineId);
         line.setDescription(description);
         line.setSortNo(sortNo);
@@ -107,17 +110,35 @@ public class LineController {
     }
 
 
-
-
-
     /**
      * @return 查询所有的线路
      */
     @RequestMapping(value = "/findAllLines")
     @ResponseBody
     public List<Line> findAllLines() {
-        List<Line> lineList = lineService.findByStatus("1");
+        List<Line> lineList = lineService.findLines();
         return lineList;
     }
 
+
+    /**
+     * @return 查询所有的线路
+     */
+    @RequestMapping(value = "/findLines")
+    @ResponseBody
+    public List<Line> findLines() {
+        List<Line> lineList = lineService.findLines();
+        return lineList;
+    }
+
+
+    /**
+     * @return 查询所有的线路
+     */
+    @RequestMapping(value = "/findSegs")
+    @ResponseBody
+    public List<Line> findSegs() {
+        List<Line> lineList = lineService.findSegs();
+        return lineList;
+    }
 }

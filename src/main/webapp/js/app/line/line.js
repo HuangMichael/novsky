@@ -17,6 +17,8 @@ var formTab = $('#myTab li:eq(1) a');
 //维修历史列表
 var pointer = 0;
 
+var type = [];
+
 var selectedUsersId = [];
 $.ajaxSettings.async = false;
 var validateOptions = {
@@ -190,7 +192,14 @@ $(function () {
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            line: null
+            line: null,
+            type:[{
+                key:'1',value:'站区'
+
+            },{
+                key:'2',value:'段区'
+
+            }]
         }
     });
 
@@ -227,6 +236,7 @@ function save() {
     var lineId = $("#lineId").val();
     var lineNo = $("#lineNo").val();
     var description = $("#description").val();
+    var type = $("#type").val();
     if (lineId) {
         var url = "/line/update";
     } else {
@@ -235,18 +245,19 @@ function save() {
     var line = {
         id: lineId,
         lineNo: lineNo,
-        sortNo:1,
+        type: type,
+        sortNo: 1,
         description: description
     };
 
-    $.post(url, line,function (data) {
-            if (data) {
-                showMessageBox("info", "线路信息保存成功！");
-            } else {
-                showMessageBox("danger", "线路信息保存失败！");
-            }
+    $.post(url, line, function (data) {
+        if (data) {
+            showMessageBox("info", "线路信息保存成功！");
+        } else {
+            showMessageBox("danger", "线路信息保存失败！");
+        }
 
-        });
+    });
 }
 
 function showLine(lineId) {
@@ -261,11 +272,16 @@ function showLine(lineId) {
  *  ajax加载新增页面
  */
 function add() {
+
+
     $("#tab_1_1").load("/line/create");
     var newVue = new Vue({
         el: "#createForm",
         data: {
-            line: null
+            line: null,
+            type: [
+                {value: 1, text: "站区", selected: "selected"},
+                {value: 2, text: "段区"}]
         }
     });
     formTab.tab('show');

@@ -234,7 +234,7 @@ function addNew() {
     formstatus = formStatusArray["CREATE"];
     var status = [
         {value: 1, text: "投用", selected: "selected"},
-        {value: 0, text: "停用"},
+        {value: 0, text: "维修"},
         {value: 2, text: "报废"}];
     var running = [{value: 1, text: "运行"}, {value: 0, text: "停止"}];
     vdm.$set("equipments", null);

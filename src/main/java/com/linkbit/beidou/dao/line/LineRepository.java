@@ -28,6 +28,11 @@ public interface LineRepository extends CrudRepository<Line, Long> {
 
 
 
+    /**
+     * 根据类型查询 1为线路  2为段
+     */
+    List<Line> findByType(String type);
+
 
 
 

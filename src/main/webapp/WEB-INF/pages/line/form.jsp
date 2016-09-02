@@ -19,8 +19,7 @@
             </div>
             <div class="form-group">
 
-                <label for="status"
-                       class="col-md-1 control-label">是否启用</label>
+                <label for="status" class="col-md-1 control-label">是否启用</label>
                 <div class="col-md-5">
                     <form:select path="role.status" itemValue="${role.status}" cssClass="form-control" id="status">
                         <form:option value="1">是</form:option>

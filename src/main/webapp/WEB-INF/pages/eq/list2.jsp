@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+
 <div class="container" id="equipmentsApp">
 	<div class="row">
 		<div id="content" class="col-lg-12">

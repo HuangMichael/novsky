@@ -52,12 +52,12 @@
         Highcharts.setOptions({
             colors: ['#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#058DC7']
         });
-        var url = "/line/findByStatus";
+        var url = "/line/findLines";
         var lines = [];
         $.ajaxSettings.async = false;
         $.getJSON(url, function (data) {
             for (var x in data) {
-                if (data[x]['description'] && x < 7) {
+                if (data[x]['description']) {
                     lines[x] = data[x]['description'];
                 }
             }
@@ -155,7 +155,7 @@
                 }
             },
             exporting: {
-                enabled: false
+                enabled: true
             },
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
@@ -329,5 +329,7 @@
         return suspendLineNum;
     }
 </script>
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+<script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
 </body>
 </html>

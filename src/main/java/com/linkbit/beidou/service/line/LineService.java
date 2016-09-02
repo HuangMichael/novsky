@@ -46,7 +46,23 @@ public class LineService extends BaseService {
      * @param line
      * @return保存线路信息
      */
-    public Line save(Line line){
-       return  lineRepository.save(line);
+    public Line save(Line line) {
+        return lineRepository.save(line);
+    }
+
+    /**
+     * @return 查询所有线
+     */
+    public List<Line> findLines() {
+        return lineRepository.findByType("1");
+    }
+
+
+    /**
+     * @return 查询所有段
+     */
+    public List<Line> findSegs() {
+
+        return lineRepository.findByType("2");
     }
 }

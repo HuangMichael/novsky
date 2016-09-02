@@ -1,8 +1,10 @@
 package com.linkbit.beidou.service.equipments;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.equipments.VEqRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
@@ -31,14 +33,15 @@ public class EquipmentAccountService extends BaseService {
 
 
     @Autowired
+    VEqRepository  vEqRepository;
+
+
+    @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
 
 
     @Autowired
     LocationsService locationsService;
-
-
-
 
 
     /**
@@ -216,15 +219,19 @@ public class EquipmentAccountService extends BaseService {
     }
 
 
-   /* *//**
-     * @param equipmentId
-     * @return 判断设备是否还在维修流程中
-     *//*
-    public Boolean isEquipmentsOutOfFlow(Long equipmentId) {
-        List<VworkOrderStep> stepList = new ArrayList<VworkOrderStep>();
-        if (equipmentId != null) {
-            stepList = vworkOrderStepRepository.EquipmentsStepsInFlow(equipmentId);
+    /**
+     * @return
+     */
+    public List<Vequipments> search(String eqCode) {
+
+        List<Vequipments> vequipmentsList = null;
+        //直接拼装sql
+        String sql = " 1";
+        if (eqCode != null && !eqCode.equals("")) {
+            sql = " and v.eqCode ='" + eqCode + "'";
+
         }
-        return stepList.isEmpty();
-    }*/
+
+        return  vequipmentsList = vEqRepository.search(sql);
+    }
 }

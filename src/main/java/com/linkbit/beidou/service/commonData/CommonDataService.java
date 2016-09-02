@@ -178,7 +178,7 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备状态");
         } else {
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备状态");
-            eqStatusList.add(new ListObject("0", "停用"));
+            eqStatusList.add(new ListObject("0", "维修"));
             eqStatusList.add(new ListObject("1", "投用"));
             eqStatusList.add(new ListObject("2", "报废"));
             log.info(this.getClass().getCanonicalName() + "------------设备状态放入缓存");
