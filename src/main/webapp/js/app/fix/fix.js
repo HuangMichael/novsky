@@ -3,6 +3,8 @@
  */
 $(document).ready(function () {
     $('#fixListTable').bootgrid({
+        columnSelection: 1,
+        rowCount: [10, 20,25, -1],
         formatters: {
             "opMenus": function (column, row) {
                 return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +

@@ -103,7 +103,10 @@
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#fixListTable').bootgrid();
+        $('#fixListTable').bootgrid({
+
+         columnSelection: 1,
+                rowCount: [10, 20,25, -1]});
 
         $("#myTab a").on("click", function (e) {
             e.preventDefault();
