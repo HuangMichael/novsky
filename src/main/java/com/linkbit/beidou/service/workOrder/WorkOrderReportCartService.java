@@ -3,10 +3,12 @@ package com.linkbit.beidou.service.workOrder;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.workOrder.VworkOrderReportBillRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
@@ -15,6 +17,8 @@ import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +54,9 @@ public class WorkOrderReportCartService extends BaseService {
 
     @Autowired
     WorkOrderHistoryRepository workOrderHistoryRepository;
+
+    @Autowired
+    VworkOrderReportBillRepository vworkOrderReportBillRepository;
 
     /**
      * @param equipmentId
@@ -331,5 +338,22 @@ public class WorkOrderReportCartService extends BaseService {
     }
 
 
+
+
+    public Page<VworkOrderReportBill> findAll(Pageable pageable) {
+
+        return vworkOrderReportBillRepository.findAll(pageable);
+    }
+
+
+    public List<VworkOrderReportBill> findAll() {
+
+        return vworkOrderReportBillRepository.findAll();
+    }
+
+
+    public Long selectCount() {
+        return vworkOrderReportBillRepository.selectCount();
+    }
 }
 

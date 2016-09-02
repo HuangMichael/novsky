@@ -5,6 +5,7 @@ import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.OrderBy;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by huangbin on 2016/5/20.
  */
-public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderReportCart, Long> {
+public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderReportCart, Long> ,PagingAndSortingRepository<WorkOrderReportCart, Long> {
     String SQL0L = "       SELECT  c.location,c.order_desc, DATE_FORMAT(c.report_time,'%Y-%m-%d %H:%m:%s '),c.status,'报修车' FROM  t_work_order_report_cart   c";
     String SQL0WHEREL = " where c.location like :location and c.status <>:status  ";
     String SQL1L = " UNION SELECT  d.location,d.order_desc, DATE_FORMAT(d.report_time,'%Y-%m-%d %H:%m:%s '),d.status,'报修单' FROM  t_work_order_report_detail d ";
@@ -136,5 +137,10 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
 
     @Query("SELECT r from WorkOrderReportCart r where r.id in :ids ")
     List<WorkOrderReportCart> findWorkOrderReportDetailByIds(@Param("ids") List<Long> ids);
+
+
+    @Query("SELECT count(r) from WorkOrderReportCart r  ")
+    Long selectCount();
+
 
 }

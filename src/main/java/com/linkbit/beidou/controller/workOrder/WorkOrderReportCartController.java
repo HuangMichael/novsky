@@ -1,14 +1,20 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
+import com.linkbit.beidou.domain.app.MyPage;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +49,24 @@ public class WorkOrderReportCartController {
         System.out.println("workOrderReportCartList------------" + workOrderReportCartList.size());
         modelMap.put("workOrderReportCartList", workOrderReportCartList);
         return "/workOrderReportCart/list";
+    }
+
+
+    /**
+     * 显示所有的报修车列表信息
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage list2(@RequestParam("current") int current,@RequestParam("rowCount") Long rowCount) {
+      long reportCartListSize = workOrderReportCartService.selectCount();
+
+       Page<VworkOrderReportBill> page  = workOrderReportCartService.findAll(new PageRequest(current,rowCount.intValue()));
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(reportCartListSize);
+        return myPage;
     }
 
 
