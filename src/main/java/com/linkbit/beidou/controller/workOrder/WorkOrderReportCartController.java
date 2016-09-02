@@ -2,11 +2,13 @@ package com.linkbit.beidou.controller.workOrder;
 
 
 import com.linkbit.beidou.domain.app.MyPage;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.utils.PageUtils;
@@ -35,15 +37,24 @@ public class WorkOrderReportCartController {
 
     @Autowired
     LocationsService locationsService;
+    @Autowired
+    ResourceService resourceService;
 
 
     /**
      * 显示所有的报修车列表信息
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(ModelMap modelMap, HttpSession session) {
+    public String list(ModelMap modelMap, HttpSession httpSession) {
 
-        User user = SessionUtil.getCurrentUserBySession(session);
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        System.out.println("controllerName-----------------------" + controllerName);
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
+
+
+
+        User user = SessionUtil.getCurrentUserBySession(httpSession);
         String userLocation = user.getLocation();
         List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByLocationStartingWithAndNodeState(userLocation, "报修车");
         System.out.println("workOrderReportCartList------------" + workOrderReportCartList.size());
@@ -60,7 +71,7 @@ public class WorkOrderReportCartController {
     public MyPage list2(@RequestParam("current") int current,@RequestParam("rowCount") Long rowCount) {
       long reportCartListSize = workOrderReportCartService.selectCount();
 
-       Page<VworkOrderReportBill> page  = workOrderReportCartService.findAll(new PageRequest(current,rowCount.intValue()));
+       Page<VworkOrderReportBill> page  = workOrderReportCartService.findAll(new PageRequest(current-1,rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);

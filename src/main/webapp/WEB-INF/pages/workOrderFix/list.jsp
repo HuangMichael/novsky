@@ -16,6 +16,7 @@
                         <div class="box-title">
                             <h4><i class="fa fa-sitemap"></i>维修单查询</h4>
                         </div>
+                        <%@include file="../common/common-menubar.jsp"%>
                         <div class="box-body">
                             <div id="contentDiv">
                                 <div class="box-body">
@@ -291,4 +292,9 @@
 
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+
+
+
+
+
 <script type="text/javascript" src="js/app/fix/fix.js"></script>

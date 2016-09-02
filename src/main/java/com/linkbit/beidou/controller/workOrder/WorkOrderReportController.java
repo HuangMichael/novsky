@@ -1,10 +1,12 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -36,15 +38,16 @@ public class WorkOrderReportController {
     @Autowired
     WorkOrderReportCartService workOrderReportCartService;
 
+    @Autowired
+    ResourceService resourceService;
     /**
      * 保存工单信息
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(ModelMap modelMap, HttpSession session) {
-        User user = SessionUtil.getCurrentUserBySession(session);
-        String location = user.getLocation();
-        List<WorkOrderReportCart> workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWith(location);
-        modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(session, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
         return "/workOrderReport/list";
     }
 

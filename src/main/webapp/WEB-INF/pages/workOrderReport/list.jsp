@@ -15,6 +15,7 @@
 						<div class="box-title">
 							<h4><i class="fa fa-table"></i>报修单信息</h4>
 						</div>
+
 						<div class="box-body">
 							<div id="contentDiv">
 								<div class="box-body">
@@ -84,6 +85,13 @@
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 
+<script type="text/javascript" src="js/tableExport/tableExport.js"></script>
+<script type="text/javascript" src="js/tableExport/html2canvas.js"></script>
+<script type="text/javascript" src="js/tableExport/jquery.base64.js"></script>
+<script type="text/javascript" src="js/tableExport/jspdf/libs/sprintf.js"></script>
+<script type="text/javascript" src="js/tableExport/jspdf/jspdf.js"></script>
+<script type="text/javascript" src="js/tableExport/jspdf/libs/base64.js"></script>
+
 <script>
 	$(function() {
 
@@ -102,4 +110,15 @@
 			rowCount: [10, 20, 25, -1],
 		});
 	});
+
+	function exportDoc(docType) {
+
+		$('#fixListTable').tableExport({
+			type: docType,
+			escape: 'false',
+			filename: new Date().getFullYear(),
+			consoleLog: 'true'
+		});
+
+	}
 </script>
