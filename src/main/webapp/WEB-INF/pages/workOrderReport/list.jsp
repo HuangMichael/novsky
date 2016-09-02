@@ -34,14 +34,14 @@
                                                        class=" table table-striped table-bordered table-hover  table-responsive">
                                                     <thead>
                                                     <tr>
-                                                        <th data-column-id="index" width="5%">序号</th>
-                                                        <th data-column-id="orderLineNo" width="5%">跟踪号</th>
-                                                        <th data-column-id="eqName" width="10%">设备名称</th>
-                                                        <th data-column-id="orderDesc" width="20%">故障描述</th>
-                                                        <th data-column-id="location" width="10%">设备位置</th>
-                                                        <th data-column-id="eqClass" width="10%">设备分类</th>
-                                                        <th data-column-id="reportTime" width="10%">生成时间</th>
-                                                        <th data-column-id="nodeState" width="10%">报修状态</th>
+                                                        <th data-column-id="index" data-width="5%">序号</th>
+                                                        <th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
+                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
+                                                        <th data-column-id="orderDesc" data-width="20%">故障描述</th>
+                                                        <th data-column-id="location" data-width="10%">设备位置</th>
+                                                        <th data-column-id="eqClass" data-width="8%">设备分类</th>
+                                                        <th data-column-id="reportTime" data-width="10%">生成时间</th>
+                                                        <th data-column-id="nodeState" data-width="5%">报修状态</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
