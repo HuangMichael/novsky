@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.OrderBy;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -141,6 +142,14 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
 
     @Query("SELECT count(r) from WorkOrderReportCart r  ")
     Long selectCount();
+
+
+
+    /**
+     * @param
+     * @return 根据位置和节点的状态查询
+     */
+    List<WorkOrderReportCart> findByNodeStateAndDeadLineLessThan(String nodeState,Date now);
 
 
 }

@@ -1,11 +1,9 @@
 package com.linkbit.beidou.tasks;
 
-/**
- * Created by Administrator on 2016/9/5.
- */
-
+import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,11 +20,14 @@ import java.util.Date;
 public class FixtTaskStatusSchedule {
 
     private static final Logger log = LoggerFactory.getLogger(FixtTaskStatusSchedule.class);
-
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-    @Scheduled(fixedRate = 5000)
+
+    @Autowired
+    WorkOrderFixService workOrderFixService;
+    @Scheduled(cron = "0 35 14 * * *")
     public void updateFixTaskStatus() {
         log.info("定时更新任务状态---- {}", dateFormat.format(new Date()));
+        workOrderFixService. updateFixTaskStatus("已派工");
     }
 }

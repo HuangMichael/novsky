@@ -56,7 +56,10 @@
 															<th data-column-id="status" data-width="5%">设备状态</th>
 															<th data-column-id="deadLine" data-width="8%">维修期限</th>
 															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+															<th data-column-id="expireTime"  data-width="8%">维修时限</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
+
+
 															</th>
 														</tr>
 													</thead>
@@ -74,12 +77,16 @@
 																	${d.nodeState}
 																</td>
 
+
+
 																<td>
 																	<fmt:formatDate value="${d.deadLine}" pattern="MM-dd HH:mm:ss" />
 																</td>
 																<td>
 																	<fmt:formatDate value="${d.reportTime}" pattern="MM-dd HH:mm:ss" />
 																</td>
+
+
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -260,8 +267,6 @@
 		</div>
 	</div>
 </div>
-
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
 <script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
-
 <script type="text/javascript" src="js/app/fix/fix.js"></script>

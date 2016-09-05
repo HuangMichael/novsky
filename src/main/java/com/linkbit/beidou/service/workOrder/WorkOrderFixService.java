@@ -90,7 +90,6 @@ public class WorkOrderFixService extends BaseService {
     }
 
 
-
     /**
      * @param orderId     维修单id
      * @param deadLineStr
@@ -127,5 +126,16 @@ public class WorkOrderFixService extends BaseService {
             deadLine = DateUtils.addDate(reportDate, Calendar.HOUR, limitHours.intValue());
         }
         return deadLine;
+    }
+
+
+    /**
+     * @param status 状态
+     */
+    public void updateFixTaskStatus(String status) {
+        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartRepository.findByNodeStateAndDeadLineLessThan(status, new Date());
+        for (WorkOrderReportCart workOrderReportCart : workOrderReportCartList) {
+            System.out.println(workOrderReportCart.getOrderLineNo());
+        }
     }
 }
