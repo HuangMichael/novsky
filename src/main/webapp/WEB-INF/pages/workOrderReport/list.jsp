@@ -33,11 +33,10 @@
 										</ul>
 										<div class="tab-content">
 											<div class="tab-pane fade in active" id="tab_1_0">
+
 												<table id="fixListTable" class="table table-bordered table-hover table-striped" data-toggle="bootgrid" data-ajax="true" data-url="/workOrderReportCart/data">
 													<thead>
 														<tr>
-
-															<th data-column-id="index" data-width="5%">序号</th>
 															<th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
 															<th data-column-id="eqName" data-width="10%">设备名称</th>
 															<th data-column-id="orderDesc" data-width="20%">故障描述</th>
@@ -108,8 +107,49 @@
 			sorting: true,
 			columnSelection: 1,
 			rowCount: [10, 20, 25, -1],
+
+			templates: {
+				search: '<div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" id="orderDesc" placeholder="维修描述" /></div></div><div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" placeholder="位置描述" id="locName"/></div></div>',
+			}
 		});
+
+		var searchStr = "";
+		$("input[type='text']").on("change", function(data) {
+			var paramName = $(this).attr("id");
+			var paramValue = $(this).val();
+			if(paramValue) {
+				searchStr += paramName + "=" + paramValue + "&";
+			}
+			search(searchStr);
+		})
 	});
+
+	function search(searchStr) {
+		//重新处理搜索字符串
+		searchStr = searchStr.substring(0, searchStr.length - 1);
+		var searchArray = searchStr.split("&");
+		console.log("调用查询方法--------------" + searchStr);
+		var url = "workOrderReport/findByOrderDescAndLocName" + "?" + searchStr;
+		$("#tab_1_0").load(url);
+		$("#fixListTable").bootgrid({
+			navigation: 3,
+			padding: 2,
+			columnSelection: !0,
+			rowCount: [8, 15, 20, -1],
+			selection: !1,
+			multiSelect: !1,
+			rowSelect: !1,
+			keepSelection: !1,
+			highlightRows: 1,
+			sorting: true,
+			columnSelection: 1,
+			rowCount: [10, 20, 25, -1],
+
+			templates: {
+				search: '<div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" id="orderDesc" placeholder="维修描述" /></div></div><div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" placeholder="位置描述" id="locName"/></div></div>',
+			}
+		});
+	}
 
 	function exportDoc(docType) {
 

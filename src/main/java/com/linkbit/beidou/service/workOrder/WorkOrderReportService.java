@@ -3,19 +3,17 @@ package com.linkbit.beidou.service.workOrder;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderNumFinishRepository;
-import com.linkbit.beidou.dao.workOrder.VworkOrderNumReportRepository;
-import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
-import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.dao.workOrder.*;
+import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
-import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
-import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
-import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
-import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +51,10 @@ public class WorkOrderReportService extends BaseService {
     @Autowired
     WorkOrderFixService workOrderFixService;
 
+
+    @Autowired
+
+    VworkOrderReportBillRepository vworkOrderReportBillRepository;
 
     /**
      * @param ids 选中的报修车列表id集合
@@ -150,5 +152,15 @@ public class WorkOrderReportService extends BaseService {
             workOrderReportCart.setUnit(getDefaultUnitByEqClass(equipmentsClassification));
         }
         return workOrderReportCart;
+    }
+
+
+
+
+    /**
+     * @return 根据维修描述和位置名称查询
+     */
+    public List<VworkOrderReportBill> findByOrderDescAndLocName(String orderDesc, String locName) {
+        return vworkOrderReportBillRepository.findByOrderDescContainsAndLocNameContains(orderDesc,locName);
     }
 }

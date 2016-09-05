@@ -1,6 +1,8 @@
 package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -16,5 +18,20 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
 
     @Query("SELECT count(r) from VworkOrderReportBill r  ")
     Long selectCount();
+
+
+    //多字段模糊查询
+
+
+    /**
+     * @param orderDesc 报修描述
+     * @param locName 位置名称
+     * @return 模糊查询
+     */
+    List<VworkOrderReportBill> findByOrderDescContainsAndLocNameContains(String orderDesc, String locName);
+
+
+
+
 
 }

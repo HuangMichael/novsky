@@ -1,10 +1,12 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
+import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
+import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
@@ -12,6 +14,9 @@ import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +45,7 @@ public class WorkOrderReportController {
 
     @Autowired
     ResourceService resourceService;
+
     /**
      * 保存工单信息
      */
@@ -95,4 +101,28 @@ public class WorkOrderReportController {
     public List<VworkOrderNumFinish> selectFinishNumIn3Months() {
         return workOrderReportService.selectFinishNumIn3Months();
     }
+
+
+    /**
+     * @return 动态条件查询
+     */
+    @RequestMapping(value = "/findByOrderDescAndLocName", method = RequestMethod.GET)
+    public String findByOrderDescAndLocName( @RequestParam(value = "orderDesc", defaultValue = "", required = false) String orderDesc, @RequestParam(value = "locName", defaultValue = "", required = false) String locName,ModelMap modelMap) {
+
+        List<VworkOrderReportBill>  searchResult =      workOrderReportService.findByOrderDescAndLocName(orderDesc, locName);
+        modelMap.put("searchResult",searchResult);
+        return "workOrderReport/reportList";
+    }
+
+
+    /**
+     * @return 动态条件查询
+     */
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search( @RequestParam(value = "orderDesc", defaultValue = "", required = false) String orderDesc, @RequestParam(value = "locName", defaultValue = "", required = false) String locName,ModelMap modelMap) {
+        List<VworkOrderReportBill>  searchResult =      workOrderReportService.findByOrderDescAndLocName(orderDesc, locName);
+        modelMap.put("searchResult",searchResult);
+        return "workOrderReport/reportList";
+    }
+
 }
