@@ -68,9 +68,8 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage list2(@RequestParam("current") int current,@RequestParam("rowCount") Long rowCount) {
+    public MyPage list2(@RequestParam(value = "current",defaultValue = "0") int current,@RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
       long reportCartListSize = workOrderReportCartService.selectCount();
-
        Page<VworkOrderReportBill> page  = workOrderReportCartService.findAll(new PageRequest(current-1,rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());

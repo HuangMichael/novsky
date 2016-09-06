@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 
 /**
@@ -21,6 +22,14 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
      * @return 节点状态
      */
     List<VworkOrderFixBill> findByNodeStateOrderByExpiredHoursDesc(String nodeState);
+
+    /**
+     * @param location 位置编号
+     * @param nodeState 节点状态
+     * @return 根据用户位置和节点状态查询
+     */
+    @OrderBy("expiredHours desc,id desc")
+    List<VworkOrderFixBill>  findByLocationStartingWithAndNodeState(String location,String nodeState);
 
 
 }

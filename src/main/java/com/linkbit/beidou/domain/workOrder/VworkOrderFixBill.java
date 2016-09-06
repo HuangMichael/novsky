@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 /**
- * 工单报修完成率
+ * 维修单视图实体类
  * */
 public class VworkOrderFixBill {
     @Id
@@ -26,5 +26,6 @@ public class VworkOrderFixBill {
     private String eqClass;
     private String nodeTime;
     private String nodeState;
+    private String location;
     private long expiredHours;
 }

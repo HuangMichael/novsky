@@ -3,9 +3,11 @@ package com.linkbit.beidou.service.workOrder;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.workOrder.VworkOrderFixBillRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.workOrder.VworkOrderFixBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
@@ -45,6 +47,11 @@ public class WorkOrderFixService extends BaseService {
 
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
+
+    @Autowired
+    VworkOrderFixBillRepository vworkOrderFixBillRepository;
+
+
 
     /**
      * @return 查询已派工的维修单
@@ -137,5 +144,16 @@ public class WorkOrderFixService extends BaseService {
         for (WorkOrderReportCart workOrderReportCart : workOrderReportCartList) {
             System.out.println(workOrderReportCart.getOrderLineNo());
         }
+    }
+
+
+
+    /**
+     * @return 查询已派工的维修单
+     */
+    public List<VworkOrderFixBill> findByNodeStateAndLocation(String nodeState,String location) {
+
+        return  vworkOrderFixBillRepository.findByLocationStartingWithAndNodeState(location,nodeState);
+
     }
 }

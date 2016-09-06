@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.workOrder;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.domain.workOrder.VworkOrderFixBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
@@ -49,13 +50,13 @@ public class WorkOrderFixController {
      * @param modelMap
      * @return 显示维修工单列表
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(ModelMap modelMap, HttpSession session) {
+    @RequestMapping(value = "/list2", method = RequestMethod.GET)
+    public String list2(ModelMap modelMap, HttpSession session) {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
 
-        List<WorkOrderReportCart> workOrderFixDetailListList0 = workOrderFixService.findDistributedOrders(location);
+       /* List<WorkOrderReportCart> workOrderFixDetailListList0 = workOrderFixService.findDistributedOrders(location);
         List<WorkOrderReportCart> workOrderFixDetailListList1 = workOrderFixService.findFinishOrders(location);
         List<WorkOrderReportCart> workOrderFixDetailListList2 = workOrderFixService.findPausedOrders(location);
         List<WorkOrderReportCart> workOrderFixDetailListList3 = workOrderFixService.findRemovedOrders(location);
@@ -63,9 +64,34 @@ public class WorkOrderFixController {
         modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
         modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
         modelMap.put("workOrderFixDetailListList3", workOrderFixDetailListList3);
+        //查询出已派工的维修单*/
+        return "/workOrderFix/list";
+    }
+
+
+
+    /**
+     * @param modelMap
+     * @return 显示维修工单列表
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(ModelMap modelMap, HttpSession session) {
+        User user = SessionUtil.getCurrentUserBySession(session);
+        String location = user.getLocation();
+        //过滤显示当前用户location数据 找出不完工的单子
+
+        List<VworkOrderFixBill> workOrderFixDetailListList0 = workOrderFixService.findByNodeStateAndLocation("已派工",location);
+        List<VworkOrderFixBill> workOrderFixDetailListList1 = workOrderFixService.findByNodeStateAndLocation("已完工",location);
+        List<VworkOrderFixBill> workOrderFixDetailListList2 = workOrderFixService.findByNodeStateAndLocation("已暂停",location);
+        List<VworkOrderFixBill> workOrderFixDetailListList3 = workOrderFixService.findByNodeStateAndLocation("已取消",location);
+        modelMap.put("workOrderFixDetailListList0", workOrderFixDetailListList0);
+        modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
+        modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
+        modelMap.put("workOrderFixDetailListList3", workOrderFixDetailListList3);
         //查询出已派工的维修单
         return "/workOrderFix/list";
     }
+
 
 
     /**
