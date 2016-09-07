@@ -330,6 +330,6 @@
     }
 </script>
 <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
-<script src="http://cdn.hcharts.cn/highcharts/modules/exporting.js"></script>
+<script src="js/Highcharts-4.2.4/js/modules/exporting.js"></script>
 </body>
 </html>
