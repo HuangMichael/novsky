@@ -1,8 +1,11 @@
 package com.linkbit.beidou.controller.line;
 
 
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
+import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -29,9 +33,17 @@ public class StationController {
     StationService stationService;
     @Autowired
     LineService lineService;
+    @Autowired
+    ResourceService resourceService;
+
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap) {
+    public String list(ModelMap modelMap, HttpSession httpSession) {
+
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
+
         List<Station> stationList = stationService.findByStatus("1");
         modelMap.put("stationList", stationList);
         return "/station/list";
@@ -61,6 +73,7 @@ public class StationController {
         List<Station> stationList = stationService.findByStatus("1");
         return stationList;
     }
+
     /**
      * @param id 根据id查询车站信息
      * @return
@@ -70,5 +83,19 @@ public class StationController {
     public Station findById(@PathVariable("id") long id) {
         Station station = stationService.findById(id);
         return station;
+    }
+
+
+
+    /**
+     * 查询激活状态的人员信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/findActiveStation")
+    @ResponseBody
+    public List<Station> findActivePerson() {
+        List<Station> stationList = stationService.findActiveStation();
+        return stationList;
     }
 }

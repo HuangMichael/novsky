@@ -22,6 +22,13 @@
 										<a href="#tab_1_0" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
 											<i class="fa fa-home" id="eq"></i>设备信息</a>
 									</li>
+									<li>
+										<a href="#tab_1_1" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
+											<i class="fa fa-flag" id="eqDetail"></i>设备详细信息</a>
+									</li>
+									<li>
+										<a href="#tab_1_3" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock" id="history"></i>维修历史信息</a>
+									</li>
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="tab_1_0" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
@@ -67,6 +74,7 @@
 										<table id="equipmentsDataTable" class=" table table-striped table-bordered table-hover">
 											<thead>
 												<tr>
+													<th width="5%"><input type="checkbox" name="selectAll" id="selectAll" onclick="checkAll(this)" /></th>
 													<th width="5%">序号</th>
 													<th width="15%">设备编号</th>
 													<th width="20%">设备名称</th>
@@ -82,6 +90,13 @@
 										</table>
 										<div id="paginator"></div>
 									</div>
+									<div class="tab-pane fade" id="tab_1_1">
+										<%@include file="table_1_1.jsp" %>
+									</div>
+									<div class="tab-pane fade" id="tab_1_3">
+										<%@include file="table_1_3.jsp" %>
+									</div>
+
 								</div>
 							</div>
 						</div>
@@ -99,6 +114,7 @@
 <script type="text/javascript" src="js/tableExport/jspdf/libs/sprintf.js"></script>
 <script type="text/javascript" src="js/tableExport/jspdf/jspdf.js"></script>
 <script type="text/javascript" src="js/tableExport/jspdf/libs/base64.js"></script>
+<!--<script src="/js/app/equipment/equipments.js"></script>-->
 <script type="text/javascript">
 	$(function() {
 
@@ -108,7 +124,7 @@
 		var pageHtml = "";
 		$.getJSON(url, function(data) {
 			$('#paginator').bootpag({
-				total: data.totalPages -1,
+				total: data.totalPages - 1,
 				page: 1,
 				maxVisible: 10
 			}).on('page', function(event, num) {
@@ -126,9 +142,15 @@
 		});
 
 	});
-
+	/**
+	 *首次加载
+	 * */
 	function fistLoad() {
 		$("#tableContainer").load("eq/loadPage/1/10");
+	}
+
+	function checkAll(obj) {
+		$("input[name='select']").prop('checked', $(obj).prop('checked'));
 	}
 
 	/**

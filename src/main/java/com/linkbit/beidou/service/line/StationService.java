@@ -4,6 +4,7 @@ import com.linkbit.beidou.dao.line.StationRepository;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -50,6 +51,15 @@ public class StationService extends BaseService {
             stationList = stationRepository.findByLineAndStatus(line, "1");
         }
         return stationList;
+    }
+
+
+    /**
+     * 根据状态查询所有的站
+     * @return 查询有效的站
+     */
+    public List<Station> findActiveStation() {
+        return stationRepository.findByStatus(CommonStatusType.STATUS_YES);
     }
 
 
