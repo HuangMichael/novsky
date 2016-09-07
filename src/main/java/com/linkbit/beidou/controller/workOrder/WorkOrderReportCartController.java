@@ -11,6 +11,7 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
+import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class WorkOrderReportCartController {
     LocationsService locationsService;
     @Autowired
     ResourceService resourceService;
+    @Autowired
+    WorkOrderReportService workOrderReportService;
 
 
     /**
@@ -77,6 +80,18 @@ public class WorkOrderReportCartController {
         myPage.setCurrent(current);
         myPage.setTotal(reportCartListSize);
         return myPage;
+    }
+
+
+    /**
+     * @return 动态条件查询
+     */
+    @RequestMapping(value = "/findByOrderDescAndLocName", method = RequestMethod.GET)
+    public String findByOrderDescAndLocName( @RequestParam(value = "orderDesc", defaultValue = "", required = false) String orderDesc, @RequestParam(value = "locName", defaultValue = "", required = false) String locName,ModelMap modelMap) {
+
+        List<VworkOrderReportBill>  searchResult =      workOrderReportService.findByOrderDescAndLocName(orderDesc, locName);
+        modelMap.put("searchResult",searchResult);
+        return "workOrderReport/reportList";
     }
 
 

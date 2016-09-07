@@ -6,8 +6,11 @@ import com.linkbit.beidou.dao.equipments.VEqRepository;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
+import com.linkbit.beidou.object.SearchObject;
+import com.linkbit.beidou.object.eq.EqSearchObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
+import org.omg.CORBA.Object;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -48,7 +52,7 @@ public class EqController {
 
     @RequestMapping(value = "/listVeq/{pageIndex}/{pageSize}", method = RequestMethod.GET)
     @ResponseBody
-    public Page<Vequipments> listVeq(@PathVariable("pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize) {
+    public Page<Vequipments> listVeq(@PathVariable(value = "pageIndex") int pageIndex, @PathVariable("pageSize") int pageSize) {
         Page<Vequipments> equipmentsPage = vEqRepository.findAll(new PageRequest(pageIndex, pageSize));
         return equipmentsPage;
 
@@ -71,6 +75,48 @@ public class EqController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(ModelMap modelMap, @RequestParam("eqCode") String eqCode) {
         List<Vequipments> vequipmentsList = equipmentAccountService.search(eqCode);
+        modelMap.put("vequipmentsList", vequipmentsList);
+        return "/eq/eqList";
+    }
+
+    /**
+     * @param eqName
+     * @param locName
+     * @param eqClass
+     * @param pageIndex
+     * @param pageCount
+     * @param modelMap
+     * @return 模糊查询设备分页信息
+     */
+    @RequestMapping(value = "/queryByLike/{eqName}/{locName}/{eqClass}/{pageIndex}/{pageCount}", method = RequestMethod.GET)
+    public String queryByLike(
+            @PathVariable(value = "eqName") String eqName,
+            @PathVariable(value = "locName") String locName,
+            @PathVariable(value = "eqClass") String eqClass,
+            @PathVariable(value = "pageIndex") int pageIndex,
+            @PathVariable(value = "pageCount") int pageCount,
+
+            ModelMap modelMap) {
+        List<Object> vequipmentsList = vEqRepository.myQuery(eqName, locName, eqClass, pageIndex, pageCount);
+        modelMap.put("vequipmentsList", vequipmentsList);
+        return "/eq/eqList";
+    }
+
+
+    /**
+     * @param eqName
+     * @param locName
+     * @param eqClass
+     * @param modelMap
+     * @return 模糊查询设备分页信息
+     */
+    @RequestMapping(value = "/queryByLike/{eqName}/{locName}/{eqClass}", method = RequestMethod.GET)
+    public String queryByLike(
+            @PathVariable(value = "eqName") String eqName,
+            @PathVariable(value = "locName") String locName,
+            @PathVariable(value = "eqClass") String eqClass, ModelMap modelMap) {
+        List<Vequipments> vequipmentsList = vEqRepository.findByEqNameContainsAndLocNameContainsAndEqClassContains(eqName, locName, eqClass);
+        System.out.println("size---------------------" + vequipmentsList.size());
         modelMap.put("vequipmentsList", vequipmentsList);
         return "/eq/eqList";
     }
