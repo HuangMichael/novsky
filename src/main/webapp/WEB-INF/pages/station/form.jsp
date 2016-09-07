@@ -16,9 +16,9 @@
 	</div>
 	<div class="col-md-1 col-sm-1 col-lg-1"><label for="roleDesc">线路名称</label></div>
 	<div class="col-md-3">
-		<select v-model="station.lines.id" class="form-control" id="lineId" name="line.id" required style="width:100%" required>
+		<select v-model="station.line.id" class="form-control" id="lineId" name="line.id" required style="width:100%" required>
 			<template v-for="option in lines">
-				<option :value="option.id" v-if="option.id == station.lines.id" selected>
+				<option :value="option.id" v-if="option.id == station.line.id" selected>
 					{{option.description }}
 				</option>
 				<option :value="option.id" v-else>
