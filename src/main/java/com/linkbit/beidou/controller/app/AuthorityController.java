@@ -99,6 +99,21 @@ public class AuthorityController {
         return "resource/authList";
     }
 
+
+    /**
+     * @param roleId
+     * @param modelMap
+     * @return 根据角色ID载入用户权限预览
+     */
+    @RequestMapping(value = "/loadAuth/{roleId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VRoleAuthView> loadAuth(@PathVariable("roleId") Long roleId, ModelMap modelMap) {
+        Role role = roleService.findById(roleId);
+        List<VRoleAuthView> authViewList = vRoleAuthViewRepository.findByRole(role);
+        return authViewList;
+    }
+
+
     /**
      * @param userId
      * @return 根据用户ID载入用户权限预览

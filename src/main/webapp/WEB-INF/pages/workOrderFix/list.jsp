@@ -54,11 +54,10 @@
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-															<th data-column-id="deadLine" data-width="8%">维修期限</th>
-															<th data-column-id="reportTime" data-width="8%">处理时间</th>
-															<th data-column-id="expireTime"  data-width="8%">维修时限</th>
-															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
+															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+															<th data-column-id="expireTime" data-width="8%">维修时限</th>
+															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
 															</th>
 														</tr>
@@ -69,24 +68,21 @@
 															<tr style="display: none;" id="tr-${d.id}">
 
 																<td>${d.orderLineNo}</td>
-																<td>${d.equipments.description}</td>
-																<td>${d.vlocations.locName}</td>
+																<td>${d.eqName}</td>
+																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
-																<td>${d.equipmentsClassification.description}</td>
+																<td>${d.eqClass}</td>
 																<td>
 																	${d.nodeState}
 																</td>
 
-
-
 																<td>
-																	<fmt:formatDate value="${d.deadLine}" pattern="MM-dd HH:mm:ss" />
-																</td>
-																<td>
-																	<fmt:formatDate value="${d.reportTime}" pattern="MM-dd HH:mm:ss" />
+																	${d.nodeTime}
 																</td>
 
-
+																<td>
+																	${d.expiredHours}
+																</td>
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -96,13 +92,13 @@
 												<table id="fixListTable1" class="table table-striped table-bordered table-hover  table-responsive">
 													<thead>
 														<tr>
-																<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+															<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
 															<th data-column-id="eqName" data-width="10%">设备名称</th>
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-															<th data-column-id="deadLine" data-width="8%">维修期限</th>
+
 															<th data-column-id="reportTime" data-width="8%">处理时间</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 															</th>
@@ -112,18 +108,22 @@
 
 														<c:forEach items="${workOrderFixDetailListList1}" var="d" varStatus="ds">
 															<tr style="display: none;" id="tr-${d.id}">
-														
+
 																<td>${d.orderLineNo}</td>
-																<td>${d.vlocations.locName}</td>
-																<td>${d.equipments.description}</td>
+																<td>${d.eqName}</td>
+																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
-																<td>${d.equipmentsClassification.description}</td>
+																<td>${d.eqClass}</td>
 																<td>
 																	${d.nodeState}
 																</td>
-																<td>${d.fixDesc}</td>
+
 																<td>
-																	<fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+																	${d.nodeTime}
+																</td>
+
+																<td>
+																	${d.expiredHours}
 																</td>
 															</tr>
 														</c:forEach>
@@ -134,14 +134,14 @@
 												<table id="fixListTable2" class="table table-striped table-bordered table-hover  table-responsive">
 													<thead>
 														<tr>
-																<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+															<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
 															<th data-column-id="eqName" data-width="10%">设备名称</th>
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
 															<th data-column-id="deadLine" data-width="8%">维修期限</th>
-															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 															</th>
 														</tr>
@@ -150,18 +150,22 @@
 
 														<c:forEach items="${workOrderFixDetailListList2}" var="d" varStatus="ds">
 															<tr style="display: none;" id="tr-${d.id}">
-																
+
 																<td>${d.orderLineNo}</td>
-																<td>${d.vlocations.locName}</td>
-																<td>${d.equipments.description}</td>
+																<td>${d.eqName}</td>
+																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
-																<td>${d.equipmentsClassification.description}</td>
+																<td>${d.eqClass}</td>
 																<td>
 																	${d.nodeState}
 																</td>
-																<td>${d.fixDesc}</td>
+
 																<td>
-																	<fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+																	${d.nodeTime}
+																</td>
+
+																<td>
+																	${d.expiredHours}
 																</td>
 															</tr>
 														</c:forEach>
@@ -172,13 +176,13 @@
 												<table id="fixListTable3" class="table table-striped table-bordered table-hover  table-responsive">
 													<thead>
 														<tr>
-																<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+															<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
 															<th data-column-id="eqName" data-width="10%">设备名称</th>
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-															<th data-column-id="deadLine" data-width="8%">维修期限</th>
+
 															<th data-column-id="reportTime" data-width="8%">处理时间</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 															</th>
@@ -188,18 +192,22 @@
 
 														<c:forEach items="${workOrderFixDetailListList3}" var="d" varStatus="ds">
 															<tr style="display: none;" id="tr-${d.id}">
-																
+
 																<td>${d.orderLineNo}</td>
-																<td>${d.vlocations.locName}</td>
-																<td>${d.equipments.description}</td>
+																<td>${d.eqName}</td>
+																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
-																<td>${d.equipmentsClassification.description}</td>
+																<td>${d.eqClass}</td>
 																<td>
 																	${d.nodeState}
 																</td>
-																<td>${d.fixDesc}</td>
+
 																<td>
-																	<fmt:formatDate value="${d.reportTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+																	${d.nodeTime}
+																</td>
+
+																<td>
+																	${d.expiredHours}
 																</td>
 															</tr>
 														</c:forEach>

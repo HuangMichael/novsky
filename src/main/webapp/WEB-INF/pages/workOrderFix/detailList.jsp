@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<table id="detailList" cellpadding="0" cellspacing="0" border="0"
-       class=" table table-striped table-bordered table-hover">
+<table id="detailList" class=" table table-striped table-bordered table-hover">
     <thead>
     <tr>
 
@@ -23,51 +22,10 @@
         <tr>
             <td>${w.index+1}</td>
             <td>${workOrder.id}</td>
-            <td>${workOrder.equipments.description}</td>
-            <td>${workOrder.locations.description}</td>
-            <td>${workOrder.equipmentsClassification.description}</td>
-            <td>${workOrder.orderDesc}</td>
+
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
-<script>
-
-
-    $(function () {
-
-        $("#detailList").bootgrid(
-                {
-                    highlightRows: true,
-                    formatters: {
-                        "transform": function (column, row) {
-                            var conId = row.id;
-
-                            return '<a class="btn btn-default btn-xs" onclick ="transform(' + conId + ')">转单</a>';
-                        }
-
-
-                    }
-                }
-        ).on("selected.rs.jquery.bootgrid", function (e, rows) {
-            for (var i = 0; i < rows.length; i++) {
-                selectedId.push(rows[i].id);
-            }
-
-        }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-            var rowIds = [];
-            for (var i = 0; i < rows.length; i++) {
-                selectedId.remove(rows[i].id);
-            }
-        });
-
-
-    });
-
-
-
-
-</script>
 
 

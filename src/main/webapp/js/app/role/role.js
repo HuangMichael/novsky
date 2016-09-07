@@ -205,7 +205,11 @@ $(function () {
             //首先判断是否有选中的
             var role = null;
             if (selectedIds.length > 0) {
+
+
                 role = getRoleByIdInRoles(selectedIds[0]);
+
+                console.log("选中的roleId----------------" + selectedIds[0]);
             } else {
                 //没有选中的 默认显示整个列表的第一条
                 role = getRoleByIdInRoles(roles[0]["id"]);
@@ -333,8 +337,7 @@ function confirmAddUsers() {
  * @param roleId
  * 根据角色载入包含用户
  */
-function loadUsers() {
-    var roleId = roles[pointer].id;
+function loadUsers(roleId) {
     if (!roleId) {
         showMessageBox("danger", "角色信息获取失败，请重新尝试!");
         return;

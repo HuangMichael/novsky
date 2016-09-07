@@ -15,7 +15,7 @@
 		</div>
 		<div class="col-md-2 col-sm-2 col-lg-2">
 			<button type="button" class="btn btn-sm myNavBtn active" onclick="addUsers()">
-                 <i class="glyphicon glyphicon-plus"></i>添加人员
+                 <i class="glyphicon glyphicon-plus"></i>添加用户
              </button>
 		</div>
 	</div>

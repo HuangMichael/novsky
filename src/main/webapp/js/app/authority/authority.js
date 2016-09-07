@@ -1,27 +1,27 @@
 var zTree;
 var demoIframe;
 var setting = {
-        check: {
+    check: {
+        enable: true,
+        chkboxType: {"Y": "p", "N": "s"}
+    },
+    view: {
+        dblClickExpand: false,
+        showLine: true,
+        selectedMulti: true
+    },
+    data: {
+        simpleData: {
             enable: true,
-            chkboxType: { "Y" : "p", "N" : "s" }
-        },
-        view: {
-            dblClickExpand: false,
-            showLine: true,
-            selectedMulti: true
-        },
-        data: {
-            simpleData: {
-                enable: true,
-                idKey: "id",
-                pIdKey: "pId",
-                rootPId: ""
-            }
-        },
-        callback: {
-            onCheck: onCheck
+            idKey: "id",
+            pIdKey: "pId",
+            rootPId: ""
         }
+    },
+    callback: {
+        onCheck: onCheck
     }
+}
 var zNodes = [];
 $(document).ready(function () {
     var url = "/resource/findApps";
@@ -57,6 +57,9 @@ $(document).ready(function () {
 
     $("#authListTable").bootgrid();
     $("select").select2({theme: "bootstrap"});
+
+    var roleId = $("#role_id").val();
+    markAuthByRole(roleId);
 });
 
 
@@ -105,18 +108,9 @@ function grant() {
 function loadAuthView() {
     var roleId = $("#role_id").val();
     var url = "/authority/loadAuthView/" + roleId;
-    $("#authViewDiv").load(url, function () {
+    $("#authViewDiv").load(url, function (data) {
         $("#authListTable").bootgrid();
-       /* //设置已授权的选项选中
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        var authorities = checkedNodeIds.split(",");
-        for (var id in authorities) {
-            console.log("id----------------" + id);
-            if (!isNaN(id)) {
-                var node = zTree.getNodeByParam("id", id);
-                zTree.selectNode(node);
-            }
-        }*/
+        console.log("data---------" + JSON.stringify(data));
     });
 
 
@@ -131,4 +125,21 @@ function onCheck(e, treeId, treeNode) {
         v += nodes[i].id + ",";
     }
     checkedNodeIds = v;
+}
+
+
+/**
+ *  根据角色名称标识权限树选中
+ * @param roleId
+ */
+function markAuthByRole(roleId) {
+    var zTree = $.fn.zTree.getZTreeObj("tree");
+    console.log("markAuthByRole------------------" + roleId);
+
+    var node = zTree.getNodeByParam("id", 2);
+    zTree.selectNode(node);
+    // var roleId = $("#role_id").val();
+
+
+
 }
