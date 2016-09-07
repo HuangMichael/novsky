@@ -39,7 +39,7 @@
             <li class="dropdown user" id="header-user">
                 <a onclick="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                     <img alt="" src="img/avatars/avatar3.jpg"/>
-                    <span class="username">${currentUser.person.personName}</span>
+                    <span class="username">${currentUser.person.personName}(${currentUser.userName})</span>
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu" id="dropdown">
