@@ -103,6 +103,7 @@ public class StationController {
     public Station save(@RequestParam("stationNo") String stationNo,
                         @RequestParam("description") String description,
                         @RequestParam("lineId") Long lineId,
+                        @RequestParam("type") String type,
                         @RequestParam("status") String status) {
         Station station = new Station();
         station.setStationNo(stationNo);
@@ -110,6 +111,33 @@ public class StationController {
         station.setDescription(description);
         station.setLine(line);
         station.setStatus(status);
+        station.setType(type);
+        station = stationService.save(station);
+        return station;
+    }
+
+
+    /**
+     * @param stationNo   车站编号
+     * @param description 车站名称
+     * @param status      车站状态
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Station update(@RequestParam("stationId") Long stationId,
+                          @RequestParam("stationNo") String stationNo,
+                          @RequestParam("description") String description,
+                          @RequestParam("lineId") Long lineId,
+                          @RequestParam("type") String type,
+                          @RequestParam("status") String status) {
+        Station station = stationService.findById(stationId);
+        station.setStationNo(stationNo);
+        Line line = lineService.findById(lineId);
+        station.setDescription(description);
+        station.setLine(line);
+        station.setStatus(status);
+        station.setType(type);
         station = stationService.save(station);
         return station;
     }
@@ -125,5 +153,16 @@ public class StationController {
     public List<Station> findActivePerson() {
         List<Station> stationList = stationService.findActiveStation();
         return stationList;
+    }
+
+
+    /**
+     * @param id id
+     * @return 根据删除车站信息
+     */
+    @RequestMapping(value = "/delete/{id}")
+    @ResponseBody
+    public boolean delete(@PathVariable("id") Long id) {
+        return stationService.delete(id);
     }
 }

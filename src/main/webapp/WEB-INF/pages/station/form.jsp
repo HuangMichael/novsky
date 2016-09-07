@@ -14,6 +14,8 @@
 	<div class="col-md-3 col-sm-3 col-lg-3">
 		<input type="text" class="form-control" id="description" name="description" v-model="station.description">
 	</div>
+		</div>
+	<div class="form-group">
 	<div class="col-md-1 col-sm-1 col-lg-1"><label for="roleDesc">线路名称</label></div>
 	<div class="col-md-3">
 		<select v-model="station.line.id" class="form-control" id="lineId" name="line.id" required style="width:100%" required>
@@ -27,4 +29,17 @@
 			</template>
 		</select>
 	</div>
+	<div class="col-md-1 col-sm-1 col-lg-1"><label for="type">车站类型</label></div>
+    	<div class="col-md-3">
+    		<select v-model="station.type" class="form-control" id="type" name="type" required style="width:100%" required>
+    			<template v-for="option in types">
+    				<option :value="option.id" v-if="option.id == station.type" selected>
+    					{{option.typeName }}
+    				</option>
+    				<option :value="option.id" v-else>
+    					{{option.typeName }}
+    				</option>
+    			</template>
+    		</select>
+    	</div>
 </div>

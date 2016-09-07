@@ -18,7 +18,8 @@ var formTab = $('#myTab li:eq(1) a');
 //维修历史列表
 var pointer = 0;
 var lines = [];
-var selectedUsersId = [];
+var types = [];
+var selectedId = [];
 $.ajaxSettings.async = false;
 var validateOptions = {
     message: '该值无效 ',
@@ -53,7 +54,8 @@ function initLoadData(url, elementName) {
                 vm = new Vue({
                     el: elementName,
                     data: {
-                        stations: stations
+                        stations: stations,
+                        types: types
                     }
                 });
                 //ajax载入设备信息  并且监听选择事件
@@ -189,8 +191,8 @@ $(function () {
         lines = data;
     });
 
+    types = [{"id": "1", "typeName": "站区"}, {"id": "2", "typeName": "段区"}];
 
-    console.log(JSON.stringify(lines));
 
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
@@ -202,7 +204,8 @@ $(function () {
         el: "#detailForm",
         data: {
             station: null,
-            lines:lines
+            lines: lines,
+            types: types
         }
     });
 
@@ -221,7 +224,7 @@ $(function () {
                 selectedIds = setAllInSelectedList(stations);
             }
             vdm.station = station;
-           
+
         });
 
     listTab.on('click',
@@ -233,11 +236,26 @@ $(function () {
     });
 });
 
+
+function del() {
+
+    var selectedId = vdm.station.id
+
+    var url = "/station/delete/" + selectedId;
+
+
+    $.getJSON(url,function(data){
+
+
+    });
+}
+
 function save() {
     var stationId = $("#stationId").val();
     var stationNo = $("#stationNo").val();
     var description = $("#description").val();
     var lineId = $("#lineId").val();
+    var type = $("#type").val();
     var status = "1";
 
     if (stationId) {
@@ -249,7 +267,8 @@ function save() {
         stationId: stationId,
         stationNo: stationNo,
         description: description,
-        lineId:lineId,
+        lineId: lineId,
+        type: type,
         status: status
     };
 
@@ -282,7 +301,8 @@ function add() {
         el: "#createForm",
         data: {
             station: null,
-            lines: lines
+            lines: lines,
+            types: types
         }
     });
     formTab.tab('show');

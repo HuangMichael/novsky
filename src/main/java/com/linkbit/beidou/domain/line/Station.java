@@ -33,7 +33,8 @@ public class Station implements java.io.Serializable {
     @JoinColumn(name = "line_id", referencedColumnName = "id")
     Line line; //上级位置*/
 
-
+    @Column(length = 1)
+    private String type;
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "line_id", referencedColumnName = "id")
     Line line;

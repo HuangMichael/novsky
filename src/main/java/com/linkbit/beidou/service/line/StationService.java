@@ -73,4 +73,14 @@ public class StationService extends BaseService {
     }
 
 
+    /**
+     * 根据状态查询所有的站
+     *
+     * @return 查询有效的站
+     */
+    public boolean delete(Long id) {
+        stationRepository.update(id);
+        return stationRepository.findByIdAndStatus(id, CommonStatusType.STATUS_YES) == null;
+    }
+
 }

@@ -3,7 +3,10 @@ package com.linkbit.beidou.dao.line;
 
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
+import org.hibernate.annotations.SQLUpdate;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -34,4 +37,16 @@ public interface StationRepository extends CrudRepository<Station, Long> {
     List<Station> findByLineAndStatus(Line line, String status);
 
 
+    /**
+     * 根据状态查询车站
+     */
+    @Query("update Station s set s.status =0 where s.id =:id")
+    void update(@Param("id") Long id);
+
+
+
+    /**
+     * 根据id 状态查询车站
+     */
+    Station findByIdAndStatus(Long id,String status);
 }
