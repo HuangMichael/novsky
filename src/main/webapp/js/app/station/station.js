@@ -237,16 +237,22 @@ $(function () {
 });
 
 
+/**
+ * 根据id删除
+ */
 function del() {
-
-    var selectedId = vdm.station.id
-
-    var url = "/station/delete/" + selectedId;
-
-
-    $.getJSON(url,function(data){
-
-
+    var selectedId = vdm.station.id;
+    if (!selectedId) {
+        showMessageBox("danger", "请选择一条后再进行删除!");
+    }
+    var url = "/station/delete";
+    $.post(url, {id: selectedId}, function (data) {
+        if (data) {
+            showMessageBox("info", "车站信息删除成功!");
+        }
+        else {
+            showMessageBox("danger", "车站信息删除失败!");
+        }
     });
 }
 

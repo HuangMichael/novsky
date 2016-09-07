@@ -160,9 +160,9 @@ public class StationController {
      * @param id id
      * @return 根据删除车站信息
      */
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public boolean delete(@PathVariable("id") Long id) {
+    public boolean delete(@RequestParam("id") Long id) {
         return stationService.delete(id);
     }
 }
