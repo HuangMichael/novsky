@@ -17,7 +17,7 @@ var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 //维修历史列表
 var pointer = 0;
-
+var lines = [];
 var selectedUsersId = [];
 $.ajaxSettings.async = false;
 var validateOptions = {
@@ -125,7 +125,7 @@ function backwards() {
         //判断当前指针位置
         var station = getStationByIdInStations(selectedIds[--pointer]);
         vdm.station = station;
-      
+
 
     }
 
@@ -140,7 +140,7 @@ function forwards() {
     } else {
         var station = getStationByIdInStations(selectedIds[++pointer]);
         vdm.station = station;
-      
+
     }
 }
 
@@ -184,6 +184,14 @@ function setFormReadStatus(formId, formLocked, except) {
 
 $(function () {
     initLoadData("/station/findActiveStation", dataTableName);
+    var url = "/line/findLines";
+    $.getJSON(url, function (data) {
+        lines = data;
+    });
+
+
+    console.log(JSON.stringify(lines));
+
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
             e.preventDefault();
@@ -193,7 +201,8 @@ $(function () {
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            station: null
+            station: null,
+            lines:lines
         }
     });
 
@@ -212,7 +221,7 @@ $(function () {
                 selectedIds = setAllInSelectedList(stations);
             }
             vdm.station = station;
-            loadUsers(station.id)
+           
         });
 
     listTab.on('click',
@@ -226,8 +235,9 @@ $(function () {
 
 function save() {
     var stationId = $("#stationId").val();
-    var stationName = $("#stationName").val();
-    var stationDesc = $("#stationDesc").val();
+    var stationNo = $("#stationNo").val();
+    var description = $("#description").val();
+    var lineId = $("#lineId").val();
     var status = "1";
 
     if (stationId) {
@@ -237,16 +247,19 @@ function save() {
     }
     var station = {
         stationId: stationId,
-        stationName: stationName,
-        stationDesc: stationDesc,
+        stationNo: stationNo,
+        description: description,
+        lineId:lineId,
         status: status
     };
+
+    console.log("----------------------" + JSON.stringify(station));
     $.post(url, station,
         function (data) {
             if (data) {
-                showMessageBox("info", "角色信息保存成功！");
+                showMessageBox("info", "车站信息保存成功！");
             } else {
-                showMessageBox("danger", "角色信息保存失败！");
+                showMessageBox("danger", "车站信息保存失败！");
             }
 
         });
@@ -263,12 +276,13 @@ function showStation(stationId) {
 /**
  *  ajax加载新增页面
  */
-function loadNew() {
+function add() {
     $("#tab_1_1").load("/station/create");
     var newVue = new Vue({
         el: "#createForm",
         data: {
-            station: null
+            station: null,
+            lines: lines
         }
     });
     formTab.tab('show');

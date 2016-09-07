@@ -35,6 +35,15 @@ public class StationService extends BaseService {
 
 
     /**
+     * @param station 车站信息
+     * @return 保存车站信息
+     */
+    public Station save(Station station) {
+        return stationRepository.save(station);
+    }
+
+
+    /**
      * 根据状态查询所有的站
      */
     public List<Station> findByStatus(String status) {
@@ -56,12 +65,12 @@ public class StationService extends BaseService {
 
     /**
      * 根据状态查询所有的站
+     *
      * @return 查询有效的站
      */
     public List<Station> findActiveStation() {
         return stationRepository.findByStatus(CommonStatusType.STATUS_YES);
     }
-
 
 
 }

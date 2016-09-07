@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -65,6 +63,14 @@ public class StationController {
 
 
     /**
+     * 新建记录
+     */
+    @RequestMapping(value = "/create")
+    public String create() {
+        return "/station/create";
+    }
+
+    /**
      * 根据所有车站信息
      */
     @RequestMapping(value = "/findByStatus")
@@ -85,6 +91,28 @@ public class StationController {
         return station;
     }
 
+
+    /**
+     * @param stationNo   车站编号
+     * @param description 车站名称
+     * @param status      车站状态
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Station save(@RequestParam("stationNo") String stationNo,
+                        @RequestParam("description") String description,
+                        @RequestParam("lineId") Long lineId,
+                        @RequestParam("status") String status) {
+        Station station = new Station();
+        station.setStationNo(stationNo);
+        Line line = lineService.findById(lineId);
+        station.setDescription(description);
+        station.setLine(line);
+        station.setStatus(status);
+        station = stationService.save(station);
+        return station;
+    }
 
 
     /**

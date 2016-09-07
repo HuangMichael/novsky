@@ -29,7 +29,7 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab_1_0">
-                                        <%@include file="roleList.jsp" %>
+                                        <%@include file="stationList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
                                         <%@include file="detail.jsp" %>
