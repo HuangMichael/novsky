@@ -36,33 +36,7 @@ $(document).ready(function () {
 
     $('#fixListTable3').bootgrid();
 
-    /*
-     $('#fixDescForm')
-     .bootstrapValidator({
-     message: '该值无效 ',
-     fields: {
-     "fixDesc": {
-     message: '维修描述无效',
-     validators: {
-     notEmpty: {
-     message: '维修描述不能为空!'
-     },
-     stringLength: {
-     min: 1,
-     max: 200,
-     message: '维修描述为1到200个字符'
-     }
-     }
-     }
-     }
-     }).on('success.form.bv', function (e) {
-     // Prevent form submission
-     e.preventDefault();
-     // Get the form instance
 
-
-     });
-     */
 
 
     $("#saveFixDesc").on("click", function () {

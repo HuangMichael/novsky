@@ -275,6 +275,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
-<script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <script type="text/javascript" src="js/app/fix/fix.js"></script>

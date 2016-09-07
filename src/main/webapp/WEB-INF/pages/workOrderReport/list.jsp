@@ -108,7 +108,7 @@
 
 	function search() {
 		queryString = assembleQueryString(searchParam);
-		initDataList(tableName, tableContainer, baseQueryUrl + queryString);
+		//initDataList(tableName, tableContainer, baseQueryUrl + queryString);
 	}
 
 	function exportDoc(docType) {
