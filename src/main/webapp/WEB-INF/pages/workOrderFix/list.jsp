@@ -54,8 +54,7 @@
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-
-															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+															<th data-column-id="nodeTime" data-width="8%">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
@@ -77,12 +76,13 @@
 																</td>
 
 																<td>
-																	${d.nodeTime}
+																	<fmt:formatDate value="${d.nodeTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
 
 																<td>
-																	${d.deadLine}
+																	<fmt:formatDate value="${d.deadLine}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
+
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -98,9 +98,8 @@
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+															<th data-column-id="nodeTime" data-width="8%">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
-															</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -116,11 +115,13 @@
 																<td>
 																	${d.nodeState}
 																</td>
+
 																<td>
-																	${d.nodeTime}
+																	<fmt:formatDate value="${d.nodeTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
+
 																<td>
-																	${d.deadLine}
+																	<fmt:formatDate value="${d.deadLine}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
 															</tr>
 														</c:forEach>
@@ -137,10 +138,9 @@
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-															<th data-column-id="deadLine" data-width="8%">维修期限</th>
+															<th data-column-id="nodeTime" data-width="8%">处理时间</th>
+															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 
-															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
-															</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -158,11 +158,11 @@
 																</td>
 
 																<td>
-																	${d.nodeTime}
+																	<fmt:formatDate value="${d.nodeTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
 
 																<td>
-																	${d.deadLine}
+																	<fmt:formatDate value="${d.deadLine}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
 															</tr>
 														</c:forEach>
@@ -179,15 +179,12 @@
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-
-															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+															<th data-column-id="nodeTime" data-width="8%">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
-															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
-															</th>
+
 														</tr>
 													</thead>
 													<tbody>
-
 														<c:forEach items="${workOrderFixDetailListList3}" var="d" varStatus="ds">
 															<tr style="display: none;" id="tr-${d.id}">
 
@@ -199,13 +196,11 @@
 																<td>
 																	${d.nodeState}
 																</td>
-
 																<td>
-																	${d.nodeTime}
+																	<fmt:formatDate value="${d.nodeTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
-
 																<td>
-																	${d.deadLine}
+																	<fmt:formatDate value="${d.deadLine}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
 															</tr>
 														</c:forEach>

@@ -1,8 +1,10 @@
 package com.linkbit.beidou.domain.workOrder;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -24,8 +26,12 @@ public class VworkOrderFixBill {
     private String eqName;
     private String locName;
     private String eqClass;
-    private String nodeTime;
-    private String deadLine;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date nodeTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deadLine;
     private String nodeState;
     private String location;
 }

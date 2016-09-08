@@ -16,19 +16,12 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
 
     List<VworkOrderFixBill> findAll();
 
-
-    /**
-     * @param nodeState
-     * @return 节点状态
-     */
-    List<VworkOrderFixBill> findByNodeStateOrderByExpiredHoursDesc(String nodeState);
-
     /**
      * @param location 位置编号
      * @param nodeState 节点状态
      * @return 根据用户位置和节点状态查询
      */
-    @OrderBy("expiredHours desc,id desc")
+    @OrderBy("nodeTime desc,dealLine desc,id desc")
     List<VworkOrderFixBill>  findByLocationStartingWithAndNodeState(String location,String nodeState);
 
 

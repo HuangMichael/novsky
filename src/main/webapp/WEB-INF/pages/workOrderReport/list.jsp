@@ -138,10 +138,10 @@
 			keepSelection: !1,
 			highlightRows: 1,
 			sorting: true,
-			columnSelection: 1,
-			templates: {
+			columnSelection: 1
+			/*templates: {
 				search: '<div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" id="orderDesc" placeholder="维修描述" onClick="search()"/></div></div><div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" placeholder="位置描述" id="locName" onClick="search()"/></div></div>',
-			}
+			}*/
 		});
 
 	}
