@@ -25,7 +25,7 @@ public class VworkOrderFixBill {
     private String locName;
     private String eqClass;
     private String nodeTime;
+    private String deadLine;
     private String nodeState;
     private String location;
-    private long expiredHours;
 }

@@ -56,7 +56,7 @@
 															<th data-column-id="status" data-width="5%">设备状态</th>
 
 															<th data-column-id="reportTime" data-width="8%">处理时间</th>
-															<th data-column-id="expireTime" data-width="8%">维修时限</th>
+															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
 															</th>
@@ -81,7 +81,7 @@
 																</td>
 
 																<td>
-																	${d.expiredHours}
+																	${d.deadLine}
 																</td>
 															</tr>
 														</c:forEach>
@@ -98,9 +98,8 @@
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
 															<th data-column-id="status" data-width="5%">设备状态</th>
-
 															<th data-column-id="reportTime" data-width="8%">处理时间</th>
-															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
+															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 															</th>
 														</tr>
 													</thead>
@@ -117,13 +116,11 @@
 																<td>
 																	${d.nodeState}
 																</td>
-
 																<td>
 																	${d.nodeTime}
 																</td>
-
 																<td>
-																	${d.expiredHours}
+																	${d.deadLine}
 																</td>
 															</tr>
 														</c:forEach>
@@ -165,7 +162,7 @@
 																</td>
 
 																<td>
-																	${d.expiredHours}
+																	${d.deadLine}
 																</td>
 															</tr>
 														</c:forEach>
@@ -184,6 +181,7 @@
 															<th data-column-id="status" data-width="5%">设备状态</th>
 
 															<th data-column-id="reportTime" data-width="8%">处理时间</th>
+															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 															</th>
 														</tr>
@@ -207,7 +205,7 @@
 																</td>
 
 																<td>
-																	${d.expiredHours}
+																	${d.deadLine}
 																</td>
 															</tr>
 														</c:forEach>
