@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.budget;
 
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.budget.BudgetBill;
+import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.service.budge.BudgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -43,7 +44,7 @@ public class EcbudgetController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current",defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-        Page<BudgetBill> page  = budgeService.findAll(new PageRequest(current-1,rowCount.intValue()));
+        Page<VbudgetBill> page  = budgeService.findAllV(new PageRequest(current-1,rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);

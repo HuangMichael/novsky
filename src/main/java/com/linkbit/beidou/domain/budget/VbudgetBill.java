@@ -1,36 +1,32 @@
 package com.linkbit.beidou.domain.budget;
 
-import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.locations.Vlocations;
 import lombok.*;
-import org.springframework.data.annotation.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * 采购申请单
+ * 采购申请单视图
  *
  * @author
  * @create 2016-09-09 11:03
  **/
 @Entity
-@Table(name = "T_BUDGET_BILL")
+@Table(name = "V_BUDGET_BILL")
 @Data
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BudgetBill {
+public class VbudgetBill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;  //id
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date applyDate;// 申购日期
+    @Column(length = 50)
+    private String applyDate;// 申购申请日期
 
     @Column(length = 50)
     private String accessoryName; //配件名称
@@ -59,10 +55,11 @@ public class BudgetBill {
     @Column(length = 10)
     private String receiver; //接收人
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
-    private Vlocations vlocations; //位置
+    @Column(length = 50)
+    private String locName; //接收人
 
+    @Column(length = 20)
+    private String location; //接收人
 
 
 }

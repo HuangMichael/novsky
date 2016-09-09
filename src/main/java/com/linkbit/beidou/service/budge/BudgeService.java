@@ -1,10 +1,12 @@
 package com.linkbit.beidou.service.budge;
 
 import com.linkbit.beidou.dao.budget.BudgetBillRepository;
+import com.linkbit.beidou.dao.budget.VbudgetBillRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VEqRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.budget.BudgetBill;
+import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -35,6 +37,20 @@ public class BudgeService extends BaseService {
     BudgetBillRepository budgetBillRepository;
 
 
+    @Autowired
+    VbudgetBillRepository vbudgetBillRepository;
+
+
+    /**
+     * @param pageable
+     * @return 分页查询
+     */
+    public Page<VbudgetBill> findAllV(Pageable pageable) {
+
+        return vbudgetBillRepository.findAll(pageable);
+    }
+
+
     /**
      * @param pageable
      * @return 分页查询
@@ -48,5 +64,13 @@ public class BudgeService extends BaseService {
      */
     public List<BudgetBill> findAll() {
         return budgetBillRepository.findAll();
+    }
+
+
+    /**
+     * @return 查询所有
+     */
+    public List<VbudgetBill> findAllV() {
+        return vbudgetBillRepository.findAll();
     }
 }
