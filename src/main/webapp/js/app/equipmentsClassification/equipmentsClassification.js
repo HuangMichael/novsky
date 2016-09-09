@@ -110,7 +110,7 @@ function save() {
         classId: classId,
         lid: lid,
         classType: classType,
-        limitHours: limitHours
+        limitHours: limitHours ? limitHours : 72
     };
     var operation = (!lid) ? "添加" : "更新";
     $.post(url, obj, function (data) {

@@ -46,6 +46,7 @@
 													<thead>
 														<tr>
 															<th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+															<th data-column-id="id" data-width="8%" data-column-visible ="false" >ID</th>
 															<th data-column-id="eqName" data-width="10%">设备名称</th>
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
@@ -65,6 +66,7 @@
 															<tr id="tr-${d.id}">
 
 																<td>${d.orderLineNo}</td>
+																<td>${d.id}</td>
 																<td>${d.eqName}</td>
 																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
