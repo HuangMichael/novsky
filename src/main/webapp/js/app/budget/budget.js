@@ -1,0 +1,5 @@
+$(function () {
+
+    $("#budgetDataTable").bootgrid();
+
+});
