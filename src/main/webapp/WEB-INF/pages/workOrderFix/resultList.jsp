@@ -23,7 +23,8 @@
 
 
     <c:forEach items="${workOrderReportList}" var="workOrder" varStatus="w">
-        <tr>
+     <c:if test ="${workOrder.deadLine < new Date()}">
+        <tr data-style="color:red">
             <td data-column-id="select" data-formatter="select">选择</td>
             <td>${w.index+1}</td>
             <td>${workOrder.id}</td>
@@ -35,8 +36,10 @@
             <td class="hidden-xs hidden-sm">${workOrder.workOrderReport.reporter}</td>
             <td class="hidden-xs hidden-sm">${workOrder.workOrderReport.reportTime}</td>
             <td class="hidden-xs hidden-sm">${workOrder.workOrderReport.orderDesc}</td>
+            <td></td>
 
         </tr>
+        </c:if>
     </c:forEach>
     </tbody>
 </table>

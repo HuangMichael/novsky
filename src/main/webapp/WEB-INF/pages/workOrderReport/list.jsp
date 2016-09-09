@@ -107,8 +107,11 @@
 	});
 
 	function search() {
-		queryString = assembleQueryString(searchParam);
-		//initDataList(tableName, tableContainer, baseQueryUrl + queryString);
+		queryString = assembleQueryObject(searchParam);
+		
+		
+		$(tableName).load(baseQueryUrl, queryString);
+		$(tableName).bootgrid();
 	}
 
 	function exportDoc(docType) {
@@ -138,10 +141,10 @@
 			keepSelection: !1,
 			highlightRows: 1,
 			sorting: true,
-			columnSelection: 1
-			/*templates: {
-				search: '<div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" id="orderDesc" placeholder="维修描述" onClick="search()"/></div></div><div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" placeholder="位置描述" id="locName" onClick="search()"/></div></div>',
-			}*/
+			columnSelection: 1,
+			templates: {
+				search: '<div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" id="orderDesc" placeholder="维修描述" onChange="search()"/></div></div><div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" placeholder="位置描述" id="locName" onChange="search()"/></div></div>',
+			}
 		});
 
 	}
@@ -165,5 +168,20 @@
 
 		console.log("queryString--------------------" + queryString);
 		return queryString;
+	}
+
+	function assembleQueryObject(searchParam) {
+		var queryObject = {};
+		var param = "",
+			paramValue = "";
+		for(var x = 0; x < searchParam.length; x++) {
+			param = searchParam[x];
+			paramValue = $("#" + searchParam[x]).val();
+			if(paramValue) {
+				queryObject[param] = paramValue;
+			}
+		}
+		console.log("queryObject--------------------" + JSON.stringify(queryObject));
+		return queryObject;
 	}
 </script>

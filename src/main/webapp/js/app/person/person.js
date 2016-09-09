@@ -135,7 +135,6 @@ $(function () {
             person = getPersonByIdInPerson(personList[0]["id"]);
             selectedIds = setAllInSelectedList(personList);
         }
-        console.log(JSON.stringify(person));
         vdm.person = person;
     });
 

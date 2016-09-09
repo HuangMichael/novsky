@@ -19,3 +19,7 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, span, ul, .option
 .table-striped > tbody > tr:nth-child(even) > th {
     background-color: #FFFFCC;
 }
+
+.expired {
+    font-color: red;
+}

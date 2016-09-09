@@ -1,6 +1,5 @@
 $(document).ready(function() {
     $('#fixListTable').bootgrid({
-
         columnSelection: 1,
         rowCount: [10, 20, 25, -1]
     });

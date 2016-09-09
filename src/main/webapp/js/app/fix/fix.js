@@ -13,10 +13,16 @@ $(document).ready(function () {
                 // '<a class="btn btn-default btn-xs"  onclick="adjust(' + row.id + ')" title="调整" ><i class="glyphicon glyphicon glyphicon-time"></i></a>'
             },
             "expireTime": function (column, row) {
-                return fillColor(row.id);
+                var t1 = Date.parse(new Date($.trim(row.deadLine)));
+                var t2 = Date.parse(new Date());
+                if (t1 < t2) {
+                    return "<div style='font-color:red'>已超期</div>";
+                }
             }
         }
     });
+
+    fillColor(709);
 
     $('#fixListTable1').bootgrid();
 
@@ -35,8 +41,6 @@ $(document).ready(function () {
     });
 
     $('#fixListTable3').bootgrid();
-
-
 
 
     $("#saveFixDesc").on("click", function () {
@@ -161,12 +165,7 @@ function abort(id) {
 
 function fillColor(id) {
 
-    if (id % 3) {
-        return '<div style="background: red">48</div>';
-    } else {
-        return '<div style="background: yellow">24</div>';
-    }
-
+   $("tr[data-row-id=0]").css("background-color","red");
 }
 
 

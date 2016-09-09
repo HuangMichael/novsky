@@ -40,13 +40,13 @@
 												<form class="navbar-form navbar-left" role="search">
 													<div class="form-group">
 														<label>设备编号</label>
-														<input type="text" id="s_eqCode" class="form-control" placeholder="设备编号">
+														<input type="text" id="eqCode" class="form-control" placeholder="设备编号" onchange="search()">
 														<label>设备名称</label>
-														<input type="text" id="s_eqName" class="form-control" placeholder="设备名称">
+														<input type="text" id="eqName" class="form-control" placeholder="设备名称" onchange="search()">
 														<label>设备位置</label>
-														<input type="text" id="s_locName" class="form-control" placeholder="设备位置">
+														<input type="text" id="locName" class="form-control" placeholder="设备位置" onchange="search()">
 														<label>设备分类</label>
-														<input type="text" id="s_eqClass" class="form-control" placeholder="设备分类">
+														<input type="text" id="eqClass" class="form-control" placeholder="设备分类" onchange="search()">
 													</div>
 													<button type="button" class="btn btn-default" id="searchBtn">查询</button>
 												</form>
@@ -116,37 +116,52 @@
 <script type="text/javascript" src="js/tableExport/jspdf/libs/base64.js"></script>
 <!--<script src="/js/app/equipment/equipments.js"></script>-->
 <script type="text/javascript">
+	var searchParam = [
+		"eqCode",
+		"eqName",
+		"locName",
+		"locClass",
+		"pageIndex",
+		"pageCount"
+	];
+	var tableName = "#tableContainer";
+	var queryObject = {
+
+	}
+
 	$(function() {
 
-		fistLoad();
+		//fistLoad();
+
+		queryObject = {
+
+				"eqCode": "1",
+				"eqName": "10",
+				"locName": "西北",
+				"eqClass": "公告",
+				"pageIndex": 0,
+				"pageCount": 10
+			},
+			console.log("search queryObject-------------------" + JSON.stringify(queryObject));
 		//初始化加载第一页前十
-		var url = "eq/listVeq/1/10";
-		var pageHtml = "";
-		$.getJSON(url, function(data) {
-			$('#paginator').bootpag({
-				total: data.totalPages - 1,
-				page: 1,
-				maxVisible: 10
-			}).on('page', function(event, num) {
-				$("#tableContainer").load("eq/loadPage/" + num + "/10");
+		var url = "eq/queryByLike";
 
-			});
+		$("#tableContainer").load(url, queryObject);
 
-		})
-
-		/*
-		 * 查询方法
-		 * */
-		$("#searchBtn").on("click", function() {
-			search();
-		});
+		/*$('#paginator').bootpag({
+			total: data.totalPages - 1,
+			page: 1,
+			maxVisible: 10
+		}).on('page', function(event, num) {
+			$("#tableContainer").load("eq/loadPage/" + num + "/10");
+		});*/
 
 	});
 	/**
 	 *首次加载
 	 * */
 	function fistLoad() {
-		$("#tableContainer").load("eq/loadPage/1/10");
+		$(tableName).load("eq/loadPage/1/10");
 	}
 
 	function checkAll(obj) {
@@ -157,20 +172,11 @@
 	 * 根据条件查询
 	 */
 	function search() {
-		var eqCode = $("#s_eqCode").val();
-		var eqName = $("#s_eqName").val();
-		var locName = $("#s_locName").val();
-		var eqClass = $("#s_eqClass").val();
-		var url = "/eq/search";
-		var searchModel = {
-			eqCode: eqCode
-				/*			eqName: eqName,
-							locName: locName,
-							eqClass: eqClass*/
-		}
-		$.post(url, searchModel, function(data) {
-			console.log("查询方法-----------------");
-		});
+
+		/*queryObject = assembleQueryObject(searchParam);
+		var baseQueryUrl = "eq/queryByLike";
+		$("#tableContainer").load(baseQueryUrl, queryObject);*/
+
 	}
 	/*
 	 *导出数据
@@ -184,5 +190,20 @@
 			unicode: false
 		});
 
+	}
+
+	function assembleQueryObject(searchParam) {
+		var queryObject = {};
+		var param = "",
+			paramValue = "";
+		for(var x = 0; x < searchParam.length; x++) {
+			param = searchParam[x];
+			paramValue = $("#" + searchParam[x]).val();
+			if(paramValue) {
+				queryObject[param] = paramValue;
+			}
+		}
+		console.log("queryObject--------------------" + JSON.stringify(queryObject));
+		return queryObject;
 	}
 </script>

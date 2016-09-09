@@ -38,10 +38,7 @@
 												<a href="#tab_1_3" data-toggle="tab">
 													<i class="fa  fa-remove" id="eq3"></i>已取消</a>
 											</li>
-											<li>
-												<a href="#report" data-toggle="tab">
-													<i class="fa  fa-remove" id="a"></i>报表信息</a>
-											</li>
+
 										</ul>
 										<div class="tab-content">
 											<div class="tab-pane fade in active" id="tab_1_0">
@@ -56,6 +53,7 @@
 															<th data-column-id="status" data-width="5%">设备状态</th>
 															<th data-column-id="nodeTime" data-width="8%">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
+															<th data-column-id="expireTime" data-width="5%" data-formatter="expireTime" align="center" >是否超期</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
 															</th>
@@ -64,7 +62,7 @@
 													<tbody>
 
 														<c:forEach items="${workOrderFixDetailListList0}" var="d" varStatus="ds">
-															<tr style="display: none;" id="tr-${d.id}">
+															<tr id="tr-${d.id}">
 
 																<td>${d.orderLineNo}</td>
 																<td>${d.eqName}</td>
@@ -82,6 +80,8 @@
 																<td>
 																	<fmt:formatDate value="${d.deadLine}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
+
+
 
 															</tr>
 														</c:forEach>
@@ -186,8 +186,7 @@
 													</thead>
 													<tbody>
 														<c:forEach items="${workOrderFixDetailListList3}" var="d" varStatus="ds">
-															<tr style="display: none;" id="tr-${d.id}">
-
+															<tr data-style="background:red">
 																<td>${d.orderLineNo}</td>
 																<td>${d.eqName}</td>
 																<td>${d.locName}</td>
@@ -203,13 +202,10 @@
 																	<fmt:formatDate value="${d.deadLine}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 																</td>
 															</tr>
+
 														</c:forEach>
 													</tbody>
 												</table>
-											</div>
-
-											<div class="tab-pane fade" id="report">
-												<iframe id="reportFrame" data-width="100%" height="800" src="http://localhost:8080/web/ReportServer?reportlet=/equipment.cpt" style="border: none;"></iframe>
 											</div>
 										</div>
 									</div>
