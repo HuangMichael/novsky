@@ -53,7 +53,7 @@
 															<th data-column-id="status" data-width="5%">设备状态</th>
 															<th data-column-id="nodeTime" data-width="8%">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
-															<th data-column-id="expireTime" data-width="5%" data-formatter="expireTime" align="center" >是否超期</th>
+															<th data-column-id="expireTime" data-width="5%" data-formatter="expireTime" data-sortable="false" align="center" >是否超期</th>
 															<th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
 															</th>
