@@ -4,6 +4,7 @@ import com.linkbit.beidou.dao.budget.BudgetBillRepository;
 import com.linkbit.beidou.dao.budget.VbudgetBillRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VEqRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,6 +41,11 @@ public class BudgeService extends BaseService {
 
     @Autowired
     VbudgetBillRepository vbudgetBillRepository;
+
+
+    @Autowired
+    VlocationsRepository  vlocationsRepository;
+
 
 
     /**
@@ -70,7 +77,28 @@ public class BudgeService extends BaseService {
     /**
      * @return 查询所有
      */
+    public BudgetBill findById(Long id) {
+        return budgetBillRepository.findById(id);
+    }
+
+
+    /**
+     * @return 查询所有
+     */
     public List<VbudgetBill> findAllV() {
         return vbudgetBillRepository.findAll();
     }
+
+
+    /**
+     * @return 查询所有
+     */
+    public BudgetBill save(BudgetBill budgetBill) {
+       // budgetBill.setVlocations(vlocationsRepository.findById(budgetBill.getLocations().getId()));
+      //  budgetBill.getLocations()
+        budgetBill.setApplyDate(new Date());
+        return budgetBillRepository.save(budgetBill);
+    }
+
+
 }

@@ -32,9 +32,6 @@ public class VbudgetBill {
     private String accessoryName; //配件名称
 
     @Column(length = 50)
-    private String applyDep; //申购部门
-
-    @Column(length = 50)
     private String applicant; //申请人
 
     @Column(length = 50)

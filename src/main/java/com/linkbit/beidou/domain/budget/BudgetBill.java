@@ -13,8 +13,6 @@ import java.util.Date;
 /**
  * 采购申请单
  *
- * @author
- * @create 2016-09-09 11:03
  **/
 @Entity
 @Table(name = "T_BUDGET_BILL")
@@ -27,16 +25,13 @@ public class BudgetBill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;  //id
+    private Long id;  //id
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date applyDate;// 申购日期
 
     @Column(length = 50)
     private String accessoryName; //配件名称
-
-    @Column(length = 50)
-    private String applyDep; //申购部门
 
     @Column(length = 50)
     private String applicant; //申请人
@@ -62,7 +57,5 @@ public class BudgetBill {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations; //位置
-
-
 
 }
