@@ -67,10 +67,22 @@
 					</template>
 				</select>
 			</div>
-		</div>
 		
-		<div class="form-group">
 			<label for="vlocations_id " class="col-md-1 control-label ">使用设备分类</label>
+			<div class="col-md-3 ">
+				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations.id " required style="width:100% " required>
+					<template v-for="option in locs ">
+						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
+							{{option.locName }}
+						</option>
+						<option :value="option.id " v-else>
+							{{option.locName }}
+						</option>
+					</template>
+				</select>
+			</div>
+			
+			<label for="vlocations_id " class="col-md-1 control-label ">使用设备</label>
 			<div class="col-md-3 ">
 				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations.id " required style="width:100% " required>
 					<template v-for="option in locs ">

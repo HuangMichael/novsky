@@ -6,56 +6,10 @@
 <form class="form-horizontal myform" role="form" id="detailForm">
 
 	<fieldset class="form-group" id="a">
-		<legend>申请人信息</legend>
+		<legend>位置信息</legend>
 		<div class="form-group">
-
-			<label for="applicant " class="col-md-1 control-label ">申请人</label>
-			<div class="col-md-3 ">
-				<input class="form-control " id="applicant" type="text " name="applicant" required v-model="budgetBill.applicant" />
-			</div>
-			<label for="applyDep" class="col-md-1 control-label ">申请部门</label>
-			<div class="col-md-3 ">
-				<input class="form-control " id="applyDep" type="text " name="applyDep" required v-model="budgetBill.applyDep" />
-			</div>
-
-			<label for="applicant " class="col-md-1 control-label ">申请日期</label>
-			<div class="col-md-3 ">
-				 <input class="Wdate form-control" id="applyDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
-                       name="applyDate"
-                       v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc"/>
-			</div>
-		</div>
-	</fieldset>
-	<fieldset class="form-group" id="a">
-		<legend>配件信息</legend>
-		<div class="form-group">
-			<label class="col-md-1 control-label" for="accessoryName">配件名称</label>
+			<label class="col-md-1 control-label" for="accessoryName">使用位置</label>
 			<div class="col-md-3">
-				<input class="form-control" id="accessoryName" type="text" name="accessoryName" v-model="budgetBill.accessoryName" />
-				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
-			</div>
-			<label class="col-md-1 control-label" for="accessoryName">规格型号</label>
-			<div class="col-md-3">
-				<input class="form-control" id="accessoryName" type="text" name="accessoryName" v-model="budgetBill.accessoryName" />
-
-			</div>
-			<label class="col-md-1 control-label" for="amount">数量</label>
-			<div class="col-md-3">
-				<input class="form-control" id="amount" type="number" name="amount" v-model="budgetBill.amount" value="1" />
-			</div>
-		</div>
-	</fieldset>
-	<fieldset class="form-group" id="a">
-		<legend>用途信息</legend>
-		<div class="form-group">
-			<label class="col-md-1 control-label" for="purpose">用途</label>
-			<div class="col-md-11">
-				<textarea class="form-control" id="purpose" type="text" name="purpose" v-model="budgetBill.purpose" rows="6" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="vlocations_id " class="col-md-1 control-label ">使用位置</label>
-			<div class="col-md-3 ">
 				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations.id " required style="width:100% " required>
 					<template v-for="option in locs ">
 						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
@@ -67,28 +21,94 @@
 					</template>
 				</select>
 			</div>
+			<label class="col-md-1 control-label" for="accessoryName">申请日期</label>
+			<div class="col-md-3">
+				<input class="form-control" id="amount" type="number" name="amount" v-model="budgetBill.amount" value="1" />
+			</div>
+
+			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>
+			<div class="col-md-3">
+				<input class="form-control" id="amount" type="text" name="amount" v-model="budgetBill.amount" value="1" />
+			</div>
 		</div>
 	</fieldset>
-
 
 	<fieldset class="form-group" id="a">
-		<legend>批准信息</legend>
+		<legend>配件信息</legend>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="approver">批准人</label>
+			<label class="col-md-1 control-label" for="accessoryName">低值易耗品名称</label>
 			<div class="col-md-3">
-				<input class="form-control" id="approver" type="text" name="approver" v-model="budgetBill.approver" />
+				<input class="form-control" id="accessoryName" type="text" name="accessoryName" v-model="budgetBill.accessoryName" />
+				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
 			</div>
-			<label for="handler " class="col-md-1 control-label ">经办人</label>
-			<div class="col-md-3 ">
-				<input class="form-control" id="handler" type="text" name="handler" v-model="budgetBill.handler" />
+			<label class="col-md-1 control-label" for="accessoryName">申请数量</label>
+			<div class="col-md-3">
+				<input class="form-control" id="amount" type="number" name="amount" v-model="budgetBill.amount" value="1" />
 			</div>
-			<label for="receiver" class="col-md-1 control-label ">接收人</label>
-			<div class="col-md-3 ">
-				<input class="form-control " id="receiver " type="text" name="receiver" required v-model="budgetBill.receiver " />
+			<div class="form-group">
+				<label for="vlocations_id " class="col-md-1 control-label ">有无用电许可证</label>
+				<div class="col-md-3">
+					<select class="js-example-basic-multiple" style="width:90% ">
+						<option value="1">有</option>
+						<option value="0">无</option>
+					</select>
+				</div>
 			</div>
 		</div>
 	</fieldset>
+	<fieldset class="form-group" id="a">
+		<legend>申请更新原因</legend>
+		<div class="form-group">
+			<label class="col-md-1 control-label" for="accessoryName">申请更新原因</label>
+			<div class="col-md-5">
+				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% ">
+					<option value="1">使用年限较长</option>
+					<option value="2">自然损坏</option>
+					<option value="3">人为损坏</option>
+					<option value="4">安全隐患</option>
+					<option value="5">其他</option>
+				</select>
+			</div>
+		</div>
+	</fieldset>
+	
+	<fieldset class="form-group" id="a">
+		<legend>确认更新原因</legend>
+			<div class="form-group">
+				<label class="col-md-1 control-label" for="accessoryName">确认更新原因</label>
+				<div class="col-md-5">
+					<select class="js-example-basic-multiple" multiple="multiple" style="width:90% ">
+						<option value="1">使用年限较长</option>
+						<option value="2">自然损坏</option>
+						<option value="3">人为损坏</option>
+						<option value="4">安全隐患</option>
+						<option value="5">其他</option>
+					</select>
+				</div>
+			</div>
 
+		</div>
+	</fieldset>
+	
+
+	<fieldset class="form-group" id="a">
+		<legend>综合维修中心维修意见</legend>
+		<div class="form-group">
+			<label class="col-md-1 control-label" for="accessoryName">维修意见</label>
+			<div class="col-md-11">
+				<textarea class="form-control" id="accessoryName" name="accessoryName" v-model="budgetBill.accessoryName" cols="6" />
+			</div>
+		</div>
+	</fieldset>
+	<fieldset class="form-group" id="a">
+		<legend>领导意见</legend>
+		<div class="form-group">
+			<label class="col-md-1 control-label" for="accessoryName">领导意见</label>
+			<div class="col-md-11">
+				<textarea class="form-control" id="accessoryName" name="accessoryName" v-model="budgetBill.accessoryName" cols="6" />
+			</div>
+		</div>
+	</fieldset>
 	<div class="modal-footer ">
 		<button type="submit " id="saveBtn " name="saveBtn " class="btn btn-primary btn-danger ">保存记录
         </button>

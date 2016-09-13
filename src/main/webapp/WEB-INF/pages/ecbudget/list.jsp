@@ -12,7 +12,7 @@
 					<!-- BOX -->
 					<div class="box border blue">
 						<div class="box-title">
-							<h4 class="appTitle"><i class="fa fa-sitemap"></i>采购申请信息</h4>
+							<h4 class="appTitle"><i class="fa fa-sitemap"></i>低值易耗品采购申请信息</h4>
 						</div>
 						<%@include file="../common/common-menubar.jsp"%>
 						<div class="box-body">
@@ -20,11 +20,11 @@
 								<ul class="nav nav-tabs" id="myTab">
 									<li class="active">
 										<a href="#list_tab" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
-											<i class="fa fa-home" id="list"></i>列表信息</a>
+											<i class="fa fa-home" id="list"></i>低值易耗品列表信息</a>
 									</li>
 									<li>
 										<a href="#detail_tab" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
-											<i class="fa fa-home" id="detail"></i>明细信息</a>
+											<i class="fa fa-home" id="detail"></i>低值易耗品明细信息</a>
 									</li>
 								</ul>
 								<div class="tab-content">
@@ -47,7 +47,6 @@
 														<th data-align="center" data-column-id="receiver" data-width="5%">接收人</th>
 													</tr>
 												</thead>
-
 											</table>
 										</div>
 									</div>
