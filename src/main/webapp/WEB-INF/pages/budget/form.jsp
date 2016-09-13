@@ -4,7 +4,7 @@
 <%@ taglib prefix="v-bind" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <form class="form-horizontal myform" role="form" id="detailForm">
-	
+
 	<fieldset class="form-group" id="a">
 		<legend>申请人信息</legend>
 		<div class="form-group">
@@ -20,9 +20,7 @@
 
 			<label for="applicant " class="col-md-1 control-label ">申请日期</label>
 			<div class="col-md-3 ">
-				 <input class="Wdate form-control" id="applyDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
-                       name="applyDate"
-                       v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc"/>
+				<input class="Wdate form-control" id="applyDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
 			</div>
 		</div>
 	</fieldset>
@@ -67,37 +65,22 @@
 					</template>
 				</select>
 			</div>
-		
-			<label for="vlocations_id " class="col-md-1 control-label ">使用设备分类</label>
+
+			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
 			<div class="col-md-3 ">
-				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations.id " required style="width:100% " required>
-					<template v-for="option in locs ">
-						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
-							{{option.locName }}
+				<select v-model="budgetBill.locations.id " class="form-control " id="eq_class_id " name="eqClass.id " required style="width:100% " required>
+					<template v-for="option in eqClass ">
+						<option :value="option.id " v-if="option.id==budgetBill.eqClass.id " selected>
+							{{option.cpName+option.cname }}
 						</option>
 						<option :value="option.id " v-else>
-							{{option.locName }}
-						</option>
-					</template>
-				</select>
-			</div>
-			
-			<label for="vlocations_id " class="col-md-1 control-label ">使用设备</label>
-			<div class="col-md-3 ">
-				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations.id " required style="width:100% " required>
-					<template v-for="option in locs ">
-						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
-							{{option.locName }}
-						</option>
-						<option :value="option.id " v-else>
-							{{option.locName }}
+							{{option.cpName+option.cname }}
 						</option>
 					</template>
 				</select>
 			</div>
 		</div>
 	</fieldset>
-	
 
 	<fieldset class="form-group" id="a">
 		<legend>批准信息</legend>

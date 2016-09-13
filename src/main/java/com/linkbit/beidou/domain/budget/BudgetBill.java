@@ -1,5 +1,7 @@
 package com.linkbit.beidou.domain.budget;
 
+import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
+import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import lombok.*;
@@ -60,5 +62,10 @@ public class BudgetBill {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations; //位置
+
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "eq_class_id", referencedColumnName = "id")
+    private EquipmentsClassification eqClass; //设备分类
 
 }

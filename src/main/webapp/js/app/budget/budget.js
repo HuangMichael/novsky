@@ -7,6 +7,7 @@ var formTab = $('#myTab li:eq(1) a');
 var vdm = null;
 //位置信息
 var locs = [];
+var eqClass = [];
 $(function() {
 
 	//设置数据有效性验证配置项
@@ -31,11 +32,14 @@ $(function() {
 
 	locs = findMyLoc();
 
+	eqClass = findMyEqClass();
+
 	vdm = new Vue({
 		el: "#detailContainer",
 		data: {
 			budgetBill: null,
-			locs: locs
+			locs: locs,
+			eqClass:eqClass
 		}
 	});
 
@@ -81,6 +85,8 @@ $(function() {
 		}
 		vdm.$set("budgetBill", budgetBill);
 		vdm.$set("locs", locs);
+		vdm.$set("eqClass", eqClass);
+		
 	});
 
 	$("select").select2({
@@ -101,7 +107,8 @@ function add() {
 	var newVue = new Vue({
 		el: "#createContainer",
 		budgetBill: null,
-		locs: locs
+		locs: locs,
+		eqClass:eqClass
 	});
 
 	formTab.tab('show');
@@ -152,4 +159,15 @@ function findMyLoc() {
 		locs = data;
 	});
 	return locs;
+}
+
+/**
+ *查询我的位置
+ * */
+function findMyEqClass() {
+	var url_eqclass = "/commonData/findVEqClass";
+	$.getJSON(url_eqclass, function(data) {
+		eqClass = data;
+	});
+	return eqClass;
 }
