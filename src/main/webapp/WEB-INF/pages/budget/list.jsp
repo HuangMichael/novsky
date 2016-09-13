@@ -39,6 +39,7 @@
 														<th data-align="center" data-column-id="specifications" data-width="5%">规格型号</th>
 														<th data-align="center" data-column-id="locName" data-width="10%">位置</th>
 														<th data-align="center" data-column-id="applicant" data-width="5%">申请人</th>
+														<th data-align="center" data-column-id="applyDep" data-width="5%">申请部门</th>
 														<th data-align="center" data-column-id="amount" data-width="5%">申请数量</th>
 														<th data-align="center" data-column-id="purpose" data-width="20%">用途</th>
 														<th data-align="center" data-column-id="approver" data-width="5%">批准人</th>
