@@ -23,12 +23,29 @@ public class EcBudgetBill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //id
-
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date applyDate;// 申请日期
-
     @Column(length = 20)
     private String applicant;// 填报人
-
+    @Column(length = 20)
+    private String locations;// 填报人
+    @Column(length = 20)
+    private String ecname;// 填报人
+    @Column(length = 20)
+    private String amount;// 填报人
+    @Column(length = 20)
+    private String epermited;// 填报人
+    @Column(length = 20)
+    private String updateReason;// 填报人
+    @Column(length = 20)
+    private String auditDate;// 填报人
+    @Column(length = 20)
+    private String auditor;// 填报人
+    @Column(length = 20)
+    private String confirmReason;// 填报人
+    @Column(length = 20)
+    private String fixAdvice;// 填报人
+    @Column(length = 20)
+    private String leaderAdvice;// 填报人
 
 }

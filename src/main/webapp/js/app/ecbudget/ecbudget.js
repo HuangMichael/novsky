@@ -14,7 +14,6 @@ $(function() {
 	var validateOptions = {
 		message: '该值无效 ',
 		fields: {
-
 			"applyDate": {
 				message: '申请日期无效',
 				validators: {
@@ -24,7 +23,7 @@ $(function() {
 
 				}
 			},
-			"ecName": {
+			"ecname": {
 				message: '易耗品名称无效',
 				validators: {
 					notEmpty: {
@@ -51,11 +50,20 @@ $(function() {
 
 				}
 			},
-			"applicant": {
-				message: '申请人无效',
+			"confirmReason": {
+				message: '确认更新原因无效',
 				validators: {
 					notEmpty: {
-						message: '申请人不能为空!'
+						message: '确认更新原因不能为空!'
+					}
+
+				}
+			},
+			"applicant": {
+				message: '填报人无效',
+				validators: {
+					notEmpty: {
+						message: '填报人不能为空!'
 					},
 					stringLength: {
 						min: 1,
@@ -85,50 +93,57 @@ $(function() {
 					}
 				}
 			},
-			"accessoryName": {
-				message: '配件名称无效',
+
+			"auditor": {
+				message: '填报人无效',
 				validators: {
 					notEmpty: {
-						message: '配件名称不能为空!'
-					},
-					stringLength: {
-						min: 1,
-						max: 20,
-						message: '1到20个字符'
+						message: '填报人不能为空!'
 					}
 				}
 			},
-			"specifications": {
-				message: '规格型号无效',
+			
+			"auditDate": {
+				message: '填报日期无效',
 				validators: {
 					notEmpty: {
-						message: '规格型号不能为空!'
-					},
-					stringLength: {
-						min: 1,
-						max: 20,
-						message: '1到20个字符'
+						message: '填报日期不能为空!'
 					}
 				}
 			},
-			"purpose": {
-				message: '用途无效',
+
+			"amount": {
+				message: '申请数量无效',
 				validators: {
 					notEmpty: {
-						message: '用途不能为空!'
-					},
-					stringLength: {
-						min: 1,
-						max: 50,
-						message: '1到50个字符'
+						message: '申请数量不能为空!'
 					}
 				}
 			},
+
 			"locations": {
 				message: '位置无效',
 				validators: {
 					notEmpty: {
 						message: '位置不能为空!'
+					}
+				}
+			},
+
+			"fixAdvice": {
+				message: '维修建议无效',
+				validators: {
+					notEmpty: {
+						message: '维修建议不能为空!'
+					}
+				}
+			},
+
+			"leaderAdvice": {
+				message: '领导建议无效',
+				validators: {
+					notEmpty: {
+						message: '领导建议不能为空!'
 					}
 				}
 			},
@@ -139,46 +154,7 @@ $(function() {
 						message: '设备分类不能为空!'
 					}
 				}
-			},
-			"approver": {
-				message: '批准人无效',
-				validators: {
-					notEmpty: {
-						message: '批准人不能为空!'
-					},
-					stringLength: {
-						min: 1,
-						max: 50,
-						message: '1到50个字符'
-					}
-				}
-			},
-			"handler": {
-				message: '经办人无效',
-				validators: {
-					notEmpty: {
-						message: '经办人不能为空!'
-					},
-					stringLength: {
-						min: 1,
-						max: 50,
-						message: '1到50个字符'
-					}
-				}
-			},
-			"receiver": {
-				message: '接收人无效',
-				validators: {
-					notEmpty: {
-						message: '接收人不能为空!'
-					},
-					stringLength: {
-						min: 1,
-						max: 50,
-						message: '1到50个字符'
-					}
-				}
-			},
+			}
 		}
 	};
 

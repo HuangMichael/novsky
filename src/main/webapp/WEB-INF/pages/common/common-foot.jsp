@@ -25,7 +25,7 @@
 <script src="/js/PDFObject-master/pdfobject.js"></script>
 <script language="javascript" type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
-
+<script type="text/javascript" src="/js/bootstrapvalidator/src/js/language/zh_CN.js"></script>
 
 
 

@@ -218,7 +218,7 @@
             'default': '请输入有效的MEID'
         },
         notEmpty: {
-            'default': '栏位不能为空'
+            'default': '该项不能为空'
         },
         numeric: {
             'default': '请输入有效的浮点数'
