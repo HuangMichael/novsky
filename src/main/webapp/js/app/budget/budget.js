@@ -14,6 +14,40 @@ $(function() {
 	var validateOptions = {
 		message: '该值无效 ',
 		fields: {
+			"applicant": {
+				message: '申请人无效',
+				validators: {
+					notEmpty: {
+						message: '申请人不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 20,
+						message: '1到20个字符'
+					}
+				}
+			},
+			"applyDep": {
+				message: '申请部门无效',
+				validators: {
+					notEmpty: {
+						message: '申请部门不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 20,
+						message: '1到20个字符'
+					}
+				}
+			},
+			"amount": {
+				message: '申请数量无效',
+				validators: {
+					notEmpty: {
+						message: '申请数量不能为空!'
+					}
+				}
+			},
 			"accessoryName": {
 				message: '配件名称无效',
 				validators: {
@@ -26,7 +60,88 @@ $(function() {
 						message: '1到20个字符'
 					}
 				}
-			}
+			},
+			"specifications": {
+				message: '规格型号无效',
+				validators: {
+					notEmpty: {
+						message: '规格型号不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 20,
+						message: '1到20个字符'
+					}
+				}
+			},
+			"purpose": {
+				message: '用途无效',
+				validators: {
+					notEmpty: {
+						message: '用途不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 50,
+						message: '1到50个字符'
+					}
+				}
+			},
+			"locations": {
+				message: '位置无效',
+				validators: {
+					notEmpty: {
+						message: '位置不能为空!'
+					}
+				}
+			},
+			"eqclass": {
+				message: '设备分类无效',
+				validators: {
+					notEmpty: {
+						message: '设备分类不能为空!'
+					}
+				}
+			},
+			"approver": {
+				message: '批准人无效',
+				validators: {
+					notEmpty: {
+						message: '批准人不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 50,
+						message: '1到50个字符'
+					}
+				}
+			},
+			"handler": {
+				message: '经办人无效',
+				validators: {
+					notEmpty: {
+						message: '经办人不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 50,
+						message: '1到50个字符'
+					}
+				}
+			},
+			"receiver": {
+				message: '接收人无效',
+				validators: {
+					notEmpty: {
+						message: '接收人不能为空!'
+					},
+					stringLength: {
+						min: 1,
+						max: 50,
+						message: '1到50个字符'
+					}
+				}
+			},
 		}
 	};
 
@@ -39,7 +154,7 @@ $(function() {
 		data: {
 			budgetBill: null,
 			locs: locs,
-			eqClass:eqClass
+			eqClass: eqClass
 		}
 	});
 
@@ -86,7 +201,7 @@ $(function() {
 		vdm.$set("budgetBill", budgetBill);
 		vdm.$set("locs", locs);
 		vdm.$set("eqClass", eqClass);
-		
+
 	});
 
 	$("select").select2({
@@ -108,7 +223,7 @@ function add() {
 		el: "#createContainer",
 		budgetBill: null,
 		locs: locs,
-		eqClass:eqClass
+		eqClass: eqClass
 	});
 
 	formTab.tab('show');
@@ -170,4 +285,17 @@ function findMyEqClass() {
 		eqClass = data;
 	});
 	return eqClass;
+}
+
+/**
+ *获取服务器时间
+ * */
+function getServerDate() {
+
+	var today = null;
+	var url = "/commonData/getServerDate";
+	$.getJSON(url, function(data) {
+		today = data;
+	});
+	return today;
 }

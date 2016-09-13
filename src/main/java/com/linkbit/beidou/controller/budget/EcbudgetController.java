@@ -2,8 +2,10 @@ package com.linkbit.beidou.controller.budget;
 
 
 import com.linkbit.beidou.domain.app.MyPage;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.budge.BudgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -30,6 +32,8 @@ public class EcbudgetController {
 
     @Autowired
     BudgeService budgeService;
+    @Autowired
+    ResourceService resourceService;
 
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
@@ -43,8 +47,8 @@ public class EcbudgetController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current",defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-        Page<VbudgetBill> page  = budgeService.findAllV(new PageRequest(current-1,rowCount.intValue()));
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
+        Page<VbudgetBill> page = budgeService.findAllV(new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -56,6 +60,9 @@ public class EcbudgetController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(HttpSession httpSession, ModelMap modelMap) {
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
         return "/ecbudget/list";
     }
 }

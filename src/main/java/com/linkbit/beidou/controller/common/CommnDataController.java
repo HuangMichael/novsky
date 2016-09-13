@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -121,6 +124,15 @@ public class CommnDataController extends BaseController {
     @ResponseBody
     public List<Person> findActivePerson(HttpSession httpSession) {
         return commonDataService.findActivePerson(httpSession);
+    }
+
+    /**
+     * @return 获得服务器时间
+     */
+    @RequestMapping(value = "/getServerDate", method = RequestMethod.GET)
+    @ResponseBody
+    public String getServerDate() {
+        return  commonDataService.getServerDate();
     }
 }
 

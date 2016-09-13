@@ -34,7 +34,7 @@
 			</div>
 			<label class="col-md-1 control-label" for="accessoryName">规格型号</label>
 			<div class="col-md-3">
-				<input class="form-control" id="accessoryName" type="text" name="accessoryName" v-model="budgetBill.accessoryName" />
+				<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.specifications" />
 
 			</div>
 			<label class="col-md-1 control-label" for="amount">数量</label>
@@ -54,7 +54,7 @@
 		<div class="form-group">
 			<label for="vlocations_id " class="col-md-1 control-label ">使用位置</label>
 			<div class="col-md-3 ">
-				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations.id " required style="width:100% " required>
+				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations" required style="width:100% " required>
 					<template v-for="option in locs ">
 						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
 							{{option.locName }}
@@ -68,7 +68,7 @@
 
 			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
 			<div class="col-md-3 ">
-				<select v-model="budgetBill.locations.id " class="form-control " id="eq_class_id " name="eqClass.id " required style="width:100% " required>
+				<select v-model="budgetBill.locations.id " class="form-control " id="eq_class_id " name="eqclass" required style="width:100% " required>
 					<template v-for="option in eqClass ">
 						<option :value="option.id " v-if="option.id==budgetBill.eqClass.id " selected>
 							{{option.cpName+option.cname }}
