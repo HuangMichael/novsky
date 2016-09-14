@@ -7,6 +7,7 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.budge.BudgeService;
 import com.linkbit.beidou.service.budge.EcBudgeService;
@@ -16,10 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -68,4 +66,39 @@ public class EcbudgetController {
         modelMap.put("appMenus", appMenus);
         return "/ecbudget/list";
     }
+
+    /**
+     * @param id 根据id查询
+     * @return
+     */
+    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public EcBudgetBill findById(@PathVariable("id") Long id) {
+        return ecBudgeService.findById(id);
+    }
+
+
+    /**
+     * @param budgetBill 采购单
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject save(EcBudgetBill budgetBill, HttpSession httpSession) {
+        ReturnObject returnObject = new ReturnObject();
+        EcBudgetBill budgetObj;
+        String operation = "保存";
+        String result = "成功";
+        if (budgetBill.getId() != null) {
+            operation = "更新";
+        }
+        String personName = (String) httpSession.getAttribute("personName");
+        budgetBill.setApplicant(personName);
+        budgetObj = ecBudgeService.save(budgetBill);
+        returnObject.setResult(result != null);
+        result = (budgetObj != null) ? operation : "失败";
+        returnObject.setResultDesc("易耗品采购申请单" + operation + result);
+        return returnObject;
+    }
+
 }

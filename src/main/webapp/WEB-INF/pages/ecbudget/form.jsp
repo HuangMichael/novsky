@@ -10,7 +10,7 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="applyDate">申请日期</label>
 			<div class="col-md-3">
-				<input class="form-control" id="applyDate" type="text" name="applyDate" v-model="budgetBill.applyDate" required="required" />
+				<input class="Wdate form-control" id="applyDate" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" required="required" style="height:34px;border:1px solid #cccccc"/>
 			</div>
 			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>
 			<div class="col-md-3">
@@ -72,7 +72,7 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="auditDate">申请日期</label>
 			<div class="col-md-2">
-				<input class="form-control" id="auditDate" type="text" name="auditDate" v-model="budgetBill.auditDate" required="required" />
+				<input class="Wdate form-control" id="auditDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})" type="text" name="auditDate" v-model="budgetBill.auditDate" required="required" style="height:34px;border:1px solid #cccccc" />
 			</div>
 
 			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>

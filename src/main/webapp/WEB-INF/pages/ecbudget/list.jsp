@@ -30,21 +30,23 @@
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
 										<div class="container-fluid">
-											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/budget/data">
+											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/ecbudget/data">
 												<thead>
 													<tr>
 														<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
-														<th data-align="center" data-column-id="applyDate" data-width="10%">采购日期</th>
-														<th data-align="center" data-column-id="accessoryName" data-width="10%">配件名称</th>
-														<th data-align="center" data-column-id="specifications" data-width="5%">规格型号</th>
-														<th data-align="center" data-column-id="locName" data-width="10%">位置</th>
-														<th data-align="center" data-column-id="applicant" data-width="5%">申请人</th>
-														<th data-align="center" data-column-id="applyDep" data-width="5%">申请部门</th>
-														<th data-align="center" data-column-id="amount" data-width="5%">申请数量</th>
-														<th data-align="center" data-column-id="purpose" data-width="20%">用途</th>
-														<th data-align="center" data-column-id="approver" data-width="5%">批准人</th>
-														<th data-align="center" data-column-id="handler" data-width="5%">经办人</th>
-														<th data-align="center" data-column-id="receiver" data-width="5%">接收人</th>
+														<th data-align="center" data-column-id="applyDate" data-width="4%">采购日期</th>
+														<th data-align="center" data-column-id="applicant" data-width="3%">申请人</th>
+														<th data-align="center" data-column-id="ecname" data-width="6%">低值易耗品名称</th>
+														<th data-align="center" data-column-id="amount" data-width="4%">申请数量</th>
+														<th data-align="center" data-column-id="locName" data-width="6%">位置</th>
+														<th data-align="center" data-column-id="epermited" data-width="5%">有无用电许可证</th>
+														<th data-align="center" data-column-id="updateReason" data-width="5%">申请更新原因</th>
+														<th data-align="center" data-column-id="auditDate" data-width="4%">填报日期</th>
+														<th data-align="center" data-column-id="auditor" data-width="3%">填报人</th>
+														<th data-align="center" data-column-id="confirmReason" data-width="5%">确认更新原因</th>
+														<th data-align="center" data-column-id="fixAdvice" data-width="10%">综合维修中心意见</th>
+														<th data-align="center" data-column-id="leaderAdvice" data-width="10%">领导批示</th>
+
 													</tr>
 												</thead>
 											</table>
@@ -63,4 +65,4 @@
 	</div>
 	<%@include file="../common/common-back2top.jsp" %>
 </div>
-<script src="/js/app/budget/budget.js"></script>
+<script src="/js/app/ecbudget/ecbudget.js"></script>

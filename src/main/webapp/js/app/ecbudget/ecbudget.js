@@ -271,7 +271,7 @@ function del() {
  * */
 function findById(id) {
 	var budgetBill = null;
-	var url = "budget/findById/" + 1;
+	var url = "ecbudget/findById/" + 1;
 	$.getJSON(url, function(data) {
 		budgetBill = data;
 	});
