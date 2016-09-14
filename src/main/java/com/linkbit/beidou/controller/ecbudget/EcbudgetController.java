@@ -1,12 +1,15 @@
-package com.linkbit.beidou.controller.budget;
+package com.linkbit.beidou.controller.ecbudget;
 
 
+import com.linkbit.beidou.domain.EcBudget.EcBudgetBill;
+import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.budge.BudgeService;
+import com.linkbit.beidou.service.budge.EcBudgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -31,15 +34,15 @@ import java.util.List;
 public class EcbudgetController {
 
     @Autowired
-    BudgeService budgeService;
+    EcBudgeService ecBudgeService;
     @Autowired
     ResourceService resourceService;
 
 
     @RequestMapping(value = "/data", method = RequestMethod.GET)
     @ResponseBody
-    public List<BudgetBill> data() {
-        return budgeService.findAll();
+    public List<EcBudgetBill> data() {
+        return ecBudgeService.findAll();
     }
 
     /**
@@ -48,12 +51,12 @@ public class EcbudgetController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-        Page<VbudgetBill> page = budgeService.findAllV(new PageRequest(current - 1, rowCount.intValue()));
+        Page<VEcBudgetBill> page = ecBudgeService.findAllV(new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
         myPage.setCurrent(current);
-        myPage.setTotal(budgeService.findAll().size());
+        myPage.setTotal(ecBudgeService.findAll().size());
         return myPage;
     }
 

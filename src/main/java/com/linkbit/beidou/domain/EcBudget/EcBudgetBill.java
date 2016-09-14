@@ -1,6 +1,5 @@
 package com.linkbit.beidou.domain.EcBudget;
 
-import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,8 +27,6 @@ public class EcBudgetBill {
     @Column(length = 20)
     private String applicant;// 填报人
     @Column(length = 20)
-    private String locations;// 填报人
-    @Column(length = 20)
     private String ecname;// 填报人
     @Column(length = 20)
     private String amount;// 填报人
@@ -47,5 +44,9 @@ public class EcBudgetBill {
     private String fixAdvice;// 填报人
     @Column(length = 20)
     private String leaderAdvice;// 填报人
+
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
+    private Vlocations vlocations; //位置
 
 }
