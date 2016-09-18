@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="v-bind" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <form class="form-horizontal myform" role="form" id="detailForm">
 
 	<fieldset class="form-group" id="a">
@@ -15,12 +13,14 @@
 			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>
 			<div class="col-md-3">
 				<input class="form-control" id="applicant" type="text" name="applicant" v-model="budgetBill.applicant" required="required" />
+                <input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id"  />
+
 			</div>
 			<label class="col-md-1 control-label" for="locations_id">使用位置</label>
 			<div class="col-md-3">
-				<select v-model="budgetBill.locations.id " class="form-control " id="locations_id " name="locations" required style="width:100% " required>
+				<select v-model="budgetBill.vlocations.id " class="form-control " id="locations_id " name="vlocations.id" required style="width:100% " required>
 					<template v-for="option in locs ">
-						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
+						<option :value="option.id " v-if="option.id==budgetBill.vlocations.id " selected>
 							{{option.locName }}
 						</option>
 						<option :value="option.id " v-else>
@@ -46,8 +46,8 @@
 				<label for="epermited " class="col-md-1 control-label ">有无用电许可证</label>
 				<div class="col-md-3">
 					<select class="js-example-basic-multiple" style="width:90% " name="epermited" id="epermited">
-						<option value="1">有</option>
-						<option value="0">无</option>
+						<option >有</option>
+						<option >无</option>
 					</select>
 				</div>
 			</div>
@@ -57,12 +57,12 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="updateReason">申请更新原因</label>
 			<div class="col-md-8">
-				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " name="updateReason" id="updateReason" required="required">
-					<option value="1">使用年限较长</option>
-					<option value="2">自然损坏</option>
-					<option value="3">人为损坏</option>
-					<option value="4">安全隐患</option>
-					<option value="5">其他</option>
+				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " name="updateReason" id="updateReason" required="required"  v-model="budgetBill.updateReason">
+					<option >使用年限较长</option>
+					<option >自然损坏</option>
+					<option >人为损坏</option>
+					<option >安全隐患</option>
+					<option >其他</option>
 				</select>
 			</div>
 		</div>
@@ -82,12 +82,12 @@
 
 			<label class="col-md-1 control-label" for="accessoryName">确认更新原因</label>
 			<div class="col-md-4">
-				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " id="confirmReason" name="confirmReason" required="required">
-					<option value="1">使用年限较长</option>
-					<option value="2">自然损坏</option>
-					<option value="3">人为损坏</option>
-					<option value="4">安全隐患</option>
-					<option value="5">其他</option>
+				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " id="confirmReason" name="confirmReason" required="required" v-model="budgetBill.confirmReason">
+					<option >使用年限较长</option>
+					<option >自然损坏</option>
+					<option >人为损坏</option>
+					<option >安全隐患</option>
+					<option >其他</option>
 				</select>
 			</div>
 		</div>

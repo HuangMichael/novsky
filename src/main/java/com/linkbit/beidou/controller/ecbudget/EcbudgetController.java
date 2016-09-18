@@ -96,9 +96,29 @@ public class EcbudgetController {
         budgetBill.setApplicant(personName);
         budgetObj = ecBudgeService.save(budgetBill);
         returnObject.setResult(result != null);
-        result = (budgetObj != null) ? operation : "失败";
+        result = (budgetObj != null) ? result : "失败";
         returnObject.setResultDesc("易耗品采购申请单" + operation + result);
         return returnObject;
+    }
+
+
+    /**
+     * @param id 根据id查询
+     * @return
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Boolean delete(@PathVariable("id") Long id) {
+        return ecBudgeService.delete(id);
+    }
+
+
+
+
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return ecBudgeService.findAllIds();
     }
 
 }

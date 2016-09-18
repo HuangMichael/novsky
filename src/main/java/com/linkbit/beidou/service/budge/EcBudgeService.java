@@ -84,8 +84,29 @@ public class EcBudgeService extends BaseService {
      * @return 查询所有
      */
     public EcBudgetBill save(EcBudgetBill  ecBudgetBill) {
-        ecBudgetBill.setApplyDate(new Date());
+      //  ecBudgetBill.setApplyDate(new Date());
         return ecBudgetBillRepository.save(ecBudgetBill);
+    }
+
+
+    /**
+     * @param id 根据id删除 删除成功返回true
+     * @return
+     */
+    public boolean delete(Long id) {
+        if (id != null) {
+            ecBudgetBillRepository.delete(id);
+        }
+        return ecBudgetBillRepository.findById(id) == null;
+    }
+
+
+    /**
+     * @return 查询所有的id
+     */
+    public List<Long> findAllIds() {
+        List<Long> ids = ecBudgetBillRepository.findAllIds();
+        return ids;
     }
 
 

@@ -29,8 +29,8 @@ public class BudgetBill {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //id
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date applyDate;// 申购日期
+    @Column(length = 20)
+    private String applyDate;// 申购日期
 
     @Column(length = 50)
     private String accessoryName; //配件名称

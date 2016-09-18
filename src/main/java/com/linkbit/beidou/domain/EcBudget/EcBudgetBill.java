@@ -22,8 +22,8 @@ public class EcBudgetBill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //id
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date applyDate;// 申请日期
+    @Column(length = 20)
+    private String applyDate;// 申请日期
     @Column(length = 20)
     private String applicant;// 填报人
     @Column(length = 20)

@@ -4,6 +4,7 @@ import com.linkbit.beidou.domain.EcBudget.EcBudgetBill;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -33,4 +34,12 @@ public interface EcBudgetBillRepository extends PagingAndSortingRepository<EcBud
      * @return
      */
     EcBudgetBill findById(Long id);
+
+
+
+    /**
+     * @return查询所有的id
+     */
+    @Query("select id from EcBudgetBill")
+    List<Long> findAllIds();
 }
