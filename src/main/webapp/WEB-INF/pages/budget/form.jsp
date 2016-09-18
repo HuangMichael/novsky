@@ -20,7 +20,7 @@
 
 			<label for="applicant " class="col-md-1 control-label ">申请日期</label>
 			<div class="col-md-3 ">
-				<input class="Wdate form-control" id="applyDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
+				<input class="Wdate form-control" id="applyDate" onLoad ="WdatePicker({maxDate:'%y-%M-%d'})" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
 			</div>
 		</div>
 	</fieldset>
@@ -37,7 +37,7 @@
 				<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.specifications" />
 
 			</div>
-			<label class="col-md-1 control-label" for="amount">数量</label>
+			<label class="col-md-1 control-label" for="amount">申请数量</label>
 			<div class="col-md-3">
 				<input class="form-control" id="amount" type="number" name="amount" v-model="budgetBill.amount" value="1" />
 			</div>
@@ -46,7 +46,7 @@
 	<fieldset class="form-group" id="a">
 		<legend>用途信息</legend>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="purpose">用途</label>
+			<label class="col-md-1 control-label" for="purpose">申请用途</label>
 			<div class="col-md-11">
 				<textarea class="form-control" id="purpose" type="text" name="purpose" v-model="budgetBill.purpose" rows="6" />
 			</div>
@@ -105,3 +105,11 @@
         </button>
 	</div>
 </form>
+
+<script>
+$(function(){
+
+
+});
+
+</script>

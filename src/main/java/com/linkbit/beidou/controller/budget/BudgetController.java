@@ -80,6 +80,7 @@ public class BudgetController {
 
     /**
      * @param budgetBill 采购单
+     * @param httpSession
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
@@ -92,12 +93,12 @@ public class BudgetController {
         if (budgetBill.getId() != null) {
             operation = "更新";
         }
-        String personName = (String) httpSession.getAttribute("personName");
-        budgetBill.setApplicant(personName);
+//        String personName = (String) httpSession.getAttribute("personName");
+//        budgetBill.setApplicant(personName);
         budgetObj = budgeService.save(budgetBill);
         returnObject.setResult(result != null);
         result = (budgetObj != null) ? operation : "失败";
-        returnObject.setResultDesc("采购申请单" + operation + result);
+        returnObject.setResultDesc("采购申请单" + result + result);
         return returnObject;
     }
 

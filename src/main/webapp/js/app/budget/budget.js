@@ -232,6 +232,7 @@ $(function () {
             selectedIds = (ids);
         }
         vdm.$set("budgetBill", budgetBill);
+        setFormReadStatus("#detailForm", true);
     });
 });
 
@@ -301,12 +302,12 @@ function add() {
     //重新建立模型 新建对象模型
 
     var newVue = new Vue({
-        el: "#createContainer",
-        budgetBill: null,
+        el: "#detailContainer",
         locs: locs,
         eqClasses: eqClasses
     });
-
+    setFormReadStatus("#detailForm", false);
+    clearForm("#detailForm");
     formTab.tab('show');
     //alert("add一条记录");
 }
@@ -320,13 +321,21 @@ function save() {
     var url = "budget/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
-            showMessageBox(data.resultDesc);
+            showMessageBox("info", data.resultDesc);
+        }else{
+
+            showMessageBox("danger", data.resultDesc);
         }
     });
 }
 
 function edit() {
-    alert("del一条记录");
+    setFormReadStatus("#detailForm", false);
+
+    var apply_date = $("#applyDate").val();
+
+    console.log(parseInt(apply_date) / 1000);
+    console.log(transformDate(apply_date));
 }
 
 function del() {
@@ -418,4 +427,29 @@ function findAllIds() {
         ids = data;
     });
     return ids;
+}
+
+
+/**
+ *
+ * @param formId 设置form为只读
+ */
+function setFormReadStatus(formId, formLocked) {
+    if (formLocked) {
+        $(formId + " input ").attr("readonly", "readonly");
+        $(formId + " textarea ").attr("readonly", "readonly");
+        $(formId + " select").attr("disabled", "disabled");
+    } else {
+        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
+        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
+        $(formId + " textarea").attr("readonly", "readonly").removeAttr("readonly");
+
+    }
+}
+
+
+function clearForm(formId) {
+    $(formId + " input ").val("");
+    $(formId + " textarea ").val("");
+    $(formId + " select").val("");
 }

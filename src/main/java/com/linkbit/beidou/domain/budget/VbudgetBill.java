@@ -24,9 +24,9 @@ public class VbudgetBill {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;  //id
-
-    @Column(length = 50)
-    private String applyDate;// 申购申请日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date applyDate;// 申购申请日期
 
     @Column(length = 50)
     private String accessoryName; //配件名称
