@@ -34,7 +34,7 @@
 												<thead>
 													<tr>
 														<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
-														<th data-align="center" data-column-id="applyDate" data-width="10%">采购日期</th>
+														<th data-align="center" data-column-id="applyDate" data-width="5%">采购日期</th>
 														<th data-align="center" data-column-id="accessoryName" data-width="10%">配件名称</th>
 														<th data-align="center" data-column-id="specifications" data-width="5%">规格型号</th>
 														<th data-align="center" data-column-id="locName" data-width="10%">位置</th>

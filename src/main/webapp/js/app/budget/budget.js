@@ -7,9 +7,11 @@ var formTab = $('#myTab li:eq(1) a');
 var vdm = null;
 //位置信息
 var locs = [];
-var eqClass = [];
-$(function () {
+var eqClasses = [];
+var budgetBills = [];
 
+var pointer = 0;
+$(function () {
     //设置数据有效性验证配置项
     var validateOptions = {
         message: '该值无效 ',
@@ -147,14 +149,14 @@ $(function () {
 
     locs = findMyLoc();
 
-    eqClass = findMyEqClass();
+    eqClasses = findMyEqClass();
 
     vdm = new Vue({
         el: "#detailContainer",
         data: {
             budgetBill: null,
             locs: locs,
-            eqClass: eqClass
+            eqClasses: eqClasses
         }
     });
 
@@ -187,16 +189,12 @@ $(function () {
         var budgetBill = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            //eq = getEquipmentByIdInEqs(selectedIds[0]);
-            console.log("显示第一条-------------" + selectedIds[0])
             budgetBill = findById(selectedIds[0]);
-
-            console.log("显示第一条" + JSON.stringify(budgetBill));
         } else {
             //没有选中的 默认显示整个列表的第一条
-            //budgetBill = getEquipmentByIdInEqs(eqs[0]["id"])
+            budgetBill = getBudgetBillById(budgetBills[0]["id"])
             //所有的都在选中列表中
-            /*selectedIds = setAllInSelectedList(eqs);*/
+            selectedIds = setAllInSelectedList(budgetBills);
         }
         vdm.$set("budgetBill", budgetBill);
         vdm.$set("locs", locs);
@@ -213,7 +211,89 @@ $(function () {
         e.preventDefault();
         save();
     });
+
+
+    formTab.on('click', function () {
+        // activeTab = "detail";
+        //setFormReadStatus("#detailForm", formLocked);
+        //首先判断是否有选中的
+        var budgetBill = null;
+        if (selectedIds.length > 0) {
+            //切换tab时默认给detail中第一个数据
+            budgetBill = getBudgetBillById(selectedIds[0]);
+        } else {
+            //没有选中的 默认显示整个列表的第一条
+            budgetBill = getBudgetBillById(eqs[0]["id"])
+            //所有的都在选中列表中
+            selectedIds = setAllInSelectedList(eqs);
+        }
+        vdm.$set("budgetBill", budgetBill);
+
+    });
+
+
 });
+
+
+/**
+ * @param eqs 所有的记录
+ * @returns {Array}将所有的放入选中集合
+ */
+function setAllInSelectedList(bugetBills) {
+    var selecteds = [];
+    for (var x in bugetBills) {
+        if (!isNaN(bugetBills[x]["id"])) {
+            selecteds.push(bugetBills[x]["id"]);
+        }
+    }
+    return selecteds;
+
+}
+
+
+/**
+ * 根据ID获取
+ * @param bid
+ * @return {*}
+ */
+function getBudgetBillById(bid) {
+    var budgetBill = null;
+    var url = "/budget/findById/" + bid;
+    $.getJSON(url, function (data) {
+        budgetBill = data;
+    });
+    return budgetBill;
+}
+
+
+/**
+ *  上一条
+ */
+function backwards() {
+    if (pointer <= 0) {
+        showMessageBoxCenter("danger", "center", "当前记录是第一条");
+        return;
+    } else {
+        pointer = pointer - 1;
+        //判断当前指针位置
+        var budgetBill = getBudgetBillById(selectedIds[pointer]);
+        vdm.$set("budgetBill", budgetBill);
+    }
+}
+/**
+ *  下一条
+ */
+function forwards() {
+    if (pointer >= selectedIds.length - 1) {
+        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
+        return;
+    } else {
+        pointer = pointer + 1;
+        var budgetBill = getBudgetBillById(selectedIds[pointer]);
+        vdm.$set("budgetBill", budgetBill);
+    }
+}
+
 
 function add() {
 
@@ -223,7 +303,7 @@ function add() {
         el: "#createContainer",
         budgetBill: null,
         locs: locs,
-        eqClass: eqClass
+        eqClasses: eqClasses
     });
 
     formTab.tab('show');
@@ -266,6 +346,7 @@ function del() {
                 success: function (msg) {
                     if (msg) {
                         showMessageBox("info", "采购信息删除成功!");
+                        $("#budgetDataTable").bootgrid("reload");
                     }
                 },
                 error: function (msg) {
@@ -280,7 +361,7 @@ function del() {
  * */
 function findById(id) {
     var budgetBill = null;
-    var url = "budget/findById/" + 1;
+    var url = "budget/findById/" + id;
     $.getJSON(url, function (data) {
         budgetBill = data;
     });

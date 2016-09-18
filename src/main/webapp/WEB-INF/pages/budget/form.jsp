@@ -56,7 +56,7 @@
 			<div class="col-md-3 ">
 				<select v-model="budgetBill.vlocations.id " class="form-control " id="vlocations_id " name="vlocations.id" required style="width:100% " required>
 					<template v-for="option in locs ">
-						<option :value="option.id " v-if="option.id==budgetBill.locations.id " selected>
+						<option :value="option.id " v-if="option.id==budgetBill.vlocations.id " selected>
 							{{option.locName }}
 						</option>
 						<option :value="option.id " v-else>
@@ -68,8 +68,8 @@
 
 			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
 			<div class="col-md-3 ">
-				<select v-model="budgetBill.locations.id " class="form-control " id="eq_class_id " name="eqClass.id" required style="width:100% " required>
-					<template v-for="option in eqClass ">
+				<select v-model="budgetBill.eqClass.id " class="form-control " id="eq_class_id " name="eqClass.id" required style="width:100% " required>
+					<template v-for="option in eqClasses ">
 						<option :value="option.id " v-if="option.id==budgetBill.eqClass.id " selected>
 							{{option.cpName+option.cname }}
 						</option>
