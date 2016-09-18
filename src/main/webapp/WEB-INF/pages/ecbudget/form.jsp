@@ -8,12 +8,12 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="applyDate">申请日期</label>
 			<div class="col-md-3">
-				<input class="Wdate form-control" id="applyDate" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" required="required" style="height:34px;border:1px solid #cccccc"/>
+				<input class="Wdate form-control" id="applyDate" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" required="required" style="height:34px;border:1px solid #cccccc" />
 			</div>
 			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>
 			<div class="col-md-3">
 				<input class="form-control" id="applicant" type="text" name="applicant" v-model="budgetBill.applicant" required="required" />
-                <input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id"  />
+				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
 
 			</div>
 			<label class="col-md-1 control-label" for="locations_id">使用位置</label>
@@ -46,8 +46,8 @@
 				<label for="epermited " class="col-md-1 control-label ">有无用电许可证</label>
 				<div class="col-md-3">
 					<select class="js-example-basic-multiple" style="width:90% " name="epermited" id="epermited">
-						<option >有</option>
-						<option >无</option>
+						<option>有</option>
+						<option>无</option>
 					</select>
 				</div>
 			</div>
@@ -55,23 +55,25 @@
 	</fieldset>
 	<fieldset class="form-group" id="a">
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="updateReason">申请更新原因</label>
-			<div class="col-md-8">
-				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " name="updateReason" id="updateReason" required="required"  v-model="budgetBill.updateReason">
-						<option value="0">使用年限较长</option>
-                    					<option value="1">自然损坏</option>
-                    					<option value="2">人为损坏</option>
-                    					<option value="3">安全隐患</option>
-                    					<option value="4">其他</option>
+			<label class="col-md-1 control-label" for="updateReason">选择原因</label>
+			<div class="col-md-3">
+				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " name="updateReason" id="updateReason" required="required" v-model="budgetBill.updateReason">
+					<option>使用年限较长</option>
+					<option>自然损坏</option>
+					<option>人为损坏</option>
+					<option>安全隐患</option>
+					<option>其他</option>
 				</select>
 			</div>
+			<label class="col-md-1 control-label" for="updateReason">申请原因</label>
+			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.updateReason" readonly></div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">
 		<legend>综合维修中心填写</legend>
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="auditDate">申请日期</label>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<input class="Wdate form-control" id="auditDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})" type="text" name="auditDate" v-model="budgetBill.auditDate" required="required" style="height:34px;border:1px solid #cccccc" />
 			</div>
 
@@ -79,17 +81,20 @@
 			<div class="col-md-3">
 				<input class="form-control" id="auditor" type="text" name="auditor" v-model="budgetBill.auditor" value="1" required="required" />
 			</div>
-
-			<label class="col-md-1 control-label" for="accessoryName">确认更新原因</label>
-			<div class="col-md-4">
-				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " id="confirmReason" name="confirmReason" required="required" v-model="budgetBill.confirmReason">
-					<option value="0">使用年限较长</option>
-					<option value="1">自然损坏</option>
-					<option value="2">人为损坏</option>
-					<option value="3">安全隐患</option>
-					<option value="4">其他</option>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label" for="accessoryName">选择原因</label>
+			<div class="col-md-3">
+				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " id="confirmReason" name="confirmReason" required="required" v-model="budgetBill.confirmReason" style="width:100%">
+					<option>使用年限较长</option>
+					<option>自然损坏</option>
+					<option>人为损坏</option>
+					<option>安全隐患</option>
+					<option>其他</option>
 				</select>
 			</div>
+			<label class="col-md-1 control-label" for="updateReason">确认原因</label>
+			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.confirmReason" readonly></div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">

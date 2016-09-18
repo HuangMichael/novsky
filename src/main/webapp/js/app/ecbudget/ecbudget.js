@@ -221,8 +221,12 @@ $(function () {
     });
 
     $("select").select2({
-        theme: "bootstrap"
+        theme: "bootstrap",
+        tags: "true",
+        placeholder: "请选择...",
+        allowClear: true
     });
+
 
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
@@ -241,15 +245,11 @@ $(function () {
             budgetBill = getBudgetBillById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-
-            console.log("ids[0]---------------" + ids[0]);
             budgetBill = getBudgetBillById(ids[0]);
             //所有的都在选中列表中
             selectedIds = (ids);
         }
         vdm.$set("budgetBill", budgetBill);
-        $("#confirmReason").select2("val", [1, 2, 3]);
-        $("#updateReason").select2("val", [1, 2, 3]);
         setFormReadStatus("#detailForm", true);
     });
 });
@@ -335,20 +335,14 @@ function add() {
 function save() {
     var objStr = getFormJsonData("detailForm");
     var budgetBill = JSON.parse(objStr);
-    console.log(JSON.stringify(budgetBill));
-
-    console.log("updateReason------------------------" + $("#updateReason").val().toString());
-    console.log("confirmReason------------------------" + $("#confirmReason").val().toString());
-
-    budgetBill.confirmReason = $("#confirmReason").val().toString();
-    budgetBill.updateReason = $("#updateReason").val().toString();
     var url = "ecbudget/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
             showMessageBox("info", data.resultDesc);
+            setFormReadStatus("#detailForm", true);
         } else {
-
             showMessageBox("danger", data.resultDesc);
+            setFormReadStatus("#detailForm", false);
         }
     });
 }
@@ -400,8 +394,6 @@ function findById(id) {
     $.getJSON(url, function (data) {
         budgetBill = data;
     });
-
-    console.log(JSON.stringify(budgetBill));
     return budgetBill;
 
 }

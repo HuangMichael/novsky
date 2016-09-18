@@ -331,11 +331,6 @@ function save() {
 
 function edit() {
     setFormReadStatus("#detailForm", false);
-
-    var apply_date = $("#applyDate").val();
-
-    console.log(parseInt(apply_date) / 1000);
-    console.log(transformDate(apply_date));
 }
 
 /**
