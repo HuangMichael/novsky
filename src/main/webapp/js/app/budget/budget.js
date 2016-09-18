@@ -9,7 +9,7 @@ var vdm = null;
 var locs = [];
 var eqClasses = [];
 var budgetBills = [];
-
+var ids = [];
 var pointer = 0;
 $(function () {
     //设置数据有效性验证配置项
@@ -160,6 +160,8 @@ $(function () {
         }
     });
 
+    ids = findAllIds().sort();
+
     //初始化加载列表
     $("#budgetDataTable").bootgrid({
         selection: true,
@@ -192,9 +194,9 @@ $(function () {
             budgetBill = findById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            budgetBill = getBudgetBillById(budgetBills[0]["id"])
+            budgetBill = getBudgetBillById(ids[0]);
             //所有的都在选中列表中
-            selectedIds = setAllInSelectedList(budgetBills);
+            selectedIds = ids;
         }
         vdm.$set("budgetBill", budgetBill);
         vdm.$set("locs", locs);
@@ -223,15 +225,14 @@ $(function () {
             budgetBill = getBudgetBillById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            budgetBill = getBudgetBillById(eqs[0]["id"])
+
+            console.log("ids[0]---------------" + ids[0]);
+            budgetBill = getBudgetBillById(ids[0]);
             //所有的都在选中列表中
-            selectedIds = setAllInSelectedList(eqs);
+            selectedIds = (ids);
         }
         vdm.$set("budgetBill", budgetBill);
-
     });
-
-
 });
 
 
@@ -403,4 +404,18 @@ function getServerDate() {
         today = data;
     });
     return today;
+}
+
+
+/**
+ *查询所有的id
+ * */
+function findAllIds() {
+
+    var ids = [];
+    var url = "budget/findAllIds";
+    $.getJSON(url, function (data) {
+        ids = data;
+    });
+    return ids;
 }

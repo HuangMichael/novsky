@@ -113,4 +113,12 @@ public class BudgetController {
     }
 
 
+
+
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return budgeService.findAllIds();
+    }
+
 }

@@ -108,4 +108,13 @@ public class BudgeService extends BaseService {
         }
         return budgetBillRepository.findById(id) == null;
     }
+
+
+    /**
+     * @return 查询所有的id
+     */
+    public List<Long> findAllIds() {
+        List<Long> ids = budgetBillRepository.findAllIds();
+        return ids;
+    }
 }
