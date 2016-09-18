@@ -93,7 +93,7 @@ public class BudgeService extends BaseService {
      * @return 查询所有
      */
     public BudgetBill save(BudgetBill budgetBill) {
-        budgetBill.setApplyDate(new Date());
+      //  budgetBill.setApplyDate(new Date());
         return budgetBillRepository.save(budgetBill);
     }
 

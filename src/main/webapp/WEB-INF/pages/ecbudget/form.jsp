@@ -58,11 +58,11 @@
 			<label class="col-md-1 control-label" for="updateReason">申请更新原因</label>
 			<div class="col-md-8">
 				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " name="updateReason" id="updateReason" required="required"  v-model="budgetBill.updateReason">
-					<option >使用年限较长</option>
-					<option >自然损坏</option>
-					<option >人为损坏</option>
-					<option >安全隐患</option>
-					<option >其他</option>
+						<option value="0">使用年限较长</option>
+                    					<option value="1">自然损坏</option>
+                    					<option value="2">人为损坏</option>
+                    					<option value="3">安全隐患</option>
+                    					<option value="4">其他</option>
 				</select>
 			</div>
 		</div>
@@ -83,11 +83,11 @@
 			<label class="col-md-1 control-label" for="accessoryName">确认更新原因</label>
 			<div class="col-md-4">
 				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " id="confirmReason" name="confirmReason" required="required" v-model="budgetBill.confirmReason">
-					<option >使用年限较长</option>
-					<option >自然损坏</option>
-					<option >人为损坏</option>
-					<option >安全隐患</option>
-					<option >其他</option>
+					<option value="0">使用年限较长</option>
+					<option value="1">自然损坏</option>
+					<option value="2">人为损坏</option>
+					<option value="3">安全隐患</option>
+					<option value="4">其他</option>
 				</select>
 			</div>
 		</div>

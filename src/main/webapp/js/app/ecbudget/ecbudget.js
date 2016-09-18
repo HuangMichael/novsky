@@ -248,6 +248,8 @@ $(function () {
             selectedIds = (ids);
         }
         vdm.$set("budgetBill", budgetBill);
+        $("#confirmReason").select2("val", [1, 2, 3]);
+        $("#updateReason").select2("val", [1, 2, 3]);
         setFormReadStatus("#detailForm", true);
     });
 });
@@ -351,15 +353,17 @@ function save() {
     });
 }
 
+/**
+ * 编辑记录 使文本框可编辑
+ */
 function edit() {
     setFormReadStatus("#detailForm", false);
-
-    var apply_date = $("#applyDate").val();
-
-    console.log(parseInt(apply_date) / 1000);
-    console.log(transformDate(apply_date));
 }
 
+
+/**
+ * 删除记录
+ */
 function del() {
     //判断选中的tab
     var bid = selectedIds[0];
@@ -368,7 +372,6 @@ function del() {
         return;
     }
     var url = "/ecbudget/delete/" + bid;
-    console.log("url---------------" + url);
     if (bid) {
         var confirm = window.confirm("确定要删除该记录么？");
         if (confirm) {
@@ -377,12 +380,12 @@ function del() {
                 url: url,
                 success: function (msg) {
                     if (msg) {
-                        showMessageBox("info", "采购信息删除成功!");
+                        showMessageBox("info", "低值易耗品采购信息删除成功!");
                         $("#budgetDataTable").bootgrid("reload");
                     }
                 },
                 error: function (msg) {
-                    showMessageBox("danger", "采购信息有关联数据，无法删除，请联系管理员");
+                    showMessageBox("danger", "低值易耗品采购信息有关联数据，无法删除，请联系管理员");
                 }
             });
         }

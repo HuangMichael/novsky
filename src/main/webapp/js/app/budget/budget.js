@@ -322,7 +322,7 @@ function save() {
     $.post(url, budgetBill, function (data) {
         if (data.result) {
             showMessageBox("info", data.resultDesc);
-        }else{
+        } else {
 
             showMessageBox("danger", data.resultDesc);
         }
@@ -338,6 +338,9 @@ function edit() {
     console.log(transformDate(apply_date));
 }
 
+/**
+ * 删除选中的对象
+ */
 function del() {
     //判断选中的tab
     var bid = selectedIds[0];
@@ -346,7 +349,6 @@ function del() {
         return;
     }
     var url = "/budget/delete/" + bid;
-    console.log("url---------------" + url);
     if (bid) {
         var confirm = window.confirm("确定要删除该记录么？");
         if (confirm) {
