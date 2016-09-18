@@ -102,4 +102,15 @@ public class BudgetController {
     }
 
 
+    /**
+     * @param id 根据id查询
+     * @return
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Boolean delete(@PathVariable("id") Long id) {
+        return budgeService.delete(id);
+    }
+
+
 }

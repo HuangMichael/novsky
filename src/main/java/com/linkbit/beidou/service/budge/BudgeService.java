@@ -44,8 +44,7 @@ public class BudgeService extends BaseService {
 
 
     @Autowired
-    VlocationsRepository  vlocationsRepository;
-
+    VlocationsRepository vlocationsRepository;
 
 
     /**
@@ -94,11 +93,19 @@ public class BudgeService extends BaseService {
      * @return 查询所有
      */
     public BudgetBill save(BudgetBill budgetBill) {
-       // budgetBill.setVlocations(vlocationsRepository.findById(budgetBill.getLocations().getId()));
-      //  budgetBill.getLocations()
         budgetBill.setApplyDate(new Date());
         return budgetBillRepository.save(budgetBill);
     }
 
 
+    /**
+     * @param id 根据id删除 删除成功返回true
+     * @return
+     */
+    public boolean delete(Long id) {
+        if (id != null) {
+            budgetBillRepository.delete(id);
+        }
+        return budgetBillRepository.findById(id) == null;
+    }
 }
