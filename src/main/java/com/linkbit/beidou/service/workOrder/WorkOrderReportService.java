@@ -72,6 +72,7 @@ public class WorkOrderReportService extends BaseService {
             workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已报修");
             workOrderReportCart.setDeadLine(workOrderFixService.getDeadLineByEqClass(workOrderReportCart));
+            workOrderReportCart.setLastStatusTime(new Date());//更新最新状态时间字段
             workOrderReportCart.setStatus("1");
             workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);
@@ -98,6 +99,7 @@ public class WorkOrderReportService extends BaseService {
             WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
             workOrderReportCart.setNodeState("已派工");
             workOrderReportCart = setDefaultUnit(workOrderReportCart);//设置默认的维修单位
+            workOrderReportCart.setLastStatusTime(new Date());//加入最新状态时间
             workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
             workOrderFixService.updateNodeStatus(workOrderReportCart);
             //将已报修状态修改为0
@@ -155,12 +157,10 @@ public class WorkOrderReportService extends BaseService {
     }
 
 
-
-
     /**
      * @return 根据维修描述和位置名称查询
      */
     public List<VworkOrderReportBill> findByOrderDescAndLocName(String orderDesc, String locName) {
-        return vworkOrderReportBillRepository.findByOrderDescContainsAndLocNameContains(orderDesc,locName);
+        return vworkOrderReportBillRepository.findByOrderDescContainsAndLocNameContains(orderDesc, locName);
     }
 }

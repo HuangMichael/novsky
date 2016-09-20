@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
+import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -45,6 +46,8 @@ public class WorkOrderFixController {
 
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
+    @Autowired
+    WorkOrderReportCartService workOrderReportCartService;
 
     /**
      * @param modelMap
@@ -69,7 +72,6 @@ public class WorkOrderFixController {
     }
 
 
-
     /**
      * @param modelMap
      * @return 显示维修工单列表
@@ -80,10 +82,10 @@ public class WorkOrderFixController {
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
 
-        List<VworkOrderFixBill> workOrderFixDetailListList0 = workOrderFixService.findByNodeStateAndLocation("已派工",location);
-        List<VworkOrderFixBill> workOrderFixDetailListList1 = workOrderFixService.findByNodeStateAndLocation("已完工",location);
-        List<VworkOrderFixBill> workOrderFixDetailListList2 = workOrderFixService.findByNodeStateAndLocation("已暂停",location);
-        List<VworkOrderFixBill> workOrderFixDetailListList3 = workOrderFixService.findByNodeStateAndLocation("已取消",location);
+        List<VworkOrderFixBill> workOrderFixDetailListList0 = workOrderFixService.findByNodeStateAndLocation("已派工", location);
+        List<VworkOrderFixBill> workOrderFixDetailListList1 = workOrderFixService.findByNodeStateAndLocation("已完工", location);
+        List<VworkOrderFixBill> workOrderFixDetailListList2 = workOrderFixService.findByNodeStateAndLocation("已暂停", location);
+        List<VworkOrderFixBill> workOrderFixDetailListList3 = workOrderFixService.findByNodeStateAndLocation("已取消", location);
         modelMap.put("workOrderFixDetailListList0", workOrderFixDetailListList0);
         modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
         modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
@@ -91,7 +93,6 @@ public class WorkOrderFixController {
         //查询出已派工的维修单
         return "/workOrderFix/list";
     }
-
 
 
     /**
@@ -103,29 +104,12 @@ public class WorkOrderFixController {
     public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         ReturnObject returnObject = new ReturnObject();
-        if (!workOrderReportCart.getNodeState().equals("已完工")) {
-            workOrderReportCart.setStatus("1");
-            workOrderReportCart.setNodeState("已完工");
-            workOrderReportCart.setFixDesc(fixDesc);
-            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
-
-            workOrderFixService.updateNodeStatus(workOrderReportCart);
-
-            //插入一条最新状态记录
-            WorkOrderHistory workOrderHistory = new WorkOrderHistory();
-            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
-            workOrderHistory.setStatus("1");
-            workOrderHistory.setNodeTime(new Date());
-            workOrderHistory.setNodeDesc("已完工");
-            workOrderHistory = workOrderHistoryRepository.save(workOrderHistory);
-
-            //将其他节点状态修改为0
-            returnObject.setResult(true);
-            returnObject.setResultDesc("维修单已完工！");
-        } else {
-            returnObject.setResult(false);
-            returnObject.setResultDesc("维修单完工失败！");
-        }
+        WorkOrderHistory workOrderHistory = workOrderReportCartService.finishDetail(workOrderReportCart, fixDesc);
+        //将其他节点状态修改为0
+        boolean result = (workOrderHistory != null);
+        String resultDesc = result ? "已完工" : "完工失败";
+        returnObject.setResult(workOrderHistory != null);
+        returnObject.setResultDesc("维修单" + resultDesc);
         return returnObject;
     }
 

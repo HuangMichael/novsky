@@ -16,6 +16,7 @@ import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.StringUtils;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,6 +58,8 @@ public class WorkOrderReportCartService extends BaseService {
 
     @Autowired
     VworkOrderReportBillRepository vworkOrderReportBillRepository;
+    @Autowired
+    WorkOrderFixService workOrderFixService;
 
     /**
      * @param equipmentId
@@ -354,6 +357,29 @@ public class WorkOrderReportCartService extends BaseService {
 
     public Long selectCount() {
         return vworkOrderReportBillRepository.selectCount();
+    }
+
+
+    @Transactional
+    public WorkOrderHistory finishDetail(WorkOrderReportCart workOrderReportCart, String fixDesc) {
+        WorkOrderHistory workOrderHistory = null;
+        if (!workOrderReportCart.getNodeState().equals("已完工")) {
+            workOrderReportCart.setStatus("1");
+            workOrderReportCart.setNodeState("已完工");
+            workOrderReportCart.setFixDesc(fixDesc);
+            workOrderReportCart.setLastStatusTime(new Date());
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            workOrderFixService.updateNodeStatus(workOrderReportCart);
+            //插入一条最新状态记录
+            workOrderHistory = new WorkOrderHistory();
+            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderHistory.setStatus("1");
+            workOrderHistory.setNodeTime(new Date());
+            workOrderHistory.setNodeDesc("已完工");
+            workOrderHistory = workOrderHistoryRepository.save(workOrderHistory);
+
+        }
+        return workOrderHistory;
     }
 }
 
