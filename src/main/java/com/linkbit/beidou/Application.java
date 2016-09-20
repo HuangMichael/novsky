@@ -10,7 +10,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+
+/**
+ *
+ */
+@EnableTransactionManagement //启用事务管理
 @Configuration
 @EnableAutoConfiguration
 @EnableScheduling
@@ -18,6 +24,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 
 public class Application {
+
+
+
+
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);

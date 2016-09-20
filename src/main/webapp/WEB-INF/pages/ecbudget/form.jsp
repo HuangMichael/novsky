@@ -45,7 +45,7 @@
 			<div class="form-group">
 				<label for="epermited " class="col-md-1 control-label ">有无用电许可证</label>
 				<div class="col-md-3">
-					<select class="js-example-basic-multiple" style="width:90% " name="epermited" id="epermited">
+					<select class="js-example-basic-multiple" style="width:90% " name="epermited" id="epermited" v-model="budgetBill.epermited">
 						<option>有</option>
 						<option>无</option>
 					</select>
@@ -66,7 +66,7 @@
 				</select>
 			</div>
 			<label class="col-md-1 control-label" for="updateReason">申请原因</label>
-			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.updateReason" readonly></div>
+			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.updateReason" disabled></div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">
@@ -94,7 +94,7 @@
 				</select>
 			</div>
 			<label class="col-md-1 control-label" for="updateReason">确认原因</label>
-			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.confirmReason" readonly></div>
+			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.confirmReason" disabled></div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">
