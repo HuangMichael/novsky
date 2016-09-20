@@ -8,6 +8,7 @@ import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class WorkOrderDispatchService extends BaseService {
      * @return 返回更新了维修单位的报修明细信息
      *
      */
+    @Transactional
     public WorkOrderReportCart updateDetailUnit(Long detailId, Long unitId) {
 
         log.info("更新单位detailId----------" + detailId);
