@@ -50,6 +50,8 @@ public class WorkOrderReportCart {
     private String creator; //录入人
     @Temporal(TemporalType.TIMESTAMP)
     private Date reportTime;  //故障描述
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastStatusTime;  //最后状态时间
     @Column(length = 20)
     private String location; //位置编码
     @Column(length = 1)
