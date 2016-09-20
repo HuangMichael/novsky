@@ -77,6 +77,7 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setReporter(userName);
         workOrderReportCart.setCreator(userName);
         workOrderReportCart.setReportTime(new Date());
+        workOrderReportCart.setLastStatusTime(new Date());
         workOrderReportCart.setNodeState("报修车");
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_EQ);  //报修类型为设备报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
@@ -120,6 +121,7 @@ public class WorkOrderReportCartService extends BaseService {
         workOrderReportCart.setEquipmentsClassification(equipmentsClassificationRepository.findById(eqClassId));
         workOrderReportCart.setReportTime(new Date());
         workOrderReportCart.setNodeState("报修车");
+        workOrderReportCart.setLastStatusTime(new Date());//加入最新状态时间字段
         workOrderReportCart.setOrderDesc(orderDesc);
         workOrderReportCart.setReportType(CommonStatusType.REPORT_BY_LOC); //根据位置报修
         workOrderReportCart.setStatus(CommonStatusType.CART_CREATED);
@@ -336,8 +338,6 @@ public class WorkOrderReportCartService extends BaseService {
         List<Long> longList = StringUtils.str2List(ids, ",");
         return workOrderReportCartRepository.findWorkOrderReportDetailByIds(longList);
     }
-
-
 
 
     public Page<VworkOrderReportBill> findAll(Pageable pageable) {
