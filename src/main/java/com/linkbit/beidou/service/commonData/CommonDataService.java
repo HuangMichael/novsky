@@ -17,6 +17,7 @@ import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ListObject;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -279,6 +280,22 @@ public class CommonDataService extends BaseService {
     public String getServerDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(new Date());
+    }
+
+
+
+    /**
+     * @param result      返回结果
+     * @param successDesc 执行成功后描述
+     * @param failureDesc 执行失败时描述
+     * @return
+     */
+    public ReturnObject getReturnType(Boolean result, String successDesc, String failureDesc) {
+        ReturnObject returnObject = new ReturnObject();
+        String resultDesc = result ? successDesc : failureDesc;
+        returnObject.setResult(result);
+        returnObject.setResultDesc(resultDesc);
+        return returnObject;
     }
 
 

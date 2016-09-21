@@ -1,8 +1,11 @@
 package com.linkbit.beidou.controller.person;
 
 
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -22,12 +26,17 @@ import java.util.List;
 public class PersonController {
     @Autowired
     PersonService personService;
+    @Autowired
+    ResourceService resourceService;
 
-
+    @Autowired
+    CommonDataService commonDataService;
 
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap) {
+    public String list(ModelMap modelMap, HttpSession httpSession) {
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, "person");
+        modelMap.put("appMenus", appMenus);
         List<Person> personList = personService.findAll();
         modelMap.put("personList", personList);
         return "/person/list";
@@ -130,21 +139,18 @@ public class PersonController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject save(@RequestParam("personNo") String personNo,
-                       @RequestParam("personName") String personName,
-                       @RequestParam("telephone") String telephone,
-                       @RequestParam("email") String email,
-                       @RequestParam("birthDate") String birthDate,
-                       @RequestParam("status") String status
+                             @RequestParam("personName") String personName,
+                             @RequestParam("telephone") String telephone,
+                             @RequestParam("email") String email,
+                             @RequestParam("birthDate") String birthDate,
+                             @RequestParam("status") String status
 
     ) {
-
-        ReturnObject returnObject = new ReturnObject();
         Person person = new Person();
         person.setPersonNo(personNo);
         person.setPersonName(personName);
         person.setTelephone(telephone);
         person.setEmail(email);
-
         try {
             person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
         } catch (Exception e) {
@@ -152,9 +158,7 @@ public class PersonController {
         }
         person.setStatus(status);
         person = personService.save(person);
-        returnObject.setResult(person!=null);
-        returnObject.setResultDesc("人员信息保存成功!");
-        return returnObject;
+        return commonDataService.getReturnType(person != null, "人员信息保存成功!", "人员信息保存失败!");
     }
 
 
@@ -164,6 +168,18 @@ public class PersonController {
     @RequestMapping(value = "/loadCreateForm", method = RequestMethod.GET)
     public String loadCreateForm() {
         return "/person/create";
+    }
+
+
+    /**
+     * 根据ID查询人员信息
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnObject delete(@PathVariable("id") Long id) {
+        boolean result = personService.delete(id);
+        return commonDataService.getReturnType(result, "人员信息删除成功!", "人员信息删除失败!");
+
     }
 
 }

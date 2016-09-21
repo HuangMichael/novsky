@@ -186,6 +186,34 @@ function forwards() {
 }
 
 
+function del() {
+    //判断选中的tab
+    var eid = selectedIds[0];
+    if (!eid) {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+        return;
+    }
+    var url = "/person/delete/" + eid;
+    if (eid) {
+        var confirm = window.confirm("确定要删除该记录么？");
+        if (confirm) {
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (msg) {
+                    if (msg.result) {
+                        showMessageBox("info", msg.resultDesc);
+                        $("tr[data-row-id='" + msg.resultDesc + "']").remove();
+                    }
+                },
+                error: function (msg) {
+                    showMessageBox("danger", "人员信息有关联数据，无法删除，请联系管理员");
+                }
+            });
+        }
+    }
+}
+
 /**
  * 根据ID获取设备信息
  * @param eqs 设备信息集合
@@ -204,7 +232,7 @@ function getPersonById(pid) {
 /**
  *  新增人员信息
  */
-function addNew() {
+function add() {
     //载入createFrom
     $("#tab_1_1").load("/person/loadCreateForm");
     //新建一个数据模型
@@ -224,39 +252,6 @@ function addNew() {
     });
     formTab.tab('show');
 }
-
-
-/*
-$("#saveBtn").on("click", function (data) {
-    var personId = $("#personId").val();
-    var personNo = $("#personNo").val();
-    var telephone = $("#telephone").val();
-    var email = $("#email").val();
-    var birthDate = $("#birthDate").val();
-    var status = $("#status").val();
-    var url = "";
-    var person = {
-        personId: personId,
-        personNo: personNo,
-        telephone: telephone,
-        email: email,
-        birthDate: birthDate,
-        status: status
-    }
-    if (personId) {
-        url = "person/update";
-    } else {
-        url = "person/create";
-    }
-    $.post(url, person, function (data) {
-        if (data.result) {
-            showMessageBox("info", data.resultDesc);
-        } else {
-            showMessageBox("danger", data.resultDesc);
-        }
-    });
-});*/
-
 
 /**
  * 根据ID获取设备信息
@@ -325,7 +320,7 @@ function edit() {
 }
 
 
-function savePerson() {
+function save() {
     var personId = $("#personId").val();
     var personNo = $("#personNo").val();
     var personName = $("#personName").val();
@@ -337,7 +332,7 @@ function savePerson() {
     var person = {
         personId: personId,
         personNo: personNo,
-        personName:personName,
+        personName: personName,
         telephone: telephone,
         email: email,
         birthDate: birthDate,

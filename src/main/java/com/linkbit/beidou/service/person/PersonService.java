@@ -59,4 +59,14 @@ public class PersonService extends BaseService {
     public Person update(Person person) {
         return personRepository.save(person);
     }
+
+
+    /**
+     * @param id
+     * @return 删除人员信息
+     */
+    public boolean delete(Long id) {
+        personRepository.delete(id);
+        return (personRepository.findById(id) == null);
+    }
 }

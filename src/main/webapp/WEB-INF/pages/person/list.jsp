@@ -12,32 +12,7 @@
                         <div class="box-title">
                             <h4><i class="fa fa-table"></i>人员信息</h4>
                         </div>
-                        <div class="box-body" style="padding: 5px 20px 5px 5px">
-                            <!-- Split button -->
-                            <div class="btn-group">
-
-                                <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="addNew()">
-                                    <i class="glyphicon glyphicon-plus"></i>新建记录
-                                </button>
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="edit()">
-                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
-                                </button>
-
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="savePerson()">
-                                    <i class="glyphicon glyphicon-save"></i>保存记录
-                                </button>
-
-                                <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="backwards()"><i
-                                        class="glyphicon  glyphicon-backward"></i>上一条
-                                </button>
-                                <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="forwards()"><i
-                                        class="glyphicon  glyphicon-forward"></i>下一条
-                                </button>
-                            </div>
-                        </div>
+                        <%@include file="../common/common-menubar.jsp"%>
                         <div class="box-body">
                             <div class="tabbable">
                                 <ul class="nav nav-tabs" id="myTab">
@@ -69,7 +44,6 @@
         <!-- /CONTENT-->
     </div>
 </div>
-
 <%@include file="../common/common-foot.jsp" %>
 <script type="text/javascript" src="/js/app/person/person.js"></script>
 
