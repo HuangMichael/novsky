@@ -50,18 +50,19 @@ public class SessionFilter implements javax.servlet.Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
         HttpSession httpSession = request.getSession(false);
-
-
         //将公共资源加入表中
         if (url.equals("/checkLogin") || url.equals("/") || url.endsWith("index.jsp")) {
             filterChain.doFilter(request, response);
-        } else if (url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".gif") || url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".ico")) {
+        } else if (url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".gif") || url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".ico")|| url.endsWith(".woff")) {
             filterChain.doFilter(request, response);
         } else {
-            if (httpSession.getId() != null) {
-                filterChain.doFilter(request, response);
+            if (httpSession != null) {
+                if (httpSession.getAttribute("currentUser") != null) {
+                    filterChain.doFilter(request, response);
+                } else {
+                    response.sendRedirect("/");
+                }
             } else {
-                logger.info("非法偷渡--------------------" + url);
                 response.sendRedirect("/");
             }
         }
