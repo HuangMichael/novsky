@@ -41,7 +41,6 @@
             </div>
             <%@include file="../common/common-back2top.jsp" %>
         </div>
-        <!-- /CONTENT-->
     </div>
 </div>
 <%@include file="../common/common-foot.jsp" %>
