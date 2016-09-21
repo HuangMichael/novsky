@@ -14,7 +14,6 @@
     <%@include file="../common/common-siderbar.jsp" %>
     <!-- /SIDEBAR -->
     <div id="main-content">
-
         <div class="container">
             <div class="row">
                 <div id="content" class="col-lg-12">
