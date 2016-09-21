@@ -29,5 +29,4 @@ public class Application {
         app.addListeners(new AppilicationStopped());
         app.run(args);
     }
-
 }

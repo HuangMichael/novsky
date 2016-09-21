@@ -50,18 +50,21 @@ public class SessionFilter implements javax.servlet.Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
         HttpSession httpSession = request.getSession(false);
+
+
         //将公共资源加入表中
-        /*if (httpSession != null||url.equals("/checkLogin") || url.equals("/login")){
+        if (url.equals("/checkLogin") || url.equals("/") || url.endsWith("index.jsp")) {
             filterChain.doFilter(request, response);
-        } else if (resourceService.findByResourceUrlStartingWithAndStaticFlag(url,"1")!=null) {
+        } else if (url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".gif") || url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".ico")) {
             filterChain.doFilter(request, response);
         } else {
-            logger.info("非法访问注册资源---" + url);
-            request.getRequestDispatcher("/").forward(request,response);
-        }*/
-
-        filterChain.doFilter(request, response);
-
+            if (httpSession.getId() != null) {
+                filterChain.doFilter(request, response);
+            } else {
+                logger.info("非法偷渡--------------------" + url);
+                response.sendRedirect("/");
+            }
+        }
     }
 
     @Override
