@@ -360,26 +360,6 @@ public class WorkOrderReportCartService extends BaseService {
     }
 
 
-    @Transactional
-    public WorkOrderHistory finishDetail(WorkOrderReportCart workOrderReportCart, String fixDesc) {
-        WorkOrderHistory workOrderHistory = null;
-        if (!workOrderReportCart.getNodeState().equals("已完工")) {
-            workOrderReportCart.setStatus("1");
-            workOrderReportCart.setNodeState("已完工");
-            workOrderReportCart.setFixDesc(fixDesc);
-            workOrderReportCart.setLastStatusTime(new Date());
-            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
-            workOrderFixService.updateNodeStatus(workOrderReportCart);
-            //插入一条最新状态记录
-            workOrderHistory = new WorkOrderHistory();
-            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
-            workOrderHistory.setStatus("1");
-            workOrderHistory.setNodeTime(new Date());
-            workOrderHistory.setNodeDesc("已完工");
-            workOrderHistory = workOrderHistoryRepository.save(workOrderHistory);
 
-        }
-        return workOrderHistory;
-    }
 }
 

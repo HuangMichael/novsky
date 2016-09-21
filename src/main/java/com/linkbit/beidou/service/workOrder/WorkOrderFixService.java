@@ -10,12 +10,14 @@ import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.workOrder.VworkOrderFixBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +52,6 @@ public class WorkOrderFixService extends BaseService {
 
     @Autowired
     VworkOrderFixBillRepository vworkOrderFixBillRepository;
-
 
 
     /**
@@ -147,13 +148,41 @@ public class WorkOrderFixService extends BaseService {
     }
 
 
-
     /**
      * @return 查询已派工的维修单
      */
-    public List<VworkOrderFixBill> findByNodeStateAndLocation(String nodeState,String location) {
+    public List<VworkOrderFixBill> findByNodeStateAndLocation(String nodeState, String location) {
 
-        return  vworkOrderFixBillRepository.findByLocationStartingWithAndNodeState(location,nodeState);
+        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeState(location, nodeState);
 
+    }
+
+
+    /**
+     * @param workOrderReportCart 工单信息
+     * @param fixDesc             维修描述
+     * @param status              工单状态
+     * @return
+     */
+    @Transactional
+    public WorkOrderHistory handleWorkOrder(WorkOrderReportCart workOrderReportCart, String fixDesc, String status) {
+        WorkOrderHistory workOrderHistory = null;
+        if (!workOrderReportCart.getNodeState().equals(status)) {
+            workOrderReportCart.setStatus("1");
+            workOrderReportCart.setNodeState(status);
+            workOrderReportCart.setFixDesc(fixDesc);
+            workOrderReportCart.setLastStatusTime(new Date());
+            workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+            updateNodeStatus(workOrderReportCart);
+            //插入一条最新状态记录
+            workOrderHistory = new WorkOrderHistory();
+            workOrderHistory.setWorkOrderReportCart(workOrderReportCart);
+            workOrderHistory.setStatus("1");
+            workOrderHistory.setNodeTime(new Date());
+            workOrderHistory.setNodeDesc(status);
+            workOrderHistory = workOrderHistoryRepository.save(workOrderHistory);
+
+        }
+        return workOrderHistory;
     }
 }
