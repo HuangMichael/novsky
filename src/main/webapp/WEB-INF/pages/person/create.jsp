@@ -42,3 +42,13 @@
     </div>
 </form>
 
+<script type="text/javascript">
+
+$("select").select2({
+
+theme:"bootstrap"
+})
+
+
+</script>
+
