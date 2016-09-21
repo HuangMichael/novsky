@@ -10,7 +10,7 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4><i class="fa fa-table"></i>人员信息</h4>
+                            <h4><i class="fa fa-user"></i>人员信息</h4>
                         </div>
                         <%@include file="../common/common-menubar.jsp"%>
                         <div class="box-body">
