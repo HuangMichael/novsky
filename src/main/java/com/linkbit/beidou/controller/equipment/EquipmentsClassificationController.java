@@ -2,8 +2,10 @@ package com.linkbit.beidou.controller.equipment;
 
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import com.linkbit.beidou.service.unit.OutsoucingUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +33,13 @@ public class EquipmentsClassificationController {
     EquipmentsClassificationService equipmentsClassificationService;
     @Autowired
     OutsoucingUnitService outsoucingUnitService;
+    @Autowired
+    ResourceService resourceService;
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap) {
+    public String list(ModelMap modelMap, HttpSession httpSession) {
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, "equipmentsClassification");
+        modelMap.put("appMenus", appMenus);
         List<EquipmentsClassification> classificationList = equipmentsClassificationRepository.findAll();
         EquipmentsClassification object = null;
         if (!classificationList.isEmpty()) {

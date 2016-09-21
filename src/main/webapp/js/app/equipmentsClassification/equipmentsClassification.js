@@ -81,7 +81,7 @@ var flag = false;
  *加载创建form
  *
  * */
-function loadCreateForm() {
+function add() {
 
     var zTree = $.fn.zTree.getZTreeObj("tree");
     var selectedNode = zTree.getSelectedNodes()[0];
@@ -152,7 +152,7 @@ function selectTreeNode(data, add) {
 }
 
 
-function deleteObject() {
+function del() {
     if (!confirm("确定要删除该信息么？")) {
         return;
     }

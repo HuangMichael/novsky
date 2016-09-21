@@ -271,7 +271,6 @@ public class ResourceService {
         User user = SessionUtil.getCurrentUserBySession(httpSession);
         List<Role> roleList = user.getRoleList();
         String appName[] = controllerName.split("Controller");
-        System.out.println("应用名称------------------------" + appName[0].toUpperCase());
         return vRoleAuthViewRepository.findByRoleListAppName(roleList, appName[0].toUpperCase());
     }
 

@@ -26,30 +26,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="box border blue">
-                        <div class="box-body">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="loadCreateForm()">
-                                    <i class="glyphicon glyphicon-plus"></i>新建记录
-                                </button>
-
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="edit()">
-                                    <i class="glyphicon glyphicon-edit"></i>编辑记录
-                                </button>
-
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="save()">
-                                    <i class="glyphicon glyphicon-save"></i>保存记录
-                                </button>
-
-                                <button type="button" class="btn btn-sm myNavBtn active" onclick="deleteObject()">
-                                    <i class="glyphicon glyphicon-remove"></i>删除记录
-                                </button>
-                                <button type="button" class="btn btn-sm myNavBtn active"
-                                        onclick="addUnit()"><i
-                                        class="glyphicon glyphicon-align-justify"></i>添加单位
-                                </button>
-                            </div>
-                        </div>
+                         <%@include file="../common/common-menubar.jsp"%>
                     </div>
                     <div class="divide-2"></div>
                     <!-- BOX -->
