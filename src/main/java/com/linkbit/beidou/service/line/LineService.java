@@ -65,4 +65,12 @@ public class LineService extends BaseService {
 
         return lineRepository.findByType("2");
     }
+
+
+    /**
+     * @return 查询所有段
+     */
+    public List<Line> findAll() {
+        return lineRepository.findAll();
+    }
 }

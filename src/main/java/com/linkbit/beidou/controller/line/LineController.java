@@ -116,7 +116,7 @@ public class LineController {
     @RequestMapping(value = "/findAllLines")
     @ResponseBody
     public List<Line> findAllLines() {
-        List<Line> lineList = lineService.findLines();
+        List<Line> lineList = lineService.findAll();
         return lineList;
     }
 

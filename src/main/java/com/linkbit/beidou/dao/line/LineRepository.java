@@ -2,6 +2,7 @@ package com.linkbit.beidou.dao.line;
 
 
 import com.linkbit.beidou.domain.line.Line;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public interface LineRepository extends CrudRepository<Line, Long> {
     /**
      * 查询所有线路
      */
+    @Query("select l from Line l where l.description <> '-' order by l.id")
     List<Line> findAll();
 
     /**
@@ -27,14 +29,10 @@ public interface LineRepository extends CrudRepository<Line, Long> {
     Line findById(long id);
 
 
-
     /**
      * 根据类型查询 1为线路  2为段
      */
     List<Line> findByType(String type);
-
-
-
 
 
 }
