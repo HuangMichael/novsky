@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +54,27 @@ public class WorkOrderReportController {
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(session, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
         return "/workOrderReport/list";
+    }
+
+
+    /**
+     * 分页查询
+     *
+     * @param current      当前页
+     * @param rowCount     每页条数
+     * @param searchPhrase 查询关键字
+     * @return
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<VworkOrderReportBill> page = workOrderReportService.findByOrderDescContainsOrLocNameContainsOrEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+        return myPage;
     }
 
 
@@ -101,28 +121,4 @@ public class WorkOrderReportController {
     public List<VworkOrderNumFinish> selectFinishNumIn3Months() {
         return workOrderReportService.selectFinishNumIn3Months();
     }
-
-
-    /**
-     * @return 动态条件查询
-     */
-    @RequestMapping(value = "/findByOrderDescAndLocName", method = RequestMethod.POST)
-    public String findByOrderDescAndLocName( @RequestParam(value = "orderDesc", defaultValue = "", required = false) String orderDesc, @RequestParam(value = "locName", defaultValue = "", required = false) String locName,ModelMap modelMap) {
-
-        List<VworkOrderReportBill>  searchResult =      workOrderReportService.findByOrderDescAndLocName(orderDesc, locName);
-        modelMap.put("searchResult",searchResult);
-        return "workOrderReport/reportList";
-    }
-
-
-    /**
-     * @return 动态条件查询
-     */
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search( @RequestParam(value = "orderDesc", defaultValue = "", required = false) String orderDesc, @RequestParam(value = "locName", defaultValue = "", required = false) String locName,ModelMap modelMap) {
-        List<VworkOrderReportBill>  searchResult =      workOrderReportService.findByOrderDescAndLocName(orderDesc, locName);
-        modelMap.put("searchResult",searchResult);
-        return "workOrderReport/reportList";
-    }
-
 }

@@ -560,7 +560,6 @@ function createEquipment() {
  * @param elementName 渲染元素名称
  */
 function initLoadData(url, elementName) {
-    console.log("初始化载入列表数据---" + url);
     $.getJSON(url, function (data) {
         eqs = data;
         allSize = data.length; //计算所有记录的个数

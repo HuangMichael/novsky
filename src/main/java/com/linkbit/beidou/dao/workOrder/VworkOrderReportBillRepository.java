@@ -25,13 +25,21 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
 
     /**
      * @param orderDesc 报修描述
-     * @param locName 位置名称
+     * @param locName   位置名称
      * @return 模糊查询
      */
-    List<VworkOrderReportBill> findByOrderDescContainsAndLocNameContains(String orderDesc, String locName);
+    Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc, String locName,String eqName,Pageable pageable);
 
 
+    /**
+     * @param orderDesc 报修描述
+     * @param pageable  分页
+     * @return
+     */
+    Page<VworkOrderReportBill> findByOrderDesc(String orderDesc, Pageable pageable);
 
+
+    Page<VworkOrderReportBill> findByLocNameContains(String locName, Pageable pageable);
 
 
 }

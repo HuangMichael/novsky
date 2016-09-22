@@ -25,25 +25,21 @@
 												<a href="#tab_1_0" data-toggle="tab">
 													<i class="fa fa-home" id="eq"></i>报修单信息</a>
 											</li>
-
-											<li>
-												<a href="#pdf_view" data-toggle="tab">
-													<i class="fa fa-flag" id="pdf-preview"></i>报修单预览</a>
-											</li>
 										</ul>
 										<div class="tab-content">
 											<div class="tab-pane fade in active" id="tab_1_0">
 
-												<table id="fixListTable" class="table table-bordered table-hover table-striped" data-toggle="bootgrid" data-ajax="true" data-url="/workOrderReportCart/data">
+												<table id="fixListTable" class="table table-bordered table-hover table-striped" data-toggle="bootgrid" data-ajax="true" data-url="/workOrderReport/data">
 													<thead>
 														<tr>
-															<th data-column-id="orderLineNo" data-width="10%" data-searchable="false">跟踪号</th>
-															<th data-column-id="eqName" data-width="10%" data-searchable="false">设备名称</th>
-															<th data-column-id="orderDesc" data-width="20%" data-searchable="false">故障描述</th>
-															<th data-column-id="locName" data-width="10%" data-searchable="false">设备位置</th>
-															<th data-column-id="eqClass" data-width="8%" data-searchable="false">设备分类</th>
-															<th data-column-id="nodeTime" data-width="10%" data-searchable="false">生成时间</th>
-															<th data-column-id="nodeState" data-width="5%" data-searchable="false">报修状态</th>
+														    <th data-column-id="id" data-width="10%" >序号</th>
+															<th data-column-id="orderLineNo" data-width="10%" >跟踪号</th>
+															<th data-column-id="eqName" data-width="10%" >设备名称</th>
+															<th data-column-id="orderDesc" data-width="20%" >故障描述</th>
+															<th data-column-id="locName" data-width="10%" >设备位置</th>
+															<th data-column-id="eqClass" data-width="8%" >设备分类</th>
+															<th data-column-id="nodeTime" data-width="10%" >生成时间</th>
+															<th data-column-id="nodeState" data-width="5%" >报修状态</th>
 														</tr>
 													</thead>
 
@@ -80,108 +76,11 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.js"></script>
-<script type="text/javascript" src="js/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
-
-<script type="text/javascript" src="js/tableExport/tableExport.js"></script>
-<script type="text/javascript" src="js/tableExport/html2canvas.js"></script>
-<script type="text/javascript" src="js/tableExport/jquery.base64.js"></script>
-<script type="text/javascript" src="js/tableExport/jspdf/libs/sprintf.js"></script>
-<script type="text/javascript" src="js/tableExport/jspdf/jspdf.js"></script>
-<script type="text/javascript" src="js/tableExport/jspdf/libs/base64.js"></script>
-
 <script>
-	var tableName = "#fixListTable",
-		tableContainer = "#tab_1_0";
-	var searchParam = [
-		"orderDesc",
-		"locName"
-	];
-	var queryString = "";
-	var baseQueryUrl = "workOrderReportCart/findByOrderDescAndLocName";
-	$(function() {
-		//初始化查询
-		initDataList(tableName, tableContainer, "");
-		//to do  change事件 发起查询  重新组装查询的字符串
-		var searchArray = [];
-	});
+$(function(){
 
-	function search() {
-		queryString = assembleQueryObject(searchParam);
-		
-		
-		$(tableName).load(baseQueryUrl, queryString);
-		$(tableName).bootgrid();
-	}
+$("#fixListTable").bootgrid();
 
-	function exportDoc(docType) {
+});
 
-		$('#fixListTable').tableExport({
-			type: docType,
-			escape: 'false',
-			filename: new Date().getFullYear(),
-			consoleLog: 'true'
-		});
-
-	}
-
-	function initDataList(tableName, tableContainer, url) {
-		//如果传递了URL参数 说明是二次查询
-		if(url) {
-			$("#tab_1_0").load(url);
-		}
-		$(tableName).bootgrid({
-			navigation: 3,
-			padding: 2,
-			columnSelection: !0,
-			rowCount: [10, 15, 20, -1],
-			selection: !1,
-			multiSelect: !1,
-			rowSelect: !1,
-			keepSelection: !1,
-			highlightRows: 1,
-			sorting: true,
-			columnSelection: 1,
-			templates: {
-				search: '<div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" id="orderDesc" placeholder="维修描述" onChange="search()"/></div></div><div class="{{css.search}}"><div class="input-group"><input type="text" class="{{css.searchField}}" placeholder="位置描述" id="locName" onChange="search()"/></div></div>',
-			}
-		});
-
-	}
-	/*
-	 *组装查询字符串
-	 * 根据查询参数数组获取返回的查询字符串 get方式
-	 * */
-
-	function assembleQueryString(searchParam) {
-		queryString = "?";
-		var param = "",
-			paramValue = "";
-		for(var x = 0; x < searchParam.length; x++) {
-			param = searchParam[x];
-			paramValue = $("#" + searchParam[x]).val();
-			if(paramValue) {
-				queryString += param + "=" + paramValue + "&";
-			}
-		}
-		queryString = queryString.substring(0, queryString.length - 1);
-
-		console.log("queryString--------------------" + queryString);
-		return queryString;
-	}
-
-	function assembleQueryObject(searchParam) {
-		var queryObject = {};
-		var param = "",
-			paramValue = "";
-		for(var x = 0; x < searchParam.length; x++) {
-			param = searchParam[x];
-			paramValue = $("#" + searchParam[x]).val();
-			if(paramValue) {
-				queryObject[param] = paramValue;
-			}
-		}
-		console.log("queryObject--------------------" + JSON.stringify(queryObject));
-		return queryObject;
-	}
 </script>

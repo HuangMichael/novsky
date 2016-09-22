@@ -84,18 +84,6 @@ public class WorkOrderReportCartController {
 
 
     /**
-     * @return 动态条件查询
-     */
-    @RequestMapping(value = "/findByOrderDescAndLocName", method = RequestMethod.POST)
-    public String findByOrderDescAndLocName( @RequestParam(value = "orderDesc", defaultValue = "", required = false) String orderDesc, @RequestParam(value = "locName", defaultValue = "", required = false) String locName,ModelMap modelMap) {
-        List<VworkOrderReportBill>  searchResult =      workOrderReportService.findByOrderDescAndLocName(orderDesc, locName);
-        modelMap.put("searchResult", searchResult);
-        return "/workOrderReport/reportList";
-
-    }
-
-
-    /**
      * @param equipmentId 设备id
      * @return 在加入报修车之前检查是否已有该设备报修未完成的维修任务
      */
