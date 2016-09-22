@@ -4,6 +4,8 @@ package com.linkbit.beidou.dao.line;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import org.hibernate.annotations.SQLUpdate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -44,9 +46,16 @@ public interface StationRepository extends CrudRepository<Station, Long> {
     void update(@Param("id") Long id);
 
 
-
     /**
      * 根据id 状态查询车站
      */
-    Station findByIdAndStatus(Long id,String status);
+    Station findByIdAndStatus(Long id, String status);
+
+    /**
+     * @param description 站名
+     * @param pageable    可分页
+     * @return 根据站名模糊查询
+     */
+    Page<Station> findByDescriptionContains(String description, Pageable pageable);
+
 }

@@ -8,6 +8,7 @@ import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.budge.EcBudgeService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -32,13 +33,15 @@ public class EcbudgetController {
     EcBudgeService ecBudgeService;
     @Autowired
     ResourceService resourceService;
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
      * 分页查询
      *
      * @param current      当前页
      * @param rowCount     每页条数
-     * @param searchPhrase 查询关键字s
+     * @param searchPhrase 查询关键字
      * @return
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
@@ -79,26 +82,19 @@ public class EcbudgetController {
 
 
     /**
-     * @param budgetBill 采购单
+     * @param budgetBill 保存或者更新低值易耗品采购单
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject save(EcBudgetBill budgetBill, HttpSession httpSession) {
-        ReturnObject returnObject = new ReturnObject();
+    public ReturnObject save(EcBudgetBill budgetBill) {
         EcBudgetBill budgetObj;
         String operation = "保存";
-        String result = "成功";
         if (budgetBill.getId() != null) {
             operation = "更新";
         }
-        String personName = (String) httpSession.getAttribute("personName");
-        budgetBill.setApplicant(personName);
         budgetObj = ecBudgeService.save(budgetBill);
-        returnObject.setResult(result != null);
-        result = (budgetObj != null) ? result : "失败";
-        returnObject.setResultDesc("易耗品采购申请单" + operation + result);
-        return returnObject;
+        return commonDataService.getReturnType(budgetObj != null, "低值易耗品采购申请单" + operation + "成功!", "低值易耗品采购申请单" + operation + "失败!");
     }
 
 

@@ -1,6 +1,8 @@
 package com.linkbit.beidou.controller.line;
 
 
+import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
+import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
@@ -10,6 +12,8 @@ import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +37,28 @@ public class StationController {
     LineService lineService;
     @Autowired
     ResourceService resourceService;
+
+
+    /**
+     * 分页查询
+     *
+     * @param current      当前页
+     * @param rowCount     每页条数
+     * @param searchPhrase 查询关键字
+     * @return
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<Station> page = stationService.findByStationNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+        return myPage;
+    }
+
 
 
     @RequestMapping(value = "/list")

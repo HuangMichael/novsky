@@ -6,6 +6,8 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -70,6 +72,16 @@ public class StationService extends BaseService {
      */
     public List<Station> findActiveStation() {
         return stationRepository.findByStatus(CommonStatusType.STATUS_YES);
+    }
+
+
+    /**
+     * @param stationName
+     * @param pageable    可分页
+     * @return 根据站名模糊查询
+     */
+    public Page<Station> findByStationNameContains(String stationName, Pageable pageable) {
+        return stationRepository.findByDescriptionContains(stationName, pageable);
     }
 
 
