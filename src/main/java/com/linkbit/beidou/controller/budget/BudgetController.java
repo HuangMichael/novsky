@@ -47,14 +47,13 @@ public class BudgetController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-        //long reportCartListSize = budgeService.selectCount();
-        Page<VbudgetBill> page = budgeService.findAllV(new PageRequest(current - 1, rowCount.intValue()));
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<VbudgetBill> page = budgeService.findByAccessoryNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
         myPage.setCurrent(current);
-        myPage.setTotal(budgeService.findAllV().size());
+        myPage.setTotal(page.getTotalElements());
         return myPage;
     }
 
@@ -79,7 +78,7 @@ public class BudgetController {
 
 
     /**
-     * @param budgetBill 采购单
+     * @param budgetBill  采购单
      * @param httpSession
      * @return
      */
@@ -112,8 +111,6 @@ public class BudgetController {
     public Boolean delete(@PathVariable("id") Long id) {
         return budgeService.delete(id);
     }
-
-
 
 
     @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)

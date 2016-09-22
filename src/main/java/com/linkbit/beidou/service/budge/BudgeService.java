@@ -58,6 +58,16 @@ public class BudgeService extends BaseService {
 
 
     /**
+     * @param accessoryName 配件名称
+     * @param pageable      分页
+     * @return 按照配件名称模糊查询分页查询
+     */
+    public Page<VbudgetBill> findByAccessoryNameContains(String accessoryName, Pageable pageable) {
+        return vbudgetBillRepository.findByAccessoryNameContains(accessoryName, pageable);
+    }
+
+
+    /**
      * @param pageable
      * @return 分页查询
      */
@@ -93,7 +103,7 @@ public class BudgeService extends BaseService {
      * @return 查询所有
      */
     public BudgetBill save(BudgetBill budgetBill) {
-      //  budgetBill.setApplyDate(new Date());
+        //  budgetBill.setApplyDate(new Date());
         return budgetBillRepository.save(budgetBill);
     }
 

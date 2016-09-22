@@ -13,7 +13,7 @@ import java.util.List;
  * @author
  * @create 2016-09-09 11:16
  **/
-public interface VbudgetBillRepository extends PagingAndSortingRepository<VbudgetBill , Long> {
+public interface VbudgetBillRepository extends PagingAndSortingRepository<VbudgetBill, Long> {
 
 
     /**
@@ -21,6 +21,14 @@ public interface VbudgetBillRepository extends PagingAndSortingRepository<Vbudge
      * @return
      */
     Page<VbudgetBill> findAll(Pageable pageable);
+
+
+    /**
+     * @param accessoryName 易耗品名称 模糊查询
+     * @param pageable      设置可分页
+     * @return 返回易耗品名称模糊查询分页对象
+     */
+    Page<VbudgetBill> findByAccessoryNameContains(String accessoryName, Pageable pageable);
 
     /**
      * @return
