@@ -5,11 +5,8 @@ import com.linkbit.beidou.domain.EcBudget.EcBudgetBill;
 import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.budget.BudgetBill;
-import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
-import com.linkbit.beidou.service.budge.BudgeService;
 import com.linkbit.beidou.service.budge.EcBudgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -24,7 +21,7 @@ import java.util.List;
 
 
 /**
- * 采购申请
+ * 低值易耗品采购申请
  */
 @Controller
 @EnableAutoConfiguration
@@ -36,29 +33,32 @@ public class EcbudgetController {
     @Autowired
     ResourceService resourceService;
 
-
-    @RequestMapping(value = "/data", method = RequestMethod.GET)
-    @ResponseBody
-    public List<EcBudgetBill> data() {
-        return ecBudgeService.findAll();
-    }
-
     /**
-     * 显示所有的报修车列表信息
+     * 分页查询
+     *
+     * @param current      当前页
+     * @param rowCount     每页条数
+     * @param searchPhrase 查询关键字s
+     * @return
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-        Page<VEcBudgetBill> page = ecBudgeService.findAllV(new PageRequest(current - 1, rowCount.intValue()));
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<VEcBudgetBill> page = ecBudgeService.findByEcnameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
         myPage.setCurrent(current);
-        myPage.setTotal(ecBudgeService.findAll().size());
+        myPage.setTotal(page.getTotalElements());
         return myPage;
     }
 
 
+    /**
+     * @param httpSession
+     * @param modelMap
+     * @return
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(HttpSession httpSession, ModelMap modelMap) {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
@@ -113,8 +113,9 @@ public class EcbudgetController {
     }
 
 
-
-
+    /**
+     * @return 查询所有的id集合
+     */
     @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
     @ResponseBody
     public List<Long> findAllIds() {

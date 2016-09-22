@@ -49,6 +49,16 @@ public class EcBudgeService extends BaseService {
 
 
     /**
+     * @param ecname   易耗品名称
+     * @param pageable
+     * @return 分页查询 根据易耗品名称去查询
+     */
+    public Page<VEcBudgetBill> findByEcnameContains(String ecname, Pageable pageable) {
+
+        return vecbudgetBillRepository.findByEcnameContains(ecname, pageable);
+    }
+
+    /**
      * @param pageable
      * @return 分页查询
      */
@@ -83,8 +93,8 @@ public class EcBudgeService extends BaseService {
     /**
      * @return 查询所有
      */
-    public EcBudgetBill save(EcBudgetBill  ecBudgetBill) {
-      //  ecBudgetBill.setApplyDate(new Date());
+    public EcBudgetBill save(EcBudgetBill ecBudgetBill) {
+        //  ecBudgetBill.setApplyDate(new Date());
         return ecBudgetBillRepository.save(ecBudgetBill);
     }
 

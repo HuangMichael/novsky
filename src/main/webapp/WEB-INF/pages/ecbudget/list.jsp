@@ -46,7 +46,6 @@
 														<th data-align="center" data-column-id="confirmReason" data-width="5%">确认更新原因</th>
 														<th data-align="center" data-column-id="fixAdvice" data-width="10%">综合维修中心意见</th>
 														<th data-align="center" data-column-id="leaderAdvice" data-width="10%">领导批示</th>
-
 													</tr>
 												</thead>
 											</table>

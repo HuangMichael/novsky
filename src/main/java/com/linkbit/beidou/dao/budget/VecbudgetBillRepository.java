@@ -23,6 +23,14 @@ public interface VecbudgetBillRepository extends PagingAndSortingRepository<VEcB
      */
     Page<VEcBudgetBill> findAll(Pageable pageable);
 
+
+    /**
+     * @param ecname   根据易耗品名称查询
+     * @param pageable 设置可分页
+     * @return
+     */
+    Page<VEcBudgetBill> findByEcnameContains(String ecname, Pageable pageable);
+
     /**
      * @return
      */

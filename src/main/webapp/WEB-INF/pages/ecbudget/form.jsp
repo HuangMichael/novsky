@@ -18,7 +18,7 @@
 			</div>
 			<label class="col-md-1 control-label" for="locations_id">使用位置</label>
 			<div class="col-md-3">
-				<select v-model="budgetBill.vlocations.id " class="form-control " id="locations_id " name="vlocations.id" required style="width:100% " required>
+				<select v-model="budgetBill.vlocations.id " class="form-control " id="locations_id " name="vlocations.id" required style="width:80% " required>
 					<template v-for="option in locs ">
 						<option :value="option.id " v-if="option.id==budgetBill.vlocations.id " selected>
 							{{option.locName }}
@@ -45,7 +45,7 @@
 			<div class="form-group">
 				<label for="epermited " class="col-md-1 control-label ">有无用电许可证</label>
 				<div class="col-md-3">
-					<select class="js-example-basic-multiple" style="width:90% " name="epermited" id="epermited" v-model="budgetBill.epermited">
+					<select class="js-example-basic-multiple" style="width:80% " name="epermited" id="epermited" v-model="budgetBill.epermited">
 						<option>有</option>
 						<option>无</option>
 					</select>
@@ -101,7 +101,7 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="fixAdvice">维修意见</label>
 			<div class="col-md-11">
-				<textarea class="form-control" id="fixAdvice" name="fixAdvice" v-model="budgetBill.fixAdvice" cols="6" required="required" />
+				<textarea class="form-control" id="fixAdvice" name="fixAdvice" v-model="budgetBill.fixAdvice" rows ="2" required="required"/>
 			</div>
 		</div>
 	</fieldset>
@@ -109,12 +109,12 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="leaderAdvice">领导意见</label>
 			<div class="col-md-11">
-				<textarea class="form-control" id="leaderAdvice" name="leaderAdvice" v-model="budgetBill.leaderAdvice" cols="6" required="required" />
+				<textarea class="form-control" id="leaderAdvice" name="leaderAdvice" v-model="budgetBill.leaderAdvice"  rows ="2" required="required"/>
 			</div>
 		</div>
 	</fieldset>
-	<div class="modal-footer ">
-		<button type="submit " id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger ">保存记录
+	<div class="modal-footer">
+		<button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger ">保存记录
         </button>
 	</div>
 </form>
