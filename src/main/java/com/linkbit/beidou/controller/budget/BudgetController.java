@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.budge.BudgeService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
 /**
  * 采购申请
  */
@@ -28,22 +28,20 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/budget")
 public class BudgetController {
-
     @Autowired
     BudgeService budgeService;
-
-
     @Autowired
     ResourceService resourceService;
-
-    @RequestMapping(value = "/data", method = RequestMethod.GET)
-    @ResponseBody
-    public List<BudgetBill> data() {
-        return budgeService.findAll();
-    }
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
-     * 显示所有的报修车列表信息
+     * 初始化分页查询采购单信息
+     *
+     * @param current
+     * @param rowCount
+     * @param searchPhrase
+     * @return
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
@@ -78,32 +76,25 @@ public class BudgetController {
 
 
     /**
-     * @param budgetBill  采购单
-     * @param httpSession
+     * @param budgetBill 保存或者更新采购单
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject save(BudgetBill budgetBill, HttpSession httpSession) {
-        ReturnObject returnObject = new ReturnObject();
+    public ReturnObject save(BudgetBill budgetBill) {
         BudgetBill budgetObj;
         String operation = "保存";
-        String result = "成功";
         if (budgetBill.getId() != null) {
             operation = "更新";
         }
-//        String personName = (String) httpSession.getAttribute("personName");
-//        budgetBill.setApplicant(personName);
         budgetObj = budgeService.save(budgetBill);
-        returnObject.setResult(result != null);
-        result = (budgetObj != null) ? operation : "失败";
-        returnObject.setResultDesc("采购申请单" + result + result);
-        return returnObject;
+        return commonDataService.getReturnType(budgetObj != null, "采购申请单" + operation + "成功!", "采购申请单" + operation + "失败!");
+
     }
 
 
     /**
-     * @param id 根据id查询
+     * @param id 根据id删除采购单
      * @return
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
@@ -113,6 +104,9 @@ public class BudgetController {
     }
 
 
+    /**
+     * @return 查询所有的id
+     */
     @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
     @ResponseBody
     public List<Long> findAllIds() {
