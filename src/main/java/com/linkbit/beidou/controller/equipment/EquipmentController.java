@@ -22,6 +22,7 @@ import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.SessionUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,6 @@ public class EquipmentController extends BaseController {
     ResourceService resourceService;
 
 
-
     /**
      * 分页查询
      *
@@ -80,8 +80,9 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<Vequipments> page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+    public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        String location = SessionUtil.getCurrentUserLocationBySession(session);
+        Page<Vequipments> page = equipmentAccountService.findByEqNameContains(searchPhrase,new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -89,7 +90,6 @@ public class EquipmentController extends BaseController {
         myPage.setTotal(page.getTotalElements());
         return myPage;
     }
-
 
 
     @RequestMapping(value = "/list")

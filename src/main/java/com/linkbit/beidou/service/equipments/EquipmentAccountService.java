@@ -241,12 +241,12 @@ public class EquipmentAccountService extends BaseService {
 
 
     /**
-     * @param ecname   易耗品名称
+     * @param eqName     设备名称
      * @param pageable
      * @return 分页查询 根据易耗品名称去查询
      */
     public Page<Vequipments> findByEqNameContains(String eqName, Pageable pageable) {
 
-        return vEqRepository.findByEqNameContains(eqName, pageable);
+        return vEqRepository.findByEqNameContains(eqName,pageable);
     }
 }

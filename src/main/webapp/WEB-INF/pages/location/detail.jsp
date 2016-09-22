@@ -19,48 +19,20 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active " id="tab_1_1">
-					<table id="eqtables" cellpadding="0" cellspacing="0" border="0" class=" table table-striped table-bordered table-hover">
+					<table id="eqtables" class=" table table-striped table-bordered table-hover"  data-toggle="bootgrid" data-ajax="true" data-url="/equipment/data">
 						<thead>
 							<tr>
-								<th data-column-id="index" data-width="3%">序号</th>
-								<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false" data-width="10%">ID</th>
-								<th data-column-id="eqCode" data-width="5%">设备编号</th>
-								<th data-column-id="description" data-width="15%">设备名称</th>
-								<th data-column-id="equipClass" data-width="6%">设备分类</th>
-								<th data-column-id="location" data-width="10%">设备位置</th>
-								<th data-column-id="status" data-formatter="status" data-sortable="false" data-width="5%">设备状态</th>
-								<th data-column-id="running" data-formatter="running" data-sortable="false" data-width="5%">运行状态</th>
-								<th data-column-id="report" data-formatter="report" data-sortable="false" data-width="3%">报修</th>
+								<th data-column-id="id" data-width="3%">序号</th>
+                                           <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false" data-width="10%">ID</th>
+                                           <th data-column-id="eqCode" data-width="5%" >设备编号</th>
+                                           <th data-column-id="eqName"  data-width="15%">设备名称</th>
+                                           <th data-column-id="eqClass" data-width="10%">设备分类</th>
+                                           <th data-column-id="locName" data-width="10%">设备位置</th>
+                                           <th data-column-id="status" data-formatter="status" data-sortable="false" data-width="5%">设备状态</th>
+                                           <th data-column-id="running" data-formatter="running" data-sortable="false" data-width="5%" >运行状态</th>
+                                           <th data-column-id="report" data-formatter="report" data-sortable="false" data-width="5%" >报修</th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${equipmentsList}" var="equipment" varStatus="s">
-								<tr class="gradeX" data-rowId="${equipment.id}" id="tr${equipment.id}">
-									<td>${s.index+1}</td>
-									<td>${equipment.id}</td>
-									<td>
-										${equipment.eqCode}
-									</td>
-									<td>
-										${equipment.eqName}
-									</td>
-									<td>
-										${equipment.eqClass}
-									</td>
-									<td>
-										${equipment.locName}
-									</td>
-									<td>
-										${equipment.status}
-									</td>
-									<td>
-										${equipment.running}
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-						<tfoot>
-						</tfoot>
 					</table>
 				</div>
 			</div>

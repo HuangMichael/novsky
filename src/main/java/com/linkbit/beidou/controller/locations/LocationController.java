@@ -53,9 +53,6 @@ public class LocationController {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-        User user = (User) httpSession.getAttribute("currentUser");
-        List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
-        modelMap.put("equipmentsList", equipmentsList);
         return "/location/list";
 
     }
@@ -70,7 +67,6 @@ public class LocationController {
     public String detail(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         String url = "/location";
         Locations object = null;
-
         if (id != 0) {
             url += "/detail";
             object = locationsService.findById(id);
@@ -78,8 +74,6 @@ public class LocationController {
             commonDataService.findStations(session);
         }
         modelMap.put("locations", object);
-        List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(object.getLocation());
-        modelMap.put("equipmentsList", equipmentsList);
         return url;
     }
 
