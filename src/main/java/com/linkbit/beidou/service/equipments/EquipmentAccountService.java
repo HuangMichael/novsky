@@ -3,6 +3,7 @@ package com.linkbit.beidou.service.equipments;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VEqRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
+import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -13,6 +14,8 @@ import com.linkbit.beidou.utils.CommonStatusType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -233,5 +236,17 @@ public class EquipmentAccountService extends BaseService {
         }
 
         return  vequipmentsList = vEqRepository.search(sql);
+    }
+
+
+
+    /**
+     * @param ecname   易耗品名称
+     * @param pageable
+     * @return 分页查询 根据易耗品名称去查询
+     */
+    public Page<Vequipments> findByEqNameContains(String eqName, Pageable pageable) {
+
+        return vEqRepository.findByEqNameContains(eqName, pageable);
     }
 }
