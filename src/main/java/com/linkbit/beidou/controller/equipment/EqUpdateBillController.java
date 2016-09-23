@@ -106,13 +106,13 @@ public class EqUpdateBillController {
     }
 
 
-//    /**
-//     * @return 查询所有的id
-//     */
-//    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<Long> findAllIds() {
-//        return eqUpdateBillService.findAllIds();
-//    }
+    /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return eqUpdateBillService.findAllIds();
+    }
 
 }

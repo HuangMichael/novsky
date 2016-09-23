@@ -25,22 +25,32 @@
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">
-		<legend>配件信息</legend>
+		<legend>设备信息</legend>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="accessoryName">配件名称</label>
+			<label class="col-md-1 control-label" for="accessoryName">设备名称</label>
 			<div class="col-md-3">
-				<input class="form-control" id="accessoryName" type="text" name="accessoryName" v-model="budgetBill.accessoryName" />
 				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
-			</div>
-			<label class="col-md-1 control-label" for="accessoryName">规格型号</label>
-			<div class="col-md-3">
-				<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.specifications" />
+
+				<select v-model="budgetBill.vequipments.id " class="form-control " id="vequipments_id " name="vequipments.id" required style="width:80% " required>
+                					<template v-for="option in myEqs ">
+                						<option :value="option.id " v-if="option.id==budgetBill.vequipments.id " selected>
+                							{{option.locName }}-{{option.eqName }}
+                						</option>
+                						<option :value="option.id " v-else>
+                							{{option.locName }}-{{option.eqName }}
+                						</option>
+                					</template>
+                				</select>
 
 			</div>
-			<label class="col-md-1 control-label" for="amount">申请数量</label>
+			<label class="col-md-1 control-label" for="accessoryName">设备位置</label>
 			<div class="col-md-3">
-				<input class="form-control" id="amount" type="number" name="amount" v-model="budgetBill.amount" value="1" />
+				<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.vequipments.locName" />
 			</div>
+			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
+            <div class="col-md-3 ">
+            	<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.vequipments.eqClass" />
+            </div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">
@@ -49,35 +59,6 @@
 			<label class="col-md-1 control-label" for="purpose">申请用途</label>
 			<div class="col-md-11">
 				<textarea class="form-control" id="purpose" type="text" name="purpose" v-model="budgetBill.purpose" rows="6" />
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="vlocations_id " class="col-md-1 control-label ">使用位置</label>
-			<div class="col-md-3 ">
-				<select v-model="budgetBill.vlocations.id " class="form-control " id="vlocations_id " name="vlocations.id" required style="width:100% " required>
-					<template v-for="option in locs ">
-						<option :value="option.id " v-if="option.id==budgetBill.vlocations.id " selected>
-							{{option.locName }}
-						</option>
-						<option :value="option.id " v-else>
-							{{option.locName }}
-						</option>
-					</template>
-				</select>
-			</div>
-
-			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
-			<div class="col-md-3 ">
-				<select v-model="budgetBill.eqClass.id " class="form-control " id="eq_class_id " name="eqClass.id" required style="width:100% " required>
-					<template v-for="option in eqClasses ">
-						<option :value="option.id " v-if="option.id==budgetBill.eqClass.id " selected>
-							{{option.cpName+option.cname }}
-						</option>
-						<option :value="option.id " v-else>
-							{{option.cpName+option.cname }}
-						</option>
-					</template>
-				</select>
 			</div>
 		</div>
 	</fieldset>

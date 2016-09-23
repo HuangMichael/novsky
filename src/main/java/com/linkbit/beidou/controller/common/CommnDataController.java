@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.common;
 
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
@@ -62,6 +63,22 @@ public class CommnDataController extends BaseController {
             locationList = commonDataService.findMyVLocation(location, httpSession);
         }
         return locationList;
+    }
+
+
+    /**
+     * @param httpSession 当前会话
+     * @return
+     */
+    @RequestMapping(value = "/findMyEqs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Vequipments> findMyEqs(HttpSession httpSession) {
+        String location = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        List<Vequipments> vequipmentsList = null;
+        if (location != null && !location.equals("")) {
+            vequipmentsList = commonDataService.findMyVeqs(location, httpSession);
+        }
+        return vequipmentsList;
     }
 
     /**

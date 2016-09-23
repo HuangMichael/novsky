@@ -2,7 +2,6 @@ package com.linkbit.beidou.service.equipments;
 
 import com.linkbit.beidou.dao.equipments.EqUpdateBillRepository;
 import com.linkbit.beidou.dao.equipments.VEqUpdateBillRepository;
-import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.service.app.BaseService;
@@ -27,10 +26,9 @@ public class EqUpdateBillService extends BaseService {
     VEqUpdateBillRepository vEqUpdateBillRepository;
 
 
-
     /**
      * @param eqName
-     * @param pageable      分页
+     * @param pageable 分页
      * @return 按照配件名称模糊查询分页查询
      */
     public Page<VEqUpdateBill> findByEqNameContaining(String eqName, Pageable pageable) {
@@ -66,12 +64,12 @@ public class EqUpdateBillService extends BaseService {
         return eqUpdateBillRepository.findById(id) == null;
     }
 
-//
-//    /**
-//     * @return 查询所有的id
-//     */
-//    public List<Long> findAllIds() {
-//        List<Long> ids = eqUpdateBillRepository.findAllIds();
-//        return ids;
-//    }
+
+    /**
+     * @return 查询所有的id
+     */
+    public List<Long> findAllIds() {
+        List<Long> ids = eqUpdateBillRepository.findAllIds();
+        return ids;
+    }
 }

@@ -6,8 +6,7 @@ var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 var vdm = null;
 //位置信息
-var locs = [];
-var eqClasses = [];
+var myEqs = [];
 var budgetBills = [];
 var ids = [];
 var pointer = 0;
@@ -147,16 +146,15 @@ $(function () {
         }
     };
 
-    locs = findMyLoc();
+    myEqs = findMyEqs();
 
-    eqClasses = findMyEqClass();
 
     vdm = new Vue({
         el: "#detailContainer",
         data: {
             budgetBill: null,
-            locs: locs,
-            eqClasses: eqClasses
+            myEqs: myEqs
+
         }
     });
 
@@ -194,13 +192,12 @@ $(function () {
             budgetBill = findById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            budgetBill = getBudgetBillById(ids[0]);
+            budgetBill = getEqUpdateBillById(ids[0]);
             //所有的都在选中列表中
             selectedIds = ids;
         }
         vdm.$set("budgetBill", budgetBill);
-        vdm.$set("locs", locs);
-        vdm.$set("eqClass", eqClass);
+        vdm.$set("myEqs", myEqs);
 
     });
 
@@ -222,12 +219,12 @@ $(function () {
         var budgetBill = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            budgetBill = getBudgetBillById(selectedIds[0]);
+            budgetBill = getEqUpdateBillById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
 
             console.log("ids[0]---------------" + ids[0]);
-            budgetBill = getBudgetBillById(ids[0]);
+            budgetBill = getEqUpdateBillById(ids[0]);
             //所有的都在选中列表中
             selectedIds = (ids);
         }
@@ -258,12 +255,14 @@ function setAllInSelectedList(bugetBills) {
  * @param bid
  * @return {*}
  */
-function getBudgetBillById(bid) {
+function getEqUpdateBillById(bid) {
     var budgetBill = null;
-    var url = "/budget/findById/" + bid;
+    var url = "/eqUpdateBill/findById/" + bid;
     $.getJSON(url, function (data) {
         budgetBill = data;
     });
+
+    console.log("budgetBill-------------"+JSON.stringify(budgetBill));
     return budgetBill;
 }
 
@@ -278,7 +277,7 @@ function backwards() {
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
-        var budgetBill = getBudgetBillById(selectedIds[pointer]);
+        var budgetBill = getEqUpdateBillById(selectedIds[pointer]);
         vdm.$set("budgetBill", budgetBill);
     }
 }
@@ -291,7 +290,7 @@ function forwards() {
         return;
     } else {
         pointer = pointer + 1;
-        var budgetBill = getBudgetBillById(selectedIds[pointer]);
+        var budgetBill = getEqUpdateBillById(selectedIds[pointer]);
         vdm.$set("budgetBill", budgetBill);
     }
 }
@@ -300,11 +299,9 @@ function forwards() {
 function add() {
 
     //重新建立模型 新建对象模型
-
     var newVue = new Vue({
         el: "#detailContainer",
-        locs: locs,
-        eqClasses: eqClasses
+        myEqs: myEqs
     });
     setFormReadStatus("#detailForm", false);
     clearForm("#detailForm");
@@ -318,7 +315,7 @@ function save() {
     var objStr = getFormJsonData("detailForm");
     var budgetBill = JSON.parse(objStr);
     console.log(JSON.stringify(budgetBill));
-    var url = "budget/save";
+    var url = "eqUpdateBill/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
             showMessageBox("info", data.resultDesc);
@@ -368,7 +365,7 @@ function del() {
  * */
 function findById(id) {
     var budgetBill = null;
-    var url = "budget/findById/" + id;
+    var url = "eqUpdateBill/findById/" + id;
     $.getJSON(url, function (data) {
         budgetBill = data;
     });
@@ -382,6 +379,17 @@ function findById(id) {
  * */
 function findMyLoc() {
     var url_location = "/commonData/findMyLoc";
+    $.getJSON(url_location, function (data) {
+        locs = data;
+    });
+    return locs;
+}
+
+/**
+ *查询我的位置
+ * */
+function findMyEqs() {
+    var url_location = "/commonData/findMyEqs";
     $.getJSON(url_location, function (data) {
         locs = data;
     });
@@ -419,7 +427,7 @@ function getServerDate() {
 function findAllIds() {
 
     var ids = [];
-    var url = "budget/findAllIds";
+    var url = "eqUpdateBill/findAllIds";
     $.getJSON(url, function (data) {
         ids = data;
     });

@@ -3,6 +3,7 @@ package com.linkbit.beidou.service.commonData;
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
+import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.line.LineRepository;
 import com.linkbit.beidou.dao.line.StationRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
@@ -11,6 +12,7 @@ import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -60,6 +62,10 @@ public class CommonDataService extends BaseService {
     @Autowired
     StationRepository stationRepository;
 
+
+    @Autowired
+    VequipmentsRepository vequipmentsRepository;
+
     /**
      * @param location 位置编号
      * @return 查询我的下属位置信息
@@ -100,6 +106,28 @@ public class CommonDataService extends BaseService {
             }
         }
         return locationsList;
+    }
+
+
+    /**
+     * @param location    位置编号
+     * @param httpSession 查询位置我的视图信息
+     * @return 查询我的下属位置设备信息
+     * 先从session中找  如果失败再做查询
+     */
+    public List<Vequipments> findMyVeqs(String location, HttpSession httpSession) {
+        List<Vequipments> vequipmentsList = null;
+        Object object = httpSession.getAttribute("vequipmentsList");
+        if (object != null) {
+            vequipmentsList = (ArrayList<Vequipments>) object;
+            log.info(this.getClass().getCanonicalName() + "------------从缓存中查询位置信息");
+        } else {
+            if (location != null && !location.equals("")) {
+                vequipmentsList = vequipmentsRepository.findByLocationStartingWith(location);
+                log.info(this.getClass().getCanonicalName() + "------------从缓存中查询位置信息");
+            }
+        }
+        return vequipmentsList;
     }
 
 
@@ -281,7 +309,6 @@ public class CommonDataService extends BaseService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(new Date());
     }
-
 
 
     /**
