@@ -16,15 +16,6 @@ import java.util.List;
  **/
 public interface EqUpdateBillRepository extends PagingAndSortingRepository<EqUpdateBill, Long>, CrudRepository<EqUpdateBill, Long> {
 
-
-    /**
-     * @param eqName   设备名称
-     * @param pageable 分页
-     * @return 根据设备名称模糊查询
-     */
-    Page<EqUpdateBill> findByEqNameContains(String eqName, Pageable pageable);
-
-
     /**
      * @param id 根据id查询
      * @return

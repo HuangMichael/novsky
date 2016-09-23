@@ -1,8 +1,10 @@
 package com.linkbit.beidou.service.equipments;
 
 import com.linkbit.beidou.dao.equipments.EqUpdateBillRepository;
+import com.linkbit.beidou.dao.equipments.VEqUpdateBillRepository;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
+import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,14 +23,18 @@ public class EqUpdateBillService extends BaseService {
     @Autowired
     EqUpdateBillRepository eqUpdateBillRepository;
 
+    @Autowired
+    VEqUpdateBillRepository vEqUpdateBillRepository;
+
+
 
     /**
-     * @param accessoryName 配件名称
+     * @param eqName
      * @param pageable      分页
      * @return 按照配件名称模糊查询分页查询
      */
-    public Page<EqUpdateBill> findByEqNameContains(String accessoryName, Pageable pageable) {
-        return eqUpdateBillRepository.findByEqNameContains(accessoryName, pageable);
+    public Page<VEqUpdateBill> findByEqNameContaining(String eqName, Pageable pageable) {
+        return vEqUpdateBillRepository.findByEqNameContaining(eqName, pageable);
     }
 
 

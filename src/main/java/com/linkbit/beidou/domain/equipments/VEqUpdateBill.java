@@ -23,6 +23,9 @@ public class VEqUpdateBill {
     private String applyDate;// 申购日期
 
     @Column(length = 50)
+    private String locName; //设备名称
+
+    @Column(length = 50)
     private String eqName; //设备名称
     @Column(length = 50)
     private String eqCode; //设备编号

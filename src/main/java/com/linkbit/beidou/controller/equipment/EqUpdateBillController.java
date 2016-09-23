@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.equipment;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
+import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -47,7 +48,7 @@ public class EqUpdateBillController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<EqUpdateBill> page = eqUpdateBillService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        Page<VEqUpdateBill> page = eqUpdateBillService.findByEqNameContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
