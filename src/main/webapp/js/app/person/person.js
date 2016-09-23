@@ -76,31 +76,19 @@ var validationSettings = {
 
 $(function () {
     //ajax 请求personList集合
-    var url = "/person/findAll";
-    $.ajaxSettings.async = false;
-    $.getJSON(url, function (data) {
-        personList = data;
-    });
 
-    //新建一个listModel
-    listModel = new Vue({
-        el: dataTableName,
-        data: {
-            personList: personList
-        }
-    });
     vdm = new Vue({
         el: "#detailForm",
         data: {
             formLocked: formLocked,
-            person: personList[0]
+            person: getPersonById(selectedIds[0])
         }
     });
 
     $(dataTableName).bootgrid({
         selection: true,
         multiSelect: true,
-        rowSelect: true,
+        rowSelect: false,
         keepSelection: true
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中

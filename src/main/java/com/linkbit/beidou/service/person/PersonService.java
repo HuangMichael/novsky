@@ -5,6 +5,8 @@ import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -69,4 +71,16 @@ public class PersonService extends BaseService {
         personRepository.delete(id);
         return (personRepository.findById(id) == null);
     }
+
+
+    /**
+     * @param personName
+     * @param pageable
+     * @return 根据人员姓名模糊查询
+     * @Date 2016年9月23日09:34:44
+     */
+    public Page<Person> findByPersonNameContains(String personName, Pageable pageable) {
+        return personRepository.findByPersonNameContains(personName, pageable);
+    }
+
 }

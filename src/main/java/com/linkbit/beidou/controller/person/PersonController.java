@@ -1,14 +1,18 @@
 package com.linkbit.beidou.controller.person;
 
 
+import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +37,38 @@ public class PersonController {
     CommonDataService commonDataService;
 
 
+    /**
+     * @param modelMap
+     * @param httpSession
+     * @return
+     */
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession httpSession) {
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, "person");
         modelMap.put("appMenus", appMenus);
-        List<Person> personList = personService.findAll();
-        modelMap.put("personList", personList);
+//        List<Person> personList = personService.findAll();
+//        modelMap.put("personList", personList);
         return "/person/list";
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param current      当前页
+     * @param rowCount     每页条数
+     * @param searchPhrase 查询关键字
+     * @return
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<Person> page = personService.findByPersonNameContains(searchPhrase,new PageRequest(current - 1, rowCount.intValue()));
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+        return myPage;
     }
 
     /**
