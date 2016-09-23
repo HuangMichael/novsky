@@ -14,8 +14,6 @@ import java.util.List;
  **/
 
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyPage {

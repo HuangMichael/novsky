@@ -12,7 +12,7 @@
 					<!-- BOX -->
 					<div class="box border blue">
 						<div class="box-title">
-							<h4 class="appTitle"><i class="fa fa-sitemap"></i>采购申请信息</h4>
+							<h4 class="appTitle"><i class="fa fa-sitemap"></i>设备更新申请信息</h4>
 						</div>
 						<%@include file="../common/common-menubar.jsp"%>
 						<div class="box-body">
@@ -30,7 +30,7 @@
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
 										<div class="container-fluid">
-											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/budget/data">
+											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqUpdateBill/data">
 												<thead>
 													<tr>
 														<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
@@ -64,4 +64,4 @@
 	</div>
 	<%@include file="../common/common-back2top.jsp" %>
 </div>
-<script src="/js/app/budget/budget.js"></script>
+<script src="/js/app/eqUpdateBill/eqUpdateBill.js"></script>

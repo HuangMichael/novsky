@@ -61,7 +61,7 @@ public class EqUpdateBillController {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-        return "/budget/list";
+        return "/eqUpdateBill/list";
     }
 
     /**
