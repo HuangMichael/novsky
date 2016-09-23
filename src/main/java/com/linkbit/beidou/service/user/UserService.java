@@ -10,6 +10,8 @@ import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -62,6 +64,17 @@ public class UserService extends BaseService {
         }
         user.setStatus("1");
         return userRepository.save(user);
+    }
+
+
+    /**
+     * @param userName 用户名
+     * @param pageable 可分页
+     * @return 用户名模糊查询
+     * @Date 2016年9月23日09:05:15
+     */
+    public Page<User> findByUserNameContrains(String userName, Pageable pageable) {
+        return userRepository.findByUserNameContains(userName, pageable);
     }
 
 
@@ -128,7 +141,7 @@ public class UserService extends BaseService {
             User user = userList.get(0);
             user.setPassword(MD5Util.md5(password));
             user = userRepository.save(user);
-            return user!=null;
+            return user != null;
         } else {
             return false;
         }

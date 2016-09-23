@@ -162,7 +162,7 @@ function edit() {
     }
 }
 
-function saveUser() {
+function save() {
     $("#saveBtn").trigger("click");
 }
 
@@ -185,7 +185,30 @@ function setFormReadStatus(formId, formLocked, except) {
 }
 
 $(function () {
-    initLoadData("/station/findActiveStation", dataTableName);
+    //  initLoadData("/station/findActiveStation", dataTableName);
+
+    $(dataTableName).bootgrid({
+        selection: true,
+        multiSelect: true,
+        rowSelect: false,
+        keepSelection: true
+    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
+        //如果默认全部选中
+        if (selectedIds.length === stations.length) {
+            selectedIds.clear();
+        }
+        for (var x in rows) {
+            if (rows[x]["id"]) {
+                selectedIds.push(rows[x]["id"]);
+            }
+        }
+    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+        for (var x in rows) {
+            selectedIds.remove(rows[x]["id"]);
+        }
+    });
+
+
     var url = "/line/findLines";
     $.getJSON(url, function (data) {
         lines = data;

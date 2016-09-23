@@ -3,6 +3,8 @@ package com.linkbit.beidou.dao.user;
 
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -52,7 +54,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     /**
      * 查询不在当前角色中的用户信息
      */
-    @Query(nativeQuery = true,value="SELECT  u.id,u.user_name FROM t_user u WHERE u.id NOT IN (SELECT ur.user_id FROM  t_role_user ur  WHERE ur.role_id = :roleId) AND u.status = 1")
+    @Query(nativeQuery = true, value = "SELECT  u.id,u.user_name FROM t_user u WHERE u.id NOT IN (SELECT ur.user_id FROM  t_role_user ur  WHERE ur.role_id = :roleId) AND u.status = 1")
     List<Object> findUsersNotInRole(@Param("roleId") Long roleId);
 
 
@@ -64,6 +66,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findUserListByRoleId(@Param("roleId") Long roleId);
 
 
-
+    /**
+     * @param userName 用户名
+     * @param pageable 可分页
+     * @return 用户名模糊查询
+     * @Date 2016年9月23日09:05:15
+     */
+    Page<User> findByUserNameContains(String userName, Pageable pageable);
 
 }
