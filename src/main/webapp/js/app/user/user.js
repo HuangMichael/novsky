@@ -102,7 +102,7 @@ $(function () {
         var locationId = $("#locations_id").val();
         var status = $("#status").val();
 
-        console.log("locationId--------"+locationId);
+        console.log("locationId--------" + locationId);
 
         var user = null;
         var url = "";
@@ -111,7 +111,7 @@ $(function () {
                 userId: userId,
                 personId: personId,
                 locationId: locationId,
-                status:status
+                status: status
             }
             url = "user/update";
         } else {
@@ -157,46 +157,43 @@ function loadNew() {
  * @param elementName 渲染元素名称
  */
 function initLoadData(url, elementName) {
-    $.getJSON(url, function (data) {
-        users = data;
-        allSize = data.length; //计算所有记录的个数
-        if (dataTableName) {
-            vm = new Vue({
-                el: elementName,
-                data: {
-                    users: users
-                }
+    //$.getJSON(url, function (data) {
+    //    users = data;
+    //    allSize = data.length; //计算所有记录的个数
+    //    if (dataTableName) {
+    //        vm = new Vue({
+    //            el: elementName,
+    //            data: {
+    //                users: users
+    //            }
+    //
+    //        });
+    //
+    //    }
+    //})
 
-            });
-            //ajax载入设备信息  并且监听选择事件
-            $(dataTableName).bootgrid({
-                    selection: true,
-                    multiSelect: true,
-                    rowSelect: false,
-                    keepSelection: true,
-                    formatters: {
-                        "report": function (column, row) {
-                            return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
-                        }
-                    }
-                }
-            ).on("selected.rs.jquery.bootgrid", function (e, rows) {
-                //如果默认全部选中
-                if (selectedIds.length === users.length) {
-                    selectedIds.clear();
-                }
-                for (var x in rows) {
-                    if (rows[x]["id"]) {
-                        selectedIds.push(rows[x]["id"]);
-                    }
-                }
-            }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-                for (var x in rows) {
-                    selectedIds.remove(rows[x]["id"]);
-                }
-            });
+    //ajax载入设备信息  并且监听选择事件
+    $(dataTableName).bootgrid({
+            selection: true,
+            multiSelect: true,
+            rowSelect: false,
+            keepSelection: true
         }
-    })
+    ).on("selected.rs.jquery.bootgrid", function (e, rows) {
+        //如果默认全部选中
+        if (selectedIds.length === users.length) {
+            selectedIds.clear();
+        }
+        for (var x in rows) {
+            if (rows[x]["id"]) {
+                selectedIds.push(rows[x]["id"]);
+            }
+        }
+    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+        for (var x in rows) {
+            selectedIds.remove(rows[x]["id"]);
+        }
+    });
 }
 /**
  * 根据ID获取设备信息
@@ -303,7 +300,7 @@ function setFormReadStatus(formId, formLocked, except) {
     } else {
         $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
         $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
-       // $(formId + " #status").attr("disabled", "disabled");
+        // $(formId + " #status").attr("disabled", "disabled");
         for (var x in except) {
             $("#" + except[x]).attr("readonly", "readonly");
         }

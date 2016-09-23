@@ -52,30 +52,17 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab_1_0">
                                         <table id="userDataTable"
-                                               class=" table table-striped table-bordered table-hover">
+                                               class=" table table-striped table-bordered table-hover"  data-toggle="bootgrid" data-ajax="true" data-url="/user/data">
                                             <thead>
                                             <tr>
-                                                <th data-column-id="index">序号</th>
-                                                <th data-column-id="id" data-type="numeric" data-identifier="true"
-                                                    data-visible="false">ID
-                                                </th>
+                                                <th data-column-id="id">序号</th>
+                                                <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
                                                 <th data-column-id="userName">用户名</th>
                                                 <th data-column-id="person">人员</th>
                                                 <th data-column-id="location">位置</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr class="gradeX" data-rowId="{{user.id}}" id="tr{{user.id}}"
-                                                v-for="user in users">
-                                                <td>{{$index+1}}</td>
-                                                <td> {{user.id}}</td>
-                                                <td> {{user.userName}}</td>
-                                                <td> {{user.person.personName}}</td>
-                                                <td>{{user.vlocations.locName}}</td>
-                                            </tr>
-                                            </tbody>
-                                            <tfoot>
-                                            </tfoot>
+
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">

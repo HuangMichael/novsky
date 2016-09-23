@@ -1,7 +1,6 @@
 package com.linkbit.beidou.dao.user;
 
 
-import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
