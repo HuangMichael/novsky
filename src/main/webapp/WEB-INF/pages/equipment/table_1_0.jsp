@@ -11,7 +11,7 @@
         <th data-column-id="locName" data-width="10%">设备位置</th>
         <th data-column-id="status" data-formatter="status" data-sortable="false" data-width="5%">设备状态</th>
         <th data-column-id="running" data-formatter="running" data-sortable="false" data-width="5%" >运行状态</th>
-        <th data-column-id="report" data-formatter="report" data-sortable="false" data-width="5%" >报修</th>
+        <th data-column-id="report" data-formatter="report" data-sortable="false" data-width="5%" >报修|更新</th>
     </tr>
     </thead>
 </table>

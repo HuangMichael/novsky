@@ -261,6 +261,10 @@ function loadNew() {
 }
 
 var reportId;
+/**
+ * 设备报修
+ * @param id
+ */
 function report(id) {
     var status = "0";
     var path = "/equipment/findById/" + id;
@@ -277,6 +281,19 @@ function report(id) {
     } else {
         equipReport(id)
     }
+}
+
+
+/**
+ * 设备更新申请
+ * @param id
+ */
+function eqUpdate(id) {
+    //找到该设备
+    //跳转到设备更新页面  然后将参数带入
+    $("#main-content").load("/eqUpdateBill/list", function () {
+        eqUpdateAdd(id);
+    });
 }
 
 function equipReport(id) {
@@ -580,6 +597,7 @@ function initLoadData(url, elementName) {
                     formatters: {
                         "report": function (column, row) {
                             return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                                + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
                         }
                     }
                 }

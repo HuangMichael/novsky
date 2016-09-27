@@ -10,6 +10,7 @@ var myEqs = [];
 var budgetBills = [];
 var ids = [];
 var pointer = 0;
+var newVue = null;
 $(function () {
     //设置数据有效性验证配置项
     var validateOptions = {
@@ -213,6 +214,8 @@ $(function () {
 
 
     formTab.on('click', function () {
+
+        console.log("手动切换form");
         // activeTab = "detail";
         //setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
@@ -262,7 +265,7 @@ function getEqUpdateBillById(bid) {
         budgetBill = data;
     });
 
-    console.log("budgetBill-------------"+JSON.stringify(budgetBill));
+    console.log("budgetBill-------------" + JSON.stringify(budgetBill));
     return budgetBill;
 }
 
@@ -297,15 +300,32 @@ function forwards() {
 
 
 function add() {
-
     //重新建立模型 新建对象模型
-    var newVue = new Vue({
+    newVue = new Vue({
         el: "#detailContainer",
-        myEqs: myEqs
+        data: {
+            myEqs: myEqs,
+            budgetBill: null
+        }
     });
+
     setFormReadStatus("#detailForm", false);
     clearForm("#detailForm");
     formTab.tab('show');
+
+    //alert("add一条记录");
+}
+
+function eqUpdateAdd(eid) {
+    //重新建立模型 新建对象模型
+    $.getJSON("eqUpdateBill/create/" + eid,function(data){
+        vdm.$set("budgetBill", data);
+    });
+    setFormReadStatus("#detailForm", false);
+    formTab.tab('show');
+    $("#locName").attr("readonly","readonly");
+    $("#eqClass").attr("readonly","readonly");
+
     //alert("add一条记录");
 }
 /**

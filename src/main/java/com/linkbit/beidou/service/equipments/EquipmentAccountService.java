@@ -94,6 +94,14 @@ public class EquipmentAccountService extends BaseService {
     }
 
     /**
+     * @param id 根据id查询设备信息
+     * @return
+     */
+    public Vequipments findOne(Long id) {
+        return vEqRepository.findOne(id);
+    }
+
+    /**
      * @return 查询所有
      */
     public List<Equipments> findAll() {
@@ -172,18 +180,6 @@ public class EquipmentAccountService extends BaseService {
         return equipmentsRepository.findEndFixStepsByEid(eid);
     }
 
-/*    *//**
-     * @param eid
-     * @return 查询维修历史信息
-     *//*
-    public List<VworkOrderStep> findFixHistory(Long eid) {
-        List<VworkOrderStep> vworkOrderStepList = null;
-        Equipments equipments = equipmentsRepository.findById(eid);
-        if (equipments != null) {
-            vworkOrderStepList = vworkOrderStepRepository.findByEquipments(equipments);
-        }
-        return vworkOrderStepList;
-    }*/
 
 
     /**
@@ -220,26 +216,6 @@ public class EquipmentAccountService extends BaseService {
         return equipments.getStatus();
 
     }
-
-
-    /**
-     * @return
-     */
-    public List<Vequipments> search(String eqCode) {
-
-        List<Vequipments> vequipmentsList = null;
-        //直接拼装sql
-        String sql = " 1";
-        if (eqCode != null && !eqCode.equals("")) {
-            sql = " and v.eqCode ='" + eqCode + "'";
-
-        }
-
-        return  vequipmentsList = vEqRepository.search(sql);
-    }
-
-
-
     /**
      * @param eqName     设备名称
      * @param pageable

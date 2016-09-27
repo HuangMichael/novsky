@@ -27,30 +27,29 @@
 	<fieldset class="form-group" id="a">
 		<legend>设备信息</legend>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="accessoryName">设备名称</label>
-			<div class="col-md-3">
-				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
 
-				<select v-model="budgetBill.vequipments.id " class="form-control " id="vequipments_id " name="vequipments.id" required style="width:80% " required>
-                					<template v-for="option in myEqs ">
-                						<option :value="option.id " v-if="option.id==budgetBill.vequipments.id " selected>
-                							{{option.locName }}-{{option.eqName }}
-                						</option>
-                						<option :value="option.id " v-else>
-                							{{option.locName }}-{{option.eqName }}
-                						</option>
-                					</template>
-                				</select>
-
-			</div>
 			<label class="col-md-1 control-label" for="accessoryName">设备位置</label>
 			<div class="col-md-3">
-				<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.vequipments.locName" />
+				<input class="form-control" id="locName" type="text" name="budgetBill.vequipments.locName" v-model="budgetBill.vequipments.locName" />
 			</div>
 			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
             <div class="col-md-3 ">
-            	<input class="form-control" id="specifications" type="text" name="specifications" v-model="budgetBill.vequipments.eqClass" />
+            	<input class="form-control" id="eqClass" type="text" name="budgetBill.vequipments.eqClass" v-model="budgetBill.vequipments.eqClass" />
             </div>
+            <label class="col-md-1 control-label" for="accessoryName">设备名称</label>
+            			<div class="col-md-3">
+            				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
+            				<select v-model="budgetBill.vequipments.id " class="form-control " id="vequipments_id " name="vequipments.id" required style="width:80% " required>
+                            					<template v-for="option in myEqs ">
+                            						<option :value="option.id " v-if="option.id==budgetBill.vequipments.id " selected>
+                            							{{option.eqName }}
+                            						</option>
+                            						<option :value="option.id " v-else>
+                            							{{option.eqName }}
+                            						</option>
+                            					</template>
+                            				</select>
+            			</div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">

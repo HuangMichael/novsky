@@ -71,15 +71,7 @@ public class EqController {
     }
 
 
-    /**
-     * @return 根据条件查询
-     */
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public String search(ModelMap modelMap, @RequestParam("eqCode") String eqCode) {
-        List<Vequipments> vequipmentsList = equipmentAccountService.search(eqCode);
-        modelMap.put("vequipmentsList", vequipmentsList);
-        return "/eq/eqList";
-    }
+
 
     /**
      * @param eqName

@@ -5,10 +5,12 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
+import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,9 @@ public class EqUpdateBillController {
     @Autowired
     CommonDataService commonDataService;
 
+    @Autowired
+    EquipmentAccountService equipmentAccountService;
+
     /**
      * 初始化分页查询设备更新申请单信息
      *
@@ -55,6 +60,20 @@ public class EqUpdateBillController {
         myPage.setCurrent(current);
         myPage.setTotal(page.getTotalElements());
         return myPage;
+    }
+
+
+    /**
+     * @param eid
+     * @return 返回新创建的对象
+     */
+    @RequestMapping(value = "/create/{eid}", method = RequestMethod.GET)
+    @ResponseBody
+    public EqUpdateBill create(@PathVariable("eid") Long eid) {
+        Vequipments vequipments = equipmentAccountService.findOne(eid);
+        EqUpdateBill eqUpdateBill = new EqUpdateBill();
+        eqUpdateBill.setVequipments(vequipments);
+        return eqUpdateBill;
     }
 
 
