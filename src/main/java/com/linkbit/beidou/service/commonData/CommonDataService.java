@@ -2,6 +2,7 @@ package com.linkbit.beidou.service.commonData;
 
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
+import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.line.LineRepository;
@@ -10,6 +11,7 @@ import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.equipments.Vequipments;
@@ -65,6 +67,10 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     VequipmentsRepository vequipmentsRepository;
+
+    @Autowired
+    EquipmentsRepository equipmentsRepository;
+
 
     /**
      * @param location 位置编号
@@ -325,5 +331,23 @@ public class CommonDataService extends BaseService {
         return returnObject;
     }
 
+
+    /**
+     * @param id 位置编号
+     * @return 查询位置下对应的设备分类
+     */
+    public List<VeqClass> findEqClassesByLocationId(Long id) {
+        return equipmentsRepository.findEqClassesByLocationId(id);
+    }
+
+
+    /**
+     * @param lid
+     * @param cid
+     * @return 查询位置下对应的设备分类
+     */
+    public List<Vequipments> findEqByLocIdAndEqcId(Long lid,Long cid) {
+        return equipmentsRepository.findEqByLocIdAndEqcId(lid,cid);
+    }
 
 }

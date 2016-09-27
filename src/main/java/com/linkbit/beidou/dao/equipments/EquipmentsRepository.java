@@ -2,6 +2,8 @@ package com.linkbit.beidou.dao.equipments;
 
 
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.VeqClass;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -18,11 +20,6 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
      * 查询所有设备类别
      */
     List<Equipments> findAll();
-
-
-
-
-
 
 
     /**
@@ -123,4 +120,21 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
 
     @Query(nativeQuery = true, value = "select v.order_line_no,v.fix_desc as aaa,date_format(v.report_time,'%Y-%m-%d %H:%i:%s') ,v.fix_desc,v.node_state  from v_work_order_last_status v where v.equipments_id =:eid")
     List<Object> findEndFixStepsByEid(@Param("eid") Long eid);
+
+    /**
+     * @param id
+     * @return 根据位置过滤设备分类
+     */
+    @Query("select vc from VeqClass vc where vc.id in (select distinct  e.equipmentsClassification.id from Equipments e where e.locations.id =:id)")
+    List<VeqClass> findEqClassesByLocationId(@Param("id") Long id);
+
+
+    /**
+     * @param lid
+     * @param cid
+     * @return 根据位置和设备分类过滤设备
+     */
+    @Query("select ve from Vequipments ve where ve.id in ( select e.id from Equipments e where e.locations.id =:lid and e.equipmentsClassification.id =:cid)")
+    List<Vequipments> findEqByLocIdAndEqcId(@Param("lid") Long lid, @Param("cid") Long cid);
+
 }

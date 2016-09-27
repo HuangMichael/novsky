@@ -23,7 +23,7 @@
 <script src="/js/ystep/js/ystep.js"></script>
 <script src="http://www.lanrenzhijia.com/ajaxjs/pdfobject.js"></script>
 <script src="/js/PDFObject-master/pdfobject.js"></script>
-<script language="javascript" type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/src/js/language/zh_CN.js"></script>
 

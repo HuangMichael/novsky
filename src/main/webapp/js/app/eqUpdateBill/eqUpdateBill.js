@@ -162,6 +162,8 @@ $(function () {
             locs: locs,
             eqClasses: eqClasses
         }
+
+
     });
 
     ids = findAllIds().sort();
@@ -206,6 +208,7 @@ $(function () {
         vdm.$set("myEqs", myEqs);
         vdm.$set("locs", locs);
         vdm.$set("eqClasses", eqClasses);
+        setFormReadStatus("#detailForm", true);
     });
 
     $("select").select2({
@@ -216,25 +219,6 @@ $(function () {
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
         save();
-    });
-
-
-    formTab.on('click', function () {
-        //首先判断是否有选中的
-        var budgetBill = null;
-        if (selectedIds.length > 0) {
-            //切换tab时默认给detail中第一个数据
-            budgetBill = getEqUpdateBillById(selectedIds[0]);
-        } else {
-            //没有选中的 默认显示整个列表的第一条
-
-            console.log("ids[0]---------------" + ids[0]);
-            budgetBill = getEqUpdateBillById(ids[0]);
-            //所有的都在选中列表中
-            selectedIds = (ids);
-        }
-        vdm.$set("budgetBill", budgetBill);
-        setFormReadStatus("#detailForm", true);
     });
 });
 
@@ -471,6 +455,8 @@ function setFormReadStatus(formId, formLocked) {
         $(formId + " textarea").attr("readonly", "readonly").removeAttr("readonly");
 
     }
+
+    $("#eqCode").attr("readonly", "readonly");
 }
 
 
@@ -478,4 +464,32 @@ function clearForm(formId) {
     $(formId + " input ").val("");
     $(formId + " textarea ").val("");
     $(formId + " select").val("");
+}
+
+function changeLoc(a) {
+    var locationsId = $(a).val();
+    var url = "/eqUpdateBill/findCByLocId/" + locationsId;
+    $.getJSON(url, function (data) {
+        vdm.$set("eqClasses", data);
+    });
+    var url ="/eqUpdateBill/findEqBy/"+locationsId+"/"+eqClasses[0].id;
+    $.getJSON(url, function (data) {
+        vdm.$set("myEqs", data);
+    });
+
+    //查询出该位置下对应的分类
+}
+
+
+/**
+ *
+ * @param a
+ */
+function changeEqc(a) {
+    var lid = $("#locName").val();//获取位置id
+    var cid = $(a).val();
+    var url ="/eqUpdateBill/findEqBy/"+lid+"/"+cid;
+    $.getJSON(url, function (data) {
+        vdm.$set("myEqs", data);
+    });
 }

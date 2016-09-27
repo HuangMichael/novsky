@@ -20,63 +20,62 @@
 
 			<label for="applicant " class="col-md-1 control-label ">申请日期</label>
 			<div class="col-md-3 ">
-				<input class="Wdate form-control" id="applyDate" onLoad ="WdatePicker({maxDate:'%y-%M-%d'})" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
+				<input class="Wdate form-control" id="applyDate" onLoad="WdatePicker({maxDate:'%y-%M-%d'})" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
 			</div>
 		</div>
 	</fieldset>
 	<fieldset class="form-group" id="a">
 		<legend>设备信息</legend>
 		<div class="form-group">
-
 			<label class="col-md-1 control-label" for="accessoryName">设备位置</label>
 			<div class="col-md-5">
-				<select v-model="budgetBill.vequipments.id " class="form-control " id="locName " name="vequipments.locName" required style="width:80% " required>
-                                            					<template v-for="option in locs ">
-                                            						<option :value="option.id " v-if="option.locName==budgetBill.vequipments.locName " selected>
-                                            							{{option.locName }}
-                                            						</option>
-                                            						<option :value="option.id " v-else>
-                                            							{{option.locName }}
-                                            						</option>
-                                            					</template>
-                                            				</select>
+				<select v-model="budgetBill.equipments.locations.id" class="form-control " id="locName" name="locations.id" required style="width:100% " required onChange="changeLoc(this)">
+					<template v-for="option in locs ">
+						<option :value="option.id " v-if="option.id==budgetBill.equipments.locations.id" selected>
+							{{option.locName }}
+						</option>
+						<option :value="option.id " v-else>
+							{{option.locName }}
+						</option>
+					</template>
+				</select>
 			</div>
 			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
-            <div class="col-md-5 ">
-            				<select v-model="budgetBill.vequipments.id " class="form-control " id="vequipments_id " name="vequipments.id" required style="width:80% " required>
-                                                            					<template v-for="option in eqClasses ">
-                                                            						<option :value="option.id " v-if="option.cname==budgetBill.vequipments.eqClass " selected>
-                                                            							{{option.cpname }}{{option.cname }}
-                                                            						</option>
-                                                            						<option :value="option.id " v-else>
-                                                            							{{option.cpname }}{{option.cname }}
-                                                            						</option>
-                                                            					</template>
-                                                            				</select>
-            </div></div>
-            <div class="form-group">
-            <label class="col-md-1 control-label" for="accessoryName">设备名称</label>
-            			<div class="col-md-5">
-            				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
-            				<select v-model="budgetBill.vequipments.id " class="form-control " id="vequipments_id " name="vequipments.id" required style="width:80% " required>
-                            					<template v-for="option in myEqs ">
-                            						<option :value="option.id " v-if="option.id==budgetBill.vequipments.id " selected>
-                            							{{option.eqName }}
-                            						</option>
-                            						<option :value="option.id " v-else>
-                            							{{option.eqName }}
-                            						</option>
-                            					</template>
-                            				</select>
-            			</div>
+			<div class="col-md-5 ">
+				<select v-model="budgetBill.equipments.equipmentClassification.id " class="form-control " id="equipments_id " name="equipmentClassification.id" required style="width:100% " required  onChange="changeEqc(this)" >
+					<template v-for="option in eqClasses ">
+						<option :value="option.id " v-if="option.id==budgetBill.equipments.equipmentClassification.id " selected>
+							{{option.cname }}
+						</option>
+						<option :value="option.id " v-else>
+							{{option.cname }}
+						</option>
+					</template>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label" for="accessoryName">设备名称</label>
+			<div class="col-md-5">
+				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
+				<select v-model="budgetBill.equipments.id " class="form-control " id="vequipments_id " name="equipments.id" required style="width:100% " required>
+					<template v-for="option in myEqs ">
+						<option :value="option.id " v-if="option.id==budgetBill.equipments.id " selected>
+							{{option.eqCode }}-{{option.eqName }}
+						</option>
+						<option :value="option.id " v-else>
+							{{option.eqCode }}-{{option.eqName }}
+						</option>
+					</template>
+				</select>
+			</div>
 
+			<label class="col-md-1 control-label" for="accessoryName">设备编号</label>
+			<div class="col-md-5">
+				<input class="form-control" id="eqCode" type="text" name="equipments.eqCode" v-model="budgetBill.equipments.eqCode" />
 
-		 <label class="col-md-1 control-label" for="accessoryName">设备编号</label>
-                    			<div class="col-md-5">
-                    				<input class="form-control" id="id" type="text" name="vequipments.eqCode" v-model="budgetBill.vequipments.eqCode" />
-
-                    			</div>
-        		</div>
+			</div>
+		</div>
 
 	</fieldset>
 	<fieldset class="form-group" id="a">
@@ -114,9 +113,7 @@
 </form>
 
 <script>
-$(function(){
+	$(function() {
 
-
-});
-
+	});
 </script>

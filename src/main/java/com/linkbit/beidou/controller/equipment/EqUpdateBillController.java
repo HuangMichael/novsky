@@ -3,9 +3,7 @@ package com.linkbit.beidou.controller.equipment;
 
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.equipments.EqUpdateBill;
-import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
-import com.linkbit.beidou.domain.equipments.Vequipments;
+import com.linkbit.beidou.domain.equipments.*;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -70,9 +68,9 @@ public class EqUpdateBillController {
     @RequestMapping(value = "/create/{eid}", method = RequestMethod.GET)
     @ResponseBody
     public EqUpdateBill create(@PathVariable("eid") Long eid) {
-        Vequipments vequipments = equipmentAccountService.findOne(eid);
+        Equipments equipments = equipmentAccountService.findById(eid);
         EqUpdateBill eqUpdateBill = new EqUpdateBill();
-        eqUpdateBill.setVequipments(vequipments);
+        eqUpdateBill.setEquipments(equipments);
         return eqUpdateBill;
     }
 
@@ -134,4 +132,25 @@ public class EqUpdateBillController {
         return eqUpdateBillService.findAllIds();
     }
 
+
+    /**
+     * @param lid
+     * @return 根据位置id过滤对应的设备分类
+     */
+    @RequestMapping(value = "/findCByLocId/{lid}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<VeqClass> findEqClassesByLocationId(@PathVariable("lid") Long lid) {
+        return commonDataService.findEqClassesByLocationId(lid);
+    }
+
+
+    /**
+     * @param lid
+     * @return 根据位置和设备分类过滤设备
+     */
+    @RequestMapping(value = "/findEqBy/{lid}/{cid}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Vequipments> findEqClassesByLocationId(@PathVariable("lid") Long lid, @PathVariable("cid") Long cid) {
+        return commonDataService.findEqByLocIdAndEqcId(lid, cid);
+    }
 }

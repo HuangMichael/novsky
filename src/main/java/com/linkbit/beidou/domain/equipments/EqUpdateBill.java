@@ -1,5 +1,6 @@
 package com.linkbit.beidou.domain.equipments;
 
+import com.linkbit.beidou.domain.locations.Vlocations;
 import lombok.*;
 
 import javax.persistence.*;
@@ -51,8 +52,9 @@ public class EqUpdateBill {
     private String receiver; //接收人
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "vequipments_id", referencedColumnName = "id")
-    private Vequipments vequipments; //位置
+    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
+    private Equipments equipments; //位置
+
 
     @Column(length = 1)
     private String dateType; //数据分类 1为采购  2为设备更新
