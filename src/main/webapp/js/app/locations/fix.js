@@ -184,7 +184,7 @@ function saveFixWorkOrder() {
             });
         } else {
             showMessageBox("danger", "操作失败，请重试!");
-            return;
+
         }
 
 

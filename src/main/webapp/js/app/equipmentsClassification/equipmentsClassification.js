@@ -237,7 +237,7 @@ $("#confitmBtn").on("click", function () {
     var cid = getSelectedNodeId();
     if (!ids) {
         showMessageBox("danger", "请选择外委单位！");
-        return;
+
     } else {
         //加入
         $("#unitListModal").modal("hide");

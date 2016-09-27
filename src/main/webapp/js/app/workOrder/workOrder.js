@@ -16,7 +16,7 @@ function reload() {
 $(".modal").on("hide.bs.modal", function () {
 
     $("#contentDiv").load("/workOrder/list");
-})
+});
 
 var workOrderIdArray = "";
 $("#shareWorkOrder").on("click", function () {
@@ -134,13 +134,13 @@ $("[name='workOrderSel']:checkbox").on("click", function () {
         workOrderIdArray = workOrderIdArray.replace($(this).attr("data-woId") + ",", "");
     }
     console.log(workOrderIdArray);
-})
+});
 
 
 $('#search-workOrder').on('hide.bs.modal', function () {
     $("#contentDiv").load("/workOrder/list", function () {
     });
-})
+});
 
 $("#select1 dd").click(function () {
 
@@ -271,18 +271,18 @@ function initStation(lineId) {
 }
 $("#selectall1").on("click", function () {
     alert("all select");
-})
+});
 
 $("#selectall2").on("click", function () {
     alert("all select");
-})
+});
 
 
 var line_id, station_id = null;
 function addLine(id, desc) {
 
     $("#line" + id).siblings().removeClass("selected").addClass("selected");
-    $("#cell1").empty().html("<a onclick=remove(this,'l') style='background-color:#f60;height: 18px;margin-right: 8px;color:#fff'>" + desc + "</a>");
+    $("#cell1").empty().html("<a onclick=remove(this,'l') style='background-color:#f60;18px;margin-right: 8px;color:#fff'>" + desc + "</a>");
     $("#cell2").empty();
     $("select-all").removeClass();
     line_id = id;
@@ -291,7 +291,7 @@ function addLine(id, desc) {
 
 function addStation(id, desc) {
     $("#station" + id).siblings().removeClass("selected").addClass("selected");
-    $("#cell2").empty().html("<a onclick=remove(this,'s') style='background-color: #f60;height: 18px;margin-right: 8px;color:#fff'>" + desc + "</a>");
+    $("#cell2").empty().html("<a onclick=remove(this,'s') style='background-color: #f60;18px;margin-right: 8px;color:#fff'>" + desc + "</a>");
     station_id = id;
 }
 

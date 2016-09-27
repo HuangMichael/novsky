@@ -8,7 +8,7 @@
         '<li v-if="cur!=all"><a v-on:click="next(cur)">下一页</a></li>' +
         '<li><a>共<i>{{all}}</i>页</a></li>' +
         '</ul>' +
-        '</div>'
+        '</div>';
 
 
     var navBar = Vue.extend({
@@ -19,25 +19,25 @@
         },
         computed: {
             indexs: function () {
-                var left = 1
-                var right = this.all
-                var ar = []
+                var left = 1;
+                var right = this.all;
+                var ar = [];
                 if (this.all >= 11) {
                     if (this.cur > 5 && this.cur < this.all - 4) {
-                        left = this.cur - 5
+                        left = this.cur - 5;
                         right = this.cur + 4
                     } else {
                         if (this.cur <= 5) {
-                            left = 1
+                            left = 1;
                             right = 10
                         } else {
-                            right = this.all
+                            right = this.all;
                             left = this.all - 9
                         }
                     }
                 }
                 while (left <= right) {
-                    ar.push(left)
+                    ar.push(left);
                     left++
                 }
                 return ar
@@ -46,8 +46,8 @@
         methods: {
             btnClick: function (data) {
                 if (data != this.cur) {
-                    this.cur = data
-                    this.$dispatch('btn-click', data)
+                    this.cur = data;
+                    this.$dispatch('btn-click', data);
                     console.log("当前页是------------------- " + data);
 
                 }
@@ -66,9 +66,9 @@
         }
 
 
-    })
+    });
 
     window.Vnav = navBar
 
 
-})()
+})();

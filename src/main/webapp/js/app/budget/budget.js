@@ -274,7 +274,7 @@ function getBudgetBillById(bid) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
+
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
@@ -288,7 +288,7 @@ function backwards() {
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
+
     } else {
         pointer = pointer + 1;
         var budgetBill = getBudgetBillById(selectedIds[pointer]);

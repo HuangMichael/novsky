@@ -112,7 +112,7 @@ $(function () {
                 personId: personId,
                 locationId: locationId,
                 status: status
-            }
+            };
             url = "user/update";
         } else {
             url = "user/createUser";
@@ -243,7 +243,7 @@ function setAllInSelectedList(users) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
+
     } else {
         //  pointer = pointer - 1;
         //判断当前指针位置
@@ -259,7 +259,7 @@ function backwards() {
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
+
     } else {
         var user = getUserByIdInUsers(selectedIds[++pointer]);
         vdm.user = user;
@@ -279,7 +279,7 @@ function edit() {
         setFormReadStatus("#detailForm", false, ["userName"]);
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
+
     }
 }
 
@@ -317,7 +317,7 @@ function reload(url) {
     var dataList = [];
     $.getJSON(url, function (data) {
         dataList = data;
-    })
+    });
     return dataList;
 }
 /**

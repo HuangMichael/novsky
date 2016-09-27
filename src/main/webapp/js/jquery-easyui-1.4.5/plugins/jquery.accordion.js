@@ -39,9 +39,9 @@ _d+=p.panel("panel").outerHeight()-_7*h.length;
 }
 }
 return _d;
-};
-};
-function _f(_10,_11,_12,all){
+}
+}
+    function _f(_10,_11,_12,all){
 var _13=$.data(_10,"accordion").panels;
 var pp=[];
 for(var i=0;i<_13.length;i++){
@@ -61,18 +61,18 @@ return all?pp:(pp.length?pp[0]:null);
 }else{
 return -1;
 }
-};
-function _14(_15){
+}
+    function _14(_15){
 return _f(_15,"collapsed",false,true);
-};
-function _16(_17){
+}
+    function _16(_17){
 var pp=_14(_17);
 return pp.length?pp[0]:null;
-};
-function _18(_19,_1a){
+}
+    function _18(_19,_1a){
 return _f(_19,null,_1a);
-};
-function _1b(_1c,_1d){
+}
+    function _1b(_1c,_1d){
 var _1e=$.data(_1c,"accordion").panels;
 if(typeof _1d=="number"){
 if(_1d<0||_1d>=_1e.length){
@@ -82,8 +82,8 @@ return _1e[_1d];
 }
 }
 return _f(_1c,"title",_1d);
-};
-function _1f(_20){
+}
+    function _1f(_20){
 var _21=$.data(_20,"accordion").options;
 var cc=$(_20);
 if(_21.border){
@@ -91,8 +91,8 @@ cc.removeClass("accordion-noborder");
 }else{
 cc.addClass("accordion-noborder");
 }
-};
-function _22(_23){
+}
+    function _22(_23){
 var _24=$.data(_23,"accordion");
 var cc=$(_23);
 cc.addClass("accordion");
@@ -109,8 +109,8 @@ _1(_23);
 }
 return false;
 });
-};
-function _27(_28,pp,_29){
+}
+    function _27(_28,pp,_29){
 var _2a=$.data(_28,"accordion").options;
 pp.panel($.extend({},{collapsible:true,minimizable:false,maximizable:false,closable:false,doSize:false,collapsed:true,headerCls:"accordion-header",bodyCls:"accordion-body"},_29,{onBeforeExpand:function(){
 if(_29.onBeforeExpand){
@@ -172,9 +172,9 @@ _32(_28,_31);
 _33(_28,_31);
 }
 }
-};
-};
-function _32(_34,_35){
+}
+}
+    function _32(_34,_35){
 var p=_1b(_34,_35);
 if(!p){
 return;
@@ -182,8 +182,8 @@ return;
 _36(_34);
 var _37=$.data(_34,"accordion").options;
 p.panel("expand",_37.animate);
-};
-function _33(_38,_39){
+}
+    function _33(_38,_39){
 var p=_1b(_38,_39);
 if(!p){
 return;
@@ -191,8 +191,8 @@ return;
 _36(_38);
 var _3a=$.data(_38,"accordion").options;
 p.panel("collapse",_3a.animate);
-};
-function _3b(_3c){
+}
+    function _3b(_3c){
 var _3d=$.data(_3c,"accordion").options;
 var p=_f(_3c,"selected",true);
 if(p){
@@ -205,15 +205,15 @@ var _40=_3d.animate;
 _3d.animate=false;
 _32(_3c,_3f);
 _3d.animate=_40;
-};
-};
-function _36(_41){
+}
+}
+    function _36(_41){
 var _42=$.data(_41,"accordion").panels;
 for(var i=0;i<_42.length;i++){
 _42[i].stop(true,true);
 }
-};
-function add(_43,_44){
+}
+    function add(_43,_44){
 var _45=$.data(_43,"accordion");
 var _46=_45.options;
 var _47=_45.panels;
@@ -229,8 +229,8 @@ _46.onAdd.call(_43,_44.title,_47.length-1);
 if(_44.selected){
 _32(_43,_47.length-1);
 }
-};
-function _48(_49,_4a){
+}
+    function _48(_49,_4a){
 var _4b=$.data(_49,"accordion");
 var _4c=_4b.options;
 var _4d=_4b.panels;
@@ -254,8 +254,8 @@ _32(_49,0);
 }
 }
 _4c.onRemove.call(_49,_4f,_50);
-};
-$.fn.accordion=function(_52,_53){
+}
+    $.fn.accordion=function(_52,_53){
 if(typeof _52=="string"){
 return $.fn.accordion.methods[_52](this,_53);
 }

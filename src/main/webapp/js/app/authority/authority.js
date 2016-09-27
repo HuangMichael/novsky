@@ -21,7 +21,7 @@ var setting = {
     callback: {
         onCheck: onCheck
     }
-}
+};
 var zNodes = [];
 $(document).ready(function () {
     var url = "/resource/findApps";
@@ -85,7 +85,7 @@ function grant() {
     var data = {
         roleId: roleId,
         resourceIds: resourceIds
-    }
+    };
 
 
     $.post(url, data, function (value) {

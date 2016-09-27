@@ -24,8 +24,8 @@ var jsPDF = function() {
 	var page = 0;
 	var objectNumber = 2; // 'n' Current object number
 	var state = 0; // Current document state
-	var pages = new Array();
-	var offsets = new Array(); // List of offsets
+	var pages = [];
+	var offsets = []; // List of offsets
 	var lineWidth = 0.200025; // 2mm
 	var pageHeight;
 	var k; // Scale factor
@@ -52,11 +52,11 @@ var jsPDF = function() {
 		objectNumber++;
 		offsets[objectNumber] = buffer.length;
 		out(objectNumber + ' 0 obj');
-	}
+	};
 
 	var putHeader = function() {
 		out('%PDF-' + pdfVersion);
-	}
+	};
 
 	var putPages = function() {
 
@@ -91,13 +91,13 @@ var jsPDF = function() {
 		out(sprintf('/MediaBox [0 0 %.2f %.2f]', wPt, hPt));
 		out('>>');
 		out('endobj');
-	}
+	};
 
 	var putStream = function(str) {
 		out('stream');
 		out(str);
 		out('endstream');
-	}
+	};
 
 	var putResources = function() {
 		putFonts();
@@ -110,7 +110,7 @@ var jsPDF = function() {
 		putResourceDictionary();
 		out('>>');
 		out('endobj');
-	}
+	};
 
 	var putFonts = function() {
 		// TODO: Only supports core font hardcoded to Helvetica
@@ -123,11 +123,11 @@ var jsPDF = function() {
 		out('/Encoding /WinAnsiEncoding');
 		out('>>');
 		out('endobj');
-	}
+	};
 
 	var putImages = function() {
 		// TODO
-	}
+	};
 
 	var putResourceDictionary = function() {
 		out('/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]');
@@ -139,12 +139,12 @@ var jsPDF = function() {
 		out('/XObject <<');
 		putXobjectDict();
 		out('>>');
-	}
+	};
 
 	var putXobjectDict = function() {
 		// TODO
 		// Loop through images
-	}
+	};
 
 	var putInfo = function() {
 		out('/Producer (jsPDF ' + version + ')');
@@ -171,7 +171,7 @@ var jsPDF = function() {
 		var minute = created.getMinutes();
 		var second = created.getSeconds();
 		out('/CreationDate (D:' + sprintf('%02d%02d%02d%02d%02d%02d', year, month, day, hour, minute, second) + ')');
-	}
+	};
 
 	var putCatalog = function() {
 		out('/Type /Catalog');
@@ -179,7 +179,7 @@ var jsPDF = function() {
 		// TODO: Add zoom and layout modes
 		out('/OpenAction [3 0 R /FitH null]');
 		out('/PageLayout /OneColumn');
-	}
+	};
 
 	function putTrailer() {
 		out('/Size ' + (objectNumber + 1));
@@ -224,7 +224,7 @@ var jsPDF = function() {
 		out(o);
 		out('%%EOF');
 		state = 3;
-	}
+	};
 
 	var beginPage = function() {
 		page++;
@@ -235,7 +235,7 @@ var jsPDF = function() {
 		// TODO: Hardcoded at A4 and portrait
 		pageHeight = pageFormats['a4'][1] / k;
 		pageWidth = pageFormats['a4'][0] / k;
-	}
+	};
 
 	var out = function(string) {
 		if(state == 2) {
@@ -243,7 +243,7 @@ var jsPDF = function() {
 		} else {
 			buffer += string + '\n';
 		}
-	}
+	};
 
 	var _addPage = function() {
 		beginPage();
@@ -254,7 +254,7 @@ var jsPDF = function() {
 		// 16 is the font size
 		pageFontSize = fontSize;
 		out('BT /F1 ' + parseInt(fontSize) + '.00 Tf ET');
-	}
+	};
 
 	// Add the first page automatically
 	_addPage();
@@ -262,7 +262,7 @@ var jsPDF = function() {
 	// Escape text
 	var pdfEscape = function(text) {
 		return text.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
-	}
+	};
 
 	return {
 		addPage: function() {

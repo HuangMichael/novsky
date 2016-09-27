@@ -135,9 +135,7 @@ function getSelectedNode() {
  */
 function showMessageBox(type, message) {
     $.bootstrapGrowl(message, {type: type, align: "right", stackup_spacing: 30})
-};
-
-
+}
 /**
  *
  * @param type info  danger
@@ -146,9 +144,7 @@ function showMessageBox(type, message) {
  */
 function showMessageBoxCenter(type, position, message) {
     $.bootstrapGrowl(message, {type: type, align: position, stackup_spacing: 30})
-};
-
-
+}
 /*
 Array.prototype.indexOf = function (val) {
     for (var i = 0; i < this.length; i++) {
@@ -182,19 +178,19 @@ Array.prototype.removeButThis = function (val) {
         }
 
     }
-}
+};
 
 Array.prototype.clear = function () {
     this.splice(0, this.length);
     console.log(this); // 输出 []，空数组，即被清空了
-}
+};
 
 
 var replaceNull = function (obj) {
 
     var result = "";
     return result = (!obj) ? "" : obj;
-}
+};
 
 
 /**
@@ -222,6 +218,6 @@ Array.prototype.unique = function () {
         }
     }
     return r;
-}
+};
 
 

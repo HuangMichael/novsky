@@ -71,7 +71,7 @@ var validationSettings = {
             }
         }
     }
-}
+};
 
 
 $(function () {
@@ -151,7 +151,7 @@ function backwards() {
     console.log("上一条");
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
+
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
@@ -164,7 +164,7 @@ function forwards() {
     console.log("下一条");
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
+
     } else {
         pointer = pointer + 1;
         var person = getPersonById(selectedIds[pointer]);
@@ -303,7 +303,7 @@ function edit() {
         setFormReadStatus("#detailForm", false, ['personNo']);
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
+
     }
 }
 
@@ -325,7 +325,7 @@ function save() {
         email: email,
         birthDate: birthDate,
         status: status
-    }
+    };
     if (personId) {
         url = "person/update";
     } else {

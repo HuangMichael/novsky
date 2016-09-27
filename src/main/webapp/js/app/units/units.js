@@ -119,7 +119,7 @@ $(function () {
             previous: function (event) {
                 if (pointer <= 0) {
                     showMessageBoxCenter("danger", "center", "当前记录是第一条");
-                    return;
+
                 } else {
                     pointer = pointer - 1;
                     //判断当前指针位置
@@ -134,11 +134,11 @@ $(function () {
             next: function (event) {
                 if (pointer >= selectedIds.length - 1) {
                     showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-                    return;
+
                 } else {
                     pointer = pointer + 1;
                     console.log("unit----------------------------" + JSON.stringify(unit));
-                    unit = getUnitByIdRomote(selectedIds[pointer])
+                    unit = getUnitByIdRomote(selectedIds[pointer]);
                     this.$set("unit", unit);
                     //loadFixHistoryByEid(selectedIds[pointer]);
                 }
@@ -147,7 +147,7 @@ $(function () {
                 var unitNo = unitDetail.$get("unit.unitNo");
                 if (checkUnitNo(unitNo)) {
                     showMessageBoxCenter("danger", "center", "单位编号不能重复");
-                    return;
+
                 }
             }
         }
@@ -260,7 +260,7 @@ function edit() {
 
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
+
     }
 }
 
@@ -291,7 +291,7 @@ function deleteUnit() {
             });
         } else {
             showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-            return;
+
         }
     }
 }
@@ -417,7 +417,7 @@ function checkUnitNo(unitCode) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
+
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
@@ -430,10 +430,10 @@ function backwards() {
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
+
     } else {
         pointer = pointer + 1;
-        var e = getUnitByIdRomote(selectedIds[pointer])
+        var e = getUnitByIdRomote(selectedIds[pointer]);
         unitDetail.$set("unit", e);
         //loadFixHistoryByEid(selectedIds[pointer]);
     }

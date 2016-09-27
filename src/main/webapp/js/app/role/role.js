@@ -119,7 +119,7 @@ function setAllInSelectedList(roles) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
+
     } else {
         //  pointer = pointer - 1;
         //判断当前指针位置
@@ -136,7 +136,7 @@ function backwards() {
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
+
     } else {
         var role = getRoleByIdInRoles(selectedIds[++pointer]);
         vdm.role = role;
@@ -156,7 +156,7 @@ function edit() {
         setFormReadStatus("#detailForm", false, null);
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
+
     }
 }
 
@@ -346,7 +346,7 @@ function loadUsers(roleId) {
     var html = "";
     $.getJSON(url, function (data) {
         for (var x in data) {
-            var id = data[x]['id']
+            var id = data[x]['id'];
             if (id) {
                 html += '<tr class="gradeX" id="tr' + id + '">';
                 html += '<td>' + Number(Number(x) + Number(1)) + '</td>';

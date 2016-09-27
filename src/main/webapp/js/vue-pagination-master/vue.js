@@ -73,8 +73,8 @@
         /* 0 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var extend = _.extend
+            var _ = __webpack_require__(1);
+            var extend = _.extend;
 
             /**
              * The exposed Vue constructor.
@@ -98,7 +98,7 @@
              * Mixin global API
              */
 
-            extend(Vue, __webpack_require__(13))
+            extend(Vue, __webpack_require__(13));
 
             /**
              * Vue and every constructor that extends Vue has an
@@ -117,13 +117,13 @@
                 transitions: {},
                 components: {},
                 partials: {}
-            }
+            };
 
             /**
              * Build up the prototype
              */
 
-            var p = Vue.prototype
+            var p = Vue.prototype;
 
             /**
              * $data has a setter which does a bunch of
@@ -139,29 +139,29 @@
                         this._setData(newData)
                     }
                 }
-            })
+            });
 
             /**
              * Mixin internal instance methods
              */
 
-            extend(p, __webpack_require__(55))
-            extend(p, __webpack_require__(56))
-            extend(p, __webpack_require__(57))
-            extend(p, __webpack_require__(60))
-            extend(p, __webpack_require__(62))
+            extend(p, __webpack_require__(55));
+            extend(p, __webpack_require__(56));
+            extend(p, __webpack_require__(57));
+            extend(p, __webpack_require__(60));
+            extend(p, __webpack_require__(62));
 
             /**
              * Mixin public API methods
              */
 
-            extend(p, __webpack_require__(63))
-            extend(p, __webpack_require__(64))
-            extend(p, __webpack_require__(65))
-            extend(p, __webpack_require__(66))
+            extend(p, __webpack_require__(63));
+            extend(p, __webpack_require__(64));
+            extend(p, __webpack_require__(65));
+            extend(p, __webpack_require__(66));
 
-            Vue.version = '1.0.3'
-            module.exports = _.Vue = Vue
+            Vue.version = '1.0.3';
+            module.exports = _.Vue = Vue;
 
             /* istanbul ignore if */
             if (true) {
@@ -176,15 +176,15 @@
         /* 1 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var lang = __webpack_require__(2)
-            var extend = lang.extend
+            var lang = __webpack_require__(2);
+            var extend = lang.extend;
 
-            extend(exports, lang)
-            extend(exports, __webpack_require__(3))
-            extend(exports, __webpack_require__(4))
-            extend(exports, __webpack_require__(10))
-            extend(exports, __webpack_require__(11))
-            extend(exports, __webpack_require__(12))
+            extend(exports, lang);
+            extend(exports, __webpack_require__(3));
+            extend(exports, __webpack_require__(4));
+            extend(exports, __webpack_require__(10));
+            extend(exports, __webpack_require__(11));
+            extend(exports, __webpack_require__(12));
 
 
             /***/
@@ -205,29 +205,29 @@
 
             exports.set = function set(obj, key, val) {
                 if (obj.hasOwnProperty(key)) {
-                    obj[key] = val
+                    obj[key] = val;
                     return
                 }
                 if (obj._isVue) {
-                    set(obj._data, key, val)
+                    set(obj._data, key, val);
                     return
                 }
-                var ob = obj.__ob__
+                var ob = obj.__ob__;
                 if (!ob) {
-                    obj[key] = val
+                    obj[key] = val;
                     return
                 }
-                ob.convert(key, val)
-                ob.dep.notify()
+                ob.convert(key, val);
+                ob.dep.notify();
                 if (ob.vms) {
-                    var i = ob.vms.length
+                    var i = ob.vms.length;
                     while (i--) {
-                        var vm = ob.vms[i]
-                        vm._proxy(key)
+                        var vm = ob.vms[i];
+                        vm._proxy(key);
                         vm._digest()
                     }
                 }
-            }
+            };
 
             /**
              * Delete a property and trigger change if necessary.
@@ -240,21 +240,21 @@
                 if (!obj.hasOwnProperty(key)) {
                     return
                 }
-                delete obj[key]
-                var ob = obj.__ob__
+                delete obj[key];
+                var ob = obj.__ob__;
                 if (!ob) {
                     return
                 }
-                ob.dep.notify()
+                ob.dep.notify();
                 if (ob.vms) {
-                    var i = ob.vms.length
+                    var i = ob.vms.length;
                     while (i--) {
-                        var vm = ob.vms[i]
-                        vm._unproxy(key)
+                        var vm = ob.vms[i];
+                        vm._unproxy(key);
                         vm._digest()
                     }
                 }
-            }
+            };
 
             /**
              * Check if an expression is a literal value.
@@ -263,10 +263,10 @@
              * @return {Boolean}
              */
 
-            var literalValueRE = /^\s?(true|false|[\d\.]+|'[^']*'|"[^"]*")\s?$/
+            var literalValueRE = /^\s?(true|false|[\d\.]+|'[^']*'|"[^"]*")\s?$/;
             exports.isLiteral = function (exp) {
                 return literalValueRE.test(exp)
-            }
+            };
 
             /**
              * Check if a string starts with $ or _
@@ -276,9 +276,9 @@
              */
 
             exports.isReserved = function (str) {
-                var c = (str + '').charCodeAt(0)
+                var c = (str + '').charCodeAt(0);
                 return c === 0x24 || c === 0x5F
-            }
+            };
 
             /**
              * Guard text output, make sure undefined outputs
@@ -292,7 +292,7 @@
                 return value == null
                     ? ''
                     : value.toString()
-            }
+            };
 
             /**
              * Check and convert possible numeric strings to numbers
@@ -306,12 +306,12 @@
                 if (typeof value !== 'string') {
                     return value
                 } else {
-                    var parsed = Number(value)
+                    var parsed = Number(value);
                     return isNaN(parsed)
                         ? value
                         : parsed
                 }
-            }
+            };
 
             /**
              * Convert string boolean literals into real booleans.
@@ -326,7 +326,7 @@
                     : value === 'false'
                     ? false
                     : value
-            }
+            };
 
             /**
              * Strip quotes from a string
@@ -336,12 +336,12 @@
              */
 
             exports.stripQuotes = function (str) {
-                var a = str.charCodeAt(0)
-                var b = str.charCodeAt(str.length - 1)
+                var a = str.charCodeAt(0);
+                var b = str.charCodeAt(str.length - 1);
                 return a === b && (a === 0x22 || a === 0x27)
                     ? str.slice(1, -1)
                     : str
-            }
+            };
 
             /**
              * Camelize a hyphen-delmited string.
@@ -350,10 +350,10 @@
              * @return {String}
              */
 
-            var camelizeRE = /-(\w)/g
+            var camelizeRE = /-(\w)/g;
             exports.camelize = function (str) {
                 return str.replace(camelizeRE, toUpper)
-            }
+            };
 
             function toUpper(_, c) {
                 return c ? c.toUpperCase() : ''
@@ -366,12 +366,12 @@
              * @return {String}
              */
 
-            var hyphenateRE = /([a-z\d])([A-Z])/g
+            var hyphenateRE = /([a-z\d])([A-Z])/g;
             exports.hyphenate = function (str) {
                 return str
                     .replace(hyphenateRE, '$1-$2')
                     .toLowerCase()
-            }
+            };
 
             /**
              * Converts hyphen/underscore/slash delimitered names into
@@ -385,10 +385,10 @@
              * @return {String}
              */
 
-            var classifyRE = /(?:^|[-_\/])(\w)/g
+            var classifyRE = /(?:^|[-_\/])(\w)/g;
             exports.classify = function (str) {
                 return str.replace(classifyRE, toUpper)
-            }
+            };
 
             /**
              * Simple bind, faster than native
@@ -400,14 +400,14 @@
 
             exports.bind = function (fn, ctx) {
                 return function (a) {
-                    var l = arguments.length
+                    var l = arguments.length;
                     return l
                         ? l > 1
                         ? fn.apply(ctx, arguments)
                         : fn.call(ctx, a)
                         : fn.call(ctx)
                 }
-            }
+            };
 
             /**
              * Convert an Array-like object to a real Array.
@@ -418,14 +418,14 @@
              */
 
             exports.toArray = function (list, start) {
-                start = start || 0
-                var i = list.length - start
-                var ret = new Array(i)
+                start = start || 0;
+                var i = list.length - start;
+                var ret = new Array(i);
                 while (i--) {
                     ret[i] = list[i + start]
                 }
                 return ret
-            }
+            };
 
             /**
              * Mix properties into target object.
@@ -435,13 +435,13 @@
              */
 
             exports.extend = function (to, from) {
-                var keys = Object.keys(from)
-                var i = keys.length
+                var keys = Object.keys(from);
+                var i = keys.length;
                 while (i--) {
                     to[keys[i]] = from[keys[i]]
                 }
                 return to
-            }
+            };
 
             /**
              * Quick object check - this is primarily used to tell
@@ -454,7 +454,7 @@
 
             exports.isObject = function (obj) {
                 return obj !== null && typeof obj === 'object'
-            }
+            };
 
             /**
              * Strict object type check. Only returns true
@@ -464,11 +464,11 @@
              * @return {Boolean}
              */
 
-            var toString = Object.prototype.toString
-            var OBJECT_STRING = '[object Object]'
+            var toString = Object.prototype.toString;
+            var OBJECT_STRING = '[object Object]';
             exports.isPlainObject = function (obj) {
                 return toString.call(obj) === OBJECT_STRING
-            }
+            };
 
             /**
              * Array type check.
@@ -477,7 +477,7 @@
              * @return {Boolean}
              */
 
-            exports.isArray = Array.isArray
+            exports.isArray = Array.isArray;
 
             /**
              * Define a non-enumerable property
@@ -495,7 +495,7 @@
                     writable: true,
                     configurable: true
                 })
-            }
+            };
 
             /**
              * Debounce a function so it only gets called after the
@@ -507,27 +507,27 @@
              */
 
             exports.debounce = function (func, wait) {
-                var timeout, args, context, timestamp, result
+                var timeout, args, context, timestamp, result;
                 var later = function () {
-                    var last = Date.now() - timestamp
+                    var last = Date.now() - timestamp;
                     if (last < wait && last >= 0) {
                         timeout = setTimeout(later, wait - last)
                     } else {
-                        timeout = null
-                        result = func.apply(context, args)
+                        timeout = null;
+                        result = func.apply(context, args);
                         if (!timeout) context = args = null
                     }
-                }
+                };
                 return function () {
-                    context = this
-                    args = arguments
-                    timestamp = Date.now()
+                    context = this;
+                    args = arguments;
+                    timestamp = Date.now();
                     if (!timeout) {
                         timeout = setTimeout(later, wait)
                     }
                     return result
                 }
-            }
+            };
 
             /**
              * Manual indexOf because it's slightly faster than
@@ -538,12 +538,12 @@
              */
 
             exports.indexOf = function (arr, obj) {
-                var i = arr.length
+                var i = arr.length;
                 while (i--) {
                     if (arr[i] === obj) return i
                 }
                 return -1
-            }
+            };
 
             /**
              * Make a cancellable version of an async callback.
@@ -557,12 +557,12 @@
                     if (!cb.cancelled) {
                         return fn.apply(this, arguments)
                     }
-                }
+                };
                 cb.cancel = function () {
                     cb.cancelled = true
-                }
+                };
                 return cb
-            }
+            };
 
             /**
              * Check if two values are loosely equal - that is,
@@ -579,9 +579,9 @@
                         exports.isObject(a) && exports.isObject(b)
                             ? JSON.stringify(a) === JSON.stringify(b)
                             : false
-                    )
+                    );
                 /* eslint-enable eqeqeq */
-            }
+            };
 
 
             /***/
@@ -590,38 +590,38 @@
         /***/ function (module, exports) {
 
             // can we use __proto__?
-            exports.hasProto = '__proto__' in {}
+            exports.hasProto = '__proto__' in {};
 
             // Browser environment sniffing
             var inBrowser = exports.inBrowser =
                 typeof window !== 'undefined' &&
-                Object.prototype.toString.call(window) !== '[object Object]'
+                Object.prototype.toString.call(window) !== '[object Object]';
 
             exports.isIE9 =
                 inBrowser &&
-                navigator.userAgent.toLowerCase().indexOf('msie 9.0') > 0
+                navigator.userAgent.toLowerCase().indexOf('msie 9.0') > 0;
 
             exports.isAndroid =
                 inBrowser &&
-                navigator.userAgent.toLowerCase().indexOf('android') > 0
+                navigator.userAgent.toLowerCase().indexOf('android') > 0;
 
             // Transition property/event sniffing
             if (inBrowser && !exports.isIE9) {
                 var isWebkitTrans =
                     window.ontransitionend === undefined &&
-                    window.onwebkittransitionend !== undefined
+                    window.onwebkittransitionend !== undefined;
                 var isWebkitAnim =
                     window.onanimationend === undefined &&
-                    window.onwebkitanimationend !== undefined
+                    window.onwebkitanimationend !== undefined;
                 exports.transitionProp = isWebkitTrans
                     ? 'WebkitTransition'
-                    : 'transition'
+                    : 'transition';
                 exports.transitionEndEvent = isWebkitTrans
                     ? 'webkitTransitionEnd'
-                    : 'transitionend'
+                    : 'transitionend';
                 exports.animationProp = isWebkitAnim
                     ? 'WebkitAnimation'
-                    : 'animation'
+                    : 'animation';
                 exports.animationEndEvent = isWebkitAnim
                     ? 'webkitAnimationEnd'
                     : 'animationend'
@@ -638,14 +638,14 @@
              */
 
             exports.nextTick = (function () {
-                var callbacks = []
-                var pending = false
-                var timerFunc
+                var callbacks = [];
+                var pending = false;
+                var timerFunc;
 
                 function nextTickHandler() {
-                    pending = false
-                    var copies = callbacks.slice(0)
-                    callbacks = []
+                    pending = false;
+                    var copies = callbacks.slice(0);
+                    callbacks = [];
                     for (var i = 0; i < copies.length; i++) {
                         copies[i]()
                     }
@@ -653,14 +653,14 @@
 
                 /* istanbul ignore if */
                 if (typeof MutationObserver !== 'undefined') {
-                    var counter = 1
-                    var observer = new MutationObserver(nextTickHandler)
-                    var textNode = document.createTextNode(counter)
+                    var counter = 1;
+                    var observer = new MutationObserver(nextTickHandler);
+                    var textNode = document.createTextNode(counter);
                     observer.observe(textNode, {
                         characterData: true
-                    })
+                    });
                     timerFunc = function () {
-                        counter = (counter + 1) % 2
+                        counter = (counter + 1) % 2;
                         textNode.data = counter
                     }
                 } else {
@@ -671,13 +671,13 @@
                         ? function () {
                         cb.call(ctx)
                     }
-                        : cb
-                    callbacks.push(func)
-                    if (pending) return
-                    pending = true
+                        : cb;
+                    callbacks.push(func);
+                    if (pending) return;
+                    pending = true;
                     timerFunc(nextTickHandler, 0)
                 }
-            })()
+            })();
 
 
             /***/
@@ -685,9 +685,9 @@
         /* 4 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var config = __webpack_require__(5)
-            var transition = __webpack_require__(9)
+            var _ = __webpack_require__(1);
+            var config = __webpack_require__(5);
+            var transition = __webpack_require__(9);
 
             /**
              * Query an element selector if it's not an element already.
@@ -698,8 +698,8 @@
 
             exports.query = function (el) {
                 if (typeof el === 'string') {
-                    var selector = el
-                    el = document.querySelector(el)
+                    var selector = el;
+                    el = document.querySelector(el);
                     if (!el) {
                         ("development") !== 'production' && _.warn(
                             'Cannot find element: ' + selector
@@ -707,7 +707,7 @@
                     }
                 }
                 return el
-            }
+            };
 
             /**
              * Check if a node is in the document.
@@ -722,11 +722,11 @@
              */
 
             exports.inDoc = function (node) {
-                var doc = document.documentElement
-                var parent = node && node.parentNode
+                var doc = document.documentElement;
+                var parent = node && node.parentNode;
                 return doc === node ||
                     doc === parent || !!(parent && parent.nodeType === 1 && (doc.contains(parent)))
-            }
+            };
 
             /**
              * Get and remove an attribute from a node.
@@ -736,12 +736,12 @@
              */
 
             exports.attr = function (node, attr) {
-                var val = node.getAttribute(attr)
+                var val = node.getAttribute(attr);
                 if (val !== null) {
                     node.removeAttribute(attr)
                 }
                 return val
-            }
+            };
 
             /**
              * Get an attribute with colon or v-bind: prefix.
@@ -752,12 +752,12 @@
              */
 
             exports.getBindAttr = function (node, name) {
-                var val = exports.attr(node, ':' + name)
+                var val = exports.attr(node, ':' + name);
                 if (val === null) {
                     val = exports.attr(node, 'v-bind:' + name)
                 }
                 return val
-            }
+            };
 
             /**
              * Insert el before target
@@ -768,7 +768,7 @@
 
             exports.before = function (el, target) {
                 target.parentNode.insertBefore(el, target)
-            }
+            };
 
             /**
              * Insert el after target
@@ -783,7 +783,7 @@
                 } else {
                     target.parentNode.appendChild(el)
                 }
-            }
+            };
 
             /**
              * Remove el from DOM
@@ -793,7 +793,7 @@
 
             exports.remove = function (el) {
                 el.parentNode.removeChild(el)
-            }
+            };
 
             /**
              * Prepend el to target
@@ -808,7 +808,7 @@
                 } else {
                     target.appendChild(el)
                 }
-            }
+            };
 
             /**
              * Replace target with el
@@ -818,11 +818,11 @@
              */
 
             exports.replace = function (target, el) {
-                var parent = target.parentNode
+                var parent = target.parentNode;
                 if (parent) {
                     parent.replaceChild(el, target)
                 }
-            }
+            };
 
             /**
              * Add event listener shorthand.
@@ -834,7 +834,7 @@
 
             exports.on = function (el, event, cb) {
                 el.addEventListener(event, cb)
-            }
+            };
 
             /**
              * Remove event listener shorthand.
@@ -846,7 +846,7 @@
 
             exports.off = function (el, event, cb) {
                 el.removeEventListener(event, cb)
-            }
+            };
 
             /**
              * Add class with compatibility for IE & SVG
@@ -859,12 +859,12 @@
                 if (el.classList) {
                     el.classList.add(cls)
                 } else {
-                    var cur = ' ' + (el.getAttribute('class') || '') + ' '
+                    var cur = ' ' + (el.getAttribute('class') || '') + ' ';
                     if (cur.indexOf(' ' + cls + ' ') < 0) {
                         el.setAttribute('class', (cur + cls).trim())
                     }
                 }
-            }
+            };
 
             /**
              * Remove class with compatibility for IE & SVG
@@ -877,8 +877,8 @@
                 if (el.classList) {
                     el.classList.remove(cls)
                 } else {
-                    var cur = ' ' + (el.getAttribute('class') || '') + ' '
-                    var tar = ' ' + cls + ' '
+                    var cur = ' ' + (el.getAttribute('class') || '') + ' ';
+                    var tar = ' ' + cls + ' ';
                     while (cur.indexOf(tar) >= 0) {
                         cur = cur.replace(tar, ' ')
                     }
@@ -887,7 +887,7 @@
                 if (!el.className) {
                     el.removeAttribute('class')
                 }
-            }
+            };
 
             /**
              * Extract raw content inside an element into a temporary
@@ -899,8 +899,8 @@
              */
 
             exports.extractContent = function (el, asFragment) {
-                var child
-                var rawContent
+                var child;
+                var rawContent;
                 /* istanbul ignore if */
                 if (
                     exports.isTemplate(el) &&
@@ -909,10 +909,10 @@
                     el = el.content
                 }
                 if (el.hasChildNodes()) {
-                    exports.trimNode(el)
+                    exports.trimNode(el);
                     rawContent = asFragment
                         ? document.createDocumentFragment()
-                        : document.createElement('div')
+                        : document.createElement('div');
                     /* eslint-disable no-cond-assign */
                     while (child = el.firstChild) {
                         /* eslint-enable no-cond-assign */
@@ -920,7 +920,7 @@
                     }
                 }
                 return rawContent
-            }
+            };
 
             /**
              * Trim possible empty head/tail textNodes inside a parent.
@@ -929,9 +929,9 @@
              */
 
             exports.trimNode = function (node) {
-                trim(node, node.firstChild)
+                trim(node, node.firstChild);
                 trim(node, node.lastChild)
-            }
+            };
 
             function trim(parent, node) {
                 if (node && node.nodeType === 3 && !node.data.trim()) {
@@ -950,7 +950,7 @@
             exports.isTemplate = function (el) {
                 return el.tagName &&
                     el.tagName.toLowerCase() === 'template'
-            }
+            };
 
             /**
              * Create an "anchor" for performing dom insertion/removals.
@@ -974,7 +974,7 @@
                 return config.debug
                     ? document.createComment(content)
                     : document.createTextNode(persist ? ' ' : '')
-            }
+            };
 
             /**
              * Find a component ref attribute that starts with $.
@@ -983,19 +983,19 @@
              * @return {String|undefined}
              */
 
-            var refRE = /^v-ref:/
+            var refRE = /^v-ref:/;
             exports.findRef = function (node) {
                 if (node.hasAttributes()) {
-                    var attrs = node.attributes
+                    var attrs = node.attributes;
                     for (var i = 0, l = attrs.length; i < l; i++) {
-                        var name = attrs[i].name
+                        var name = attrs[i].name;
                         if (refRE.test(name)) {
-                            node.removeAttribute(name)
+                            node.removeAttribute(name);
                             return _.camelize(name.replace(refRE, ''))
                         }
                     }
                 }
-            }
+            };
 
             /**
              * Map a function to a range of nodes .
@@ -1006,14 +1006,14 @@
              */
 
             exports.mapNodeRange = function (node, end, op) {
-                var next
+                var next;
                 while (node !== end) {
-                    next = node.nextSibling
-                    op(node)
+                    next = node.nextSibling;
+                    op(node);
                     node = next
                 }
                 op(end)
-            }
+            };
 
             /**
              * Remove a range of nodes with transition, store
@@ -1028,16 +1028,16 @@
              */
 
             exports.removeNodeRange = function (start, end, vm, frag, cb) {
-                var done = false
-                var removed = 0
-                var nodes = []
+                var done = false;
+                var removed = 0;
+                var nodes = [];
                 exports.mapNodeRange(start, end, function (node) {
-                    if (node === end) done = true
-                    nodes.push(node)
+                    if (node === end) done = true;
+                    nodes.push(node);
                     transition.remove(node, vm, onRemoved)
-                })
+                });
                 function onRemoved() {
-                    removed++
+                    removed++;
                     if (done && removed >= nodes.length) {
                         for (var i = 0; i < nodes.length; i++) {
                             frag.appendChild(nodes[i])
@@ -1045,7 +1045,7 @@
                         cb && cb()
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -1125,7 +1125,7 @@
 
                 _maxUpdateCount: 100
 
-            }
+            };
 
             /**
              * Interpolation delimiters. Changing these would trigger
@@ -1134,29 +1134,29 @@
              * @type {Array<String>}
              */
 
-            var delimiters = ['{{', '}}']
-            var unsafeDelimiters = ['{{{', '}}}']
-            var textParser = __webpack_require__(6)
+            var delimiters = ['{{', '}}'];
+            var unsafeDelimiters = ['{{{', '}}}'];
+            var textParser = __webpack_require__(6);
 
             Object.defineProperty(module.exports, 'delimiters', {
                 get: function () {
                     return delimiters
                 },
                 set: function (val) {
-                    delimiters = val
+                    delimiters = val;
                     textParser.compileRegex()
                 }
-            })
+            });
 
             Object.defineProperty(module.exports, 'unsafeDelimiters', {
                 get: function () {
                     return unsafeDelimiters
                 },
                 set: function (val) {
-                    unsafeDelimiters = val
+                    unsafeDelimiters = val;
                     textParser.compileRegex()
                 }
-            })
+            });
 
 
             /***/
@@ -1164,11 +1164,11 @@
         /* 6 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var Cache = __webpack_require__(7)
-            var config = __webpack_require__(5)
-            var dirParser = __webpack_require__(8)
-            var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
-            var cache, tagRE, htmlRE
+            var Cache = __webpack_require__(7);
+            var config = __webpack_require__(5);
+            var dirParser = __webpack_require__(8);
+            var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+            var cache, tagRE, htmlRE;
 
             /**
              * Escape a string so it can be used in a RegExp
@@ -1182,21 +1182,21 @@
             }
 
             exports.compileRegex = function () {
-                var open = escapeRegex(config.delimiters[0])
-                var close = escapeRegex(config.delimiters[1])
-                var unsafeOpen = escapeRegex(config.unsafeDelimiters[0])
-                var unsafeClose = escapeRegex(config.unsafeDelimiters[1])
+                var open = escapeRegex(config.delimiters[0]);
+                var close = escapeRegex(config.delimiters[1]);
+                var unsafeOpen = escapeRegex(config.unsafeDelimiters[0]);
+                var unsafeClose = escapeRegex(config.unsafeDelimiters[1]);
                 tagRE = new RegExp(
                     unsafeOpen + '(.+?)' + unsafeClose + '|' +
                     open + '(.+?)' + close,
                     'g'
-                )
+                );
                 htmlRE = new RegExp(
                     '^' + unsafeOpen + '.*' + unsafeClose + '$'
-                )
+                );
                 // reset cache
                 cache = new Cache(1000)
-            }
+            };
 
             /**
              * Parse a template text string into an array of tokens.
@@ -1213,21 +1213,21 @@
                 if (!cache) {
                     exports.compileRegex()
                 }
-                var hit = cache.get(text)
+                var hit = cache.get(text);
                 if (hit) {
                     return hit
                 }
-                text = text.replace(/\n/g, '')
+                text = text.replace(/\n/g, '');
                 if (!tagRE.test(text)) {
                     return null
                 }
-                var tokens = []
-                var lastIndex = tagRE.lastIndex = 0
-                var match, index, html, value, first, oneTime
+                var tokens = [];
+                var lastIndex = tagRE.lastIndex = 0;
+                var match, index, html, value, first, oneTime;
                 /* eslint-disable no-cond-assign */
                 while (match = tagRE.exec(text)) {
                     /* eslint-enable no-cond-assign */
-                    index = match.index
+                    index = match.index;
                     // push text token
                     if (index > lastIndex) {
                         tokens.push({
@@ -1235,19 +1235,19 @@
                         })
                     }
                     // tag token
-                    html = htmlRE.test(match[0])
-                    value = html ? match[1] : match[2]
-                    first = value.charCodeAt(0)
-                    oneTime = first === 42 // *
+                    html = htmlRE.test(match[0]);
+                    value = html ? match[1] : match[2];
+                    first = value.charCodeAt(0);
+                    oneTime = first === 42; // *
                     value = oneTime
                         ? value.slice(1)
-                        : value
+                        : value;
                     tokens.push({
                         tag: true,
                         value: value.trim(),
                         html: html,
                         oneTime: oneTime
-                    })
+                    });
                     lastIndex = index + match[0].length
                 }
                 if (lastIndex < text.length) {
@@ -1255,9 +1255,9 @@
                         value: text.slice(lastIndex)
                     })
                 }
-                cache.put(text, tokens)
+                cache.put(text, tokens);
                 return tokens
-            }
+            };
 
             /**
              * Format a list of tokens into an expression.
@@ -1276,7 +1276,7 @@
                 } else {
                     return formatToken(tokens[0], true)
                 }
-            }
+            };
 
             /**
              * Format a single token.
@@ -1305,7 +1305,7 @@
              * @return {String}
              */
 
-            var filterRE = /[^|]\|[^|]/
+            var filterRE = /[^|]\|[^|]/;
 
             function inlineFilters(exp, single) {
                 if (!filterRE.test(exp)) {
@@ -1313,7 +1313,7 @@
                         ? exp
                         : '(' + exp + ')'
                 } else {
-                    var dir = dirParser.parse(exp)
+                    var dir = dirParser.parse(exp);
                     if (!dir.filters) {
                         return '(' + exp + ')'
                     } else {
@@ -1321,7 +1321,7 @@
                             dir.expression + // value
                             ',null,' +       // oldValue (null for read)
                             JSON.stringify(dir.filters) + // filter descriptors
-                            ',false)'        // write?
+                            ',false)';        // write?
                     }
                 }
             }
@@ -1346,13 +1346,13 @@
              */
 
             function Cache(limit) {
-                this.size = 0
-                this.limit = limit
-                this.head = this.tail = undefined
+                this.size = 0;
+                this.limit = limit;
+                this.head = this.tail = undefined;
                 this._keymap = Object.create(null)
             }
 
-            var p = Cache.prototype
+            var p = Cache.prototype;
 
             /**
              * Put <value> into the cache associated with <key>.
@@ -1369,21 +1369,21 @@
                 var entry = {
                     key: key,
                     value: value
-                }
-                this._keymap[key] = entry
+                };
+                this._keymap[key] = entry;
                 if (this.tail) {
-                    this.tail.newer = entry
+                    this.tail.newer = entry;
                     entry.older = this.tail
                 } else {
                     this.head = entry
                 }
-                this.tail = entry
+                this.tail = entry;
                 if (this.size === this.limit) {
                     return this.shift()
                 } else {
                     this.size++
                 }
-            }
+            };
 
             /**
              * Purge the least recently used (oldest) entry from the
@@ -1392,15 +1392,15 @@
              */
 
             p.shift = function () {
-                var entry = this.head
+                var entry = this.head;
                 if (entry) {
-                    this.head = this.head.newer
-                    this.head.older = undefined
-                    entry.newer = entry.older = undefined
+                    this.head = this.head.newer;
+                    this.head.older = undefined;
+                    entry.newer = entry.older = undefined;
                     this._keymap[entry.key] = undefined
                 }
                 return entry
-            }
+            };
 
             /**
              * Get and register recent use of <key>. Returns the value
@@ -1412,8 +1412,8 @@
              */
 
             p.get = function (key, returnEntry) {
-                var entry = this._keymap[key]
-                if (entry === undefined) return
+                var entry = this._keymap[key];
+                if (entry === undefined) return;
                 if (entry === this.tail) {
                     return returnEntry
                         ? entry
@@ -1427,23 +1427,23 @@
                     if (entry === this.head) {
                         this.head = entry.newer
                     }
-                    entry.newer.older = entry.older // C <-- E.
+                    entry.newer.older = entry.older; // C <-- E.
                 }
                 if (entry.older) {
-                    entry.older.newer = entry.newer // C. --> E
+                    entry.older.newer = entry.newer; // C. --> E
                 }
-                entry.newer = undefined // D --x
-                entry.older = this.tail // D. --> E
+                entry.newer = undefined; // D --x
+                entry.older = this.tail; // D. --> E
                 if (this.tail) {
-                    this.tail.newer = entry // E. <-- D
+                    this.tail.newer = entry; // E. <-- D
                 }
-                this.tail = entry
+                this.tail = entry;
                 return returnEntry
                     ? entry
                     : entry.value
-            }
+            };
 
-            module.exports = Cache
+            module.exports = Cache;
 
 
             /***/
@@ -1451,31 +1451,31 @@
         /* 8 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Cache = __webpack_require__(7)
-            var cache = new Cache(1000)
-            var filterTokenRE = /[^\s'"]+|'[^']*'|"[^"]*"/g
-            var reservedArgRE = /^in$|^-?\d+/
+            var _ = __webpack_require__(1);
+            var Cache = __webpack_require__(7);
+            var cache = new Cache(1000);
+            var filterTokenRE = /[^\s'"]+|'[^']*'|"[^"]*"/g;
+            var reservedArgRE = /^in$|^-?\d+/;
 
             /**
              * Parser state
              */
 
-            var str, dir
-            var c, i, l, lastFilterIndex
-            var inSingle, inDouble, curly, square, paren
+            var str, dir;
+            var c, i, l, lastFilterIndex;
+            var inSingle, inDouble, curly, square, paren;
 
             /**
              * Push a filter to the current directive object
              */
 
             function pushFilter() {
-                var exp = str.slice(lastFilterIndex, i).trim()
-                var filter
+                var exp = str.slice(lastFilterIndex, i).trim();
+                var filter;
                 if (exp) {
-                    filter = {}
-                    var tokens = exp.match(filterTokenRE)
-                    filter.name = tokens[0]
+                    filter = {};
+                    var tokens = exp.match(filterTokenRE);
+                    filter.name = tokens[0];
                     if (tokens.length > 1) {
                         filter.args = tokens.slice(1).map(processFilterArg)
                     }
@@ -1500,8 +1500,8 @@
                         dynamic: false
                     }
                 } else {
-                    var stripped = _.stripQuotes(arg)
-                    var dynamic = stripped === arg
+                    var stripped = _.stripQuotes(arg);
+                    var dynamic = stripped === arg;
                     return {
                         value: dynamic ? arg : stripped,
                         dynamic: dynamic
@@ -1529,20 +1529,20 @@
 
             exports.parse = function (s) {
 
-                var hit = cache.get(s)
+                var hit = cache.get(s);
                 if (hit) {
                     return hit
                 }
 
                 // reset parser state
-                str = s
-                inSingle = inDouble = false
-                curly = square = paren = 0
-                lastFilterIndex = 0
-                dir = {}
+                str = s;
+                inSingle = inDouble = false;
+                curly = square = paren = 0;
+                lastFilterIndex = 0;
+                dir = {};
 
                 for (i = 0, l = str.length; i < l; i++) {
-                    c = str.charCodeAt(i)
+                    c = str.charCodeAt(i);
                     if (inSingle) {
                         // check single quote
                         if (c === 0x27) inSingle = !inSingle
@@ -1556,7 +1556,7 @@
                     ) {
                         if (dir.expression == null) {
                             // first filter, end of expression
-                            lastFilterIndex = i + 1
+                            lastFilterIndex = i + 1;
                             dir.expression = str.slice(0, i).trim()
                         } else {
                             // already has filter
@@ -1588,7 +1588,7 @@
                             case 0x7D:
                                 curly--;
                                 break         // }
-                        }
+                        };;;;;;;;
                     }
                 }
 
@@ -1598,9 +1598,9 @@
                     pushFilter()
                 }
 
-                cache.put(s, dir)
+                cache.put(s, dir);
                 return dir
-            }
+            };
 
 
             /***/
@@ -1608,7 +1608,7 @@
         /* 9 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             /**
              * Append with transition.
@@ -1623,7 +1623,7 @@
                 apply(el, 1, function () {
                     target.appendChild(el)
                 }, vm, cb)
-            }
+            };
 
             /**
              * InsertBefore with transition.
@@ -1638,7 +1638,7 @@
                 apply(el, 1, function () {
                     _.before(el, target)
                 }, vm, cb)
-            }
+            };
 
             /**
              * Remove with transition.
@@ -1652,7 +1652,7 @@
                 apply(el, -1, function () {
                     _.remove(el)
                 }, vm, cb)
-            }
+            };
 
             /**
              * Apply transitions with an operation callback.
@@ -1667,7 +1667,7 @@
              */
 
             var apply = exports.apply = function (el, direction, op, vm, cb) {
-                var transition = el.__v_trans
+                var transition = el.__v_trans;
                 if (
                     !transition ||
                         // skip if there are no js hooks and CSS transition is
@@ -1680,13 +1680,13 @@
                         // animation.
                     (vm.$parent && !vm.$parent._isCompiled)
                 ) {
-                    op()
-                    if (cb) cb()
+                    op();
+                    if (cb) cb();
                     return
                 }
-                var action = direction > 0 ? 'enter' : 'leave'
+                var action = direction > 0 ? 'enter' : 'leave';
                 transition[action](op, cb)
-            }
+            };
 
 
             /***/
@@ -1694,9 +1694,9 @@
         /* 10 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var config = __webpack_require__(5)
-            var extend = _.extend
+            var _ = __webpack_require__(1);
+            var config = __webpack_require__(5);
+            var extend = _.extend;
 
             /**
              * Option overwriting strategies are functions that handle
@@ -1710,17 +1710,17 @@
              * @param {Vue} [vm]
              */
 
-            var strats = config.optionMergeStrategies = Object.create(null)
+            var strats = config.optionMergeStrategies = Object.create(null);
 
             /**
              * Helper that recursively merges two data objects together.
              */
 
             function mergeData(to, from) {
-                var key, toVal, fromVal
+                var key, toVal, fromVal;
                 for (key in from) {
-                    toVal = to[key]
-                    fromVal = from[key]
+                    toVal = to[key];
+                    fromVal = from[key];
                     if (!to.hasOwnProperty(key)) {
                         _.set(to, key, fromVal)
                     } else if (_.isObject(toVal) && _.isObject(fromVal)) {
@@ -1745,7 +1745,7 @@
                             'The "data" option should be a function ' +
                             'that returns a per-instance value in component ' +
                             'definitions.'
-                        )
+                        );
                         return parentVal
                     }
                     if (!parentVal) {
@@ -1767,10 +1767,10 @@
                         // instance merge
                         var instanceData = typeof childVal === 'function'
                             ? childVal.call(vm)
-                            : childVal
+                            : childVal;
                         var defaultData = typeof parentVal === 'function'
                             ? parentVal.call(vm)
-                            : undefined
+                            : undefined;
                         if (instanceData) {
                             return mergeData(instanceData, defaultData)
                         } else {
@@ -1778,7 +1778,7 @@
                         }
                     }
                 }
-            }
+            };
 
             /**
              * El
@@ -1790,15 +1790,15 @@
                         'The "el" option should be a function ' +
                         'that returns a per-instance value in component ' +
                         'definitions.'
-                    )
+                    );
                     return
                 }
-                var ret = childVal || parentVal
+                var ret = childVal || parentVal;
                 // invoke the element factory if this is instance merge
                 return vm && typeof ret === 'function'
                     ? ret.call(vm)
                     : ret
-            }
+            };
 
             /**
              * Hooks and param attributes are merged as arrays.
@@ -1820,7 +1820,7 @@
                                                     ? childVal
                                                     : [childVal]
                                                     : parentVal
-                                            }
+                                            };
 
             /**
              * 0.11 deprecation warning
@@ -1832,7 +1832,7 @@
                     '"paramAttributes" option has been deprecated in 0.12. ' +
                     'Use "props" instead.'
                 )
-            }
+            };
 
             /**
              * Assets
@@ -1843,7 +1843,7 @@
              */
 
             function mergeAssets(parentVal, childVal) {
-                var res = Object.create(parentVal)
+                var res = Object.create(parentVal);
                 return childVal
                     ? extend(res, guardArrayAssets(childVal))
                     : res
@@ -1851,7 +1851,7 @@
 
             config._assetTypes.forEach(function (type) {
                 strats[type + 's'] = mergeAssets
-            })
+            });
 
             /**
              * Events & Watchers.
@@ -1862,13 +1862,13 @@
 
             strats.watch =
                 strats.events = function (parentVal, childVal) {
-                    if (!childVal) return parentVal
-                    if (!parentVal) return childVal
-                    var ret = {}
-                    extend(ret, parentVal)
+                    if (!childVal) return parentVal;
+                    if (!parentVal) return childVal;
+                    var ret = {};
+                    extend(ret, parentVal);
                     for (var key in childVal) {
-                        var parent = ret[key]
-                        var child = childVal[key]
+                        var parent = ret[key];
+                        var child = childVal[key];
                         if (parent && !_.isArray(parent)) {
                             parent = [parent]
                         }
@@ -1877,7 +1877,7 @@
                             : [child]
                     }
                     return ret
-                }
+                };
 
             /**
              * Other object hashes.
@@ -1886,13 +1886,13 @@
             strats.props =
                 strats.methods =
                     strats.computed = function (parentVal, childVal) {
-                        if (!childVal) return parentVal
-                        if (!parentVal) return childVal
-                        var ret = Object.create(null)
-                        extend(ret, parentVal)
-                        extend(ret, childVal)
+                        if (!childVal) return parentVal;
+                        if (!parentVal) return childVal;
+                        var ret = Object.create(null);
+                        extend(ret, parentVal);
+                        extend(ret, childVal);
                         return ret
-                    }
+                    };
 
             /**
              * Default strategy.
@@ -1902,7 +1902,7 @@
                 return childVal === undefined
                     ? parentVal
                     : childVal
-            }
+            };
 
             /**
              * Make sure component options get converted to actual
@@ -1914,19 +1914,19 @@
             function guardComponents(options) {
                 if (options.components) {
                     var components = options.components =
-                        guardArrayAssets(options.components)
-                    var def
-                    var ids = Object.keys(components)
+                        guardArrayAssets(options.components);
+                    var def;
+                    var ids = Object.keys(components);
                     for (var i = 0, l = ids.length; i < l; i++) {
-                        var key = ids[i]
+                        var key = ids[i];
                         if (_.commonTagRE.test(key)) {
                             ("development") !== 'production' && _.warn(
                                 'Do not use built-in HTML elements as component ' +
                                 'id: ' + key
-                            )
+                            );
                             continue
                         }
-                        def = components[key]
+                        def = components[key];
                         if (_.isPlainObject(def)) {
                             components[key] = _.Vue.extend(def)
                         }
@@ -1942,19 +1942,19 @@
              */
 
             function guardProps(options) {
-                var props = options.props
-                var i
+                var props = options.props;
+                var i;
                 if (_.isArray(props)) {
-                    options.props = {}
-                    i = props.length
+                    options.props = {};
+                    i = props.length;
                     while (i--) {
                         options.props[props[i]] = null
                     }
                 } else if (_.isPlainObject(props)) {
-                    var keys = Object.keys(props)
-                    i = keys.length
+                    var keys = Object.keys(props);
+                    i = keys.length;
                     while (i--) {
-                        var val = props[keys[i]]
+                        var val = props[keys[i]];
                         if (typeof val === 'function') {
                             props[keys[i]] = {type: val}
                         }
@@ -1972,14 +1972,14 @@
 
             function guardArrayAssets(assets) {
                 if (_.isArray(assets)) {
-                    var res = {}
-                    var i = assets.length
-                    var asset
+                    var res = {};
+                    var i = assets.length;
+                    var asset;
                     while (i--) {
-                        asset = assets[i]
+                        asset = assets[i];
                         var id = typeof asset === 'function'
                             ? ((asset.options && asset.options.name) || asset.id)
-                            : (asset.name || asset.id)
+                            : (asset.name || asset.id);
                         if (!id) {
                             ("development") !== 'production' && _.warn(
                                 'Array-syntax assets must provide a "name" or "id" field.'
@@ -2004,10 +2004,10 @@
              */
 
             exports.mergeOptions = function merge(parent, child, vm) {
-                guardComponents(child)
-                guardProps(child)
-                var options = {}
-                var key
+                guardComponents(child);
+                guardProps(child);
+                var options = {};
+                var key;
                 if (child.mixins) {
                     for (var i = 0, l = child.mixins.length; i < l; i++) {
                         parent = merge(parent, child.mixins[i], vm)
@@ -2022,12 +2022,12 @@
                     }
                 }
                 function mergeField(key) {
-                    var strat = strats[key] || defaultStrat
+                    var strat = strats[key] || defaultStrat;
                     options[key] = strat(parent[key], child[key], vm, key)
                 }
 
                 return options
-            }
+            };
 
             /**
              * Resolve an asset.
@@ -2041,14 +2041,14 @@
              */
 
             exports.resolveAsset = function resolve(options, type, id) {
-                var assets = options[type]
-                var camelizedId
+                var assets = options[type];
+                var camelizedId;
                 return assets[id] ||
                         // camelCase ID
                     assets[camelizedId = _.camelize(id)] ||
                         // Pascal Case ID
                     assets[camelizedId.charAt(0).toUpperCase() + camelizedId.slice(1)]
-            }
+            };
 
 
             /***/
@@ -2056,7 +2056,7 @@
         /* 11 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             /**
              * Check if an element is a component, if yes return its
@@ -2067,15 +2067,15 @@
              * @return {Object|undefined}
              */
 
-            exports.commonTagRE = /^(div|p|span|img|a|b|i|br|ul|ol|li|h1|h2|h3|h4|h5|h6|code|pre|table|th|td|tr|form|label|input|select|option|nav|article|section|header|footer)$/
+            exports.commonTagRE = /^(div|p|span|img|a|b|i|br|ul|ol|li|h1|h2|h3|h4|h5|h6|code|pre|table|th|td|tr|form|label|input|select|option|nav|article|section|header|footer)$/;
             exports.checkComponent = function (el, options) {
-                var tag = el.tagName.toLowerCase()
-                var hasAttrs = el.hasAttributes()
+                var tag = el.tagName.toLowerCase();
+                var hasAttrs = el.hasAttributes();
                 if (!exports.commonTagRE.test(tag) && tag !== 'component') {
                     if (_.resolveAsset(options, 'components', tag)) {
                         return {id: tag}
                     } else {
-                        var is = hasAttrs && getIsBinding(el)
+                        var is = hasAttrs && getIsBinding(el);
                         if (is) {
                             return is
                         } else if (true) {
@@ -2098,7 +2098,7 @@
                 } else if (hasAttrs) {
                     return getIsBinding(el)
                 }
-            }
+            };
 
             /**
              * Get "is" binding from an element.
@@ -2109,11 +2109,11 @@
 
             function getIsBinding(el) {
                 // dynamic syntax
-                var exp = _.attr(el, 'is')
+                var exp = _.attr(el, 'is');
                 if (exp != null) {
                     return {id: exp}
                 } else {
-                    exp = _.getBindAttr(el, 'is')
+                    exp = _.getBindAttr(el, 'is');
                     if (exp != null) {
                         return {id: exp, dynamic: true}
                     }
@@ -2130,10 +2130,10 @@
 
             exports.initProp = function (vm, prop, value) {
                 if (exports.assertProp(prop, value)) {
-                    var key = prop.path
+                    var key = prop.path;
                     vm[key] = vm._data[key] = value
                 }
-            }
+            };
 
             /**
              * Assert whether a prop is valid.
@@ -2148,28 +2148,28 @@
                 if (prop.raw === null && !prop.required) {
                     return true
                 }
-                var options = prop.options
-                var type = options.type
-                var valid = true
-                var expectedType
+                var options = prop.options;
+                var type = options.type;
+                var valid = true;
+                var expectedType;
                 if (type) {
                     if (type === String) {
-                        expectedType = 'string'
+                        expectedType = 'string';
                         valid = typeof value === expectedType
                     } else if (type === Number) {
-                        expectedType = 'number'
+                        expectedType = 'number';
                         valid = typeof value === 'number'
                     } else if (type === Boolean) {
-                        expectedType = 'boolean'
+                        expectedType = 'boolean';
                         valid = typeof value === 'boolean'
                     } else if (type === Function) {
-                        expectedType = 'function'
+                        expectedType = 'function';
                         valid = typeof value === 'function'
                     } else if (type === Object) {
-                        expectedType = 'object'
+                        expectedType = 'object';
                         valid = _.isPlainObject(value)
                     } else if (type === Array) {
-                        expectedType = 'array'
+                        expectedType = 'array';
                         valid = _.isArray(value)
                     } else {
                         valid = value instanceof type
@@ -2181,21 +2181,21 @@
                         prop.path + '="' + prop.raw + '".' +
                         ' Expected ' + formatType(expectedType) +
                         ', got ' + formatValue(value) + '.'
-                    )
+                    );
                     return false
                 }
-                var validator = options.validator
+                var validator = options.validator;
                 if (validator) {
                     if (!validator.call(null, value)) {
                         ("development") !== 'production' && _.warn(
                             'Invalid prop: custom validator check failed for ' +
                             prop.path + '="' + prop.raw + '"'
-                        )
+                        );
                         return false
                     }
                 }
                 return true
-            }
+            };
 
             function formatType(val) {
                 return val
@@ -2219,8 +2219,8 @@
 
             if (true) {
 
-                var config = __webpack_require__(5)
-                var hasConsole = typeof console !== 'undefined'
+                var config = __webpack_require__(5);
+                var hasConsole = typeof console !== 'undefined';
 
                 /**
                  * Log a message.
@@ -2232,7 +2232,7 @@
                     if (hasConsole && config.debug) {
                         console.log('[Vue info]: ' + msg)
                     }
-                }
+                };
 
                 /**
                  * We've got a problem here.
@@ -2242,13 +2242,13 @@
 
                 exports.warn = function (msg, e) {
                     if (hasConsole && (!config.silent || config.debug)) {
-                        console.warn('[Vue warn]: ' + msg)
+                        console.warn('[Vue warn]: ' + msg);
                         /* istanbul ignore if */
                         if (config.debug) {
                             console.warn((e || new Error('Warning Stack Trace')).stack)
                         }
                     }
-                }
+                };
 
                 /**
                  * Assert asset exists
@@ -2267,33 +2267,33 @@
         /* 13 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var config = __webpack_require__(5)
+            var _ = __webpack_require__(1);
+            var config = __webpack_require__(5);
 
             /**
              * Expose useful internals
              */
 
-            exports.util = _
-            exports.config = config
-            exports.set = _.set
-            exports.delete = _.delete
-            exports.nextTick = _.nextTick
+            exports.util = _;
+            exports.config = config;
+            exports.set = _.set;
+            exports.delete = _.delete;
+            exports.nextTick = _.nextTick;
 
             /**
              * The following are exposed for advanced usage / plugins
              */
 
-            exports.compiler = __webpack_require__(14)
-            exports.FragmentFactory = __webpack_require__(21)
-            exports.internalDirectives = __webpack_require__(36)
+            exports.compiler = __webpack_require__(14);
+            exports.FragmentFactory = __webpack_require__(21);
+            exports.internalDirectives = __webpack_require__(36);
             exports.parsers = {
                 path: __webpack_require__(43),
                 text: __webpack_require__(6),
                 template: __webpack_require__(19),
                 directive: __webpack_require__(8),
                 expression: __webpack_require__(42)
-            }
+            };
 
             /**
              * Each instance constructor, including Vue, has a unique
@@ -2301,8 +2301,8 @@
              * constructors" for prototypal inheritance and cache them.
              */
 
-            exports.cid = 0
-            var cid = 1
+            exports.cid = 0;
+            var cid = 1;
 
             /**
              * Class inheritance
@@ -2311,29 +2311,29 @@
              */
 
             exports.extend = function (extendOptions) {
-                extendOptions = extendOptions || {}
-                var Super = this
-                var isFirstExtend = Super.cid === 0
+                extendOptions = extendOptions || {};
+                var Super = this;
+                var isFirstExtend = Super.cid === 0;
                 if (isFirstExtend && extendOptions._Ctor) {
                     return extendOptions._Ctor
                 }
-                var name = extendOptions.name || Super.options.name
-                var Sub = createClass(name || 'VueComponent')
-                Sub.prototype = Object.create(Super.prototype)
-                Sub.prototype.constructor = Sub
-                Sub.cid = cid++
+                var name = extendOptions.name || Super.options.name;
+                var Sub = createClass(name || 'VueComponent');
+                Sub.prototype = Object.create(Super.prototype);
+                Sub.prototype.constructor = Sub;
+                Sub.cid = cid++;
                 Sub.options = _.mergeOptions(
                     Super.options,
                     extendOptions
-                )
-                Sub['super'] = Super
+                );
+                Sub['super'] = Super;
                 // allow further extension
-                Sub.extend = Super.extend
+                Sub.extend = Super.extend;
                 // create asset registers, so extended classes
                 // can have their private assets too.
                 config._assetTypes.forEach(function (type) {
                     Sub[type] = Super[type]
-                })
+                });
                 // enable recursive self-lookup
                 if (name) {
                     Sub.options.components[name] = Sub
@@ -2343,7 +2343,7 @@
                     extendOptions._Ctor = Sub
                 }
                 return Sub
-            }
+            };
 
             /**
              * A function that returns a sub-class constructor with the
@@ -2373,16 +2373,16 @@
                     return
                 }
                 // additional parameters
-                var args = _.toArray(arguments, 1)
-                args.unshift(this)
+                var args = _.toArray(arguments, 1);
+                args.unshift(this);
                 if (typeof plugin.install === 'function') {
                     plugin.install.apply(plugin, args)
                 } else {
                     plugin.apply(null, args)
                 }
-                plugin.installed = true
+                plugin.installed = true;
                 return this
-            }
+            };
 
             /**
              * Apply a global mixin by merging it into the default
@@ -2390,9 +2390,9 @@
              */
 
             exports.mixin = function (mixin) {
-                var Vue = _.Vue
+                var Vue = _.Vue;
                 Vue.options = _.mergeOptions(Vue.options, mixin)
-            }
+            };
 
             /**
              * Create asset registration methods with the following
@@ -2411,14 +2411,14 @@
                             type === 'component' &&
                             _.isPlainObject(definition)
                         ) {
-                            definition.name = id
+                            definition.name = id;
                             definition = _.Vue.extend(definition)
                         }
-                        this.options[type + 's'][id] = definition
+                        this.options[type + 's'][id] = definition;
                         return definition
                     }
                 }
-            })
+            });
 
 
             /***/
@@ -2426,10 +2426,10 @@
         /* 14 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
-            _.extend(exports, __webpack_require__(15))
-            _.extend(exports, __webpack_require__(49))
+            _.extend(exports, __webpack_require__(15));
+            _.extend(exports, __webpack_require__(49));
 
 
             /***/
@@ -2437,27 +2437,27 @@
         /* 15 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var publicDirectives = __webpack_require__(16)
-            var internalDirectives = __webpack_require__(36)
-            var compileProps = __webpack_require__(48)
-            var textParser = __webpack_require__(6)
-            var dirParser = __webpack_require__(8)
-            var templateParser = __webpack_require__(19)
-            var resolveAsset = _.resolveAsset
+            var _ = __webpack_require__(1);
+            var publicDirectives = __webpack_require__(16);
+            var internalDirectives = __webpack_require__(36);
+            var compileProps = __webpack_require__(48);
+            var textParser = __webpack_require__(6);
+            var dirParser = __webpack_require__(8);
+            var templateParser = __webpack_require__(19);
+            var resolveAsset = _.resolveAsset;
 
             // special binding prefixes
-            var bindRE = /^v-bind:|^:/
-            var onRE = /^v-on:|^@/
-            var argRE = /:(.*)$/
-            var modifierRE = /\.[^\.]+/g
-            var transitionRE = /^(v-bind:|:)?transition$/
+            var bindRE = /^v-bind:|^:/;
+            var onRE = /^v-on:|^@/;
+            var argRE = /:(.*)$/;
+            var modifierRE = /\.[^\.]+/g;
+            var transitionRE = /^(v-bind:|:)?transition$/;
 
             // terminal directives
             var terminalDirectives = [
                 'for',
                 'if'
-            ]
+            ];
 
             /**
              * Compile a template and return a reusable composite link
@@ -2480,14 +2480,14 @@
                 // link function for the node itself.
                 var nodeLinkFn = partial || !options._asComponent
                     ? compileNode(el, options)
-                    : null
+                    : null;
                 // link function for the childNodes
                 var childLinkFn =
                     !(nodeLinkFn && nodeLinkFn.terminal) &&
                     el.tagName !== 'SCRIPT' &&
                     el.hasChildNodes()
                         ? compileNodeList(el.childNodes, options)
-                        : null
+                        : null;
 
                 /**
                  * A composite linker function to be called on a already
@@ -2504,15 +2504,15 @@
 
                 return function compositeLinkFn(vm, el, host, scope, frag) {
                     // cache childNodes before linking parent, fix #657
-                    var childNodes = _.toArray(el.childNodes)
+                    var childNodes = _.toArray(el.childNodes);
                     // link
                     var dirs = linkAndCapture(function compositeLinkCapturer() {
-                        if (nodeLinkFn) nodeLinkFn(vm, el, host, scope, frag)
+                        if (nodeLinkFn) nodeLinkFn(vm, el, host, scope, frag);
                         if (childLinkFn) childLinkFn(vm, childNodes, host, scope, frag)
-                    }, vm)
+                    }, vm);
                     return makeUnlinkFn(vm, dirs)
                 }
-            }
+            };
 
             /**
              * Apply a linker to a vm/element pair and capture the
@@ -2523,10 +2523,10 @@
              */
 
             function linkAndCapture(linker, vm) {
-                var originalDirCount = vm._directives.length
-                linker()
-                var dirs = vm._directives.slice(originalDirCount)
-                dirs.sort(directiveComparator)
+                var originalDirCount = vm._directives.length;
+                linker();
+                var dirs = vm._directives.slice(originalDirCount);
+                dirs.sort(directiveComparator);
                 for (var i = 0, l = dirs.length; i < l; i++) {
                     dirs[i]._bind()
                 }
@@ -2541,8 +2541,8 @@
              */
 
             function directiveComparator(a, b) {
-                a = a.descriptor.def.priority || 0
-                b = b.descriptor.def.priority || 0
+                a = a.descriptor.def.priority || 0;
+                b = b.descriptor.def.priority || 0;
                 return a > b ? -1 : a === b ? 0 : 1
             }
 
@@ -2563,7 +2563,7 @@
 
             function makeUnlinkFn(vm, dirs, context, contextDirs) {
                 return function unlink(destroying) {
-                    teardownDirs(vm, dirs, destroying)
+                    teardownDirs(vm, dirs, destroying);
                     if (context && contextDirs) {
                         teardownDirs(context, contextDirs)
                     }
@@ -2579,9 +2579,9 @@
              */
 
             function teardownDirs(vm, dirs, destroying) {
-                var i = dirs.length
+                var i = dirs.length;
                 while (i--) {
-                    dirs[i]._teardown()
+                    dirs[i]._teardown();
                     if (!destroying) {
                         vm._directives.$remove(dirs[i])
                     }
@@ -2599,12 +2599,12 @@
              */
 
             exports.compileAndLinkProps = function (vm, el, props, scope) {
-                var propsLinkFn = compileProps(el, props)
+                var propsLinkFn = compileProps(el, props);
                 var propDirs = linkAndCapture(function () {
                     propsLinkFn(vm, scope)
-                }, vm)
+                }, vm);
                 return makeUnlinkFn(vm, propDirs)
-            }
+            };
 
             /**
              * Compile the root element of an instance.
@@ -2623,9 +2623,9 @@
              */
 
             exports.compileRoot = function (el, options, contextOptions) {
-                var containerAttrs = options._containerAttrs
-                var replacerAttrs = options._replacerAttrs
-                var contextLinkFn, replacerLinkFn
+                var containerAttrs = options._containerAttrs;
+                var replacerAttrs = options._replacerAttrs;
+                var contextLinkFn, replacerLinkFn;
 
                 // only need to compile other attributes for
                 // non-fragment instances
@@ -2661,8 +2661,8 @@
 
                 return function rootLinkFn(vm, el, scope) {
                     // link context scope dirs
-                    var context = vm._context
-                    var contextDirs
+                    var context = vm._context;
+                    var contextDirs;
                     if (context && contextLinkFn) {
                         contextDirs = linkAndCapture(function () {
                             contextLinkFn(context, el, null, scope)
@@ -2672,13 +2672,13 @@
                     // link self
                     var selfDirs = linkAndCapture(function () {
                         if (replacerLinkFn) replacerLinkFn(vm, el)
-                    }, vm)
+                    }, vm);
 
                     // return the unlink function that tearsdown context
                     // container directives.
                     return makeUnlinkFn(vm, selfDirs, context, contextDirs)
                 }
-            }
+            };
 
             /**
              * Compile a node and return a nodeLinkFn based on the
@@ -2690,7 +2690,7 @@
              */
 
             function compileNode(node, options) {
-                var type = node.nodeType
+                var type = node.nodeType;
                 if (type === 1 && node.tagName !== 'SCRIPT') {
                     return compileElement(node, options)
                 } else if (type === 3 && node.data.trim()) {
@@ -2713,14 +2713,14 @@
                 // textarea treats its text content as the initial value.
                 // just bind it as an attr directive for value.
                 if (el.tagName === 'TEXTAREA') {
-                    var tokens = textParser.parse(el.value)
+                    var tokens = textParser.parse(el.value);
                     if (tokens) {
-                        el.setAttribute(':value', textParser.tokensToExp(tokens))
+                        el.setAttribute(':value', textParser.tokensToExp(tokens));
                         el.value = ''
                     }
                 }
-                var linkFn
-                var hasAttrs = el.hasAttributes()
+                var linkFn;
+                var hasAttrs = el.hasAttributes();
                 // check terminal directives (for & if)
                 if (hasAttrs) {
                     linkFn = checkTerminalDirectives(el, options)
@@ -2749,17 +2749,17 @@
              */
 
             function compileTextNode(node, options) {
-                var tokens = textParser.parse(node.data)
+                var tokens = textParser.parse(node.data);
                 if (!tokens) {
                     return null
                 }
-                var frag = document.createDocumentFragment()
-                var el, token
+                var frag = document.createDocumentFragment();
+                var el, token;
                 for (var i = 0, l = tokens.length; i < l; i++) {
-                    token = tokens[i]
+                    token = tokens[i];
                     el = token.tag
                         ? processTextToken(token, options)
-                        : document.createTextNode(token.value)
+                        : document.createTextNode(token.value);
                     frag.appendChild(el)
                 }
                 return makeTextNodeLinkFn(tokens, frag, options)
@@ -2774,24 +2774,24 @@
              */
 
             function processTextToken(token, options) {
-                var el
+                var el;
                 if (token.oneTime) {
                     el = document.createTextNode(token.value)
                 } else {
                     if (token.html) {
-                        el = document.createComment('v-html')
+                        el = document.createComment('v-html');
                         setTokenType('html')
                     } else {
                         // IE will clean up empty textNodes during
                         // frag.cloneNode(true), so we have to give it
                         // something here...
-                        el = document.createTextNode(' ')
+                        el = document.createTextNode(' ');
                         setTokenType('text')
                     }
                 }
                 function setTokenType(type) {
-                    if (token.descriptor) return
-                    var parsed = dirParser.parse(token.value)
+                    if (token.descriptor) return;
+                    var parsed = dirParser.parse(token.value);
                     token.descriptor = {
                         name: type,
                         def: publicDirectives[type],
@@ -2812,16 +2812,16 @@
 
             function makeTextNodeLinkFn(tokens, frag) {
                 return function textNodeLinkFn(vm, el, host, scope) {
-                    var fragClone = frag.cloneNode(true)
-                    var childNodes = _.toArray(fragClone.childNodes)
-                    var token, value, node
+                    var fragClone = frag.cloneNode(true);
+                    var childNodes = _.toArray(fragClone.childNodes);
+                    var token, value, node;
                     for (var i = 0, l = tokens.length; i < l; i++) {
-                        token = tokens[i]
-                        value = token.value
+                        token = tokens[i];
+                        value = token.value;
                         if (token.tag) {
-                            node = childNodes[i]
+                            node = childNodes[i];
                             if (token.oneTime) {
-                                value = (scope || vm).$eval(value)
+                                value = (scope || vm).$eval(value);
                                 if (token.html) {
                                     _.replace(node, templateParser.parse(value, true))
                                 } else {
@@ -2845,17 +2845,17 @@
              */
 
             function compileNodeList(nodeList, options) {
-                var linkFns = []
-                var nodeLinkFn, childLinkFn, node
+                var linkFns = [];
+                var nodeLinkFn, childLinkFn, node;
                 for (var i = 0, l = nodeList.length; i < l; i++) {
-                    node = nodeList[i]
-                    nodeLinkFn = compileNode(node, options)
+                    node = nodeList[i];
+                    nodeLinkFn = compileNode(node, options);
                     childLinkFn =
                         !(nodeLinkFn && nodeLinkFn.terminal) &&
                         node.tagName !== 'SCRIPT' &&
                         node.hasChildNodes()
                             ? compileNodeList(node.childNodes, options)
-                            : null
+                            : null;
                     linkFns.push(nodeLinkFn, childLinkFn)
                 }
                 return linkFns.length
@@ -2872,13 +2872,13 @@
 
             function makeChildLinkFn(linkFns) {
                 return function childLinkFn(vm, nodes, host, scope, frag) {
-                    var node, nodeLinkFn, childrenLinkFn
+                    var node, nodeLinkFn, childrenLinkFn;
                     for (var i = 0, n = 0, l = linkFns.length; i < l; n++) {
-                        node = nodes[n]
-                        nodeLinkFn = linkFns[i++]
-                        childrenLinkFn = linkFns[i++]
+                        node = nodes[n];
+                        nodeLinkFn = linkFns[i++];
+                        childrenLinkFn = linkFns[i++];
                         // cache childNodes before linking parent, fix #657
-                        var childNodes = _.toArray(node.childNodes)
+                        var childNodes = _.toArray(node.childNodes);
                         if (nodeLinkFn) {
                             nodeLinkFn(vm, node, host, scope, frag)
                         }
@@ -2898,9 +2898,9 @@
              */
 
             function checkElementDirectives(el, options) {
-                var tag = el.tagName.toLowerCase()
-                if (_.commonTagRE.test(tag)) return
-                var def = resolveAsset(options, 'elementDirectives', tag)
+                var tag = el.tagName.toLowerCase();
+                if (_.commonTagRE.test(tag)) return;
+                var def = resolveAsset(options, 'elementDirectives', tag);
                 if (def) {
                     return makeTerminalNodeLinkFn(el, tag, '', options, def)
                 }
@@ -2916,7 +2916,7 @@
              */
 
             function checkComponent(el, options) {
-                var component = _.checkComponent(el, options)
+                var component = _.checkComponent(el, options);
                 if (component) {
                     var descriptor = {
                         name: 'component',
@@ -2925,11 +2925,11 @@
                         modifiers: {
                             literal: !component.dynamic
                         }
-                    }
+                    };
                     var componentLinkFn = function (vm, el, host, scope, frag) {
                         vm._bindDir(descriptor, el, host, scope, frag)
-                    }
-                    componentLinkFn.terminal = true
+                    };
+                    componentLinkFn.terminal = true;
                     return componentLinkFn
                 }
             }
@@ -2950,14 +2950,14 @@
                 }
                 // skip v-else block, but only if following v-if
                 if (el.hasAttribute('v-else')) {
-                    var prev = el.previousElementSibling
+                    var prev = el.previousElementSibling;
                     if (prev && prev.hasAttribute('v-if')) {
                         return skip
                     }
                 }
-                var value, dirName
+                var value, dirName;
                 for (var i = 0, l = terminalDirectives.length; i < l; i++) {
-                    dirName = terminalDirectives[i]
+                    dirName = terminalDirectives[i];
                     /* eslint-disable no-cond-assign */
                     if (value = el.getAttribute('v-' + dirName)) {
                         return makeTerminalNodeLinkFn(el, dirName, value, options)
@@ -2969,7 +2969,7 @@
             function skip() {
             }
 
-            skip.terminal = true
+            skip.terminal = true;
 
             /**
              * Build a node link function for a terminal directive.
@@ -2986,7 +2986,7 @@
              */
 
             function makeTerminalNodeLinkFn(el, dirName, value, options, def) {
-                var parsed = dirParser.parse(value)
+                var parsed = dirParser.parse(value);
                 var descriptor = {
                     name: dirName,
                     expression: parsed.expression,
@@ -2994,11 +2994,11 @@
                     raw: value,
                     // either an element directive, or if/for
                     def: def || publicDirectives[dirName]
-                }
+                };
                 var fn = function terminalNodeLinkFn(vm, el, host, scope, frag) {
                     vm._bindDir(descriptor, el, host, scope, frag)
-                }
-                fn.terminal = true
+                };
+                fn.terminal = true;
                 return fn
             }
 
@@ -3011,46 +3011,46 @@
              */
 
             function compileDirectives(attrs, options) {
-                var i = attrs.length
-                var dirs = []
-                var attr, name, value, rawName, rawValue, dirName, arg, modifiers, dirDef, tokens
+                var i = attrs.length;
+                var dirs = [];
+                var attr, name, value, rawName, rawValue, dirName, arg, modifiers, dirDef, tokens;
                 while (i--) {
-                    attr = attrs[i]
-                    name = rawName = attr.name
-                    value = rawValue = attr.value
-                    tokens = textParser.parse(value)
+                    attr = attrs[i];
+                    name = rawName = attr.name;
+                    value = rawValue = attr.value;
+                    tokens = textParser.parse(value);
                     // reset arg
-                    arg = null
+                    arg = null;
                     // check modifiers
-                    modifiers = parseModifiers(name)
-                    name = name.replace(modifierRE, '')
+                    modifiers = parseModifiers(name);
+                    name = name.replace(modifierRE, '');
 
                     // attribute interpolations
                     if (tokens) {
-                        value = textParser.tokensToExp(tokens)
-                        arg = name
+                        value = textParser.tokensToExp(tokens);
+                        arg = name;
                         pushDir('bind', publicDirectives.bind, true)
                     } else
 
                     // special attribute: transition
                     if (transitionRE.test(name)) {
-                        modifiers.literal = !bindRE.test(name)
+                        modifiers.literal = !bindRE.test(name);
                         pushDir('transition', internalDirectives.transition)
                     } else
 
                     // event handlers
                     if (onRE.test(name)) {
-                        arg = name.replace(onRE, '')
+                        arg = name.replace(onRE, '');
                         pushDir('on', publicDirectives.on)
                     } else
 
                     // attribute bindings
                     if (bindRE.test(name)) {
-                        dirName = name.replace(bindRE, '')
+                        dirName = name.replace(bindRE, '');
                         if (dirName === 'style' || dirName === 'class') {
                             pushDir(dirName, internalDirectives[dirName])
                         } else {
-                            arg = dirName
+                            arg = dirName;
                             pushDir('bind', publicDirectives.bind)
                         }
                     } else
@@ -3058,19 +3058,19 @@
                     // normal directives
                     if (name.indexOf('v-') === 0) {
                         // check arg
-                        arg = (arg = name.match(argRE)) && arg[1]
+                        arg = (arg = name.match(argRE)) && arg[1];
                         if (arg) {
                             name = name.replace(argRE, '')
                         }
                         // extract directive name
-                        dirName = name.slice(2)
+                        dirName = name.slice(2);
 
                         // skip v-else (when used with v-show)
                         if (dirName === 'else') {
                             continue
                         }
 
-                        dirDef = resolveAsset(options, 'directives', dirName)
+                        dirDef = resolveAsset(options, 'directives', dirName);
 
                         if (true) {
                             _.assertAsset(dirDef, 'directive', dirName)
@@ -3078,7 +3078,7 @@
 
                         if (dirDef) {
                             if (_.isLiteral(value)) {
-                                value = _.stripQuotes(value)
+                                value = _.stripQuotes(value);
                                 modifiers.literal = true
                             }
                             pushDir(dirName, dirDef)
@@ -3095,7 +3095,7 @@
                  */
 
                 function pushDir(dirName, def, interp) {
-                    var parsed = dirParser.parse(value)
+                    var parsed = dirParser.parse(value);
                     dirs.push({
                         name: dirName,
                         attr: rawName,
@@ -3122,10 +3122,10 @@
              */
 
             function parseModifiers(name) {
-                var res = Object.create(null)
-                var match = name.match(modifierRE)
+                var res = Object.create(null);
+                var match = name.match(modifierRE);
                 if (match) {
-                    var i = match.length
+                    var i = match.length;
                     while (i--) {
                         res[match[i].slice(1)] = true
                     }
@@ -3143,7 +3143,7 @@
             function makeNodeLinkFn(directives) {
                 return function nodeLinkFn(vm, el, host, scope, frag) {
                     // reverse apply because it's sorted low to high
-                    var i = directives.length
+                    var i = directives.length;
                     while (i--) {
                         vm._bindDir(directives[i], el, host, scope, frag)
                     }
@@ -3157,29 +3157,29 @@
         /***/ function (module, exports, __webpack_require__) {
 
             // text & html
-            exports.text = __webpack_require__(17)
-            exports.html = __webpack_require__(18)
+            exports.text = __webpack_require__(17);
+            exports.html = __webpack_require__(18);
 
             // logic control
-            exports['for'] = __webpack_require__(20)
-            exports['if'] = __webpack_require__(23)
-            exports.show = __webpack_require__(24)
+            exports['for'] = __webpack_require__(20);
+            exports['if'] = __webpack_require__(23);
+            exports.show = __webpack_require__(24);
 
             // two-way binding
-            exports.model = __webpack_require__(25)
+            exports.model = __webpack_require__(25);
 
             // event handling
-            exports.on = __webpack_require__(30)
+            exports.on = __webpack_require__(30);
 
             // attributes
-            exports.bind = __webpack_require__(31)
+            exports.bind = __webpack_require__(31);
 
             // ref & el
-            exports.el = __webpack_require__(33)
-            exports.ref = __webpack_require__(34)
+            exports.el = __webpack_require__(33);
+            exports.ref = __webpack_require__(34);
 
             // cloak
-            exports.cloak = __webpack_require__(35)
+            exports.cloak = __webpack_require__(35);
 
 
             /***/
@@ -3187,7 +3187,7 @@
         /* 17 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             module.exports = {
 
@@ -3200,7 +3200,7 @@
                 update: function (value) {
                     this.el[this.attr] = _.toString(value)
                 }
-            }
+            };
 
 
             /***/
@@ -3208,8 +3208,8 @@
         /* 18 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var templateParser = __webpack_require__(19)
+            var _ = __webpack_require__(1);
+            var templateParser = __webpack_require__(19);
 
             module.exports = {
 
@@ -3218,15 +3218,15 @@
                     // {{{ inline unescaped html }}}
                     if (this.el.nodeType === 8) {
                         // hold nodes
-                        this.nodes = []
+                        this.nodes = [];
                         // replace the placeholder with proper anchor
-                        this.anchor = _.createAnchor('v-html')
+                        this.anchor = _.createAnchor('v-html');
                         _.replace(this.el, this.anchor)
                     }
                 },
 
                 update: function (value) {
-                    value = _.toString(value)
+                    value = _.toString(value);
                     if (this.nodes) {
                         this.swap(value)
                     } else {
@@ -3236,18 +3236,18 @@
 
                 swap: function (value) {
                     // remove old nodes
-                    var i = this.nodes.length
+                    var i = this.nodes.length;
                     while (i--) {
                         _.remove(this.nodes[i])
                     }
                     // convert new value to a fragment
                     // do not attempt to retrieve from id selector
-                    var frag = templateParser.parse(value, true, true)
+                    var frag = templateParser.parse(value, true, true);
                     // save a reference to these nodes so we can remove later
-                    this.nodes = _.toArray(frag.childNodes)
+                    this.nodes = _.toArray(frag.childNodes);
                     _.before(frag, this.anchor)
                 }
-            }
+            };
 
 
             /***/
@@ -3255,10 +3255,10 @@
         /* 19 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Cache = __webpack_require__(7)
-            var templateCache = new Cache(1000)
-            var idSelectorCache = new Cache(1000)
+            var _ = __webpack_require__(1);
+            var Cache = __webpack_require__(7);
+            var templateCache = new Cache(1000);
+            var idSelectorCache = new Cache(1000);
 
             var map = {
                 _default: [0, '', ''],
@@ -3269,27 +3269,27 @@
                     '<table><tbody></tbody><colgroup>',
                     '</colgroup></table>'
                 ]
-            }
+            };
 
             map.td =
                 map.th = [
                     3,
                     '<table><tbody><tr>',
                     '</tr></tbody></table>'
-                ]
+                ];
 
             map.option =
                 map.optgroup = [
                     1,
                     '<select multiple="multiple">',
                     '</select>'
-                ]
+                ];
 
             map.thead =
                 map.tbody =
                     map.colgroup =
                         map.caption =
-                            map.tfoot = [1, '<table>', '</table>']
+                            map.tfoot = [1, '<table>', '</table>'];
 
             map.g =
                 map.defs =
@@ -3311,7 +3311,7 @@
                                                                 'xmlns:ev="http://www.w3.org/2001/xml-events"' +
                                                                 'version="1.1">',
                                                                 '</svg>'
-                                                            ]
+                                                            ];
 
             /**
              * Check if a node is a supported template node with a
@@ -3326,8 +3326,8 @@
                     node.content instanceof DocumentFragment
             }
 
-            var tagRE = /<([\w:]+)/
-            var entityRE = /&\w+;|&#\d+;|&#x[\dA-F]+;/
+            var tagRE = /<([\w:]+)/;
+            var entityRE = /&\w+;|&#\d+;|&#x[\dA-F]+;/;
 
             /**
              * Convert a string template to a DocumentFragment.
@@ -3340,14 +3340,14 @@
 
             function stringToFragment(templateString) {
                 // try a cache hit first
-                var hit = templateCache.get(templateString)
+                var hit = templateCache.get(templateString);
                 if (hit) {
                     return hit
                 }
 
-                var frag = document.createDocumentFragment()
-                var tagMatch = templateString.match(tagRE)
-                var entityMatch = entityRE.test(templateString)
+                var frag = document.createDocumentFragment();
+                var tagMatch = templateString.match(tagRE);
+                var entityMatch = entityRE.test(templateString);
 
                 if (!tagMatch && !entityMatch) {
                     // text only, return a single text node.
@@ -3356,19 +3356,19 @@
                     )
                 } else {
 
-                    var tag = tagMatch && tagMatch[1]
-                    var wrap = map[tag] || map._default
-                    var depth = wrap[0]
-                    var prefix = wrap[1]
-                    var suffix = wrap[2]
-                    var node = document.createElement('div')
+                    var tag = tagMatch && tagMatch[1];
+                    var wrap = map[tag] || map._default;
+                    var depth = wrap[0];
+                    var prefix = wrap[1];
+                    var suffix = wrap[2];
+                    var node = document.createElement('div');
 
-                    node.innerHTML = prefix + templateString.trim() + suffix
+                    node.innerHTML = prefix + templateString.trim() + suffix;
                     while (depth--) {
                         node = node.lastChild
                     }
 
-                    var child
+                    var child;
                     /* eslint-disable no-cond-assign */
                     while (child = node.firstChild) {
                         /* eslint-enable no-cond-assign */
@@ -3376,7 +3376,7 @@
                     }
                 }
 
-                templateCache.put(templateString, frag)
+                templateCache.put(templateString, frag);
                 return frag
             }
 
@@ -3391,7 +3391,7 @@
                 // if its a template tag and the browser supports it,
                 // its content is already a document fragment.
                 if (isRealTemplate(node)) {
-                    _.trimNode(node.content)
+                    _.trimNode(node.content);
                     return node.content
                 }
                 // script template
@@ -3399,15 +3399,15 @@
                     return stringToFragment(node.textContent)
                 }
                 // normal node, clone it to avoid mutating the original
-                var clone = exports.clone(node)
-                var frag = document.createDocumentFragment()
-                var child
+                var clone = exports.clone(node);
+                var frag = document.createDocumentFragment();
+                var child;
                 /* eslint-disable no-cond-assign */
                 while (child = clone.firstChild) {
                     /* eslint-enable no-cond-assign */
                     frag.appendChild(child)
                 }
-                _.trimNode(frag)
+                _.trimNode(frag);
                 return frag
             }
 
@@ -3416,25 +3416,25 @@
             var hasBrokenTemplate = (function () {
                 /* istanbul ignore else */
                 if (_.inBrowser) {
-                    var a = document.createElement('div')
-                    a.innerHTML = '<template>1</template>'
+                    var a = document.createElement('div');
+                    a.innerHTML = '<template>1</template>';
                     return !a.cloneNode(true).firstChild.innerHTML
                 } else {
                     return false
                 }
-            })()
+            })();
 
             // Test for IE10/11 textarea placeholder clone bug
             var hasTextareaCloneBug = (function () {
                 /* istanbul ignore else */
                 if (_.inBrowser) {
-                    var t = document.createElement('textarea')
-                    t.placeholder = 't'
+                    var t = document.createElement('textarea');
+                    t.placeholder = 't';
                     return t.cloneNode(true).value === 't'
                 } else {
                     return false
                 }
-            })()
+            })();
 
             /**
              * 1. Deal with Safari cloning nested <template> bug by
@@ -3450,19 +3450,19 @@
                 if (!node.querySelectorAll) {
                     return node.cloneNode()
                 }
-                var res = node.cloneNode(true)
-                var i, original, cloned
+                var res = node.cloneNode(true);
+                var i, original, cloned;
                 /* istanbul ignore if */
                 if (hasBrokenTemplate) {
-                    var clone = res
+                    var clone = res;
                     if (isRealTemplate(node)) {
-                        node = node.content
+                        node = node.content;
                         clone = res.content
                     }
-                    original = node.querySelectorAll('template')
+                    original = node.querySelectorAll('template');
                     if (original.length) {
-                        cloned = clone.querySelectorAll('template')
-                        i = cloned.length
+                        cloned = clone.querySelectorAll('template');
+                        i = cloned.length;
                         while (i--) {
                             cloned[i].parentNode.replaceChild(
                                 exports.clone(original[i]),
@@ -3476,10 +3476,10 @@
                     if (node.tagName === 'TEXTAREA') {
                         res.value = node.value
                     } else {
-                        original = node.querySelectorAll('textarea')
+                        original = node.querySelectorAll('textarea');
                         if (original.length) {
-                            cloned = res.querySelectorAll('textarea')
-                            i = cloned.length
+                            cloned = res.querySelectorAll('textarea');
+                            i = cloned.length;
                             while (i--) {
                                 cloned[i].value = original[i].value
                             }
@@ -3487,7 +3487,7 @@
                     }
                 }
                 return res
-            }
+            };
 
             /**
              * Process the template option and normalizes it into a
@@ -3506,12 +3506,12 @@
              */
 
             exports.parse = function (template, clone, noSelector) {
-                var node, frag
+                var node, frag;
 
                 // if the template is already a document fragment,
                 // do nothing
                 if (template instanceof DocumentFragment) {
-                    _.trimNode(template)
+                    _.trimNode(template);
                     return clone
                         ? exports.clone(template)
                         : template
@@ -3521,11 +3521,11 @@
                     // id selector
                     if (!noSelector && template.charAt(0) === '#') {
                         // id selector can be cached too
-                        frag = idSelectorCache.get(template)
+                        frag = idSelectorCache.get(template);
                         if (!frag) {
-                            node = document.getElementById(template.slice(1))
+                            node = document.getElementById(template.slice(1));
                             if (node) {
-                                frag = nodeToFragment(node)
+                                frag = nodeToFragment(node);
                                 // save selector to cache
                                 idSelectorCache.put(template, frag)
                             }
@@ -3542,7 +3542,7 @@
                 return frag && clone
                     ? exports.clone(frag)
                     : frag
-            }
+            };
 
 
             /***/
@@ -3550,10 +3550,10 @@
         /* 20 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var FragmentFactory = __webpack_require__(21)
-            var isObject = _.isObject
-            var uid = 0
+            var _ = __webpack_require__(1);
+            var FragmentFactory = __webpack_require__(21);
+            var isObject = _.isObject;
+            var uid = 0;
 
             module.exports = {
 
@@ -3568,11 +3568,11 @@
 
                 bind: function () {
                     // support "item in items" syntax
-                    var inMatch = this.expression.match(/(.*) in (.*)/)
+                    var inMatch = this.expression.match(/(.*) in (.*)/);
                     if (inMatch) {
-                        var itMatch = inMatch[1].match(/\((.*),(.*)\)/)
+                        var itMatch = inMatch[1].match(/\((.*),(.*)\)/);
                         if (itMatch) {
-                            this.iterator = itMatch[1].trim()
+                            this.iterator = itMatch[1].trim();
                             this.alias = itMatch[2].trim()
                         } else {
                             this.alias = inMatch[1].trim()
@@ -3583,12 +3583,12 @@
                     if (!this.alias) {
                         ("development") !== 'production' && _.warn(
                             'Alias is required in v-for.'
-                        )
+                        );
                         return
                     }
 
                     // uid as a cache identifier
-                    this.id = '__v-for__' + (++uid)
+                    this.id = '__v-for__' + (++uid);
 
                     // check if this is an option list,
                     // so that we know if we need to update the <select>'s
@@ -3596,30 +3596,30 @@
                     // because v-model has a lower priority than v-for,
                     // the v-model is not bound here yet, so we have to
                     // retrive it in the actual updateModel() function.
-                    var tag = this.el.tagName
+                    var tag = this.el.tagName;
                     this.isOption =
                         (tag === 'OPTION' || tag === 'OPTGROUP') &&
-                        this.el.parentNode.tagName === 'SELECT'
+                        this.el.parentNode.tagName === 'SELECT';
 
                     // setup anchor nodes
-                    this.start = _.createAnchor('v-for-start')
-                    this.end = _.createAnchor('v-for-end')
-                    _.replace(this.el, this.end)
-                    _.before(this.start, this.end)
+                    this.start = _.createAnchor('v-for-start');
+                    this.end = _.createAnchor('v-for-end');
+                    _.replace(this.el, this.end);
+                    _.before(this.start, this.end);
 
                     // check ref
-                    this.ref = _.findRef(this.el)
+                    this.ref = _.findRef(this.el);
 
                     // cache
-                    this.cache = Object.create(null)
+                    this.cache = Object.create(null);
 
                     // fragment factory
                     this.factory = new FragmentFactory(this.vm, this.el)
                 },
 
                 update: function (data) {
-                    this.diff(data)
-                    this.updateRef()
+                    this.diff(data);
+                    this.updateRef();
                     this.updateModel()
                 },
 
@@ -3639,37 +3639,37 @@
 
                 diff: function (data) {
                     // check if the Array was converted from an Object
-                    var item = data[0]
+                    var item = data[0];
                     var convertedFromObject = this.fromObject =
                         isObject(item) &&
                         item.hasOwnProperty('$key') &&
-                        item.hasOwnProperty('$value')
+                        item.hasOwnProperty('$value');
 
-                    var trackByKey = this.params.trackBy
-                    var oldFrags = this.frags
-                    var frags = this.frags = new Array(data.length)
-                    var alias = this.alias
-                    var iterator = this.iterator
-                    var start = this.start
-                    var end = this.end
-                    var inDoc = _.inDoc(start)
-                    var init = !oldFrags
-                    var i, l, frag, key, value, primitive
+                    var trackByKey = this.params.trackBy;
+                    var oldFrags = this.frags;
+                    var frags = this.frags = new Array(data.length);
+                    var alias = this.alias;
+                    var iterator = this.iterator;
+                    var start = this.start;
+                    var end = this.end;
+                    var inDoc = _.inDoc(start);
+                    var init = !oldFrags;
+                    var i, l, frag, key, value, primitive;
 
                     // First pass, go through the new Array and fill up
                     // the new frags array. If a piece of data has a cached
                     // instance for it, we reuse it. Otherwise build a new
                     // instance.
                     for (i = 0, l = data.length; i < l; i++) {
-                        item = data[i]
-                        key = convertedFromObject ? item.$key : null
-                        value = convertedFromObject ? item.$value : item
-                        primitive = !isObject(value)
-                        frag = !init && this.getCachedFrag(value, i, key)
+                        item = data[i];
+                        key = convertedFromObject ? item.$key : null;
+                        value = convertedFromObject ? item.$value : item;
+                        primitive = !isObject(value);
+                        frag = !init && this.getCachedFrag(value, i, key);
                         if (frag) { // reusable fragment
-                            frag.reused = true
+                            frag.reused = true;
                             // update $index
-                            frag.scope.$index = i
+                            frag.scope.$index = i;
                             // update $key
                             if (key) {
                                 frag.scope.$key = key
@@ -3684,10 +3684,10 @@
                                 frag.scope[alias] = value
                             }
                         } else { // new isntance
-                            frag = this.create(value, alias, i, key)
+                            frag = this.create(value, alias, i, key);
                             frag.fresh = !init
                         }
-                        frags[i] = frag
+                        frags[i] = frag;
                         if (init) {
                             frag.before(end)
                         }
@@ -3701,31 +3701,31 @@
                     // Second pass, go through the old fragments and
                     // destroy those who are not reused (and remove them
                     // from cache)
-                    var removalIndex = 0
-                    var totalRemoved = oldFrags.length - frags.length
+                    var removalIndex = 0;
+                    var totalRemoved = oldFrags.length - frags.length;
                     for (i = 0, l = oldFrags.length; i < l; i++) {
-                        frag = oldFrags[i]
+                        frag = oldFrags[i];
                         if (!frag.reused) {
-                            this.deleteCachedFrag(frag)
+                            this.deleteCachedFrag(frag);
                             this.remove(frag, removalIndex++, totalRemoved, inDoc)
                         }
                     }
 
                     // Final pass, move/insert new fragments into the
                     // right place.
-                    var targetPrev, prevEl, currentPrev
-                    var insertionIndex = 0
+                    var targetPrev, prevEl, currentPrev;
+                    var insertionIndex = 0;
                     for (i = 0, l = frags.length; i < l; i++) {
-                        frag = frags[i]
+                        frag = frags[i];
                         // this is the frag that we should be after
-                        targetPrev = frags[i - 1]
+                        targetPrev = frags[i - 1];
                         prevEl = targetPrev
                             ? targetPrev.staggerCb
                             ? targetPrev.staggerAnchor
                             : targetPrev.end || targetPrev.node
-                            : start
+                            : start;
                         if (frag.reused && !frag.staggerCb) {
-                            currentPrev = findPrevFrag(frag, start, this.id)
+                            currentPrev = findPrevFrag(frag, start, this.id);
                             if (currentPrev !== targetPrev) {
                                 this.move(frag, prevEl)
                             }
@@ -3749,20 +3749,20 @@
                  */
 
                 create: function (value, alias, index, key) {
-                    var host = this._host
+                    var host = this._host;
                     // create iteration scope
-                    var parentScope = this._scope || this.vm
-                    var scope = Object.create(parentScope)
+                    var parentScope = this._scope || this.vm;
+                    var scope = Object.create(parentScope);
                     // ref holder for the scope
-                    scope.$refs = {}
-                    scope.$els = {}
+                    scope.$refs = {};
+                    scope.$els = {};
                     // make sure point $parent to parent scope
-                    scope.$parent = parentScope
+                    scope.$parent = parentScope;
                     // for two-way binding on alias
-                    scope.$forContext = this
+                    scope.$forContext = this;
                     // define scope properties
-                    _.defineReactive(scope, alias, value)
-                    _.defineReactive(scope, '$index', index)
+                    _.defineReactive(scope, alias, value);
+                    _.defineReactive(scope, '$index', index);
                     if (key) {
                         _.defineReactive(scope, '$key', key)
                     } else if (scope.$key) {
@@ -3772,9 +3772,9 @@
                     if (this.iterator) {
                         _.defineReactive(scope, this.iterator, key !== null ? key : index)
                     }
-                    var frag = this.factory.create(host, scope, this._frag)
-                    frag.forId = this.id
-                    this.cacheFrag(value, frag, index, key)
+                    var frag = this.factory.create(host, scope, this._frag);
+                    frag.forId = this.id;
+                    this.cacheFrag(value, frag, index, key);
                     return frag
                 },
 
@@ -3783,14 +3783,14 @@
                  */
 
                 updateRef: function () {
-                    var ref = this.ref
-                    if (!ref) return
-                    var hash = (this._scope || this.vm).$refs
-                    var refs
+                    var ref = this.ref;
+                    if (!ref) return;
+                    var hash = (this._scope || this.vm).$refs;
+                    var refs;
                     if (!this.fromObject) {
                         refs = this.frags.map(findVmFromFrag)
                     } else {
-                        refs = {}
+                        refs = {};
                         this.frags.forEach(function (frag) {
                             refs[frag.scope.$key] = findVmFromFrag(frag)
                         })
@@ -3809,8 +3809,8 @@
 
                 updateModel: function () {
                     if (this.isOption) {
-                        var parent = this.start.parentNode
-                        var model = parent && parent.__v_model
+                        var parent = this.start.parentNode;
+                        var model = parent && parent.__v_model;
                         if (model) {
                             model.forceUpdate()
                         }
@@ -3828,25 +3828,25 @@
 
                 insert: function (frag, index, prevEl, inDoc) {
                     if (frag.staggerCb) {
-                        frag.staggerCb.cancel()
+                        frag.staggerCb.cancel();
                         frag.staggerCb = null
                     }
-                    var staggerAmount = this.getStagger(frag, index, null, 'enter')
+                    var staggerAmount = this.getStagger(frag, index, null, 'enter');
                     if (inDoc && staggerAmount) {
                         // create an anchor and insert it synchronously,
                         // so that we can resolve the correct order without
                         // worrying about some elements not inserted yet
-                        var anchor = frag.staggerAnchor
+                        var anchor = frag.staggerAnchor;
                         if (!anchor) {
-                            anchor = frag.staggerAnchor = _.createAnchor('stagger-anchor')
+                            anchor = frag.staggerAnchor = _.createAnchor('stagger-anchor');
                             anchor.__vfrag__ = frag
                         }
-                        _.after(anchor, prevEl)
+                        _.after(anchor, prevEl);
                         var op = frag.staggerCb = _.cancellable(function () {
-                            frag.staggerCb = null
-                            frag.before(anchor)
+                            frag.staggerCb = null;
+                            frag.before(anchor);
                             _.remove(anchor)
-                        })
+                        });
                         setTimeout(op, staggerAmount)
                     } else {
                         frag.before(prevEl.nextSibling)
@@ -3864,8 +3864,8 @@
 
                 remove: function (frag, index, total, inDoc) {
                     if (frag.staggerCb) {
-                        frag.staggerCb.cancel()
-                        frag.staggerCb = null
+                        frag.staggerCb.cancel();
+                        frag.staggerCb = null;
                         // it's not possible for the same frag to be removed
                         // twice, so if we have a pending stagger callback,
                         // it means this frag is queued for enter but removed
@@ -3873,12 +3873,12 @@
                         // destroyed, we can just leave it in detached state.
                         return
                     }
-                    var staggerAmount = this.getStagger(frag, index, total, 'leave')
+                    var staggerAmount = this.getStagger(frag, index, total, 'leave');
                     if (inDoc && staggerAmount) {
                         var op = frag.staggerCb = _.cancellable(function () {
-                            frag.staggerCb = null
+                            frag.staggerCb = null;
                             frag.remove(true)
-                        })
+                        });
                         setTimeout(op, staggerAmount)
                     } else {
                         frag.remove(true)
@@ -3907,16 +3907,16 @@
                  */
 
                 cacheFrag: function (value, frag, index, key) {
-                    var trackByKey = this.params.trackBy
-                    var cache = this.cache
-                    var primitive = !isObject(value)
-                    var id
+                    var trackByKey = this.params.trackBy;
+                    var cache = this.cache;
+                    var primitive = !isObject(value);
+                    var id;
                     if (key || trackByKey || primitive) {
                         id = trackByKey
                             ? trackByKey === '$index'
                             ? index
                             : value[trackByKey]
-                            : (key || value)
+                            : (key || value);
                         if (!cache[id]) {
                             cache[id] = frag
                         } else if (trackByKey !== '$index') {
@@ -3924,7 +3924,7 @@
                             this.warnDuplicate(value)
                         }
                     } else {
-                        id = this.id
+                        id = this.id;
                         if (value.hasOwnProperty(id)) {
                             if (value[id] === null) {
                                 value[id] = frag
@@ -3949,15 +3949,15 @@
                  */
 
                 getCachedFrag: function (value, index, key) {
-                    var trackByKey = this.params.trackBy
-                    var primitive = !isObject(value)
-                    var frag
+                    var trackByKey = this.params.trackBy;
+                    var primitive = !isObject(value);
+                    var frag;
                     if (key || trackByKey || primitive) {
                         var id = trackByKey
                             ? trackByKey === '$index'
                             ? index
                             : value[trackByKey]
-                            : (key || value)
+                            : (key || value);
                         frag = this.cache[id]
                     } else {
                         frag = value[this.id]
@@ -3976,23 +3976,23 @@
                  */
 
                 deleteCachedFrag: function (frag) {
-                    var value = frag.raw
-                    var trackByKey = this.params.trackBy
-                    var scope = frag.scope
-                    var index = scope.$index
+                    var value = frag.raw;
+                    var trackByKey = this.params.trackBy;
+                    var scope = frag.scope;
+                    var index = scope.$index;
                     // fix #948: avoid accidentally fall through to
                     // a parent repeater which happens to have $key.
-                    var key = scope.hasOwnProperty('$key') && scope.$key
-                    var primitive = !isObject(value)
+                    var key = scope.hasOwnProperty('$key') && scope.$key;
+                    var primitive = !isObject(value);
                     if (trackByKey || key || primitive) {
                         var id = trackByKey
                             ? trackByKey === '$index'
                             ? index
                             : value[trackByKey]
-                            : (key || value)
+                            : (key || value);
                         this.cache[id] = null
                     } else {
-                        value[this.id] = null
+                        value[this.id] = null;
                         frag.raw = null
                     }
                 },
@@ -4007,10 +4007,10 @@
                  */
 
                 getStagger: function (frag, index, total, type) {
-                    type = type + 'Stagger'
-                    var trans = frag.node.__v_trans
-                    var hooks = trans && trans.hooks
-                    var hook = hooks && (hooks[type] || hooks.stagger)
+                    type = type + 'Stagger';
+                    var trans = frag.node.__v_trans;
+                    var hooks = trans && trans.hooks;
+                    var hook = hooks && (hooks[type] || hooks.stagger);
                     return hook
                         ? hook.call(frag, index, total)
                         : index * parseInt(this.params[type] || this.params.stagger, 10)
@@ -4023,7 +4023,7 @@
 
                 _preProcess: function (value) {
                     // regardless of type, store the un-filtered raw value.
-                    this.rawValue = value
+                    this.rawValue = value;
                     return value
                 },
 
@@ -4041,12 +4041,12 @@
                         return value
                     } else if (_.isPlainObject(value)) {
                         // convert plain object to array.
-                        var keys = Object.keys(value)
-                        var i = keys.length
-                        var res = new Array(i)
-                        var key
+                        var keys = Object.keys(value);
+                        var i = keys.length;
+                        var res = new Array(i);
+                        var key;
                         while (i--) {
-                            key = keys[i]
+                            key = keys[i];
                             res[i] = {
                                 $key: key,
                                 $value: value[key]
@@ -4054,7 +4054,7 @@
                         }
                         return res
                     } else {
-                        var type = typeof value
+                        var type = typeof value;
                         if (type === 'number') {
                             value = range(value)
                         } else if (type === 'string') {
@@ -4069,16 +4069,16 @@
                         (this._scope || this.vm).$refs[this.ref] = null
                     }
                     if (this.frags) {
-                        var i = this.frags.length
-                        var frag
+                        var i = this.frags.length;
+                        var frag;
                         while (i--) {
-                            frag = this.frags[i]
-                            this.deleteCachedFrag(frag)
+                            frag = this.frags[i];
+                            this.deleteCachedFrag(frag);
                             frag.destroy()
                         }
                     }
                 }
-            }
+            };
 
             /**
              * Helper to find the previous element that is a fragment
@@ -4097,17 +4097,17 @@
              */
 
             function findPrevFrag(frag, anchor, id) {
-                var el = frag.node.previousSibling
+                var el = frag.node.previousSibling;
                 /* istanbul ignore if */
-                if (!el) return
-                frag = el.__vfrag__
+                if (!el) return;
+                frag = el.__vfrag__;
                 while (
                 (!frag || frag.forId !== id || !frag.inserted) &&
                 el !== anchor
                     ) {
-                    el = el.previousSibling
+                    el = el.previousSibling;
                     /* istanbul ignore if */
-                    if (!el) return
+                    if (!el) return;
                     frag = el.__vfrag__
                 }
                 return frag
@@ -4132,8 +4132,8 @@
              */
 
             function range(n) {
-                var i = -1
-                var ret = new Array(n)
+                var i = -1;
+                var ret = new Array(n);
                 while (++i < n) {
                     ret[i] = i
                 }
@@ -4156,12 +4156,12 @@
         /* 21 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var compiler = __webpack_require__(14)
-            var templateParser = __webpack_require__(19)
-            var Fragment = __webpack_require__(22)
-            var Cache = __webpack_require__(7)
-            var linkerCache = new Cache(5000)
+            var _ = __webpack_require__(1);
+            var compiler = __webpack_require__(14);
+            var templateParser = __webpack_require__(19);
+            var Fragment = __webpack_require__(22);
+            var Cache = __webpack_require__(7);
+            var linkerCache = new Cache(5000);
 
             /**
              * A factory that can be used to create instances of a
@@ -4172,24 +4172,24 @@
              */
 
             function FragmentFactory(vm, el) {
-                this.vm = vm
-                var template
-                var isString = typeof el === 'string'
+                this.vm = vm;
+                var template;
+                var isString = typeof el === 'string';
                 if (isString || _.isTemplate(el)) {
                     template = templateParser.parse(el, true)
                 } else {
-                    template = document.createDocumentFragment()
+                    template = document.createDocumentFragment();
                     template.appendChild(el)
                 }
-                this.template = template
+                this.template = template;
                 // linker can be cached, but only for components
-                var linker
-                var cid = vm.constructor.cid
+                var linker;
+                var cid = vm.constructor.cid;
                 if (cid > 0) {
-                    var cacheId = cid + (isString ? el : el.outerHTML)
-                    linker = linkerCache.get(cacheId)
+                    var cacheId = cid + (isString ? el : el.outerHTML);
+                    linker = linkerCache.get(cacheId);
                     if (!linker) {
-                        linker = compiler.compile(template, vm.$options, true)
+                        linker = compiler.compile(template, vm.$options, true);
                         linkerCache.put(cacheId, linker)
                     }
                 } else {
@@ -4207,11 +4207,11 @@
              */
 
             FragmentFactory.prototype.create = function (host, scope, parentFrag) {
-                var frag = templateParser.clone(this.template)
+                var frag = templateParser.clone(this.template);
                 return new Fragment(this.linker, this.vm, frag, host, scope, parentFrag)
-            }
+            };
 
-            module.exports = FragmentFactory
+            module.exports = FragmentFactory;
 
 
             /***/
@@ -4219,8 +4219,8 @@
         /* 22 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var transition = __webpack_require__(9)
+            var _ = __webpack_require__(1);
+            var transition = __webpack_require__(9);
 
             /**
              * Abstraction for a partially-compiled fragment.
@@ -4234,28 +4234,28 @@
              */
 
             function Fragment(linker, vm, frag, host, scope, parentFrag) {
-                this.children = []
-                this.childFrags = []
-                this.vm = vm
-                this.scope = scope
-                this.inserted = false
-                this.parentFrag = parentFrag
+                this.children = [];
+                this.childFrags = [];
+                this.vm = vm;
+                this.scope = scope;
+                this.inserted = false;
+                this.parentFrag = parentFrag;
                 if (parentFrag) {
                     parentFrag.childFrags.push(this)
                 }
-                this.unlink = linker(vm, frag, host, scope, this)
-                var single = this.single = frag.childNodes.length === 1
+                this.unlink = linker(vm, frag, host, scope, this);
+                var single = this.single = frag.childNodes.length === 1;
                 if (single) {
-                    this.node = frag.childNodes[0]
-                    this.before = singleBefore
+                    this.node = frag.childNodes[0];
+                    this.before = singleBefore;
                     this.remove = singleRemove
                 } else {
-                    this.node = _.createAnchor('fragment-start')
-                    this.end = _.createAnchor('fragment-end')
-                    this.frag = frag
-                    _.prepend(this.node, frag)
-                    frag.appendChild(this.end)
-                    this.before = multiBefore
+                    this.node = _.createAnchor('fragment-start');
+                    this.end = _.createAnchor('fragment-end');
+                    this.frag = frag;
+                    _.prepend(this.node, frag);
+                    frag.appendChild(this.end);
+                    this.before = multiBefore;
                     this.remove = multiRemove
                 }
                 this.node.__vfrag__ = this
@@ -4270,14 +4270,14 @@
              */
 
             Fragment.prototype.callHook = function (hook) {
-                var i, l
+                var i, l;
                 for (i = 0, l = this.children.length; i < l; i++) {
                     hook(this.children[i])
                 }
                 for (i = 0, l = this.childFrags.length; i < l; i++) {
                     this.childFrags[i].callHook(hook)
                 }
-            }
+            };
 
             /**
              * Destroy the fragment.
@@ -4288,7 +4288,7 @@
                     this.parentFrag.childFrags.$remove(this)
                 }
                 this.unlink()
-            }
+            };
 
             /**
              * Insert fragment before target, single node version
@@ -4298,11 +4298,11 @@
              */
 
             function singleBefore(target, withTransition) {
-                this.inserted = true
+                this.inserted = true;
                 var method = withTransition !== false
                     ? transition.before
-                    : _.before
-                method(this.node, target, this.vm)
+                    : _.before;
+                method(this.node, target, this.vm);
                 if (_.inDoc(this.node)) {
                     this.callHook(attach)
                 }
@@ -4315,9 +4315,9 @@
              */
 
             function singleRemove(destroy) {
-                this.inserted = false
-                var shouldCallRemove = _.inDoc(this.node)
-                var self = this
+                this.inserted = false;
+                var shouldCallRemove = _.inDoc(this.node);
+                var self = this;
                 transition.remove(this.node, this.vm, function () {
                     if (shouldCallRemove) {
                         self.callHook(detach)
@@ -4336,14 +4336,14 @@
              */
 
             function multiBefore(target, withTransition) {
-                this.inserted = true
-                var vm = this.vm
+                this.inserted = true;
+                var vm = this.vm;
                 var method = withTransition !== false
                     ? transition.before
-                    : _.before
+                    : _.before;
                 _.mapNodeRange(this.node, this.end, function (node) {
                     method(node, target, vm)
-                })
+                });
                 if (_.inDoc(this.node)) {
                     this.callHook(attach)
                 }
@@ -4356,9 +4356,9 @@
              */
 
             function multiRemove(destroy) {
-                this.inserted = false
-                var self = this
-                var shouldCallRemove = _.inDoc(this.node)
+                this.inserted = false;
+                var self = this;
+                var shouldCallRemove = _.inDoc(this.node);
                 _.removeNodeRange(this.node, this.end, this.vm, this.frag, function () {
                     if (shouldCallRemove) {
                         self.callHook(detach)
@@ -4393,7 +4393,7 @@
                 }
             }
 
-            module.exports = Fragment
+            module.exports = Fragment;
 
 
             /***/
@@ -4401,37 +4401,37 @@
         /* 23 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var FragmentFactory = __webpack_require__(21)
+            var _ = __webpack_require__(1);
+            var FragmentFactory = __webpack_require__(21);
 
             module.exports = {
 
                 priority: 2000,
 
                 bind: function () {
-                    var el = this.el
+                    var el = this.el;
                     if (!el.__vue__) {
                         // check else block
-                        var next = el.nextElementSibling
+                        var next = el.nextElementSibling;
                         if (next && _.attr(next, 'v-else') !== null) {
-                            _.remove(next)
+                            _.remove(next);
                             this.elseFactory = new FragmentFactory(this.vm, next)
                         }
                         // check main block
-                        this.anchor = _.createAnchor('v-if')
-                        _.replace(el, this.anchor)
+                        this.anchor = _.createAnchor('v-if');
+                        _.replace(el, this.anchor);
                         this.factory = new FragmentFactory(this.vm, el)
                     } else {
                         ("development") !== 'production' && _.warn(
                             'v-if="' + this.expression + '" cannot be ' +
                             'used on an instance root element.'
-                        )
+                        );
                         this.invalid = true
                     }
                 },
 
                 update: function (value) {
-                    if (this.invalid) return
+                    if (this.invalid) return;
                     if (value) {
                         if (!this.frag) {
                             this.insert()
@@ -4443,20 +4443,20 @@
 
                 insert: function () {
                     if (this.elseFrag) {
-                        this.elseFrag.remove(true)
+                        this.elseFrag.remove(true);
                         this.elseFrag = null
                     }
-                    this.frag = this.factory.create(this._host, this._scope, this._frag)
+                    this.frag = this.factory.create(this._host, this._scope, this._frag);
                     this.frag.before(this.anchor)
                 },
 
                 remove: function () {
                     if (this.frag) {
-                        this.frag.remove(true)
+                        this.frag.remove(true);
                         this.frag = null
                     }
                     if (this.elseFactory) {
-                        this.elseFrag = this.elseFactory.create(this._host, this._scope, this._frag)
+                        this.elseFrag = this.elseFactory.create(this._host, this._scope, this._frag);
                         this.elseFrag.before(this.anchor)
                     }
                 },
@@ -4466,7 +4466,7 @@
                         this.frag.destroy()
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -4474,32 +4474,32 @@
         /* 24 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var transition = __webpack_require__(9)
+            var _ = __webpack_require__(1);
+            var transition = __webpack_require__(9);
 
             module.exports = {
 
                 bind: function () {
                     // check else block
-                    var next = this.el.nextElementSibling
+                    var next = this.el.nextElementSibling;
                     if (next && _.attr(next, 'v-else') !== null) {
                         this.elseEl = next
                     }
                 },
 
                 update: function (value) {
-                    var el = this.el
+                    var el = this.el;
                     transition.apply(el, value ? 1 : -1, function () {
                         el.style.display = value ? '' : 'none'
-                    }, this.vm)
-                    var elseEl = this.elseEl
+                    }, this.vm);
+                    var elseEl = this.elseEl;
                     if (elseEl) {
                         transition.apply(elseEl, value ? -1 : 1, function () {
                             elseEl.style.display = value ? 'none' : ''
                         }, this.vm)
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -4507,14 +4507,14 @@
         /* 25 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             var handlers = {
                 text: __webpack_require__(26),
                 radio: __webpack_require__(27),
                 select: __webpack_require__(28),
                 checkbox: __webpack_require__(29)
-            }
+            };
 
             module.exports = {
 
@@ -4536,7 +4536,7 @@
 
                 bind: function () {
                     // friendly warning...
-                    this.checkFilters()
+                    this.checkFilters();
                     if (this.hasRead && !this.hasWrite) {
                         ("development") !== 'production' && _.warn(
                             'It seems you are using a read-only filter with ' +
@@ -4544,9 +4544,9 @@
                             'to ensure correct behavior.'
                         )
                     }
-                    var el = this.el
-                    var tag = el.tagName
-                    var handler
+                    var el = this.el;
+                    var tag = el.tagName;
+                    var handler;
                     if (tag === 'INPUT') {
                         handler = handlers[el.type] || handlers.text
                     } else if (tag === 'SELECT') {
@@ -4556,12 +4556,12 @@
                     } else {
                         ("development") !== 'production' && _.warn(
                             'v-model does not support element type: ' + tag
-                        )
+                        );
                         return
                     }
-                    el.__v_model = this
-                    handler.bind.call(this)
-                    this.update = handler.update
+                    el.__v_model = this;
+                    handler.bind.call(this);
+                    this.update = handler.update;
                     this._unbind = handler.unbind
                 },
 
@@ -4570,11 +4570,11 @@
                  */
 
                 checkFilters: function () {
-                    var filters = this.filters
-                    if (!filters) return
-                    var i = filters.length
+                    var filters = this.filters;
+                    if (!filters) return;
+                    var i = filters.length;
                     while (i--) {
-                        var filter = _.resolveAsset(this.vm.$options, 'filters', filters[i].name)
+                        var filter = _.resolveAsset(this.vm.$options, 'filters', filters[i].name);
                         if (typeof filter === 'function' || filter.read) {
                             this.hasRead = true
                         }
@@ -4585,10 +4585,10 @@
                 },
 
                 unbind: function () {
-                    this.el.__v_model = null
+                    this.el.__v_model = null;
                     this._unbind && this._unbind()
                 }
-            }
+            };
 
 
             /***/
@@ -4596,17 +4596,17 @@
         /* 26 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             module.exports = {
 
                 bind: function () {
-                    var self = this
-                    var el = this.el
-                    var isRange = el.type === 'range'
-                    var lazy = this.params.lazy
-                    var number = this.params.number
-                    var debounce = this.params.debounce
+                    var self = this;
+                    var el = this.el;
+                    var isRange = el.type === 'range';
+                    var lazy = this.params.lazy;
+                    var number = this.params.number;
+                    var debounce = this.params.debounce;
 
                     // handle composition events.
                     //   http://blog.evanyou.me/2014/01/03/composition-event/
@@ -4615,13 +4615,13 @@
                     // composition events for language input methods e.g.
                     // Chinese, but instead triggers them for spelling
                     // suggestions... (see Discussion/#162)
-                    var composing = false
+                    var composing = false;
                     if (!_.isAndroid && !isRange) {
                         this.on('compositionstart', function () {
                             composing = true
-                        })
+                        });
                         this.on('compositionend', function () {
-                            composing = false
+                            composing = false;
                             // in IE11 the "compositionend" event fires AFTER
                             // the "input" event, so the input handler is blocked
                             // at the end... have to call it here.
@@ -4635,24 +4635,24 @@
 
                     // prevent messing with the input when user is typing,
                     // and force update on blur.
-                    this.focused = false
+                    this.focused = false;
                     if (!isRange) {
                         this.on('focus', function () {
                             self.focused = true
-                        })
+                        });
                         this.on('blur', function () {
-                            self.focused = false
+                            self.focused = false;
                             self.listener()
                         })
                     }
 
                     // Now attach the main listener
                     this.listener = function () {
-                        if (composing) return
+                        if (composing) return;
                         var val = number || isRange
                             ? _.toNumber(el.value)
-                            : el.value
-                        self.set(val)
+                            : el.value;
+                        self.set(val);
                         // force update on next tick to avoid lock & same value
                         // also only update when user is not typing
                         _.nextTick(function () {
@@ -4660,7 +4660,7 @@
                                 self.update(self._watcher.value)
                             }
                         })
-                    }
+                    };
 
                     // apply debounce
                     if (debounce) {
@@ -4677,14 +4677,14 @@
                     // store that check result on itself. This also allows
                     // easier test coverage control by unsetting the global
                     // jQuery variable in tests.
-                    this.hasjQuery = typeof jQuery === 'function'
+                    this.hasjQuery = typeof jQuery === 'function';
                     if (this.hasjQuery) {
-                        jQuery(el).on('change', this.listener)
+                        jQuery(el).on('change', this.listener);
                         if (!lazy) {
                             jQuery(el).on('input', this.listener)
                         }
                     } else {
-                        this.on('change', this.listener)
+                        this.on('change', this.listener);
                         if (!lazy) {
                             this.on('input', this.listener)
                         }
@@ -4694,7 +4694,7 @@
                     if (!lazy && _.isIE9) {
                         this.on('cut', function () {
                             _.nextTick(self.listener)
-                        })
+                        });
                         this.on('keyup', function (e) {
                             if (e.keyCode === 46 || e.keyCode === 8) {
                                 self.listener()
@@ -4716,13 +4716,13 @@
                 },
 
                 unbind: function () {
-                    var el = this.el
+                    var el = this.el;
                     if (this.hasjQuery) {
-                        jQuery(el).off('change', this.listener)
+                        jQuery(el).off('change', this.listener);
                         jQuery(el).off('input', this.listener)
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -4730,30 +4730,30 @@
         /* 27 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             module.exports = {
 
                 bind: function () {
-                    var self = this
-                    var el = this.el
+                    var self = this;
+                    var el = this.el;
 
                     this.getValue = function () {
                         // value overwrite via v-bind:value
                         if (el.hasOwnProperty('_value')) {
                             return el._value
                         }
-                        var val = el.value
+                        var val = el.value;
                         if (self.params.number) {
                             val = _.toNumber(val)
                         }
                         return val
-                    }
+                    };
 
                     this.listener = function () {
                         self.set(self.getValue())
-                    }
-                    this.on('change', this.listener)
+                    };
+                    this.on('change', this.listener);
 
                     if (el.checked) {
                         this.afterBind = this.listener
@@ -4763,7 +4763,7 @@
                 update: function (value) {
                     this.el.checked = _.looseEqual(value, this.getValue())
                 }
-            }
+            };
 
 
             /***/
@@ -4771,38 +4771,38 @@
         /* 28 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             module.exports = {
 
                 bind: function () {
-                    var self = this
-                    var el = this.el
+                    var self = this;
+                    var el = this.el;
 
                     // method to force update DOM using latest value.
                     this.forceUpdate = function () {
                         if (self._watcher) {
                             self.update(self._watcher.get())
                         }
-                    }
+                    };
 
                     // check if this is a multiple select
-                    var multiple = this.multiple = el.hasAttribute('multiple')
+                    var multiple = this.multiple = el.hasAttribute('multiple');
 
                     // attach listener
                     this.listener = function () {
-                        var value = getValue(el, multiple)
+                        var value = getValue(el, multiple);
                         value = self.params.number
                             ? _.isArray(value)
                             ? value.map(_.toNumber)
                             : _.toNumber(value)
-                            : value
+                            : value;
                         self.set(value)
-                    }
-                    this.on('change', this.listener)
+                    };
+                    this.on('change', this.listener);
 
                     // if has initial value, set afterBind
-                    var initValue = getValue(el, multiple, true)
+                    var initValue = getValue(el, multiple, true);
                     if ((multiple && initValue.length) ||
                         (!multiple && initValue !== null)) {
                         this.afterBind = this.listener
@@ -4816,21 +4816,21 @@
                 },
 
                 update: function (value) {
-                    var el = this.el
-                    el.selectedIndex = -1
-                    var multi = this.multiple && _.isArray(value)
-                    var options = el.options
-                    var i = options.length
-                    var op, val
+                    var el = this.el;
+                    el.selectedIndex = -1;
+                    var multi = this.multiple && _.isArray(value);
+                    var options = el.options;
+                    var i = options.length;
+                    var op, val;
                     while (i--) {
-                        op = options[i]
+                        op = options[i];
                         val = op.hasOwnProperty('_value')
                             ? op._value
-                            : op.value
+                            : op.value;
                         /* eslint-disable eqeqeq */
                         op.selected = multi
                             ? indexOf(value, val) > -1
-                            : _.looseEqual(value, val)
+                            : _.looseEqual(value, val);
                         /* eslint-enable eqeqeq */
                     }
                 },
@@ -4839,7 +4839,7 @@
                     /* istanbul ignore next */
                     this.vm.$off('hook:attached', this.forceUpdate)
                 }
-            }
+            };
 
             /**
              * Get select value
@@ -4851,17 +4851,17 @@
              */
 
             function getValue(el, multi, init) {
-                var res = multi ? [] : null
-                var op, val, selected
+                var res = multi ? [] : null;
+                var op, val, selected;
                 for (var i = 0, l = el.options.length; i < l; i++) {
-                    op = el.options[i]
+                    op = el.options[i];
                     selected = init
                         ? op.hasAttribute('selected')
-                        : op.selected
+                        : op.selected;
                     if (selected) {
                         val = op.hasOwnProperty('_value')
                             ? op._value
-                            : op.value
+                            : op.value;
                         if (multi) {
                             res.push(val)
                         } else {
@@ -4881,7 +4881,7 @@
              */
 
             function indexOf(arr, val) {
-                var i = arr.length
+                var i = arr.length;
                 while (i--) {
                     if (_.looseEqual(arr[i], val)) {
                         return i
@@ -4896,13 +4896,13 @@
         /* 29 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             module.exports = {
 
                 bind: function () {
-                    var self = this
-                    var el = this.el
+                    var self = this;
+                    var el = this.el;
 
                     this.getValue = function () {
                         return el.hasOwnProperty('_value')
@@ -4910,10 +4910,10 @@
                             : self.params.number
                             ? _.toNumber(el.value)
                             : el.value
-                    }
+                    };
 
                     function getBooleanValue() {
-                        var val = el.checked
+                        var val = el.checked;
                         if (val && el.hasOwnProperty('_trueValue')) {
                             return el._trueValue
                         }
@@ -4924,9 +4924,9 @@
                     }
 
                     this.listener = function () {
-                        var model = self._watcher.value
+                        var model = self._watcher.value;
                         if (_.isArray(model)) {
-                            var val = self.getValue()
+                            var val = self.getValue();
                             if (el.checked) {
                                 if (_.indexOf(model, val) < 0) {
                                     model.push(val)
@@ -4937,16 +4937,16 @@
                         } else {
                             self.set(getBooleanValue())
                         }
-                    }
+                    };
 
-                    this.on('change', this.listener)
+                    this.on('change', this.listener);
                     if (el.checked) {
                         this.afterBind = this.listener
                     }
                 },
 
                 update: function (value) {
-                    var el = this.el
+                    var el = this.el;
                     if (_.isArray(value)) {
                         el.checked = _.indexOf(value, this.getValue()) > -1
                     } else {
@@ -4957,7 +4957,7 @@
                         }
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -4965,7 +4965,7 @@
         /* 30 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             // keyCode aliases
             var keyCodes = {
@@ -4978,16 +4978,16 @@
                 left: 37,
                 right: 39,
                 down: 40
-            }
+            };
 
             function keyFilter(handler, keys) {
                 var codes = keys.map(function (key) {
-                    var code = keyCodes[key]
+                    var code = keyCodes[key];
                     if (!code) {
                         code = parseInt(key, 10)
                     }
                     return code
-                })
+                });
                 return function keyHandler(e) {
                     if (codes.indexOf(e.keyCode) > -1) {
                         return handler.call(this, e)
@@ -4997,14 +4997,14 @@
 
             function stopFilter(handler) {
                 return function stopHandler(e) {
-                    e.stopPropagation()
+                    e.stopPropagation();
                     return handler.call(this, e)
                 }
             }
 
             function preventFilter(handler) {
                 return function preventHandler(e) {
-                    e.preventDefault()
+                    e.preventDefault();
                     return handler.call(this, e)
                 }
             }
@@ -5020,10 +5020,10 @@
                         this.el.tagName === 'IFRAME' &&
                         this.arg !== 'load'
                     ) {
-                        var self = this
+                        var self = this;
                         this.iframeBind = function () {
                             _.on(self.el.contentWindow, self.arg, self.handler)
-                        }
+                        };
                         this.on('load', this.iframeBind)
                     }
                 },
@@ -5041,7 +5041,7 @@
                             'v-on:' + this.arg + '="' +
                             this.expression + '" expects a function value, ' +
                             'got ' + handler
-                        )
+                        );
                         return
                     }
 
@@ -5056,19 +5056,19 @@
                     var keys = Object.keys(this.modifiers)
                         .filter(function (key) {
                             return key !== 'stop' && key !== 'prevent'
-                        })
+                        });
                     if (keys.length) {
                         handler = keyFilter(handler, keys)
                     }
 
-                    this.reset()
-                    var scope = this._scope || this.vm
+                    this.reset();
+                    var scope = this._scope || this.vm;
                     this.handler = function (e) {
-                        scope.$event = e
-                        var res = handler(e)
-                        scope.$event = null
+                        scope.$event = e;
+                        var res = handler(e);
+                        scope.$event = null;
                         return res
-                    }
+                    };
                     if (this.iframeBind) {
                         this.iframeBind()
                     } else {
@@ -5079,7 +5079,7 @@
                 reset: function () {
                     var el = this.iframeBind
                         ? this.el.contentWindow
-                        : this.el
+                        : this.el;
                     if (this.handler) {
                         _.off(el, this.arg, this.handler)
                     }
@@ -5088,7 +5088,7 @@
                 unbind: function () {
                     this.reset()
                 }
-            }
+            };
 
 
             /***/
@@ -5096,11 +5096,11 @@
         /* 31 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             // xlink
-            var xlinkNS = 'http://www.w3.org/1999/xlink'
-            var xlinkRE = /^xlink:/
+            var xlinkNS = 'http://www.w3.org/1999/xlink';
+            var xlinkRE = /^xlink:/;
 
             // these input element attributes should also set their
             // corresponding properties
@@ -5108,7 +5108,7 @@
                 value: 1,
                 checked: 1,
                 selected: 1
-            }
+            };
 
             // these attributes should set a hidden property for
             // binding v-model to object values
@@ -5116,18 +5116,18 @@
                 value: '_value',
                 'true-value': '_trueValue',
                 'false-value': '_falseValue'
-            }
+            };
 
             // check for attributes that prohibit interpolations
-            var disallowedInterpAttrRE = /^v-|^:|^@|^(is|transition|transition-mode|debounce|track-by|stagger|enter-stagger|leave-stagger)$/
+            var disallowedInterpAttrRE = /^v-|^:|^@|^(is|transition|transition-mode|debounce|track-by|stagger|enter-stagger|leave-stagger)$/;
 
             module.exports = {
 
                 priority: 850,
 
                 bind: function () {
-                    var attr = this.arg
-                    var tag = this.el.tagName
+                    var attr = this.arg;
+                    var tag = this.el.tagName;
                     // handle interpolation bindings
                     if (this.descriptor.interp) {
                         // only allow binding on native attributes
@@ -5139,14 +5139,14 @@
                                 attr + '="' + this.descriptor.raw + '": ' +
                                 'attribute interpolation is not allowed in Vue.js ' +
                                 'directives and special attributes.'
-                            )
-                            this.el.removeAttribute(attr)
+                            );
+                            this.el.removeAttribute(attr);
                             this.invalid = true
                         }
 
                         /* istanbul ignore if */
                         if (true) {
-                            var raw = attr + '="' + this.descriptor.raw + '": '
+                            var raw = attr + '="' + this.descriptor.raw + '": ';
                             // warn src
                             if (attr === 'src') {
                                 _.warn(
@@ -5171,7 +5171,7 @@
                     if (this.invalid) {
                         return
                     }
-                    var attr = this.arg
+                    var attr = this.arg;
                     if (this.arg) {
                         this.handleSingle(attr, value)
                     } else {
@@ -5189,18 +5189,18 @@
                             : value
                     }
                     // set model props
-                    var modelProp = modelProps[attr]
+                    var modelProp = modelProps[attr];
                     if (modelProp) {
-                        this.el[modelProp] = value
+                        this.el[modelProp] = value;
                         // update v-model if present
-                        var model = this.el.__v_model
+                        var model = this.el.__v_model;
                         if (model) {
                             model.listener()
                         }
                     }
                     // do not set value attribute for textarea
                     if (attr === 'value' && this.el.tagName === 'TEXTAREA') {
-                        this.el.removeAttribute(attr)
+                        this.el.removeAttribute(attr);
                         return
                     }
                     // update attribute
@@ -5214,7 +5214,7 @@
                         this.el.removeAttribute(attr)
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -5222,12 +5222,12 @@
         /* 32 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var prefixes = ['-webkit-', '-moz-', '-ms-']
-            var camelPrefixes = ['Webkit', 'Moz', 'ms']
-            var importantRE = /!important;?$/
-            var testEl = null
-            var propCache = {}
+            var _ = __webpack_require__(1);
+            var prefixes = ['-webkit-', '-moz-', '-ms-'];
+            var camelPrefixes = ['Webkit', 'Moz', 'ms'];
+            var importantRE = /!important;?$/;
+            var testEl = null;
+            var propCache = {};
 
             module.exports = {
 
@@ -5246,32 +5246,32 @@
                 handleObject: function (value) {
                     // cache object styles so that only changed props
                     // are actually updated.
-                    var cache = this.cache || (this.cache = {})
-                    var name, val
+                    var cache = this.cache || (this.cache = {});
+                    var name, val;
                     for (name in cache) {
                         if (!(name in value)) {
-                            this.handleSingle(name, null)
+                            this.handleSingle(name, null);
                             delete cache[name]
                         }
                     }
                     for (name in value) {
-                        val = value[name]
+                        val = value[name];
                         if (val !== cache[name]) {
-                            cache[name] = val
+                            cache[name] = val;
                             this.handleSingle(name, val)
                         }
                     }
                 },
 
                 handleSingle: function (prop, value) {
-                    prop = normalize(prop)
-                    if (!prop) return // unsupported prop
+                    prop = normalize(prop);
+                    if (!prop) return; // unsupported prop
                     // cast possible numbers/booleans into strings
-                    if (value != null) value += ''
+                    if (value != null) value += '';
                     if (value) {
                         var isImportant = importantRE.test(value)
                             ? 'important'
-                            : ''
+                            : '';
                         if (isImportant) {
                             value = value.replace(importantRE, '').trim()
                         }
@@ -5281,7 +5281,7 @@
                     }
                 }
 
-            }
+            };
 
             /**
              * Normalize a CSS property name.
@@ -5297,8 +5297,8 @@
                 if (propCache[prop]) {
                     return propCache[prop]
                 }
-                var res = prefix(prop)
-                propCache[prop] = propCache[res] = res
+                var res = prefix(prop);
+                propCache[prop] = propCache[res] = res;
                 return res
             }
 
@@ -5311,19 +5311,19 @@
              */
 
             function prefix(prop) {
-                prop = _.hyphenate(prop)
-                var camel = _.camelize(prop)
-                var upper = camel.charAt(0).toUpperCase() + camel.slice(1)
+                prop = _.hyphenate(prop);
+                var camel = _.camelize(prop);
+                var upper = camel.charAt(0).toUpperCase() + camel.slice(1);
                 if (!testEl) {
                     testEl = document.createElement('div')
                 }
                 if (camel in testEl.style) {
                     return prop
                 }
-                var i = prefixes.length
-                var prefixed
+                var i = prefixes.length;
+                var prefixed;
                 while (i--) {
-                    prefixed = camelPrefixes[i] + upper
+                    prefixed = camelPrefixes[i] + upper;
                     if (prefixed in testEl.style) {
                         return prefixes[i] + prop
                     }
@@ -5336,7 +5336,7 @@
         /* 33 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             module.exports = {
 
@@ -5347,8 +5347,8 @@
                     if (!this.arg) {
                         return
                     }
-                    var id = this.id = _.camelize(this.arg)
-                    var refs = (this._scope || this.vm).$els
+                    var id = this.id = _.camelize(this.arg);
+                    var refs = (this._scope || this.vm).$els;
                     if (refs.hasOwnProperty(id)) {
                         refs[id] = this.el
                     } else {
@@ -5357,12 +5357,12 @@
                 },
 
                 unbind: function () {
-                    var refs = (this._scope || this.vm).$els
+                    var refs = (this._scope || this.vm).$els;
                     if (refs[this.id] === this.el) {
                         refs[this.id] = null
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -5389,12 +5389,12 @@
 
             module.exports = {
                 bind: function () {
-                    var el = this.el
+                    var el = this.el;
                     this.vm.$once('hook:compiled', function () {
                         el.removeAttribute('v-cloak')
                     })
                 }
-            }
+            };
 
 
             /***/
@@ -5402,11 +5402,11 @@
         /* 36 */
         /***/ function (module, exports, __webpack_require__) {
 
-            exports.style = __webpack_require__(32)
-            exports['class'] = __webpack_require__(37)
-            exports.component = __webpack_require__(38)
-            exports.prop = __webpack_require__(39)
-            exports.transition = __webpack_require__(45)
+            exports.style = __webpack_require__(32);
+            exports['class'] = __webpack_require__(37);
+            exports.component = __webpack_require__(38);
+            exports.prop = __webpack_require__(39);
+            exports.transition = __webpack_require__(45);
 
 
             /***/
@@ -5414,9 +5414,9 @@
         /* 37 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var addClass = _.addClass
-            var removeClass = _.removeClass
+            var _ = __webpack_require__(1);
+            var addClass = _.addClass;
+            var removeClass = _.removeClass;
 
             module.exports = {
 
@@ -5433,10 +5433,10 @@
                 },
 
                 handleObject: function (value) {
-                    this.cleanup(value)
-                    var keys = this.prevKeys = Object.keys(value)
+                    this.cleanup(value);
+                    var keys = this.prevKeys = Object.keys(value);
                     for (var i = 0, l = keys.length; i < l; i++) {
-                        var key = keys[i]
+                        var key = keys[i];
                         if (value[key]) {
                             addClass(this.el, key)
                         } else {
@@ -5446,7 +5446,7 @@
                 },
 
                 handleArray: function (value) {
-                    this.cleanup(value)
+                    this.cleanup(value);
                     for (var i = 0, l = value.length; i < l; i++) {
                         if (value[i]) {
                             addClass(this.el, value[i])
@@ -5457,21 +5457,21 @@
 
                 cleanup: function (value) {
                     if (this.prevKeys) {
-                        var i = this.prevKeys.length
+                        var i = this.prevKeys.length;
                         while (i--) {
-                            var key = this.prevKeys[i]
+                            var key = this.prevKeys[i];
                             if (key && (!value || !contains(value, key))) {
                                 removeClass(this.el, key)
                             }
                         }
                     }
                 }
-            }
+            };
 
             function stringToObject(value) {
-                var res = {}
-                var keys = value.trim().split(/\s+/)
-                var i = keys.length
+                var res = {};
+                var keys = value.trim().split(/\s+/);
+                var i = keys.length;
                 while (i--) {
                     res[keys[i]] = true
                 }
@@ -5490,8 +5490,8 @@
         /* 38 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var templateParser = __webpack_require__(19)
+            var _ = __webpack_require__(1);
+            var templateParser = __webpack_require__(19);
 
             module.exports = {
 
@@ -5516,13 +5516,13 @@
                 bind: function () {
                     if (!this.el.__vue__) {
                         // check ref
-                        this.ref = _.findRef(this.el)
-                        var refs = (this._scope || this.vm).$refs
+                        this.ref = _.findRef(this.el);
+                        var refs = (this._scope || this.vm).$refs;
                         if (this.ref && !refs.hasOwnProperty(this.ref)) {
                             _.defineReactive(refs, this.ref, null)
                         }
                         // keep-alive cache
-                        this.keepAlive = this.params.keepAlive
+                        this.keepAlive = this.params.keepAlive;
                         if (this.keepAlive) {
                             this.cache = {}
                         }
@@ -5533,14 +5533,14 @@
                         }
                         // component resolution related state
                         this.pendingComponentCb =
-                            this.Component = null
+                            this.Component = null;
                         // transition related state
-                        this.pendingRemovals = 0
-                        this.pendingRemovalCb = null
+                        this.pendingRemovals = 0;
+                        this.pendingRemovalCb = null;
                         // check dynamic component params
                         // create a ref anchor
-                        this.anchor = _.createAnchor('v-component')
-                        _.replace(this.el, this.anchor)
+                        this.anchor = _.createAnchor('v-component');
+                        _.replace(this.el, this.anchor);
                         // if static, build right now.
                         if (this.literal) {
                             this.setComponent(this.expression)
@@ -5578,14 +5578,14 @@
                  */
 
                 setComponent: function (value, cb) {
-                    this.invalidatePending()
+                    this.invalidatePending();
                     if (!value) {
                         // just remove current
-                        this.unbuild(true)
-                        this.remove(this.childVM, cb)
+                        this.unbuild(true);
+                        this.remove(this.childVM, cb);
                         this.childVM = null
                     } else {
-                        var self = this
+                        var self = this;
                         this.resolveComponent(value, function () {
                             self.mountComponent(cb)
                         })
@@ -5598,12 +5598,12 @@
                  */
 
                 resolveComponent: function (id, cb) {
-                    var self = this
+                    var self = this;
                     this.pendingComponentCb = _.cancellable(function (Component) {
-                        self.ComponentName = Component.options.name || id
-                        self.Component = Component
+                        self.ComponentName = Component.options.name || id;
+                        self.Component = Component;
                         cb()
-                    })
+                    });
                     this.vm._resolveComponent(id, this.pendingComponentCb)
                 },
 
@@ -5618,15 +5618,15 @@
 
                 mountComponent: function (cb) {
                     // actual mount
-                    this.unbuild(true)
-                    var self = this
-                    var activateHook = this.Component.options.activate
-                    var cached = this.getCached()
-                    var newComponent = this.build()
+                    this.unbuild(true);
+                    var self = this;
+                    var activateHook = this.Component.options.activate;
+                    var cached = this.getCached();
+                    var newComponent = this.build();
                     if (activateHook && !cached) {
-                        this.waitingFor = newComponent
+                        this.waitingFor = newComponent;
                         activateHook.call(newComponent, function () {
-                            self.waitingFor = null
+                            self.waitingFor = null;
                             self.transition(newComponent, cb)
                         })
                     } else {
@@ -5642,7 +5642,7 @@
 
                 invalidatePending: function () {
                     if (this.pendingComponentCb) {
-                        this.pendingComponentCb.cancel()
+                        this.pendingComponentCb.cancel();
                         this.pendingComponentCb = null
                     }
                 },
@@ -5657,7 +5657,7 @@
                  */
 
                 build: function (extraOptions) {
-                    var cached = this.getCached()
+                    var cached = this.getCached();
                     if (cached) {
                         return cached
                     }
@@ -5691,14 +5691,14 @@
                             // track of its contained components in order to
                             // call attach/detach hooks for them.
                             _frag: this._frag
-                        }
+                        };
                         // extra options
                         // in 1.0.0 this is used by vue-router only
                         /* istanbul ignore if */
                         if (extraOptions) {
                             _.extend(options, extraOptions)
                         }
-                        var child = new this.Component(options)
+                        var child = new this.Component(options);
                         if (this.keepAlive) {
                             this.cache[this.Component.cid] = child
                         }
@@ -5734,10 +5734,10 @@
 
                 unbuild: function (defer) {
                     if (this.waitingFor) {
-                        this.waitingFor.$destroy()
+                        this.waitingFor.$destroy();
                         this.waitingFor = null
                     }
-                    var child = this.childVM
+                    var child = this.childVM;
                     if (!child || this.keepAlive) {
                         return
                     }
@@ -5755,20 +5755,20 @@
                  */
 
                 remove: function (child, cb) {
-                    var keepAlive = this.keepAlive
+                    var keepAlive = this.keepAlive;
                     if (child) {
                         // we may have a component switch when a previous
                         // component is still being transitioned out.
                         // we want to trigger only one lastest insertion cb
                         // when the existing transition finishes. (#1119)
-                        this.pendingRemovals++
-                        this.pendingRemovalCb = cb
-                        var self = this
+                        this.pendingRemovals++;
+                        this.pendingRemovalCb = cb;
+                        var self = this;
                         child.$remove(function () {
-                            self.pendingRemovals--
-                            if (!keepAlive) child._cleanup()
+                            self.pendingRemovals--;
+                            if (!keepAlive) child._cleanup();
                             if (!self.pendingRemovals && self.pendingRemovalCb) {
-                                self.pendingRemovalCb()
+                                self.pendingRemovalCb();
                                 self.pendingRemovalCb = null
                             }
                         })
@@ -5786,27 +5786,27 @@
                  */
 
                 transition: function (target, cb) {
-                    var self = this
-                    var current = this.childVM
+                    var self = this;
+                    var current = this.childVM;
                     // for devtool inspection
                     if (true) {
-                        if (current) current._inactive = true
+                        if (current) current._inactive = true;
                         target._inactive = false
                     }
-                    this.childVM = target
+                    this.childVM = target;
                     switch (self.params.transitionMode) {
                         case 'in-out':
                             target.$before(self.anchor, function () {
                                 self.remove(current, cb)
-                            })
-                            break
+                            });
+                            break;
                         case 'out-in':
                             self.remove(current, function () {
                                 target.$before(self.anchor, cb)
-                            })
-                            break
+                            });
+                            break;
                         default:
-                            self.remove(current)
+                            self.remove(current);
                             target.$before(self.anchor, cb)
                     }
                 },
@@ -5816,9 +5816,9 @@
                  */
 
                 unbind: function () {
-                    this.invalidatePending()
+                    this.invalidatePending();
                     // Do not defer cleanup when unbinding
-                    this.unbuild()
+                    this.unbuild();
                     // destroy all keep-alive cached instances
                     if (this.cache) {
                         for (var key in this.cache) {
@@ -5827,7 +5827,7 @@
                         this.cache = null
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -5840,21 +5840,21 @@
             // The purpose is to make the initial prop values available
             // inside `created` hooks and `data` functions.
 
-            var _ = __webpack_require__(1)
-            var Watcher = __webpack_require__(40)
-            var bindingModes = __webpack_require__(5)._propBindingModes
+            var _ = __webpack_require__(1);
+            var Watcher = __webpack_require__(40);
+            var bindingModes = __webpack_require__(5)._propBindingModes;
 
             module.exports = {
 
                 bind: function () {
 
-                    var child = this.vm
-                    var parent = child._context
+                    var child = this.vm;
+                    var parent = child._context;
                     // passed in from compiler directly
-                    var prop = this.descriptor.prop
-                    var childKey = prop.path
-                    var parentKey = prop.parentPath
-                    var twoWay = prop.mode === bindingModes.TWO_WAY
+                    var prop = this.descriptor.prop;
+                    var childKey = prop.path;
+                    var parentKey = prop.parentPath;
+                    var twoWay = prop.mode === bindingModes.TWO_WAY;
 
                     var parentWatcher = this.parentWatcher = new Watcher(
                         parent,
@@ -5870,16 +5870,16 @@
                             // v-for scope if present
                             scope: this._scope
                         }
-                    )
+                    );
 
                     // set the child initial value.
-                    _.initProp(child, prop, parentWatcher.value)
+                    _.initProp(child, prop, parentWatcher.value);
 
                     // setup two-way binding
                     if (twoWay) {
                         // important: defer the child watcher creation until
                         // the created hook (after data observation)
-                        var self = this
+                        var self = this;
                         child.$once('hook:created', function () {
                             self.childWatcher = new Watcher(
                                 child,
@@ -5893,12 +5893,12 @@
                 },
 
                 unbind: function () {
-                    this.parentWatcher.teardown()
+                    this.parentWatcher.teardown();
                     if (this.childWatcher) {
                         this.childWatcher.teardown()
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -5906,12 +5906,12 @@
         /* 40 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var config = __webpack_require__(5)
-            var Dep = __webpack_require__(41)
-            var expParser = __webpack_require__(42)
-            var batcher = __webpack_require__(44)
-            var uid = 0
+            var _ = __webpack_require__(1);
+            var config = __webpack_require__(5);
+            var Dep = __webpack_require__(41);
+            var expParser = __webpack_require__(42);
+            var batcher = __webpack_require__(44);
+            var uid = 0;
 
             /**
              * A watcher parses an expression, collects dependencies,
@@ -5938,29 +5938,29 @@
                 if (options) {
                     _.extend(this, options)
                 }
-                var isFn = typeof expOrFn === 'function'
-                this.vm = vm
-                vm._watchers.push(this)
-                this.expression = isFn ? expOrFn.toString() : expOrFn
-                this.cb = cb
-                this.id = ++uid // uid for batching
-                this.active = true
-                this.dirty = this.lazy // for lazy watchers
-                this.deps = Object.create(null)
-                this.newDeps = null
-                this.prevError = null // for async error stacks
+                var isFn = typeof expOrFn === 'function';
+                this.vm = vm;
+                vm._watchers.push(this);
+                this.expression = isFn ? expOrFn.toString() : expOrFn;
+                this.cb = cb;
+                this.id = ++uid; // uid for batching
+                this.active = true;
+                this.dirty = this.lazy; // for lazy watchers
+                this.deps = Object.create(null);
+                this.newDeps = null;
+                this.prevError = null; // for async error stacks
                 // parse expression for getter/setter
                 if (isFn) {
-                    this.getter = expOrFn
+                    this.getter = expOrFn;
                     this.setter = undefined
                 } else {
-                    var res = expParser.parse(expOrFn, this.twoWay)
-                    this.getter = res.get
+                    var res = expParser.parse(expOrFn, this.twoWay);
+                    this.getter = res.get;
                     this.setter = res.set
                 }
                 this.value = this.lazy
                     ? undefined
-                    : this.get()
+                    : this.get();
                 // state for avoiding false triggers for deep and Array
                 // watchers during vm._digest()
                 this.queued = this.shallow = false
@@ -5973,24 +5973,24 @@
              */
 
             Watcher.prototype.addDep = function (dep) {
-                var id = dep.id
+                var id = dep.id;
                 if (!this.newDeps[id]) {
-                    this.newDeps[id] = dep
+                    this.newDeps[id] = dep;
                     if (!this.deps[id]) {
-                        this.deps[id] = dep
+                        this.deps[id] = dep;
                         dep.addSub(this)
                     }
                 }
-            }
+            };
 
             /**
              * Evaluate the getter, and re-collect dependencies.
              */
 
             Watcher.prototype.get = function () {
-                this.beforeGet()
-                var scope = this.scope || this.vm
-                var value
+                this.beforeGet();
+                var scope = this.scope || this.vm;
+                var value;
                 try {
                     value = this.getter.call(scope, scope)
                 } catch (e) {
@@ -6022,9 +6022,9 @@
                 if (this.postProcess) {
                     value = this.postProcess(value)
                 }
-                this.afterGet()
+                this.afterGet();
                 return value
-            }
+            };
 
             /**
              * Set the corresponding value with the setter.
@@ -6033,7 +6033,7 @@
              */
 
             Watcher.prototype.set = function (value) {
-                var scope = this.scope || this.vm
+                var scope = this.scope || this.vm;
                 if (this.filters) {
                     value = scope._applyFilters(
                         value, this.value, this.filters, true)
@@ -6052,7 +6052,7 @@
                     }
                 }
                 // two-way sync for v-for alias
-                var forContext = scope.$forContext
+                var forContext = scope.$forContext;
                 if (true) {
                     if (
                         forContext &&
@@ -6078,33 +6078,33 @@
                         forContext.rawValue.$set(scope.$index, value)
                     }
                 }
-            }
+            };
 
             /**
              * Prepare for dependency collection.
              */
 
             Watcher.prototype.beforeGet = function () {
-                Dep.target = this
+                Dep.target = this;
                 this.newDeps = Object.create(null)
-            }
+            };
 
             /**
              * Clean up for dependency collection.
              */
 
             Watcher.prototype.afterGet = function () {
-                Dep.target = null
-                var ids = Object.keys(this.deps)
-                var i = ids.length
+                Dep.target = null;
+                var ids = Object.keys(this.deps);
+                var i = ids.length;
                 while (i--) {
-                    var id = ids[i]
+                    var id = ids[i];
                     if (!this.newDeps[id]) {
                         this.deps[id].removeSub(this)
                     }
                 }
                 this.deps = this.newDeps
-            }
+            };
 
             /**
              * Subscriber interface.
@@ -6125,8 +6125,8 @@
                         ? shallow
                         ? this.shallow
                         : false
-                        : !!shallow
-                    this.queued = true
+                        : !!shallow;
+                    this.queued = true;
                     // record before-push error stack in debug mode
                     /* istanbul ignore if */
                     if (("development") !== 'production' && config.debug) {
@@ -6134,7 +6134,7 @@
                     }
                     batcher.push(this)
                 }
-            }
+            };
 
             /**
              * Batcher job interface.
@@ -6143,7 +6143,7 @@
 
             Watcher.prototype.run = function () {
                 if (this.active) {
-                    var value = this.get()
+                    var value = this.get();
                     if (
                         value !== this.value ||
                             // Deep watchers and Array watchers should fire even
@@ -6153,22 +6153,22 @@
                         ((_.isArray(value) || this.deep) && !this.shallow)
                     ) {
                         // set new value
-                        var oldValue = this.value
-                        this.value = value
+                        var oldValue = this.value;
+                        this.value = value;
                         // in debug + async mode, when a watcher callbacks
                         // throws, we also throw the saved before-push error
                         // so the full cross-tick stack trace is available.
-                        var prevError = this.prevError
+                        var prevError = this.prevError;
                         /* istanbul ignore if */
                         if (("development") !== 'production' &&
                             config.debug && prevError) {
-                            this.prevError = null
+                            this.prevError = null;
                             try {
                                 this.cb.call(this.vm, value, oldValue)
                             } catch (e) {
                                 _.nextTick(function () {
                                     throw prevError
-                                }, 0)
+                                }, 0);
                                 throw e
                             }
                         } else {
@@ -6177,7 +6177,7 @@
                     }
                     this.queued = this.shallow = false
                 }
-            }
+            };
 
             /**
              * Evaluate the value of the watcher.
@@ -6187,23 +6187,23 @@
             Watcher.prototype.evaluate = function () {
                 // avoid overwriting another watcher that is being
                 // collected.
-                var current = Dep.target
-                this.value = this.get()
-                this.dirty = false
+                var current = Dep.target;
+                this.value = this.get();
+                this.dirty = false;
                 Dep.target = current
-            }
+            };
 
             /**
              * Depend on all deps collected by this watcher.
              */
 
             Watcher.prototype.depend = function () {
-                var depIds = Object.keys(this.deps)
-                var i = depIds.length
+                var depIds = Object.keys(this.deps);
+                var i = depIds.length;
                 while (i--) {
                     this.deps[depIds[i]].depend()
                 }
-            }
+            };
 
             /**
              * Remove self from all dependencies' subcriber list.
@@ -6217,15 +6217,15 @@
                     if (!this.vm._isBeingDestroyed) {
                         this.vm._watchers.$remove(this)
                     }
-                    var depIds = Object.keys(this.deps)
-                    var i = depIds.length
+                    var depIds = Object.keys(this.deps);
+                    var i = depIds.length;
                     while (i--) {
                         this.deps[depIds[i]].removeSub(this)
                     }
-                    this.active = false
+                    this.active = false;
                     this.vm = this.cb = this.value = null
                 }
-            }
+            };
 
             /**
              * Recrusively traverse an object to evoke all converted
@@ -6236,11 +6236,11 @@
              */
 
             function traverse(obj) {
-                var key, val, i
+                var key, val, i;
                 for (key in obj) {
-                    val = obj[key]
+                    val = obj[key];
                     if (_.isArray(val)) {
-                        i = val.length
+                        i = val.length;
                         while (i--) traverse(val[i])
                     } else if (_.isObject(val)) {
                         traverse(val)
@@ -6248,7 +6248,7 @@
                 }
             }
 
-            module.exports = Watcher
+            module.exports = Watcher;
 
 
             /***/
@@ -6256,8 +6256,8 @@
         /* 41 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var uid = 0
+            var _ = __webpack_require__(1);
+            var uid = 0;
 
             /**
              * A dep is an observable that can have multiple
@@ -6267,14 +6267,14 @@
              */
 
             function Dep() {
-                this.id = uid++
+                this.id = uid++;
                 this.subs = []
             }
 
             // the current target watcher being evaluated.
             // this is globally unique because there could be only one
             // watcher being evaluated at any time.
-            Dep.target = null
+            Dep.target = null;
 
             /**
              * Add a directive subscriber.
@@ -6284,7 +6284,7 @@
 
             Dep.prototype.addSub = function (sub) {
                 this.subs.push(sub)
-            }
+            };
 
             /**
              * Remove a directive subscriber.
@@ -6294,7 +6294,7 @@
 
             Dep.prototype.removeSub = function (sub) {
                 this.subs.$remove(sub)
-            }
+            };
 
             /**
              * Add self as a dependency to the target watcher.
@@ -6302,7 +6302,7 @@
 
             Dep.prototype.depend = function () {
                 Dep.target.addDep(this)
-            }
+            };
 
             /**
              * Notify all subscribers of a new value.
@@ -6310,13 +6310,13 @@
 
             Dep.prototype.notify = function () {
                 // stablize the subscriber list first
-                var subs = _.toArray(this.subs)
+                var subs = _.toArray(this.subs);
                 for (var i = 0, l = subs.length; i < l; i++) {
                     subs[i].update()
                 }
-            }
+            };
 
-            module.exports = Dep
+            module.exports = Dep;
 
 
             /***/
@@ -6324,17 +6324,17 @@
         /* 42 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Path = __webpack_require__(43)
-            var Cache = __webpack_require__(7)
-            var expressionCache = new Cache(1000)
+            var _ = __webpack_require__(1);
+            var Path = __webpack_require__(43);
+            var Cache = __webpack_require__(7);
+            var expressionCache = new Cache(1000);
 
             var allowedKeywords =
                 'Math,Date,this,true,false,null,undefined,Infinity,NaN,' +
                 'isNaN,isFinite,decodeURI,decodeURIComponent,encodeURI,' +
-                'encodeURIComponent,parseInt,parseFloat'
+                'encodeURIComponent,parseInt,parseFloat';
             var allowedKeywordsRE =
-                new RegExp('^(' + allowedKeywords.replace(/,/g, '\\b|') + '\\b)')
+                new RegExp('^(' + allowedKeywords.replace(/,/g, '\\b|') + '\\b)');
 
             // keywords that don't make sense inside expressions
             var improperKeywords =
@@ -6342,17 +6342,17 @@
                 'delete,do,else,export,extends,finally,for,function,if,' +
                 'import,in,instanceof,let,return,super,switch,throw,try,' +
                 'var,while,with,yield,enum,await,implements,package,' +
-                'proctected,static,interface,private,public'
+                'proctected,static,interface,private,public';
             var improperKeywordsRE =
-                new RegExp('^(' + improperKeywords.replace(/,/g, '\\b|') + '\\b)')
+                new RegExp('^(' + improperKeywords.replace(/,/g, '\\b|') + '\\b)');
 
-            var wsRE = /\s/g
-            var newlineRE = /\n/g
-            var saveRE = /[\{,]\s*[\w\$_]+\s*:|('[^']*'|"[^"]*")|new |typeof |void /g
-            var restoreRE = /"(\d+)"/g
-            var pathTestRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\]|\[\d+\]|\[[A-Za-z_$][\w$]*\])*$/
-            var pathReplaceRE = /[^\w$\.]([A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\])*)/g
-            var booleanLiteralRE = /^(true|false)$/
+            var wsRE = /\s/g;
+            var newlineRE = /\n/g;
+            var saveRE = /[\{,]\s*[\w\$_]+\s*:|('[^']*'|"[^"]*")|new |typeof |void /g;
+            var restoreRE = /"(\d+)"/g;
+            var pathTestRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\]|\[\d+\]|\[[A-Za-z_$][\w$]*\])*$/;
+            var pathReplaceRE = /[^\w$\.]([A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\])*)/g;
+            var booleanLiteralRE = /^(true|false)$/;
 
             /**
              * Save / Rewrite / Restore
@@ -6364,7 +6364,7 @@
              * restore them after the path rewrite.
              */
 
-            var saved = []
+            var saved = [];
 
             /**
              * Save replacer
@@ -6382,10 +6382,10 @@
              */
 
             function save(str, isString) {
-                var i = saved.length
+                var i = saved.length;
                 saved[i] = isString
                     ? str.replace(newlineRE, '\\n')
-                    : str
+                    : str;
                 return '"' + i + '"'
             }
 
@@ -6397,14 +6397,14 @@
              */
 
             function rewrite(raw) {
-                var c = raw.charAt(0)
-                var path = raw.slice(1)
+                var c = raw.charAt(0);
+                var path = raw.slice(1);
                 if (allowedKeywordsRE.test(path)) {
                     return raw
                 } else {
                     path = path.indexOf('"') > -1
                         ? path.replace(restoreRE, restore)
-                        : path
+                        : path;
                     return c + 'scope.' + path
                 }
             }
@@ -6437,17 +6437,17 @@
                     )
                 }
                 // reset state
-                saved.length = 0
+                saved.length = 0;
                 // save strings and object literal keys
                 var body = exp
                     .replace(saveRE, save)
-                    .replace(wsRE, '')
+                    .replace(wsRE, '');
                 // rewrite all paths
                 // pad 1 space here becaue the regex matches 1 extra char
                 body = (' ' + body)
                     .replace(pathReplaceRE, rewrite)
-                    .replace(restoreRE, restore)
-                var getter = makeGetter(body)
+                    .replace(restoreRE, restore);
+                var getter = makeGetter(body);
                 if (getter) {
                     return {
                         get: getter,
@@ -6467,15 +6467,15 @@
              */
 
             function compilePathFns(exp) {
-                var getter, path
+                var getter, path;
                 if (exp.indexOf('[') < 0) {
                     // really simple path
-                    path = exp.split('.')
-                    path.raw = exp
+                    path = exp.split('.');
+                    path.raw = exp;
                     getter = Path.compileGetter(path)
                 } else {
                     // do the real parsing
-                    path = Path.parse(exp)
+                    path = Path.parse(exp);
                     getter = path.get
                 }
                 return {
@@ -6553,9 +6553,9 @@
              */
 
             exports.parse = function (exp, needSet) {
-                exp = exp.trim()
+                exp = exp.trim();
                 // try cache
-                var hit = expressionCache.get(exp)
+                var hit = expressionCache.get(exp);
                 if (hit) {
                     if (needSet) {
                         checkSetter(hit)
@@ -6569,10 +6569,10 @@
                 // global "Math"
                 var res = exports.isSimplePath(exp)
                     ? compilePathFns(exp)
-                    : compileExpFns(exp, needSet)
-                expressionCache.put(exp, res)
+                    : compileExpFns(exp, needSet);
+                expressionCache.put(exp, res);
                 return res
-            }
+            };
 
             /**
              * Check if an expression is a simple path.
@@ -6587,7 +6587,7 @@
                     !booleanLiteralRE.test(exp) &&
                         // Math constants e.g. Math.PI, Math.E etc.
                     exp.slice(0, 5) !== 'Math.'
-            }
+            };
 
 
             /***/
@@ -6595,50 +6595,50 @@
         /* 43 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Cache = __webpack_require__(7)
-            var pathCache = new Cache(1000)
-            var identRE = exports.identRE = /^[$_a-zA-Z]+[\w$]*$/
+            var _ = __webpack_require__(1);
+            var Cache = __webpack_require__(7);
+            var pathCache = new Cache(1000);
+            var identRE = exports.identRE = /^[$_a-zA-Z]+[\w$]*$/;
 
             // actions
-            var APPEND = 0
-            var PUSH = 1
+            var APPEND = 0;
+            var PUSH = 1;
 
             // states
-            var BEFORE_PATH = 0
-            var IN_PATH = 1
-            var BEFORE_IDENT = 2
-            var IN_IDENT = 3
-            var BEFORE_ELEMENT = 4
-            var AFTER_ZERO = 5
-            var IN_INDEX = 6
-            var IN_SINGLE_QUOTE = 7
-            var IN_DOUBLE_QUOTE = 8
-            var IN_SUB_PATH = 9
-            var AFTER_ELEMENT = 10
-            var AFTER_PATH = 11
-            var ERROR = 12
+            var BEFORE_PATH = 0;
+            var IN_PATH = 1;
+            var BEFORE_IDENT = 2;
+            var IN_IDENT = 3;
+            var BEFORE_ELEMENT = 4;
+            var AFTER_ZERO = 5;
+            var IN_INDEX = 6;
+            var IN_SINGLE_QUOTE = 7;
+            var IN_DOUBLE_QUOTE = 8;
+            var IN_SUB_PATH = 9;
+            var AFTER_ELEMENT = 10;
+            var AFTER_PATH = 11;
+            var ERROR = 12;
 
-            var pathStateMachine = []
+            var pathStateMachine = [];
 
             pathStateMachine[BEFORE_PATH] = {
                 'ws': [BEFORE_PATH],
                 'ident': [IN_IDENT, APPEND],
                 '[': [BEFORE_ELEMENT],
                 'eof': [AFTER_PATH]
-            }
+            };
 
             pathStateMachine[IN_PATH] = {
                 'ws': [IN_PATH],
                 '.': [BEFORE_IDENT],
                 '[': [BEFORE_ELEMENT],
                 'eof': [AFTER_PATH]
-            }
+            };
 
             pathStateMachine[BEFORE_IDENT] = {
                 'ws': [BEFORE_IDENT],
                 'ident': [IN_IDENT, APPEND]
-            }
+            };
 
             pathStateMachine[IN_IDENT] = {
                 'ident': [IN_IDENT, APPEND],
@@ -6648,7 +6648,7 @@
                 '.': [BEFORE_IDENT, PUSH],
                 '[': [BEFORE_ELEMENT, PUSH],
                 'eof': [AFTER_PATH, PUSH]
-            }
+            };
 
             pathStateMachine[BEFORE_ELEMENT] = {
                 'ws': [BEFORE_ELEMENT],
@@ -6657,31 +6657,31 @@
                 "'": [IN_SINGLE_QUOTE, APPEND, ''],
                 '"': [IN_DOUBLE_QUOTE, APPEND, ''],
                 'ident': [IN_SUB_PATH, APPEND, '*']
-            }
+            };
 
             pathStateMachine[AFTER_ZERO] = {
                 'ws': [AFTER_ELEMENT, PUSH],
                 ']': [IN_PATH, PUSH]
-            }
+            };
 
             pathStateMachine[IN_INDEX] = {
                 '0': [IN_INDEX, APPEND],
                 'number': [IN_INDEX, APPEND],
                 'ws': [AFTER_ELEMENT],
                 ']': [IN_PATH, PUSH]
-            }
+            };
 
             pathStateMachine[IN_SINGLE_QUOTE] = {
                 "'": [AFTER_ELEMENT],
                 'eof': ERROR,
                 'else': [IN_SINGLE_QUOTE, APPEND]
-            }
+            };
 
             pathStateMachine[IN_DOUBLE_QUOTE] = {
                 '"': [AFTER_ELEMENT],
                 'eof': ERROR,
                 'else': [IN_DOUBLE_QUOTE, APPEND]
-            }
+            };
 
             pathStateMachine[IN_SUB_PATH] = {
                 'ident': [IN_SUB_PATH, APPEND],
@@ -6689,12 +6689,12 @@
                 'number': [IN_SUB_PATH, APPEND],
                 'ws': [AFTER_ELEMENT],
                 ']': [IN_PATH, PUSH]
-            }
+            };
 
             pathStateMachine[AFTER_ELEMENT] = {
                 'ws': [AFTER_ELEMENT],
                 ']': [IN_PATH, PUSH]
-            }
+            };
 
             /**
              * Determine the type of a character in a keypath.
@@ -6708,7 +6708,7 @@
                     return 'eof'
                 }
 
-                var code = ch.charCodeAt(0)
+                var code = ch.charCodeAt(0);
 
                 switch (code) {
                     case 0x5B: // [
@@ -6717,11 +6717,11 @@
                     case 0x22: // "
                     case 0x27: // '
                     case 0x30: // 0
-                        return ch
+                        return ch;
 
                     case 0x5F: // _
                     case 0x24: // $
-                        return 'ident'
+                        return 'ident';
 
                     case 0x20: // Space
                     case 0x09: // Tab
@@ -6758,68 +6758,68 @@
              */
 
             function parsePath(path) {
-                var keys = []
-                var index = -1
-                var mode = BEFORE_PATH
-                var c, newChar, key, type, transition, action, typeMap
+                var keys = [];
+                var index = -1;
+                var mode = BEFORE_PATH;
+                var c, newChar, key, type, transition, action, typeMap;
 
-                var actions = []
+                var actions = [];
                 actions[PUSH] = function () {
                     if (key === undefined) {
                         return
                     }
-                    keys.push(key)
+                    keys.push(key);
                     key = undefined
-                }
+                };
                 actions[APPEND] = function () {
                     if (key === undefined) {
                         key = newChar
                     } else {
                         key += newChar
                     }
-                }
+                };
 
                 function maybeUnescapeQuote() {
-                    var nextChar = path[index + 1]
+                    var nextChar = path[index + 1];
                     if ((mode === IN_SINGLE_QUOTE && nextChar === "'") ||
                         (mode === IN_DOUBLE_QUOTE && nextChar === '"')) {
-                        index++
-                        newChar = nextChar
-                        actions[APPEND]()
+                        index++;
+                        newChar = nextChar;
+                        actions[APPEND]();
                         return true
                     }
                 }
 
                 while (mode != null) {
-                    index++
-                    c = path[index]
+                    index++;
+                    c = path[index];
 
                     if (c === '\\' && maybeUnescapeQuote()) {
                         continue
                     }
 
-                    type = getPathCharType(c)
-                    typeMap = pathStateMachine[mode]
-                    transition = typeMap[type] || typeMap['else'] || ERROR
+                    type = getPathCharType(c);
+                    typeMap = pathStateMachine[mode];
+                    transition = typeMap[type] || typeMap['else'] || ERROR;
 
                     if (transition === ERROR) {
-                        return // parse error
+                        return; // parse error
                     }
 
-                    mode = transition[0]
-                    action = actions[transition[1]]
+                    mode = transition[0];
+                    action = actions[transition[1]];
                     if (action) {
-                        newChar = transition[2]
+                        newChar = transition[2];
                         newChar = newChar === undefined
                             ? c
                             : newChar === '*'
                             ? newChar + c
-                            : newChar
+                            : newChar;
                         action()
                     }
 
                     if (mode === AFTER_PATH) {
-                        keys.raw = path
+                        keys.raw = path;
                         return keys
                     }
                 }
@@ -6853,9 +6853,9 @@
              */
 
             exports.compileGetter = function (path) {
-                var body = 'return o' + path.map(formatAccessor).join('')
+                var body = 'return o' + path.map(formatAccessor).join('');
                 return new Function('o', body)
-            }
+            };
 
             /**
              * External parse that check for a cache hit first
@@ -6865,16 +6865,16 @@
              */
 
             exports.parse = function (path) {
-                var hit = pathCache.get(path)
+                var hit = pathCache.get(path);
                 if (!hit) {
-                    hit = parsePath(path)
+                    hit = parsePath(path);
                     if (hit) {
-                        hit.get = exports.compileGetter(hit)
+                        hit.get = exports.compileGetter(hit);
                         pathCache.put(path, hit)
                     }
                 }
                 return hit
-            }
+            };
 
             /**
              * Get from an object from a path string
@@ -6884,17 +6884,17 @@
              */
 
             exports.get = function (obj, path) {
-                path = exports.parse(path)
+                path = exports.parse(path);
                 if (path) {
                     return path.get(obj)
                 }
-            }
+            };
 
             /**
              * Warn against setting non-existent root path on a vm.
              */
 
-            var warnNonExistent
+            var warnNonExistent;
             if (true) {
                 warnNonExistent = function (path) {
                     _.warn(
@@ -6915,24 +6915,24 @@
              */
 
             exports.set = function (obj, path, val) {
-                var original = obj
+                var original = obj;
                 if (typeof path === 'string') {
                     path = exports.parse(path)
                 }
                 if (!path || !_.isObject(obj)) {
                     return false
                 }
-                var last, key
+                var last, key;
                 for (var i = 0, l = path.length; i < l; i++) {
-                    last = obj
-                    key = path[i]
+                    last = obj;
+                    key = path[i];
                     if (key.charAt(0) === '*') {
                         key = original[key.slice(1)]
                     }
                     if (i < l - 1) {
-                        obj = obj[key]
+                        obj = obj[key];
                         if (!_.isObject(obj)) {
-                            obj = {}
+                            obj = {};
                             if (("development") !== 'production' && last._isVue) {
                                 warnNonExistent(path)
                             }
@@ -6952,7 +6952,7 @@
                     }
                 }
                 return true
-            }
+            };
 
 
             /***/
@@ -6960,8 +6960,8 @@
         /* 44 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var config = __webpack_require__(5)
+            var _ = __webpack_require__(1);
+            var config = __webpack_require__(5);
 
             // we have two separate queues: one for directive updates
             // and one for user watcher registered via $watch().
@@ -6969,22 +6969,22 @@
             // before user watchers so that when user watchers are
             // triggered, the DOM would have already been in updated
             // state.
-            var queue = []
-            var userQueue = []
-            var has = {}
-            var circular = {}
-            var waiting = false
-            var internalQueueDepleted = false
+            var queue = [];
+            var userQueue = [];
+            var has = {};
+            var circular = {};
+            var waiting = false;
+            var internalQueueDepleted = false;
 
             /**
              * Reset the batcher's state.
              */
 
             function resetBatcherState() {
-                queue = []
-                userQueue = []
-                has = {}
-                circular = {}
+                queue = [];
+                userQueue = [];
+                has = {};
+                circular = {};
                 waiting = internalQueueDepleted = false
             }
 
@@ -6993,9 +6993,9 @@
              */
 
             function flushBatcherQueue() {
-                runBatcherQueue(queue)
-                internalQueueDepleted = true
-                runBatcherQueue(userQueue)
+                runBatcherQueue(queue);
+                internalQueueDepleted = true;
+                runBatcherQueue(userQueue);
                 // dev tool hook
                 /* istanbul ignore if */
                 if (true) {
@@ -7016,15 +7016,15 @@
                 // do not cache length because more watchers might be pushed
                 // as we run existing watchers
                 for (var i = 0; i < queue.length; i++) {
-                    var watcher = queue[i]
-                    var id = watcher.id
-                    has[id] = null
-                    watcher.run()
+                    var watcher = queue[i];
+                    var id = watcher.id;
+                    has[id] = null;
+                    watcher.run();
                     // in dev build, check and stop circular updates.
                     if (("development") !== 'production' && has[id] != null) {
-                        circular[id] = (circular[id] || 0) + 1
+                        circular[id] = (circular[id] || 0) + 1;
                         if (circular[id] > config._maxUpdateCount) {
-                            queue.splice(has[id], 1)
+                            queue.splice(has[id], 1);
                             _.warn(
                                 'You may have an infinite update loop for watcher ' +
                                 'with expression: ' + watcher.expression
@@ -7046,25 +7046,25 @@
              */
 
             exports.push = function (watcher) {
-                var id = watcher.id
+                var id = watcher.id;
                 if (has[id] == null) {
                     // if an internal watcher is pushed, but the internal
                     // queue is already depleted, we run it immediately.
                     if (internalQueueDepleted && !watcher.user) {
-                        watcher.run()
+                        watcher.run();
                         return
                     }
                     // push watcher into appropriate queue
-                    var q = watcher.user ? userQueue : queue
-                    has[id] = q.length
-                    q.push(watcher)
+                    var q = watcher.user ? userQueue : queue;
+                    has[id] = q.length;
+                    q.push(watcher);
                     // queue the flush
                     if (!waiting) {
-                        waiting = true
+                        waiting = true;
                         _.nextTick(flushBatcherQueue)
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -7072,26 +7072,26 @@
         /* 45 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Transition = __webpack_require__(46)
+            var _ = __webpack_require__(1);
+            var Transition = __webpack_require__(46);
 
             module.exports = {
 
                 priority: 1000,
 
                 update: function (id, oldId) {
-                    var el = this.el
+                    var el = this.el;
                     // resolve on owner vm
-                    var hooks = _.resolveAsset(this.vm.$options, 'transitions', id)
-                    id = id || 'v'
+                    var hooks = _.resolveAsset(this.vm.$options, 'transitions', id);
+                    id = id || 'v';
                     // apply on closest vm
-                    el.__v_trans = new Transition(el, id, hooks, this.el.__vue__ || this.vm)
+                    el.__v_trans = new Transition(el, id, hooks, this.el.__vue__ || this.vm);
                     if (oldId) {
                         _.removeClass(el, oldId + '-transition')
                     }
                     _.addClass(el, id + '-transition')
                 }
-            }
+            };
 
 
             /***/
@@ -7099,17 +7099,17 @@
         /* 46 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var queue = __webpack_require__(47)
-            var addClass = _.addClass
-            var removeClass = _.removeClass
-            var transitionEndEvent = _.transitionEndEvent
-            var animationEndEvent = _.animationEndEvent
-            var transDurationProp = _.transitionProp + 'Duration'
-            var animDurationProp = _.animationProp + 'Duration'
+            var _ = __webpack_require__(1);
+            var queue = __webpack_require__(47);
+            var addClass = _.addClass;
+            var removeClass = _.removeClass;
+            var transitionEndEvent = _.transitionEndEvent;
+            var animationEndEvent = _.animationEndEvent;
+            var transDurationProp = _.transitionProp + 'Duration';
+            var animDurationProp = _.animationProp + 'Duration';
 
-            var TYPE_TRANSITION = 1
-            var TYPE_ANIMATION = 2
+            var TYPE_TRANSITION = 1;
+            var TYPE_ANIMATION = 2;
 
             /**
              * A Transition object that encapsulates the state and logic
@@ -7122,22 +7122,22 @@
              */
 
             function Transition(el, id, hooks, vm) {
-                this.id = id
-                this.el = el
-                this.enterClass = id + '-enter'
-                this.leaveClass = id + '-leave'
-                this.hooks = hooks
-                this.vm = vm
+                this.id = id;
+                this.el = el;
+                this.enterClass = id + '-enter';
+                this.leaveClass = id + '-leave';
+                this.hooks = hooks;
+                this.vm = vm;
                 // async state
                 this.pendingCssEvent =
                     this.pendingCssCb =
                         this.cancel =
                             this.pendingJsCb =
                                 this.op =
-                                    this.cb = null
-                this.justEntered = false
-                this.entered = this.left = false
-                this.typeCache = {}
+                                    this.cb = null;
+                this.justEntered = false;
+                this.entered = this.left = false;
+                this.typeCache = {};
                 // bind
                 var self = this
                     ;
@@ -7147,7 +7147,7 @@
                     })
             }
 
-            var p = Transition.prototype
+            var p = Transition.prototype;
 
             /**
              * Start an entering transition.
@@ -7175,19 +7175,19 @@
              */
 
             p.enter = function (op, cb) {
-                this.cancelPending()
-                this.callHook('beforeEnter')
-                this.cb = cb
-                addClass(this.el, this.enterClass)
-                op()
-                this.entered = false
-                this.callHookWithCb('enter')
+                this.cancelPending();
+                this.callHook('beforeEnter');
+                this.cb = cb;
+                addClass(this.el, this.enterClass);
+                op();
+                this.entered = false;
+                this.callHookWithCb('enter');
                 if (this.entered) {
-                    return // user called done synchronously.
+                    return; // user called done synchronously.
                 }
-                this.cancel = this.hooks && this.hooks.enterCancelled
+                this.cancel = this.hooks && this.hooks.enterCancelled;
                 queue.push(this.enterNextTick)
-            }
+            };
 
             /**
              * The "nextTick" phase of an entering transition, which is
@@ -7204,18 +7204,18 @@
                 // skip the leave transition entirely and not firing the
                 // transtionend event. Therefore we need to protected
                 // against such cases using a one-frame timeout.
-                this.justEntered = true
-                var self = this
+                this.justEntered = true;
+                var self = this;
                 setTimeout(function () {
                     self.justEntered = false
-                }, 17)
+                }, 17);
 
-                var enterDone = this.enterDone
-                var type = this.getCssTransitionType(this.enterClass)
+                var enterDone = this.enterDone;
+                var type = this.getCssTransitionType(this.enterClass);
                 if (!this.pendingJsCb) {
                     if (type === TYPE_TRANSITION) {
                         // trigger transition by removing enter class now
-                        removeClass(this.el, this.enterClass)
+                        removeClass(this.el, this.enterClass);
                         this.setupCssCb(transitionEndEvent, enterDone)
                     } else if (type === TYPE_ANIMATION) {
                         this.setupCssCb(animationEndEvent, enterDone)
@@ -7225,19 +7225,19 @@
                 } else if (type === TYPE_TRANSITION) {
                     removeClass(this.el, this.enterClass)
                 }
-            }
+            };
 
             /**
              * The "cleanup" phase of an entering transition.
              */
 
             p.enterDone = function () {
-                this.entered = true
-                this.cancel = this.pendingJsCb = null
-                removeClass(this.el, this.enterClass)
-                this.callHook('afterEnter')
+                this.entered = true;
+                this.cancel = this.pendingJsCb = null;
+                removeClass(this.el, this.enterClass);
+                this.callHook('afterEnter');
                 if (this.cb) this.cb()
-            }
+            };
 
             /**
              * Start a leaving transition.
@@ -7261,17 +7261,17 @@
              */
 
             p.leave = function (op, cb) {
-                this.cancelPending()
-                this.callHook('beforeLeave')
-                this.op = op
-                this.cb = cb
-                addClass(this.el, this.leaveClass)
-                this.left = false
-                this.callHookWithCb('leave')
+                this.cancelPending();
+                this.callHook('beforeLeave');
+                this.op = op;
+                this.cb = cb;
+                addClass(this.el, this.leaveClass);
+                this.left = false;
+                this.callHookWithCb('leave');
                 if (this.left) {
-                    return // user called done synchronously.
+                    return; // user called done synchronously.
                 }
-                this.cancel = this.hooks && this.hooks.leaveCancelled
+                this.cancel = this.hooks && this.hooks.leaveCancelled;
                 // only need to handle leaveDone if
                 // 1. the transition is already done (synchronously called
                 //    by the user, which causes this.op set to null)
@@ -7286,37 +7286,37 @@
                         queue.push(this.leaveNextTick)
                     }
                 }
-            }
+            };
 
             /**
              * The "nextTick" phase of a leaving transition.
              */
 
             p.leaveNextTick = function () {
-                var type = this.getCssTransitionType(this.leaveClass)
+                var type = this.getCssTransitionType(this.leaveClass);
                 if (type) {
                     var event = type === TYPE_TRANSITION
                         ? transitionEndEvent
-                        : animationEndEvent
+                        : animationEndEvent;
                     this.setupCssCb(event, this.leaveDone)
                 } else {
                     this.leaveDone()
                 }
-            }
+            };
 
             /**
              * The "cleanup" phase of a leaving transition.
              */
 
             p.leaveDone = function () {
-                this.left = true
-                this.cancel = this.pendingJsCb = null
-                this.op()
-                removeClass(this.el, this.leaveClass)
-                this.callHook('afterLeave')
-                if (this.cb) this.cb()
+                this.left = true;
+                this.cancel = this.pendingJsCb = null;
+                this.op();
+                removeClass(this.el, this.leaveClass);
+                this.callHook('afterLeave');
+                if (this.cb) this.cb();
                 this.op = null
-            }
+            };
 
             /**
              * Cancel any pending callbacks from a previously running
@@ -7324,27 +7324,27 @@
              */
 
             p.cancelPending = function () {
-                this.op = this.cb = null
-                var hasPending = false
+                this.op = this.cb = null;
+                var hasPending = false;
                 if (this.pendingCssCb) {
-                    hasPending = true
-                    _.off(this.el, this.pendingCssEvent, this.pendingCssCb)
+                    hasPending = true;
+                    _.off(this.el, this.pendingCssEvent, this.pendingCssCb);
                     this.pendingCssEvent = this.pendingCssCb = null
                 }
                 if (this.pendingJsCb) {
-                    hasPending = true
-                    this.pendingJsCb.cancel()
+                    hasPending = true;
+                    this.pendingJsCb.cancel();
                     this.pendingJsCb = null
                 }
                 if (hasPending) {
-                    removeClass(this.el, this.enterClass)
+                    removeClass(this.el, this.enterClass);
                     removeClass(this.el, this.leaveClass)
                 }
                 if (this.cancel) {
-                    this.cancel.call(this.vm, this.el)
+                    this.cancel.call(this.vm, this.el);
                     this.cancel = null
                 }
-            }
+            };
 
             /**
              * Call a user-provided synchronous hook function.
@@ -7356,7 +7356,7 @@
                 if (this.hooks && this.hooks[type]) {
                     this.hooks[type].call(this.vm, this.el)
                 }
-            }
+            };
 
             /**
              * Call a user-provided, potentially-async hook function.
@@ -7370,14 +7370,14 @@
              */
 
             p.callHookWithCb = function (type) {
-                var hook = this.hooks && this.hooks[type]
+                var hook = this.hooks && this.hooks[type];
                 if (hook) {
                     if (hook.length > 1) {
                         this.pendingJsCb = _.cancellable(this[type + 'Done'])
                     }
                     hook.call(this.vm, this.el, this.pendingJsCb)
                 }
-            }
+            };
 
             /**
              * Get an element's transition type based on the
@@ -7404,19 +7404,19 @@
                 ) {
                     return
                 }
-                var type = this.typeCache[className]
-                if (type) return type
-                var inlineStyles = this.el.style
-                var computedStyles = window.getComputedStyle(this.el)
+                var type = this.typeCache[className];
+                if (type) return type;
+                var inlineStyles = this.el.style;
+                var computedStyles = window.getComputedStyle(this.el);
                 var transDuration =
                     inlineStyles[transDurationProp] ||
-                    computedStyles[transDurationProp]
+                    computedStyles[transDurationProp];
                 if (transDuration && transDuration !== '0s') {
                     type = TYPE_TRANSITION
                 } else {
                     var animDuration =
                         inlineStyles[animDurationProp] ||
-                        computedStyles[animDurationProp]
+                        computedStyles[animDurationProp];
                     if (animDuration && animDuration !== '0s') {
                         type = TYPE_ANIMATION
                     }
@@ -7425,7 +7425,7 @@
                     this.typeCache[className] = type
                 }
                 return type
-            }
+            };
 
             /**
              * Setup a CSS transitionend/animationend callback.
@@ -7435,20 +7435,20 @@
              */
 
             p.setupCssCb = function (event, cb) {
-                this.pendingCssEvent = event
-                var self = this
-                var el = this.el
+                this.pendingCssEvent = event;
+                var self = this;
+                var el = this.el;
                 var onEnd = this.pendingCssCb = function (e) {
                     if (e.target === el) {
-                        _.off(el, event, onEnd)
-                        self.pendingCssEvent = self.pendingCssCb = null
+                        _.off(el, event, onEnd);
+                        self.pendingCssEvent = self.pendingCssCb = null;
                         if (!self.pendingJsCb && cb) {
                             cb()
                         }
                     }
-                }
+                };
                 _.on(el, event, onEnd)
-            }
+            };
 
             /**
              * Check if an element is hidden - in that case we can just
@@ -7466,7 +7466,7 @@
                 )
             }
 
-            module.exports = Transition
+            module.exports = Transition;
 
 
             /***/
@@ -7474,9 +7474,9 @@
         /* 47 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var queue = []
-            var queued = false
+            var _ = __webpack_require__(1);
+            var queue = [];
+            var queued = false;
 
             /**
              * Push a job into the queue.
@@ -7485,12 +7485,12 @@
              */
 
             exports.push = function (job) {
-                queue.push(job)
+                queue.push(job);
                 if (!queued) {
-                    queued = true
+                    queued = true;
                     _.nextTick(flush)
                 }
-            }
+            };
 
             /**
              * Flush the queue, and do one forced reflow before
@@ -7499,12 +7499,12 @@
 
             function flush() {
                 // Force layout
-                var f = document.documentElement.offsetHeight
+                var f = document.documentElement.offsetHeight;
                 for (var i = 0; i < queue.length; i++) {
                     queue[i]()
                 }
-                queue = []
-                queued = false
+                queue = [];
+                queued = false;
                 // dummy return, so js linters don't complain about
                 // unused variable f
                 return f
@@ -7516,15 +7516,15 @@
         /* 48 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var dirParser = __webpack_require__(8)
-            var propDef = __webpack_require__(39)
-            var propBindingModes = __webpack_require__(5)._propBindingModes
-            var empty = {}
+            var _ = __webpack_require__(1);
+            var dirParser = __webpack_require__(8);
+            var propDef = __webpack_require__(39);
+            var propBindingModes = __webpack_require__(5)._propBindingModes;
+            var empty = {};
 
             // regexes
-            var identRE = __webpack_require__(43).identRE
-            var settablePathRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\[[^\[\]]+\])*$/
+            var identRE = __webpack_require__(43).identRE;
+            var settablePathRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\[[^\[\]]+\])*$/;
 
             /**
              * Compile props on a root element and return
@@ -7536,28 +7536,28 @@
              */
 
             module.exports = function compileProps(el, propOptions) {
-                var props = []
-                var names = Object.keys(propOptions)
-                var i = names.length
-                var options, name, attr, value, path, parsed, prop, isTitleBinding
+                var props = [];
+                var names = Object.keys(propOptions);
+                var i = names.length;
+                var options, name, attr, value, path, parsed, prop, isTitleBinding;
                 while (i--) {
-                    name = names[i]
-                    options = propOptions[name] || empty
+                    name = names[i];
+                    options = propOptions[name] || empty;
 
                     if (("development") !== 'production' && name === '$data') {
-                        _.warn('Do not use $data as prop.')
+                        _.warn('Do not use $data as prop.');
                         continue
                     }
 
                     // props could contain dashes, which will be
                     // interpreted as minus calculations by the parser
                     // so we need to camelize the path here
-                    path = _.camelize(name)
+                    path = _.camelize(name);
                     if (!identRE.test(path)) {
                         ("development") !== 'production' && _.warn(
                             'Invalid prop key: "' + name + '". Prop keys ' +
                             'must be valid identifiers.'
-                        )
+                        );
                         continue
                     }
 
@@ -7566,17 +7566,17 @@
                         path: path,
                         options: options,
                         mode: propBindingModes.ONE_WAY
-                    }
+                    };
 
                     // IE title issues
-                    isTitleBinding = false
+                    isTitleBinding = false;
                     if (name === 'title' && (el.getAttribute(':title') || el.getAttribute('v-bind:title'))) {
                         isTitleBinding = true
                     }
 
                     // first check literal version
-                    attr = _.hyphenate(name)
-                    value = prop.raw = _.attr(el, attr)
+                    attr = _.hyphenate(name);
+                    value = prop.raw = _.attr(el, attr);
                     if (value === null || isTitleBinding) {
                         // then check dynamic version
                         if ((value = _.getBindAttr(el, attr)) === null) {
@@ -7586,11 +7586,11 @@
                                 prop.mode = propBindingModes.ONE_TIME
                             }
                         }
-                        prop.raw = value
+                        prop.raw = value;
                         if (value !== null) {
-                            parsed = dirParser.parse(value)
-                            value = parsed.expression
-                            prop.filters = parsed.filters
+                            parsed = dirParser.parse(value);
+                            value = parsed.expression;
+                            prop.filters = parsed.filters;
                             // check binding type
                             if (_.isLiteral(value)) {
                                 // for expressions containing literal numbers and
@@ -7598,18 +7598,18 @@
                                 // so we can optimize them as a one-time set.
                                 prop.optimizedLiteral = true
                             } else {
-                                prop.dynamic = true
+                                prop.dynamic = true;
                                 // check non-settable path for two-way bindings
                                 if (("development") !== 'production' &&
                                     prop.mode === propBindingModes.TWO_WAY && !settablePathRE.test(value)) {
-                                    prop.mode = propBindingModes.ONE_WAY
+                                    prop.mode = propBindingModes.ONE_WAY;
                                     _.warn(
                                         'Cannot bind two-way prop with non-settable ' +
                                         'parent path: ' + value
                                     )
                                 }
                             }
-                            prop.parentPath = value
+                            prop.parentPath = value;
 
                             // warn required two-way
                             if (
@@ -7634,7 +7634,7 @@
                     props.push(prop)
                 }
                 return makePropsLinkFn(props)
-            }
+            };
 
             /**
              * Build a function that applies props to a vm.
@@ -7646,15 +7646,15 @@
             function makePropsLinkFn(props) {
                 return function propsLinkFn(vm, scope) {
                     // store resolved props info
-                    vm._props = {}
-                    var i = props.length
-                    var prop, path, options, value, raw
+                    vm._props = {};
+                    var i = props.length;
+                    var prop, path, options, value, raw;
                     while (i--) {
-                        prop = props[i]
-                        raw = prop.raw
-                        path = prop.path
-                        options = prop.options
-                        vm._props[path] = prop
+                        prop = props[i];
+                        raw = prop.raw;
+                        path = prop.path;
+                        options = prop.options;
+                        vm._props[path] = prop;
                         if (raw === null) {
                             // initialize absent prop
                             _.initProp(vm, prop, getDefault(vm, options))
@@ -7663,7 +7663,7 @@
                             if (vm._context) {
                                 if (prop.mode === propBindingModes.ONE_TIME) {
                                     // one time binding
-                                    value = (scope || vm._context).$get(prop.parentPath)
+                                    value = (scope || vm._context).$get(prop.parentPath);
                                     _.initProp(vm, prop, value)
                                 } else {
                                     // dynamic binding
@@ -7671,7 +7671,7 @@
                                         name: 'prop',
                                         def: propDef,
                                         prop: prop
-                                    }, null, null, scope) // el, host, scope
+                                    }, null, null, scope); // el, host, scope
                                 }
                             } else {
                                 ("development") !== 'production' && _.warn(
@@ -7682,15 +7682,15 @@
                             }
                         } else if (prop.optimizedLiteral) {
                             // optimized literal, cast it and just set once
-                            raw = _.stripQuotes(raw)
-                            value = _.toBoolean(_.toNumber(raw))
+                            raw = _.stripQuotes(raw);
+                            value = _.toBoolean(_.toNumber(raw));
                             _.initProp(vm, prop, value)
                         } else {
                             // string literal, but we need to cater for
                             // Boolean props with no value
                             value = options.type === Boolean && raw === ''
                                 ? true
-                                : raw
+                                : raw;
                             _.initProp(vm, prop, value)
                         }
                     }
@@ -7713,7 +7713,7 @@
                         ? false
                         : undefined
                 }
-                var def = options.default
+                var def = options.default;
                 // warn against non-factory defaults for Object & Array
                 if (_.isObject(def)) {
                     ("development") !== 'production' && _.warn(
@@ -7734,9 +7734,9 @@
         /* 49 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var templateParser = __webpack_require__(19)
-            var specialCharRE = /[^\w\-:\.]/
+            var _ = __webpack_require__(1);
+            var templateParser = __webpack_require__(19);
+            var specialCharRE = /[^\w\-:\.]/;
 
             /**
              * Process an element or a DocumentFragment based on a
@@ -7769,7 +7769,7 @@
                         options.template = '<slot></slot>'
                     }
                     if (options.template) {
-                        options._content = _.extractContent(el)
+                        options._content = _.extractContent(el);
                         el = transcludeTemplate(el, options)
                     }
                 }
@@ -7777,11 +7777,11 @@
                     // anchors for fragment instance
                     // passing in `persist: true` to avoid them being
                     // discarded by IE during template cloning
-                    _.prepend(_.createAnchor('v-start', true), el)
+                    _.prepend(_.createAnchor('v-start', true), el);
                     el.appendChild(_.createAnchor('v-end', true))
                 }
                 return el
-            }
+            };
 
             /**
              * Process the template option.
@@ -7793,11 +7793,11 @@
              */
 
             function transcludeTemplate(el, options) {
-                var template = options.template
-                var frag = templateParser.parse(template, true)
+                var template = options.template;
+                var frag = templateParser.parse(template, true);
                 if (frag) {
-                    var replacer = frag.firstChild
-                    var tag = replacer.tagName && replacer.tagName.toLowerCase()
+                    var replacer = frag.firstChild;
+                    var tag = replacer.tagName && replacer.tagName.toLowerCase();
                     if (options.replace) {
                         /* istanbul ignore if */
                         if (el === document.body) {
@@ -7830,12 +7830,12 @@
                         ) {
                             return frag
                         } else {
-                            options._replacerAttrs = extractAttrs(replacer)
-                            mergeAttrs(el, replacer)
+                            options._replacerAttrs = extractAttrs(replacer);
+                            mergeAttrs(el, replacer);
                             return replacer
                         }
                     } else {
-                        el.appendChild(frag)
+                        el.appendChild(frag);
                         return el
                     }
                 } else {
@@ -7868,16 +7868,16 @@
              */
 
             function mergeAttrs(from, to) {
-                var attrs = from.attributes
-                var i = attrs.length
-                var name, value
+                var attrs = from.attributes;
+                var i = attrs.length;
+                var name, value;
                 while (i--) {
-                    name = attrs[i].name
-                    value = attrs[i].value
+                    name = attrs[i].name;
+                    value = attrs[i].value;
                     if (!to.hasAttribute(name) && !specialCharRE.test(name)) {
                         to.setAttribute(name, value)
                     } else if (name === 'class') {
-                        value = to.getAttribute(name) + ' ' + value
+                        value = to.getAttribute(name) + ' ' + value;
                         to.setAttribute(name, value)
                     }
                 }
@@ -7889,8 +7889,8 @@
         /* 50 */
         /***/ function (module, exports, __webpack_require__) {
 
-            exports.slot = __webpack_require__(51)
-            exports.partial = __webpack_require__(52)
+            exports.slot = __webpack_require__(51);
+            exports.partial = __webpack_require__(52);
 
 
             /***/
@@ -7898,8 +7898,8 @@
         /* 51 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var templateParser = __webpack_require__(19)
+            var _ = __webpack_require__(1);
+            var templateParser = __webpack_require__(19);
 
             // This is the elementDirective that handles <content>
             // transclusions. It relies on the raw content of an
@@ -7913,25 +7913,25 @@
                 params: ['name'],
 
                 bind: function () {
-                    var host = this.vm
-                    var raw = host.$options._content
-                    var content
+                    var host = this.vm;
+                    var raw = host.$options._content;
+                    var content;
                     if (!raw) {
-                        this.fallback()
+                        this.fallback();
                         return
                     }
-                    var context = host._context
-                    var slotName = this.params.name
+                    var context = host._context;
+                    var slotName = this.params.name;
                     if (!slotName) {
                         // Default content
-                        var self = this
+                        var self = this;
                         var compileDefaultContent = function () {
                             self.compile(
                                 extractFragment(raw.childNodes, raw, true),
                                 context,
                                 host
                             )
-                        }
+                        };
                         if (!host._isCompiled) {
                             // defer until the end of instance compilation,
                             // because the default outlet must wait until all
@@ -7942,10 +7942,10 @@
                             compileDefaultContent()
                         }
                     } else {
-                        var selector = '[slot="' + slotName + '"]'
-                        var nodes = raw.querySelectorAll(selector)
+                        var selector = '[slot="' + slotName + '"]';
+                        var nodes = raw.querySelectorAll(selector);
                         if (nodes.length) {
-                            content = extractFragment(nodes, raw)
+                            content = extractFragment(nodes, raw);
                             if (content.hasChildNodes()) {
                                 this.compile(content, context, host)
                             } else {
@@ -7965,7 +7965,7 @@
                     if (content && context) {
                         var scope = host
                             ? host._scope
-                            : this._scope
+                            : this._scope;
                         this.unlink = context.$compile(
                             content, host, scope, this._frag
                         )
@@ -7982,7 +7982,7 @@
                         this.unlink()
                     }
                 }
-            }
+            };
 
             /**
              * Extract qualified content nodes from a node list.
@@ -7994,9 +7994,9 @@
              */
 
             function extractFragment(nodes, parent, main) {
-                var frag = document.createDocumentFragment()
+                var frag = document.createDocumentFragment();
                 for (var i = 0, l = nodes.length; i < l; i++) {
-                    var node = nodes[i]
+                    var node = nodes[i];
                     // if this is the main outlet, we want to skip all
                     // previously selected nodes;
                     // otherwise, we want to mark the node as selected.
@@ -8006,17 +8006,17 @@
                     if (main && !node.__v_selected) {
                         append(node)
                     } else if (!main && node.parentNode === parent) {
-                        node.__v_selected = true
+                        node.__v_selected = true;
                         append(node)
                     }
                 }
-                return frag
+                return frag;
 
                 function append(node) {
                     if (_.isTemplate(node) && !node.hasAttribute('v-if') && !node.hasAttribute('v-for')) {
                         node = templateParser.parse(node)
                     }
-                    node = templateParser.clone(node)
+                    node = templateParser.clone(node);
                     frag.appendChild(node)
                 }
             }
@@ -8027,9 +8027,9 @@
         /* 52 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var vIf = __webpack_require__(23)
-            var FragmentFactory = __webpack_require__(21)
+            var _ = __webpack_require__(1);
+            var vIf = __webpack_require__(23);
+            var FragmentFactory = __webpack_require__(21);
 
             module.exports = {
 
@@ -8040,7 +8040,7 @@
                 // watch changes to name for dynamic partials
                 paramWatchers: {
                     name: function (value) {
-                        vIf.remove.call(this)
+                        vIf.remove.call(this);
                         if (value) {
                             this.insert(value)
                         }
@@ -8048,18 +8048,18 @@
                 },
 
                 bind: function () {
-                    this.anchor = _.createAnchor('v-partial')
-                    _.replace(this.el, this.anchor)
+                    this.anchor = _.createAnchor('v-partial');
+                    _.replace(this.el, this.anchor);
                     this.insert(this.params.name)
                 },
 
                 insert: function (id) {
-                    var partial = _.resolveAsset(this.vm.$options, 'partials', id)
+                    var partial = _.resolveAsset(this.vm.$options, 'partials', id);
                     if (true) {
                         _.assertAsset(partial, 'partial', id)
                     }
                     if (partial) {
-                        this.factory = new FragmentFactory(this.vm, partial)
+                        this.factory = new FragmentFactory(this.vm, partial);
                         vIf.insert.call(this)
                     }
                 },
@@ -8069,7 +8069,7 @@
                         this.frag.destroy()
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -8077,7 +8077,7 @@
         /* 53 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             /**
              * Stringify value.
@@ -8098,17 +8098,17 @@
                         return value
                     }
                 }
-            }
+            };
 
             /**
              * 'abc' => 'Abc'
              */
 
             exports.capitalize = function (value) {
-                if (!value && value !== 0) return ''
-                value = value.toString()
+                if (!value && value !== 0) return '';
+                value = value.toString();
                 return value.charAt(0).toUpperCase() + value.slice(1)
-            }
+            };
 
             /**
              * 'abc' => 'ABC'
@@ -8118,7 +8118,7 @@
                 return (value || value === 0)
                     ? value.toString().toUpperCase()
                     : ''
-            }
+            };
 
             /**
              * 'AbC' => 'abc'
@@ -8128,7 +8128,7 @@
                 return (value || value === 0)
                     ? value.toString().toLowerCase()
                     : ''
-            }
+            };
 
             /**
              * 12345 => $12,345.00
@@ -8136,23 +8136,23 @@
              * @param {String} sign
              */
 
-            var digitsRE = /(\d{3})(?=\d)/g
+            var digitsRE = /(\d{3})(?=\d)/g;
             exports.currency = function (value, currency) {
-                value = parseFloat(value)
-                if (!isFinite(value) || (!value && value !== 0)) return ''
-                currency = currency != null ? currency : '$'
-                var stringified = Math.abs(value).toFixed(2)
-                var _int = stringified.slice(0, -3)
-                var i = _int.length % 3
+                value = parseFloat(value);
+                if (!isFinite(value) || (!value && value !== 0)) return '';
+                currency = currency != null ? currency : '$';
+                var stringified = Math.abs(value).toFixed(2);
+                var _int = stringified.slice(0, -3);
+                var i = _int.length % 3;
                 var head = i > 0
                     ? (_int.slice(0, i) + (_int.length > 3 ? ',' : ''))
-                    : ''
-                var _float = stringified.slice(-3)
-                var sign = value < 0 ? '-' : ''
+                    : '';
+                var _float = stringified.slice(-3);
+                var sign = value < 0 ? '-' : '';
                 return currency + sign + head +
                     _int.slice(i).replace(digitsRE, '$1,') +
                     _float
-            }
+            };
 
             /**
              * 'item' => 'items'
@@ -8168,11 +8168,11 @@
              */
 
             exports.pluralize = function (value) {
-                var args = _.toArray(arguments, 1)
+                var args = _.toArray(arguments, 1);
                 return args.length > 1
                     ? (args[value % 10 - 1] || args[args.length - 1])
                     : (args[0] + (value === 1 ? '' : 's'))
-            }
+            };
 
             /**
              * Debounce a handler function.
@@ -8183,18 +8183,18 @@
              */
 
             exports.debounce = function (handler, delay) {
-                if (!handler) return
+                if (!handler) return;
                 if (!delay) {
                     delay = 300
                 }
                 return _.debounce(handler, delay)
-            }
+            };
 
             /**
              * Install special array filters
              */
 
-            _.extend(exports, __webpack_require__(54))
+            _.extend(exports, __webpack_require__(54));
 
 
             /***/
@@ -8202,9 +8202,9 @@
         /* 54 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Path = __webpack_require__(43)
-            var toArray = __webpack_require__(20)._postProcess
+            var _ = __webpack_require__(1);
+            var Path = __webpack_require__(43);
+            var toArray = __webpack_require__(20)._postProcess;
 
             /**
              * Limit filter for arrays
@@ -8216,7 +8216,7 @@
                 return typeof n === 'number'
                     ? arr.slice(0, n)
                     : arr
-            }
+            };
 
             /**
              * Filter filter for arrays
@@ -8227,7 +8227,7 @@
              */
 
             exports.filterBy = function (arr, search, delimiter /* ...dataKeys */) {
-                arr = toArray(arr)
+                arr = toArray(arr);
                 if (search == null) {
                     return arr
                 }
@@ -8235,26 +8235,26 @@
                     return arr.filter(search)
                 }
                 // cast to lowercase string
-                search = ('' + search).toLowerCase()
+                search = ('' + search).toLowerCase();
                 // allow optional `in` delimiter
                 // because why not
-                var n = delimiter === 'in' ? 3 : 2
+                var n = delimiter === 'in' ? 3 : 2;
                 // extract and flatten keys
                 var keys = _.toArray(arguments, n).reduce(function (prev, cur) {
                     return prev.concat(cur)
-                }, [])
-                var res = []
-                var item, key, val, j
+                }, []);
+                var res = [];
+                var item, key, val, j;
                 for (var i = 0, l = arr.length; i < l; i++) {
-                    item = arr[i]
-                    val = (item && item.$value) || item
-                    j = keys.length
+                    item = arr[i];
+                    val = (item && item.$value) || item;
+                    j = keys.length;
                     if (j) {
                         while (j--) {
-                            key = keys[j]
+                            key = keys[j];
                             if ((key === '$key' && contains(item.$key, search)) ||
                                 contains(Path.get(val, key), search)) {
-                                res.push(item)
+                                res.push(item);
                                 break
                             }
                         }
@@ -8263,7 +8263,7 @@
                     }
                 }
                 return res
-            }
+            };
 
             /**
              * Filter filter for arrays
@@ -8273,22 +8273,22 @@
              */
 
             exports.orderBy = function (arr, sortKey, reverse) {
-                arr = toArray(arr)
+                arr = toArray(arr);
                 if (!sortKey) {
                     return arr
                 }
-                var order = (reverse && reverse < 0) ? -1 : 1
+                var order = (reverse && reverse < 0) ? -1 : 1;
                 // sort on a copy to avoid mutating original array
                 return arr.slice().sort(function (a, b) {
                     if (sortKey !== '$key') {
-                        if (_.isObject(a) && '$value' in a) a = a.$value
+                        if (_.isObject(a) && '$value' in a) a = a.$value;
                         if (_.isObject(b) && '$value' in b) b = b.$value
                     }
-                    a = _.isObject(a) ? Path.get(a, sortKey) : a
-                    b = _.isObject(b) ? Path.get(b, sortKey) : b
+                    a = _.isObject(a) ? Path.get(a, sortKey) : a;
+                    b = _.isObject(b) ? Path.get(b, sortKey) : b;
                     return a === b ? 0 : a > b ? order : -order
                 })
-            }
+            };
 
             /**
              * String contain helper
@@ -8298,17 +8298,17 @@
              */
 
             function contains(val, search) {
-                var i
+                var i;
                 if (_.isPlainObject(val)) {
-                    var keys = Object.keys(val)
-                    i = keys.length
+                    var keys = Object.keys(val);
+                    i = keys.length;
                     while (i--) {
                         if (contains(val[keys[i]], search)) {
                             return true
                         }
                     }
                 } else if (_.isArray(val)) {
-                    i = val.length
+                    i = val.length;
                     while (i--) {
                         if (contains(val[i], search)) {
                             return true
@@ -8325,8 +8325,8 @@
         /* 55 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var mergeOptions = __webpack_require__(1).mergeOptions
-            var uid = 0
+            var mergeOptions = __webpack_require__(1).mergeOptions;
+            var uid = 0;
 
             /**
              * The main init sequence. This is called for every
@@ -8341,62 +8341,62 @@
 
             exports._init = function (options) {
 
-                options = options || {}
+                options = options || {};
 
-                this.$el = null
-                this.$parent = options.parent
+                this.$el = null;
+                this.$parent = options.parent;
                 this.$root = this.$parent
                     ? this.$parent.$root
-                    : this
-                this.$children = []
-                this.$refs = {}       // child vm references
-                this.$els = {}        // element references
-                this._watchers = []   // all watchers as an array
-                this._directives = [] // all directives
+                    : this;
+                this.$children = [];
+                this.$refs = {};       // child vm references
+                this.$els = {};        // element references
+                this._watchers = [];   // all watchers as an array
+                this._directives = []; // all directives
 
                 // a uid
-                this._uid = uid++
+                this._uid = uid++;
 
                 // a flag to avoid this being observed
-                this._isVue = true
+                this._isVue = true;
 
                 // events bookkeeping
-                this._events = {}            // registered callbacks
-                this._eventsCount = {}       // for $broadcast optimization
-                this._shouldPropagate = false // for event propagation
+                this._events = {};            // registered callbacks
+                this._eventsCount = {};       // for $broadcast optimization
+                this._shouldPropagate = false; // for event propagation
 
                 // fragment instance properties
-                this._isFragment = false
+                this._isFragment = false;
                 this._fragment =         // @type {DocumentFragment}
                     this._fragmentStart =    // @type {Text|Comment}
-                        this._fragmentEnd = null // @type {Text|Comment}
+                        this._fragmentEnd = null; // @type {Text|Comment}
 
                 // lifecycle state
                 this._isCompiled =
                     this._isDestroyed =
                         this._isReady =
                             this._isAttached =
-                                this._isBeingDestroyed = false
-                this._unlinkFn = null
+                                this._isBeingDestroyed = false;
+                this._unlinkFn = null;
 
                 // context:
                 // if this is a transcluded component, context
                 // will be the common parent vm of this instance
                 // and its host.
-                this._context = options._context || this.$parent
+                this._context = options._context || this.$parent;
 
                 // scope:
                 // if this is inside an inline v-for, the scope
                 // will be the intermediate scope created for this
                 // repeat fragment. this is used for linking props
                 // and container directives.
-                this._scope = options._scope
+                this._scope = options._scope;
 
                 // fragment:
                 // if this instance is compiled inside a Fragment, it
                 // needs to reigster itself as a child of that fragment
                 // for attach/detach to work properly.
-                this._frag = options._frag
+                this._frag = options._frag;
                 if (this._frag) {
                     this._frag.children.push(this)
                 }
@@ -8416,29 +8416,29 @@
                     this.constructor.options,
                     options,
                     this
-                )
+                );
 
                 // initialize data as empty object.
                 // it will be filled up in _initScope().
-                this._data = {}
+                this._data = {};
 
                 // call init hook
-                this._callHook('init')
+                this._callHook('init');
 
                 // initialize data observation and scope inheritance.
-                this._initState()
+                this._initState();
 
                 // setup event system and option events.
-                this._initEvents()
+                this._initEvents();
 
                 // call created hook
-                this._callHook('created')
+                this._callHook('created');
 
                 // if `el` option is passed, start compilation.
                 if (options.el) {
                     this.$mount(options.el)
                 }
-            }
+            };
 
 
             /***/
@@ -8446,9 +8446,9 @@
         /* 56 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var inDoc = _.inDoc
-            var eventRE = /^v-on:|^@/
+            var _ = __webpack_require__(1);
+            var inDoc = _.inDoc;
+            var eventRE = /^v-on:|^@/;
 
             /**
              * Setup the instance's option events & watchers.
@@ -8457,13 +8457,13 @@
              */
 
             exports._initEvents = function () {
-                var options = this.$options
+                var options = this.$options;
                 if (options._asComponent) {
                     registerComponentEvents(this, options.el)
                 }
-                registerCallbacks(this, '$on', options.events)
+                registerCallbacks(this, '$on', options.events);
                 registerCallbacks(this, '$watch', options.watch)
-            }
+            };
 
             /**
              * Register v-on events on a child component
@@ -8473,13 +8473,13 @@
              */
 
             function registerComponentEvents(vm, el) {
-                var attrs = el.attributes
-                var name, handler
+                var attrs = el.attributes;
+                var name, handler;
                 for (var i = 0, l = attrs.length; i < l; i++) {
-                    name = attrs[i].name
+                    name = attrs[i].name;
                     if (eventRE.test(name)) {
-                        name = name.replace(eventRE, '')
-                        handler = (vm._scope || vm._context).$eval(attrs[i].value, true)
+                        name = name.replace(eventRE, '');
+                        handler = (vm._scope || vm._context).$eval(attrs[i].value, true);
                         vm.$on(name.replace(eventRE), handler)
                     }
                 }
@@ -8494,10 +8494,10 @@
              */
 
             function registerCallbacks(vm, action, hash) {
-                if (!hash) return
-                var handlers, key, i, j
+                if (!hash) return;
+                var handlers, key, i, j;
                 for (key in hash) {
-                    handlers = hash[key]
+                    handlers = hash[key];
                     if (_.isArray(handlers)) {
                         for (i = 0, j = handlers.length; i < j; i++) {
                             register(vm, action, key, handlers[i])
@@ -8519,12 +8519,12 @@
              */
 
             function register(vm, action, key, handler, options) {
-                var type = typeof handler
+                var type = typeof handler;
                 if (type === 'function') {
                     vm[action](key, handler, options)
                 } else if (type === 'string') {
-                    var methods = vm.$options.methods
-                    var method = methods && methods[handler]
+                    var methods = vm.$options.methods;
+                    var method = methods && methods[handler];
                     if (method) {
                         vm[action](key, method, options)
                     } else {
@@ -8544,9 +8544,9 @@
              */
 
             exports._initDOMHooks = function () {
-                this.$on('hook:attached', onAttached)
+                this.$on('hook:attached', onAttached);
                 this.$on('hook:detached', onDetached)
-            }
+            };
 
             /**
              * Callback to recursively call attached hook on children
@@ -8554,7 +8554,7 @@
 
             function onAttached() {
                 if (!this._isAttached) {
-                    this._isAttached = true
+                    this._isAttached = true;
                     this.$children.forEach(callAttach)
                 }
             }
@@ -8577,7 +8577,7 @@
 
             function onDetached() {
                 if (this._isAttached) {
-                    this._isAttached = false
+                    this._isAttached = false;
                     this.$children.forEach(callDetach)
                 }
             }
@@ -8601,14 +8601,14 @@
              */
 
             exports._callHook = function (hook) {
-                var handlers = this.$options[hook]
+                var handlers = this.$options[hook];
                 if (handlers) {
                     for (var i = 0, j = handlers.length; i < j; i++) {
                         handlers[i].call(this)
                     }
                 }
                 this.$emit('hook:' + hook)
-            }
+            };
 
 
             /***/
@@ -8616,11 +8616,11 @@
         /* 57 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var compiler = __webpack_require__(14)
-            var Observer = __webpack_require__(58)
-            var Dep = __webpack_require__(41)
-            var Watcher = __webpack_require__(40)
+            var _ = __webpack_require__(1);
+            var compiler = __webpack_require__(14);
+            var Observer = __webpack_require__(58);
+            var Dep = __webpack_require__(41);
+            var Watcher = __webpack_require__(40);
 
             /**
              * Setup the scope of an instance, which contains:
@@ -8631,21 +8631,21 @@
              */
 
             exports._initState = function () {
-                this._initProps()
-                this._initMeta()
-                this._initMethods()
-                this._initData()
+                this._initProps();
+                this._initMeta();
+                this._initMethods();
+                this._initData();
                 this._initComputed()
-            }
+            };
 
             /**
              * Initialize props.
              */
 
             exports._initProps = function () {
-                var options = this.$options
-                var el = options.el
-                var props = options.props
+                var options = this.$options;
+                var el = options.el;
+                var props = options.props;
                 if (props && !el) {
                     ("development") !== 'production' && _.warn(
                         'Props will not be compiled if no `el` option is ' +
@@ -8653,23 +8653,23 @@
                     )
                 }
                 // make sure to convert string selectors into element now
-                el = options.el = _.query(el)
+                el = options.el = _.query(el);
                 this._propsUnlinkFn = el && el.nodeType === 1 && props
                     // props must be linked in proper scope if inside v-for
                     ? compiler.compileAndLinkProps(this, el, props, this._scope)
                     : null
-            }
+            };
 
             /**
              * Initialize the data.
              */
 
             exports._initData = function () {
-                var propsData = this._data
-                var optionsDataFn = this.$options.data
-                var optionsData = optionsDataFn && optionsDataFn()
+                var propsData = this._data;
+                var optionsDataFn = this.$options.data;
+                var optionsData = optionsDataFn && optionsDataFn();
                 if (optionsData) {
-                    this._data = optionsData
+                    this._data = optionsData;
                     for (var prop in propsData) {
                         if (("development") !== 'production' &&
                             optionsData.hasOwnProperty(prop)) {
@@ -8683,18 +8683,18 @@
                         }
                     }
                 }
-                var data = this._data
+                var data = this._data;
                 // proxy data on instance
-                var keys = Object.keys(data)
-                var i, key
-                i = keys.length
+                var keys = Object.keys(data);
+                var i, key;
+                i = keys.length;
                 while (i--) {
-                    key = keys[i]
+                    key = keys[i];
                     this._proxy(key)
                 }
                 // observe data
                 Observer.create(data, this)
-            }
+            };
 
             /**
              * Swap the isntance's $data. Called in $data's setter.
@@ -8703,34 +8703,34 @@
              */
 
             exports._setData = function (newData) {
-                newData = newData || {}
-                var oldData = this._data
-                this._data = newData
-                var keys, key, i
+                newData = newData || {};
+                var oldData = this._data;
+                this._data = newData;
+                var keys, key, i;
                 // unproxy keys not present in new data
-                keys = Object.keys(oldData)
-                i = keys.length
+                keys = Object.keys(oldData);
+                i = keys.length;
                 while (i--) {
-                    key = keys[i]
+                    key = keys[i];
                     if (!(key in newData)) {
                         this._unproxy(key)
                     }
                 }
                 // proxy keys not already proxied,
                 // and trigger change for changed values
-                keys = Object.keys(newData)
-                i = keys.length
+                keys = Object.keys(newData);
+                i = keys.length;
                 while (i--) {
-                    key = keys[i]
+                    key = keys[i];
                     if (!this.hasOwnProperty(key)) {
                         // new property
                         this._proxy(key)
                     }
                 }
-                oldData.__ob__.removeVm(this)
-                Observer.create(newData, this)
+                oldData.__ob__.removeVm(this);
+                Observer.create(newData, this);
                 this._digest()
-            }
+            };
 
             /**
              * Proxy a property, so that
@@ -8745,7 +8745,7 @@
                     // because these getter/setters might
                     // be called by child scopes via
                     // prototype inheritance.
-                    var self = this
+                    var self = this;
                     Object.defineProperty(self, key, {
                         configurable: true,
                         enumerable: true,
@@ -8757,7 +8757,7 @@
                         }
                     })
                 }
-            }
+            };
 
             /**
              * Unproxy a property.
@@ -8769,7 +8769,7 @@
                 if (!_.isReserved(key)) {
                     delete this[key]
                 }
-            }
+            };
 
             /**
              * Force update on every watcher in scope.
@@ -8777,9 +8777,9 @@
 
             exports._digest = function () {
                 for (var i = 0, l = this._watchers.length; i < l; i++) {
-                    this._watchers[i].update(true) // shallow updates
+                    this._watchers[i].update(true); // shallow updates
                 }
-            }
+            };
 
             /**
              * Setup computed properties. They are essentially
@@ -8790,23 +8790,23 @@
             }
 
             exports._initComputed = function () {
-                var computed = this.$options.computed
+                var computed = this.$options.computed;
                 if (computed) {
                     for (var key in computed) {
-                        var userDef = computed[key]
+                        var userDef = computed[key];
                         var def = {
                             enumerable: true,
                             configurable: true
-                        }
+                        };
                         if (typeof userDef === 'function') {
-                            def.get = makeComputedGetter(userDef, this)
+                            def.get = makeComputedGetter(userDef, this);
                             def.set = noop
                         } else {
                             def.get = userDef.get
                                 ? userDef.cache !== false
                                 ? makeComputedGetter(userDef.get, this)
                                 : _.bind(userDef.get, this)
-                                : noop
+                                : noop;
                             def.set = userDef.set
                                 ? _.bind(userDef.set, this)
                                 : noop
@@ -8814,12 +8814,12 @@
                         Object.defineProperty(this, key, def)
                     }
                 }
-            }
+            };
 
             function makeComputedGetter(getter, owner) {
                 var watcher = new Watcher(owner, getter, null, {
                     lazy: true
-                })
+                });
                 return function computedGetter() {
                     if (watcher.dirty) {
                         watcher.evaluate()
@@ -8838,26 +8838,26 @@
              */
 
             exports._initMethods = function () {
-                var methods = this.$options.methods
+                var methods = this.$options.methods;
                 if (methods) {
                     for (var key in methods) {
                         this[key] = _.bind(methods[key], this)
                     }
                 }
-            }
+            };
 
             /**
              * Initialize meta information like $index, $key & $value.
              */
 
             exports._initMeta = function () {
-                var metas = this.$options._meta
+                var metas = this.$options._meta;
                 if (metas) {
                     for (var key in metas) {
                         _.defineReactive(this, key, metas[key])
                     }
                 }
-            }
+            };
 
 
             /***/
@@ -8865,10 +8865,10 @@
         /* 58 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Dep = __webpack_require__(41)
-            var arrayMethods = __webpack_require__(59)
-            var arrayKeys = Object.getOwnPropertyNames(arrayMethods)
+            var _ = __webpack_require__(1);
+            var Dep = __webpack_require__(41);
+            var arrayMethods = __webpack_require__(59);
+            var arrayKeys = Object.getOwnPropertyNames(arrayMethods);
 
             /**
              * Observer class that are attached to each observed
@@ -8881,14 +8881,14 @@
              */
 
             function Observer(value) {
-                this.value = value
-                this.dep = new Dep()
-                _.define(value, '__ob__', this)
+                this.value = value;
+                this.dep = new Dep();
+                _.define(value, '__ob__', this);
                 if (_.isArray(value)) {
                     var augment = _.hasProto
                         ? protoAugment
-                        : copyAugment
-                    augment(value, arrayMethods, arrayKeys)
+                        : copyAugment;
+                    augment(value, arrayMethods, arrayKeys);
                     this.observeArray(value)
                 } else {
                     this.walk(value)
@@ -8912,7 +8912,7 @@
                 if (!value || typeof value !== 'object') {
                     return
                 }
-                var ob
+                var ob;
                 if (
                     value.hasOwnProperty('__ob__') &&
                     value.__ob__ instanceof Observer
@@ -8927,7 +8927,7 @@
                     ob.addVm(vm)
                 }
                 return ob
-            }
+            };
 
             // Instance methods
 
@@ -8940,12 +8940,12 @@
              */
 
             Observer.prototype.walk = function (obj) {
-                var keys = Object.keys(obj)
-                var i = keys.length
+                var keys = Object.keys(obj);
+                var i = keys.length;
                 while (i--) {
                     this.convert(keys[i], obj[keys[i]])
                 }
-            }
+            };
 
             /**
              * Observe a list of Array items.
@@ -8954,11 +8954,11 @@
              */
 
             Observer.prototype.observeArray = function (items) {
-                var i = items.length
+                var i = items.length;
                 while (i--) {
                     Observer.create(items[i])
                 }
-            }
+            };
 
             /**
              * Convert a property into getter/setter so we can emit
@@ -8970,7 +8970,7 @@
 
             Observer.prototype.convert = function (key, val) {
                 defineReactive(this.value, key, val)
-            }
+            };
 
             /**
              * Add an owner vm, so that when $set/$delete mutations
@@ -8983,7 +8983,7 @@
 
             Observer.prototype.addVm = function (vm) {
                 (this.vms || (this.vms = [])).push(vm)
-            }
+            };
 
             /**
              * Remove an owner vm. This is called when the object is
@@ -8994,7 +8994,7 @@
 
             Observer.prototype.removeVm = function (vm) {
                 this.vms.$remove(vm)
-            }
+            };
 
             // helpers
 
@@ -9019,10 +9019,10 @@
              */
 
             function copyAugment(target, src, keys) {
-                var i = keys.length
-                var key
+                var i = keys.length;
+                var key;
                 while (i--) {
-                    key = keys[i]
+                    key = keys[i];
                     _.define(target, key, src[key])
                 }
             }
@@ -9036,20 +9036,20 @@
              */
 
             function defineReactive(obj, key, val) {
-                var dep = new Dep()
-                var childOb = Observer.create(val)
+                var dep = new Dep();
+                var childOb = Observer.create(val);
                 Object.defineProperty(obj, key, {
                     enumerable: true,
                     configurable: true,
                     get: function metaGetter() {
                         if (Dep.target) {
-                            dep.depend()
+                            dep.depend();
                             if (childOb) {
                                 childOb.dep.depend()
                             }
                             if (_.isArray(val)) {
                                 for (var e, i = 0, l = val.length; i < l; i++) {
-                                    e = val[i]
+                                    e = val[i];
                                     e && e.__ob__ && e.__ob__.dep.depend()
                                 }
                             }
@@ -9057,18 +9057,18 @@
                         return val
                     },
                     set: function metaSetter(newVal) {
-                        if (newVal === val) return
-                        val = newVal
-                        childOb = Observer.create(newVal)
+                        if (newVal === val) return;
+                        val = newVal;
+                        childOb = Observer.create(newVal);
                         dep.notify()
                     }
                 })
             }
 
             // Attach to the util object so it can be used elsewhere.
-            _.defineReactive = defineReactive
+            _.defineReactive = defineReactive;
 
-            module.exports = Observer
+            module.exports = Observer;
 
 
             /***/
@@ -9076,8 +9076,8 @@
         /* 59 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var arrayProto = Array.prototype
+            var _ = __webpack_require__(1);
+            var arrayProto = Array.prototype;
             var arrayMethods = Object.create(arrayProto)
 
             /**
@@ -9096,35 +9096,35 @@
             ]
                 .forEach(function (method) {
                     // cache original method
-                    var original = arrayProto[method]
+                    var original = arrayProto[method];
                     _.define(arrayMethods, method, function mutator() {
                         // avoid leaking arguments:
                         // http://jsperf.com/closure-with-arguments
-                        var i = arguments.length
-                        var args = new Array(i)
+                        var i = arguments.length;
+                        var args = new Array(i);
                         while (i--) {
                             args[i] = arguments[i]
                         }
-                        var result = original.apply(this, args)
-                        var ob = this.__ob__
-                        var inserted
+                        var result = original.apply(this, args);
+                        var ob = this.__ob__;
+                        var inserted;
                         switch (method) {
                             case 'push':
-                                inserted = args
-                                break
+                                inserted = args;
+                                break;
                             case 'unshift':
-                                inserted = args
-                                break
+                                inserted = args;
+                                break;
                             case 'splice':
-                                inserted = args.slice(2)
+                                inserted = args.slice(2);
                                 break
                         }
-                        if (inserted) ob.observeArray(inserted)
+                        if (inserted) ob.observeArray(inserted);
                         // notify change
-                        ob.dep.notify()
+                        ob.dep.notify();
                         return result
                     })
-                })
+                });
 
             /**
              * Swap the element at the given index with a new value
@@ -9144,7 +9144,7 @@
                     }
                     return this.splice(index, 1, val)[0]
                 }
-            )
+            );
 
             /**
              * Convenience method to remove the element at given index.
@@ -9158,15 +9158,15 @@
                 '$remove',
                 function $remove(item) {
                     /* istanbul ignore if */
-                    if (!this.length) return
-                    var index = _.indexOf(this, item)
+                    if (!this.length) return;
+                    var index = _.indexOf(this, item);
                     if (index > -1) {
                         return this.splice(index, 1)
                     }
                 }
-            )
+            );
 
-            module.exports = arrayMethods
+            module.exports = arrayMethods;
 
 
             /***/
@@ -9174,9 +9174,9 @@
         /* 60 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Directive = __webpack_require__(61)
-            var compiler = __webpack_require__(14)
+            var _ = __webpack_require__(1);
+            var Directive = __webpack_require__(61);
+            var compiler = __webpack_require__(14);
 
             /**
              * Transclude, compile and link element.
@@ -9192,29 +9192,29 @@
              */
 
             exports._compile = function (el) {
-                var options = this.$options
+                var options = this.$options;
 
                 // transclude and init element
                 // transclude can potentially replace original
                 // so we need to keep reference; this step also injects
                 // the template and caches the original attributes
                 // on the container node and replacer node.
-                var original = el
-                el = compiler.transclude(el, options)
-                this._initElement(el)
+                var original = el;
+                el = compiler.transclude(el, options);
+                this._initElement(el);
 
                 // root is always compiled per-instance, because
                 // container attrs and props can be different every time.
-                var contextOptions = this._context && this._context.$options
-                var rootLinker = compiler.compileRoot(el, options, contextOptions)
+                var contextOptions = this._context && this._context.$options;
+                var rootLinker = compiler.compileRoot(el, options, contextOptions);
 
                 // compile and link the rest
-                var contentLinkFn
-                var ctor = this.constructor
+                var contentLinkFn;
+                var ctor = this.constructor;
                 // component compilation can be cached
                 // as long as it's not using inline-template
                 if (options._linkerCachable) {
-                    contentLinkFn = ctor.linker
+                    contentLinkFn = ctor.linker;
                     if (!contentLinkFn) {
                         contentLinkFn = ctor.linker = compiler.compile(el, options)
                     }
@@ -9222,29 +9222,29 @@
 
                 // link phase
                 // make sure to link root with prop scope!
-                var rootUnlinkFn = rootLinker(this, el, this._scope)
+                var rootUnlinkFn = rootLinker(this, el, this._scope);
                 var contentUnlinkFn = contentLinkFn
                     ? contentLinkFn(this, el)
-                    : compiler.compile(el, options)(this, el)
+                    : compiler.compile(el, options)(this, el);
 
                 // register composite unlink function
                 // to be called during instance destruction
                 this._unlinkFn = function () {
-                    rootUnlinkFn()
+                    rootUnlinkFn();
                     // passing destroying: true to avoid searching and
                     // splicing the directives
                     contentUnlinkFn(true)
-                }
+                };
 
                 // finally replace original
                 if (options.replace) {
                     _.replace(original, el)
                 }
 
-                this._isCompiled = true
-                this._callHook('compiled')
+                this._isCompiled = true;
+                this._callHook('compiled');
                 return el
-            }
+            };
 
             /**
              * Initialize instance element. Called in the public
@@ -9255,9 +9255,9 @@
 
             exports._initElement = function (el) {
                 if (el instanceof DocumentFragment) {
-                    this._isFragment = true
-                    this.$el = this._fragmentStart = el.firstChild
-                    this._fragmentEnd = el.lastChild
+                    this._isFragment = true;
+                    this.$el = this._fragmentStart = el.firstChild;
+                    this._fragmentEnd = el.lastChild;
                     // set persisted text anchors to empty
                     if (this._fragmentStart.nodeType === 3) {
                         this._fragmentStart.data = this._fragmentEnd.data = ''
@@ -9266,9 +9266,9 @@
                 } else {
                     this.$el = el
                 }
-                this.$el.__vue__ = this
+                this.$el.__vue__ = this;
                 this._callHook('beforeCompile')
-            }
+            };
 
             /**
              * Create and bind a directive to an element.
@@ -9286,7 +9286,7 @@
                 this._directives.push(
                     new Directive(descriptor, this, node, host, scope, frag)
                 )
-            }
+            };
 
             /**
              * Teardown an instance, unobserves the data, unbind all the
@@ -9301,18 +9301,18 @@
                 if (this._isBeingDestroyed) {
                     return
                 }
-                this._callHook('beforeDestroy')
-                this._isBeingDestroyed = true
-                var i
+                this._callHook('beforeDestroy');
+                this._isBeingDestroyed = true;
+                var i;
                 // remove self from parent. only necessary
                 // if parent is not being destroyed as well.
-                var parent = this.$parent
+                var parent = this.$parent;
                 if (parent && !parent._isBeingDestroyed) {
-                    parent.$children.$remove(this)
+                    parent.$children.$remove(this);
                     // unregister ref
-                    var ref = this.$options._ref
+                    var ref = this.$options._ref;
                     if (ref) {
-                        var scope = this._scope || this._context
+                        var scope = this._scope || this._context;
                         if (scope.$refs[ref] === this) {
                             scope.$refs[ref] = null
                         }
@@ -9323,7 +9323,7 @@
                     this._frag.children.$remove(this)
                 }
                 // destroy all children.
-                i = this.$children.length
+                i = this.$children.length;
                 while (i--) {
                     this.$children[i].$destroy()
                 }
@@ -9336,7 +9336,7 @@
                 if (this._unlinkFn) {
                     this._unlinkFn()
                 }
-                i = this._watchers.length
+                i = this._watchers.length;
                 while (i--) {
                     this._watchers[i].teardown()
                 }
@@ -9345,7 +9345,7 @@
                     this.$el.__vue__ = null
                 }
                 // remove DOM element
-                var self = this
+                var self = this;
                 if (remove && this.$el) {
                     this.$remove(function () {
                         self._cleanup()
@@ -9353,7 +9353,7 @@
                 } else if (!deferCleanup) {
                     this._cleanup()
                 }
-            }
+            };
 
             /**
              * Clean up to ensure garbage collection.
@@ -9382,13 +9382,13 @@
                                 this._watchers =
                                     this._context =
                                         this._scope =
-                                            this._directives = null
+                                            this._directives = null;
                 // call the last hook...
-                this._isDestroyed = true
-                this._callHook('destroyed')
+                this._isDestroyed = true;
+                this._callHook('destroyed');
                 // turn off all instance listeners.
                 this.$off()
-            }
+            };
 
 
             /***/
@@ -9396,9 +9396,9 @@
         /* 61 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Watcher = __webpack_require__(40)
-            var expParser = __webpack_require__(42)
+            var _ = __webpack_require__(1);
+            var Watcher = __webpack_require__(40);
+            var expParser = __webpack_require__(42);
 
             function noop() {
             }
@@ -9428,27 +9428,27 @@
              */
 
             function Directive(descriptor, vm, el, host, scope, frag) {
-                this.vm = vm
-                this.el = el
+                this.vm = vm;
+                this.el = el;
                 // copy descriptor properties
-                this.descriptor = descriptor
-                this.name = descriptor.name
-                this.expression = descriptor.expression
-                this.arg = descriptor.arg
-                this.modifiers = descriptor.modifiers
-                this.filters = descriptor.filters
-                this.literal = this.modifiers && this.modifiers.literal
+                this.descriptor = descriptor;
+                this.name = descriptor.name;
+                this.expression = descriptor.expression;
+                this.arg = descriptor.arg;
+                this.modifiers = descriptor.modifiers;
+                this.filters = descriptor.filters;
+                this.literal = this.modifiers && this.modifiers.literal;
                 // private
-                this._locked = false
-                this._bound = false
-                this._listeners = null
+                this._locked = false;
+                this._bound = false;
+                this._listeners = null;
                 // link context
-                this._host = host
-                this._scope = scope
-                this._frag = frag
+                this._host = host;
+                this._scope = scope;
+                this._frag = frag;
                 // store directives on node in dev mode
                 if (("development") !== 'production' && this.el) {
-                    this.el._vue_directives = this.el._vue_directives || []
+                    this.el._vue_directives = this.el._vue_directives || [];
                     this.el._vue_directives.push(this)
                 }
             }
@@ -9462,20 +9462,20 @@
              */
 
             Directive.prototype._bind = function () {
-                var name = this.name
-                var descriptor = this.descriptor
+                var name = this.name;
+                var descriptor = this.descriptor;
 
                 // remove attribute
                 if (
                     (name !== 'cloak' || this.vm._isCompiled) &&
                     this.el && this.el.removeAttribute
                 ) {
-                    var attr = descriptor.attr || ('v-' + name)
+                    var attr = descriptor.attr || ('v-' + name);
                     this.el.removeAttribute(attr)
                 }
 
                 // copy def properties
-                var def = descriptor.def
+                var def = descriptor.def;
                 if (typeof def === 'function') {
                     this.update = def
                 } else {
@@ -9483,7 +9483,7 @@
                 }
 
                 // setup directive params
-                this._setupParams()
+                this._setupParams();
 
                 // initial bind
                 if (this.bind) {
@@ -9497,7 +9497,7 @@
                     (this.update || this.twoWay) && !this._checkStatement()
                 ) {
                     // wrapped updater for context
-                    var dir = this
+                    var dir = this;
                     if (this.update) {
                         this._update = function (val, oldVal) {
                             if (!dir._locked) {
@@ -9509,10 +9509,10 @@
                     }
                     var preProcess = this._preProcess
                         ? _.bind(this._preProcess, this)
-                        : null
+                        : null;
                     var postProcess = this._postProcess
                         ? _.bind(this._postProcess, this)
-                        : null
+                        : null;
                     var watcher = this._watcher = new Watcher(
                         this.vm,
                         this.expression,
@@ -9525,7 +9525,7 @@
                             postProcess: postProcess,
                             scope: this._scope
                         }
-                    )
+                    );
                     // v-model with inital inline value need to sync back to
                     // model instead of update to DOM on init. They would
                     // set the afterBind hook to indicate that.
@@ -9536,7 +9536,7 @@
                     }
                 }
                 this._bound = true
-            }
+            };
 
             /**
              * Setup all param attributes, e.g. track-by,
@@ -9547,27 +9547,27 @@
                 if (!this.params) {
                     return
                 }
-                var params = this.params
+                var params = this.params;
                 // swap the params array with a fresh object.
-                this.params = Object.create(null)
-                var i = params.length
-                var key, val, mappedKey
+                this.params = Object.create(null);
+                var i = params.length;
+                var key, val, mappedKey;
                 while (i--) {
-                    key = params[i]
-                    mappedKey = _.camelize(key)
-                    val = _.attr(this.el, key)
+                    key = params[i];
+                    mappedKey = _.camelize(key);
+                    val = _.attr(this.el, key);
                     if (val != null) {
                         // static
                         this.params[mappedKey] = val === '' ? true : val
                     } else {
                         // dynamic
-                        val = _.getBindAttr(this.el, key)
+                        val = _.getBindAttr(this.el, key);
                         if (val != null) {
                             this._setupParamWatcher(mappedKey, val)
                         }
                     }
                 }
-            }
+            };
 
             /**
              * Setup a watcher for a dynamic param.
@@ -9577,14 +9577,14 @@
              */
 
             Directive.prototype._setupParamWatcher = function (key, expression) {
-                var self = this
-                var called = false
+                var self = this;
+                var called = false;
                 var unwatch = (this._scope || this.vm).$watch(expression, function (val, oldVal) {
-                        self.params[key] = val
+                        self.params[key] = val;
                         // since we are in immediate mode,
                         // only call the param change callbacks if this is not the first update.
                         if (called) {
-                            var cb = self.paramWatchers && self.paramWatchers[key]
+                            var cb = self.paramWatchers && self.paramWatchers[key];
                             if (cb) {
                                 cb.call(self, val, oldVal)
                             }
@@ -9596,7 +9596,7 @@
                     })
                     ;
                 (this._paramUnwatchFns || (this._paramUnwatchFns = [])).push(unwatch)
-            }
+            };
 
             /**
              * Check if the directive is a function caller
@@ -9610,22 +9610,22 @@
              */
 
             Directive.prototype._checkStatement = function () {
-                var expression = this.expression
+                var expression = this.expression;
                 if (
                     expression && this.acceptStatement && !expParser.isSimplePath(expression)
                 ) {
-                    var fn = expParser.parse(expression).get
-                    var scope = this._scope || this.vm
+                    var fn = expParser.parse(expression).get;
+                    var scope = this._scope || this.vm;
                     var handler = function () {
                         fn.call(scope, scope)
-                    }
+                    };
                     if (this.filters) {
                         handler = this.vm._applyFilters(handler, null, this.filters)
                     }
-                    this.update(handler)
+                    this.update(handler);
                     return true
                 }
-            }
+            };
 
             /**
              * Set the corresponding value with the setter.
@@ -9648,7 +9648,7 @@
                         'directives.'
                     )
                 }
-            }
+            };
 
             /**
              * Execute a function while preventing that function from
@@ -9658,13 +9658,13 @@
              */
 
             Directive.prototype._withLock = function (fn) {
-                var self = this
-                self._locked = true
-                fn.call(self)
+                var self = this;
+                self._locked = true;
+                fn.call(self);
                 _.nextTick(function () {
                     self._locked = false
                 })
-            }
+            };
 
             /**
              * Convenience method that attaches a DOM event listener
@@ -9680,7 +9680,7 @@
                 ;
                 (this._listeners || (this._listeners = []))
                     .push([event, handler])
-            }
+            };
 
             /**
              * Teardown the watcher and call unbind.
@@ -9688,24 +9688,24 @@
 
             Directive.prototype._teardown = function () {
                 if (this._bound) {
-                    this._bound = false
+                    this._bound = false;
                     if (this.unbind) {
                         this.unbind()
                     }
                     if (this._watcher) {
                         this._watcher.teardown()
                     }
-                    var listeners = this._listeners
-                    var i
+                    var listeners = this._listeners;
+                    var i;
                     if (listeners) {
-                        i = listeners.length
+                        i = listeners.length;
                         while (i--) {
                             _.off(this.el, listeners[i][0], listeners[i][1])
                         }
                     }
-                    var unwatchFns = this._paramUnwatchFns
+                    var unwatchFns = this._paramUnwatchFns;
                     if (unwatchFns) {
-                        i = unwatchFns.length
+                        i = unwatchFns.length;
                         while (i--) {
                             unwatchFns[i]()
                         }
@@ -9715,9 +9715,9 @@
                     }
                     this.vm = this.el = this._watcher = this._listeners = null
                 }
-            }
+            };
 
-            module.exports = Directive
+            module.exports = Directive;
 
 
             /***/
@@ -9725,7 +9725,7 @@
         /* 62 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             /**
              * Apply a list of filter (descriptors) to a value.
@@ -9741,21 +9741,21 @@
              */
 
             exports._applyFilters = function (value, oldValue, filters, write) {
-                var filter, fn, args, arg, offset, i, l, j, k
+                var filter, fn, args, arg, offset, i, l, j, k;
                 for (i = 0, l = filters.length; i < l; i++) {
-                    filter = filters[i]
-                    fn = _.resolveAsset(this.$options, 'filters', filter.name)
+                    filter = filters[i];
+                    fn = _.resolveAsset(this.$options, 'filters', filter.name);
                     if (true) {
                         _.assertAsset(fn, 'filter', filter.name)
                     }
-                    if (!fn) continue
-                    fn = write ? fn.write : (fn.read || fn)
-                    if (typeof fn !== 'function') continue
-                    args = write ? [value, oldValue] : [value]
-                    offset = write ? 2 : 1
+                    if (!fn) continue;
+                    fn = write ? fn.write : (fn.read || fn);
+                    if (typeof fn !== 'function') continue;
+                    args = write ? [value, oldValue] : [value];
+                    offset = write ? 2 : 1;
                     if (filter.args) {
                         for (j = 0, k = filter.args.length; j < k; j++) {
-                            arg = filter.args[j]
+                            arg = filter.args[j];
                             args[j + offset] = arg.dynamic
                                 ? this.$get(arg.value)
                                 : arg.value
@@ -9764,7 +9764,7 @@
                     value = fn.apply(this, args)
                 }
                 return value
-            }
+            };
 
             /**
              * Resolve a component, depending on whether the component
@@ -9778,7 +9778,7 @@
              */
 
             exports._resolveComponent = function (id, cb) {
-                var factory = _.resolveAsset(this.$options, 'components', id)
+                var factory = _.resolveAsset(this.$options, 'components', id);
                 if (true) {
                     _.assertAsset(factory, 'component', id)
                 }
@@ -9794,14 +9794,14 @@
                         // pool callbacks
                         factory.pendingCallbacks.push(cb)
                     } else {
-                        factory.requested = true
-                        var cbs = factory.pendingCallbacks = [cb]
+                        factory.requested = true;
+                        var cbs = factory.pendingCallbacks = [cb];
                         factory(function resolve(res) {
                             if (_.isPlainObject(res)) {
                                 res = _.Vue.extend(res)
                             }
                             // cache resolved
-                            factory.resolved = res
+                            factory.resolved = res;
                             // invoke callbacks
                             for (var i = 0, l = cbs.length; i < l; i++) {
                                 cbs[i](res)
@@ -9817,7 +9817,7 @@
                     // normal component
                     cb(factory)
                 }
-            }
+            };
 
 
             /***/
@@ -9825,13 +9825,13 @@
         /* 63 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var Watcher = __webpack_require__(40)
-            var Path = __webpack_require__(43)
-            var textParser = __webpack_require__(6)
-            var dirParser = __webpack_require__(8)
-            var expParser = __webpack_require__(42)
-            var filterRE = /[^|]\|[^|]/
+            var _ = __webpack_require__(1);
+            var Watcher = __webpack_require__(40);
+            var Path = __webpack_require__(43);
+            var textParser = __webpack_require__(6);
+            var dirParser = __webpack_require__(8);
+            var expParser = __webpack_require__(42);
+            var filterRE = /[^|]\|[^|]/;
 
             /**
              * Get the value from an expression on this vm.
@@ -9842,10 +9842,10 @@
              */
 
             exports.$get = function (exp, asStatement) {
-                var res = expParser.parse(exp)
+                var res = expParser.parse(exp);
                 if (res) {
                     if (asStatement && !expParser.isSimplePath(exp)) {
-                        var self = this
+                        var self = this;
                         return function statementHandler() {
                             res.get.call(self, self)
                         }
@@ -9856,7 +9856,7 @@
                         }
                     }
                 }
-            }
+            };
 
             /**
              * Set the value from an expression on this vm.
@@ -9868,11 +9868,11 @@
              */
 
             exports.$set = function (exp, val) {
-                var res = expParser.parse(exp, true)
+                var res = expParser.parse(exp, true);
                 if (res && res.set) {
                     res.set.call(this, this, val)
                 }
-            }
+            };
 
             /**
              * Delete a property on the VM
@@ -9882,7 +9882,7 @@
 
             exports.$delete = function (key) {
                 _.delete(this._data, key)
-            }
+            };
 
             /**
              * Watch an expression, trigger callback when its
@@ -9897,23 +9897,23 @@
              */
 
             exports.$watch = function (expOrFn, cb, options) {
-                var vm = this
-                var parsed
+                var vm = this;
+                var parsed;
                 if (typeof expOrFn === 'string') {
-                    parsed = dirParser.parse(expOrFn)
+                    parsed = dirParser.parse(expOrFn);
                     expOrFn = parsed.expression
                 }
                 var watcher = new Watcher(vm, expOrFn, cb, {
                     deep: options && options.deep,
                     filters: parsed && parsed.filters
-                })
+                });
                 if (options && options.immediate) {
                     cb.call(vm, watcher.value)
                 }
                 return function unwatchFn() {
                     watcher.teardown()
                 }
-            }
+            };
 
             /**
              * Evaluate a text directive, including filters.
@@ -9926,11 +9926,11 @@
             exports.$eval = function (text, asStatement) {
                 // check for filters.
                 if (filterRE.test(text)) {
-                    var dir = dirParser.parse(text)
+                    var dir = dirParser.parse(text);
                     // the filter regex check might give false positive
                     // for pipes inside strings, so it's possible that
                     // we don't get any filters here
-                    var val = this.$get(dir.expression, asStatement)
+                    var val = this.$get(dir.expression, asStatement);
                     return dir.filters
                         ? this._applyFilters(val, null, dir.filters)
                         : val
@@ -9938,7 +9938,7 @@
                     // no filter
                     return this.$get(text, asStatement)
                 }
-            }
+            };
 
             /**
              * Interpolate a piece of template text.
@@ -9948,8 +9948,8 @@
              */
 
             exports.$interpolate = function (text) {
-                var tokens = textParser.parse(text)
-                var vm = this
+                var tokens = textParser.parse(text);
+                var vm = this;
                 if (tokens) {
                     if (tokens.length === 1) {
                         return vm.$eval(tokens[0].value) + ''
@@ -9963,7 +9963,7 @@
                 } else {
                     return text
                 }
-            }
+            };
 
             /**
              * Log instance data as a plain JS object
@@ -9976,7 +9976,7 @@
             exports.$log = function (path) {
                 var data = path
                     ? Path.get(this._data, path)
-                    : this._data
+                    : this._data;
                 if (data) {
                     data = clean(data)
                 }
@@ -9987,7 +9987,7 @@
                     }
                 }
                 console.log(data)
-            }
+            };
 
             /**
              * "clean" a getter/setter converted object into a plain
@@ -10007,8 +10007,8 @@
         /* 64 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var transition = __webpack_require__(9)
+            var _ = __webpack_require__(1);
+            var transition = __webpack_require__(9);
 
             /**
              * Convenience on-instance nextTick. The callback is
@@ -10020,7 +10020,7 @@
 
             exports.$nextTick = function (fn) {
                 _.nextTick(fn, this)
-            }
+            };
 
             /**
              * Append instance to target
@@ -10035,7 +10035,7 @@
                     this, target, cb, withTransition,
                     append, transition.append
                 )
-            }
+            };
 
             /**
              * Prepend instance to target
@@ -10046,14 +10046,14 @@
              */
 
             exports.$prependTo = function (target, cb, withTransition) {
-                target = query(target)
+                target = query(target);
                 if (target.hasChildNodes()) {
                     this.$before(target.firstChild, cb, withTransition)
                 } else {
                     this.$appendTo(target, cb, withTransition)
                 }
                 return this
-            }
+            };
 
             /**
              * Insert instance before target
@@ -10068,7 +10068,7 @@
                     this, target, cb, withTransition,
                     before, transition.before
                 )
-            }
+            };
 
             /**
              * Insert instance after target
@@ -10079,14 +10079,14 @@
              */
 
             exports.$after = function (target, cb, withTransition) {
-                target = query(target)
+                target = query(target);
                 if (target.nextSibling) {
                     this.$before(target.nextSibling, cb, withTransition)
                 } else {
                     this.$appendTo(target.parentNode, cb, withTransition)
                 }
                 return this
-            }
+            };
 
             /**
              * Remove instance from DOM
@@ -10099,15 +10099,15 @@
                 if (!this.$el.parentNode) {
                     return cb && cb()
                 }
-                var inDoc = this._isAttached && _.inDoc(this.$el)
+                var inDoc = this._isAttached && _.inDoc(this.$el);
                 // if we are not in document, no need to check
                 // for transitions
-                if (!inDoc) withTransition = false
-                var self = this
+                if (!inDoc) withTransition = false;
+                var self = this;
                 var realCb = function () {
-                    if (inDoc) self._callHook('detached')
+                    if (inDoc) self._callHook('detached');
                     if (cb) cb()
-                }
+                };
                 if (this._isFragment) {
                     _.removeNodeRange(
                         this._fragmentStart,
@@ -10117,11 +10117,11 @@
                 } else {
                     var op = withTransition === false
                         ? remove
-                        : transition.remove
+                        : transition.remove;
                     op(this.$el, this, realCb)
                 }
                 return this
-            }
+            };
 
             /**
              * Shared DOM insertion function.
@@ -10136,17 +10136,17 @@
              */
 
             function insert(vm, target, cb, withTransition, op1, op2) {
-                target = query(target)
-                var targetIsDetached = !_.inDoc(target)
+                target = query(target);
+                var targetIsDetached = !_.inDoc(target);
                 var op = withTransition === false || targetIsDetached
                     ? op1
-                    : op2
+                    : op2;
                 var shouldCallHook =
-                    !targetIsDetached && !vm._isAttached && !_.inDoc(vm.$el)
+                    !targetIsDetached && !vm._isAttached && !_.inDoc(vm.$el);
                 if (vm._isFragment) {
                     _.mapNodeRange(vm._fragmentStart, vm._fragmentEnd, function (node) {
                         op(node, target, vm)
-                    })
+                    });
                     cb && cb()
                 } else {
                     op(vm.$el, target, vm, cb)
@@ -10179,7 +10179,7 @@
              */
 
             function append(el, target, vm, cb) {
-                target.appendChild(el)
+                target.appendChild(el);
                 if (cb) cb()
             }
 
@@ -10193,7 +10193,7 @@
              */
 
             function before(el, target, vm, cb) {
-                _.before(el, target)
+                _.before(el, target);
                 if (cb) cb()
             }
 
@@ -10206,7 +10206,7 @@
              */
 
             function remove(el, vm, cb) {
-                _.remove(el)
+                _.remove(el);
                 if (cb) cb()
             }
 
@@ -10216,7 +10216,7 @@
         /* 65 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
+            var _ = __webpack_require__(1);
 
             /**
              * Listen on the given `event` with `fn`.
@@ -10227,10 +10227,10 @@
 
             exports.$on = function (event, fn) {
                 (this._events[event] || (this._events[event] = []))
-                    .push(fn)
-                modifyListenerCount(this, event, 1)
+                    .push(fn);
+                modifyListenerCount(this, event, 1);
                 return this
-            }
+            };
 
             /**
              * Adds an `event` listener that will be invoked a single
@@ -10241,17 +10241,17 @@
              */
 
             exports.$once = function (event, fn) {
-                var self = this
+                var self = this;
 
                 function on() {
-                    self.$off(event, on)
+                    self.$off(event, on);
                     fn.apply(this, arguments)
                 }
 
-                on.fn = fn
-                this.$on(event, on)
+                on.fn = fn;
+                this.$on(event, on);
                 return this
-            }
+            };
 
             /**
              * Remove the given callback for `event` or all
@@ -10262,43 +10262,43 @@
              */
 
             exports.$off = function (event, fn) {
-                var cbs
+                var cbs;
                 // all
                 if (!arguments.length) {
                     if (this.$parent) {
                         for (event in this._events) {
-                            cbs = this._events[event]
+                            cbs = this._events[event];
                             if (cbs) {
                                 modifyListenerCount(this, event, -cbs.length)
                             }
                         }
                     }
-                    this._events = {}
+                    this._events = {};
                     return this
                 }
                 // specific event
-                cbs = this._events[event]
+                cbs = this._events[event];
                 if (!cbs) {
                     return this
                 }
                 if (arguments.length === 1) {
-                    modifyListenerCount(this, event, -cbs.length)
-                    this._events[event] = null
+                    modifyListenerCount(this, event, -cbs.length);
+                    this._events[event] = null;
                     return this
                 }
                 // specific handler
-                var cb
-                var i = cbs.length
+                var cb;
+                var i = cbs.length;
                 while (i--) {
-                    cb = cbs[i]
+                    cb = cbs[i];
                     if (cb === fn || cb.fn === fn) {
-                        modifyListenerCount(this, event, -1)
-                        cbs.splice(i, 1)
+                        modifyListenerCount(this, event, -1);
+                        cbs.splice(i, 1);
                         break
                     }
                 }
                 return this
-            }
+            };
 
             /**
              * Trigger an event on self.
@@ -10307,22 +10307,22 @@
              */
 
             exports.$emit = function (event) {
-                var cbs = this._events[event]
-                this._shouldPropagate = !cbs
+                var cbs = this._events[event];
+                this._shouldPropagate = !cbs;
                 if (cbs) {
                     cbs = cbs.length > 1
                         ? _.toArray(cbs)
-                        : cbs
-                    var args = _.toArray(arguments, 1)
+                        : cbs;
+                    var args = _.toArray(arguments, 1);
                     for (var i = 0, l = cbs.length; i < l; i++) {
-                        var res = cbs[i].apply(this, args)
+                        var res = cbs[i].apply(this, args);
                         if (res === true) {
                             this._shouldPropagate = true
                         }
                     }
                 }
                 return this
-            }
+            };
 
             /**
              * Recursively broadcast an event to all children instances.
@@ -10334,17 +10334,17 @@
             exports.$broadcast = function (event) {
                 // if no child has registered for this event,
                 // then there's no need to broadcast.
-                if (!this._eventsCount[event]) return
-                var children = this.$children
+                if (!this._eventsCount[event]) return;
+                var children = this.$children;
                 for (var i = 0, l = children.length; i < l; i++) {
-                    var child = children[i]
-                    child.$emit.apply(child, arguments)
+                    var child = children[i];
+                    child.$emit.apply(child, arguments);
                     if (child._shouldPropagate) {
                         child.$broadcast.apply(child, arguments)
                     }
                 }
                 return this
-            }
+            };
 
             /**
              * Recursively propagate an event up the parent chain.
@@ -10354,16 +10354,16 @@
              */
 
             exports.$dispatch = function () {
-                this.$emit.apply(this, arguments)
-                var parent = this.$parent
+                this.$emit.apply(this, arguments);
+                var parent = this.$parent;
                 while (parent) {
-                    parent.$emit.apply(parent, arguments)
+                    parent.$emit.apply(parent, arguments);
                     parent = parent._shouldPropagate
                         ? parent.$parent
                         : null
                 }
                 return this
-            }
+            };
 
             /**
              * Modify the listener counts on all parents.
@@ -10375,16 +10375,16 @@
              * @param {Number} count
              */
 
-            var hookRE = /^hook:/
+            var hookRE = /^hook:/;
 
             function modifyListenerCount(vm, event, count) {
-                var parent = vm.$parent
+                var parent = vm.$parent;
                 // hooks do not get broadcasted so no need
                 // to do bookkeeping for them
-                if (!parent || !count || hookRE.test(event)) return
+                if (!parent || !count || hookRE.test(event)) return;
                 while (parent) {
                     parent._eventsCount[event] =
-                        (parent._eventsCount[event] || 0) + count
+                        (parent._eventsCount[event] || 0) + count;
                     parent = parent.$parent
                 }
             }
@@ -10395,8 +10395,8 @@
         /* 66 */
         /***/ function (module, exports, __webpack_require__) {
 
-            var _ = __webpack_require__(1)
-            var compiler = __webpack_require__(14)
+            var _ = __webpack_require__(1);
+            var compiler = __webpack_require__(14);
 
             /**
              * Set instance target element and kick off the compilation
@@ -10412,31 +10412,31 @@
                 if (this._isCompiled) {
                     ("development") !== 'production' && _.warn(
                         '$mount() should be called only once.'
-                    )
+                    );
                     return
                 }
-                el = _.query(el)
+                el = _.query(el);
                 if (!el) {
                     el = document.createElement('div')
                 }
-                this._compile(el)
-                this._initDOMHooks()
+                this._compile(el);
+                this._initDOMHooks();
                 if (_.inDoc(this.$el)) {
-                    this._callHook('attached')
+                    this._callHook('attached');
                     ready.call(this)
                 } else {
                     this.$once('hook:attached', ready)
                 }
                 return this
-            }
+            };
 
             /**
              * Mark an instance as ready.
              */
 
             function ready() {
-                this._isAttached = true
-                this._isReady = true
+                this._isAttached = true;
+                this._isReady = true;
                 this._callHook('ready')
             }
 
@@ -10447,7 +10447,7 @@
 
             exports.$destroy = function (remove, deferCleanup) {
                 this._destroy(remove, deferCleanup)
-            }
+            };
 
             /**
              * Partially compile a piece of DOM and return a
@@ -10462,11 +10462,10 @@
                 return compiler.compile(el, this.$options, true)(
                     this, el, host, scope, frag
                 )
-            }
+            };
 
 
             /***/
         }
         /******/])
 });
-;

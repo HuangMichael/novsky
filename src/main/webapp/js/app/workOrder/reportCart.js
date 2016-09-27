@@ -11,7 +11,7 @@ function confirmGenerate() {
     })
 }
 function save() {
-    var orderReportList = new Array();
+    var orderReportList = [];
     $("input[id^='orderDesc']").each(function () {
         var name = $(this).attr("id");
         var id = name.substring(9, name.length);
@@ -52,4 +52,4 @@ function delCart(id) {
 }
 function checkAll(obj) {
     $("#account input[type='checkbox']").prop("checked", $(obj).prop("checked"))
-};
+}

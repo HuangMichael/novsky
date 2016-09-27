@@ -3,7 +3,7 @@ var eqs = [];
 var locs = [];
 var eqClasses = [];
 var eqStatuses = [];
-var runStatus = []
+var runStatus = [];
 var selectedIds = []; //获取被选择记录集合
 var allSize = 0;
 var vdm = null; //明细页面的模型
@@ -129,12 +129,12 @@ $(function () {
             previous: function (event) {
                 if (pointer <= 0) {
                     showMessageBoxCenter("danger", "center", "当前记录是第一条");
-                    return;
+
                 } else {
                     pointer = pointer - 1;
                     //判断当前指针位置
 
-                    var e = getEquipmentByIdInEqs(selectedIds[pointer])
+                    var e = getEquipmentByIdInEqs(selectedIds[pointer]);
                     vdm.$set("equipments", e);
                     hm.$set("e", e);
                     //loadFixHistoryByEid(selectedIds[pointer]);
@@ -144,10 +144,10 @@ $(function () {
             next: function (event) {
                 if (pointer >= selectedIds.length - 1) {
                     showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-                    return;
+
                 } else {
                     pointer = pointer + 1;
-                    var e = getEquipmentByIdInEqs(selectedIds[pointer])
+                    var e = getEquipmentByIdInEqs(selectedIds[pointer]);
                     vdm.$set("equipments", e);
                     hm.$set("e", e);
                     hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
@@ -157,7 +157,7 @@ $(function () {
                 var eqCode = vdm.$get("equipments.eqCode");
                 if (checkEqCode(eqCode)) {
                     showMessageBoxCenter("danger", "center", "设备编号不能重复");
-                    return;
+
                 }
             }
         }
@@ -196,7 +196,7 @@ $(function () {
             eq = getEquipmentByIdInEqs(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            eq = getEquipmentByIdInEqs(eqs[0]["id"])
+            eq = getEquipmentByIdInEqs(eqs[0]["id"]);
             //所有的都在选中列表中
             selectedIds = setAllInSelectedList(eqs);
         }
@@ -323,13 +323,13 @@ function track(eid) {
             } else {
                 var m = showMessageBoxCenter("danger", "center", "当前设备不在维修流程中");
                 if (m) {
-                    return;
+
                 }
             }
         }
         else {
             showMessageBox("danger", "当前设备不在报修流程中");
-            return;
+
         }
     });
 
@@ -694,7 +694,7 @@ function checkEqCode(eqCode) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
+
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
@@ -711,10 +711,10 @@ function backwards() {
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
+
     } else {
         pointer = pointer + 1;
-        var e = getEquipmentByIdInEqs(selectedIds[pointer])
+        var e = getEquipmentByIdInEqs(selectedIds[pointer]);
         vdm.$set("equipments", e);
         hm.$set("e", e);
         hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
@@ -742,7 +742,7 @@ function editEq() {
 
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
+
     }
 }
 
@@ -759,7 +759,6 @@ function deleteEq() {
         showMessageBox("info", "请到列表中选中再进行删除操作!");
         return;
     }
-    ;
     //判断选中的tab
     var eid = selectedIds[0];
     if (!eid) {
@@ -837,7 +836,7 @@ function reload(url) {
     var dataList = [];
     $.getJSON(url, function (data) {
         dataList = data;
-    })
+    });
     return dataList;
 }
 
@@ -857,7 +856,7 @@ function refresh(data) {
             running: '运行',
             report: '<a class="btn btn-default btn-xs"  onclick="report(' + data.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>',
             track: '<a class="btn btn-default btn-xs"  onclick="track(' + data.id + ')" title="追踪" disabled="setTrackStatus(' + data.id + ')"><i class="glyphicon glyphicon-map-marker"></i></a>'
-        }
+        };
         $(dataTableName).bootgrid("append", [obj]);
     }
 }
@@ -897,6 +896,6 @@ function setTrackStatus(id) {
         if (data.status === '2') {
             disabled = "disabled";
         }
-    })
+    });
     return disabled;
 }

@@ -58,7 +58,7 @@ function checkAll(obj) {
  * 生成维修单
  */
 function generateFixRpt() {
-    var orderReportList = new Array();
+    var orderReportList = [];
     $("input[name^='check']").each(function() {
         var value = $(this).val();
         if($(this).is(":checked") && !isNaN(value)) {

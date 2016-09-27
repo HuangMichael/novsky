@@ -56,7 +56,7 @@
     	parent_module = modules[id];
     	window.exports = modules[id].exports;
     	var loadScript = function (url, cb) {
-    	    cb = async ? cb : function(){}
+    	    cb = async ? cb : function(){};
     	    if (!async)
     		modules[id].loaded = true;
     	    jQuery.ajax({
@@ -78,7 +78,7 @@
 				},
 				async: async
     	    });
-    	}
+    	};
     	
     	loadScript(url,callback);
     	return modules[id].exports;
@@ -272,7 +272,7 @@
                     });
                     
                     return value;
-                }
+                };
                 
                 var select = '<div class="selectContainer show-phone prettySelect">';
                 select += '<select class="selectMenu">';

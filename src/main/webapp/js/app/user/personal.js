@@ -22,7 +22,7 @@ function confirmGenerate() {
     })
 }
 function save() {
-    var orderReportList = new Array();
+    var orderReportList = [];
     $("input[id^='orderDesc']").each(function () {
         var name = $(this).attr("id");
         var id = name.substring(9, name.length);
@@ -63,9 +63,7 @@ function delCart(id) {
 }
 function checkAll(obj) {
     $("#account input[type='checkbox']").prop("checked", $(obj).prop("checked"))
-};
-
-
+}
 $("input[name^='selUnit']").on("click", function () {
 
     alert($(this).attr("name"));
@@ -169,7 +167,7 @@ function confirmLinkUnit() {
     ids = ids.replace(/\ +/g, "").replace(/[\r\n]/g, "");
     if (!ids) {
         showMessageBox("danger", "请选择外委单位！");
-        return;
+
     } else {
         //加入
         $("#link_unit_modal").modal("hide");
@@ -201,7 +199,7 @@ function createUnit() {
         linkman: $("#linkman").val(),
         telephone: $("#telephone").val(),
         eqClassId: eqClassId
-    }
+    };
 
     var url = "/outsourcingUnit/saveLink";
     $.ajax({

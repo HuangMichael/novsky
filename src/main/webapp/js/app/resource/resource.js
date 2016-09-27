@@ -146,7 +146,7 @@ $(document).ready(function() {
             iconClass: iconClass,
             parentId: parentId,
             appName: appName
-        }
+        };
         var url = "resource/";
         if(!resource.id) {
             url += "save";

@@ -126,11 +126,11 @@ $(function () {
     option0 = {
         "name": "报修数量",
         "data": get3MonthReportNum()
-    }
+    };
     option1 = {
         "name": "完工数量",
         "data": get3MonthFinishNum()
-    }
+    };
     seriesOptions.push(option0);
     seriesOptions.push(option1);
 

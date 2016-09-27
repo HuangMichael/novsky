@@ -203,7 +203,7 @@ $("#saveSuspend").on("click", function () {
             showMessageBox("danger", "工单挂起失败");
         }
     });
-})
+});
 
 
 /**

@@ -195,7 +195,7 @@ function downloadFile(fileName, content) {
 					rowCount++;
 					xml += '</row>';
 				});
-				xml += '</data></tabledata>'
+				xml += '</data></tabledata>';
 
 				if(defaults.consoleLog == 'true') {
 					console.log(xml);
@@ -236,7 +236,7 @@ function downloadFile(fileName, content) {
 					rowCount++;
 					excel += '</tr>';
 				});
-				excel += '</table>'
+				excel += '</table>';
 
 				if(defaults.consoleLog == 'true') {
 					console.log(excel);
