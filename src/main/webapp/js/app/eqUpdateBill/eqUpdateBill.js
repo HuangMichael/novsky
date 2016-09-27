@@ -7,6 +7,8 @@ var formTab = $('#myTab li:eq(1) a');
 var vdm = null;
 //位置信息
 var myEqs = [];
+var locs = [];
+var eqClasses = [];
 var budgetBills = [];
 var ids = [];
 var pointer = 0;
@@ -148,14 +150,17 @@ $(function () {
     };
 
     myEqs = findMyEqs();
+    locs = findMyLoc();
+    eqClasses = findMyEqClass();
 
 
     vdm = new Vue({
         el: "#detailContainer",
         data: {
             budgetBill: null,
-            myEqs: myEqs
-
+            myEqs: myEqs,
+            locs: locs,
+            eqClasses: eqClasses
         }
     });
 
@@ -199,7 +204,8 @@ $(function () {
         }
         vdm.$set("budgetBill", budgetBill);
         vdm.$set("myEqs", myEqs);
-
+        vdm.$set("locs", locs);
+        vdm.$set("eqClasses", eqClasses);
     });
 
     $("select").select2({
@@ -214,10 +220,6 @@ $(function () {
 
 
     formTab.on('click', function () {
-
-        console.log("手动切换form");
-        // activeTab = "detail";
-        //setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
         var budgetBill = null;
         if (selectedIds.length > 0) {
@@ -305,26 +307,25 @@ function add() {
         el: "#detailContainer",
         data: {
             myEqs: myEqs,
+            locs: locs,
+            eqClasses: eqClasses,
             budgetBill: null
         }
     });
-
     setFormReadStatus("#detailForm", false);
     clearForm("#detailForm");
     formTab.tab('show');
-
-    //alert("add一条记录");
 }
 
 function eqUpdateAdd(eid) {
     //重新建立模型 新建对象模型
-    $.getJSON("eqUpdateBill/create/" + eid,function(data){
+    $.getJSON("eqUpdateBill/create/" + eid, function (data) {
         vdm.$set("budgetBill", data);
     });
     setFormReadStatus("#detailForm", false);
     formTab.tab('show');
-    $("#locName").attr("readonly","readonly");
-    $("#eqClass").attr("readonly","readonly");
+    $("#locName").attr("readonly", "readonly");
+    $("#eqClass").attr("readonly", "readonly");
 
     //alert("add一条记录");
 }
