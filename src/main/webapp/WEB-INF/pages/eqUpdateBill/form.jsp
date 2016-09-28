@@ -42,9 +42,9 @@
 			</div>
 			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
 			<div class="col-md-5 ">
-				<select v-model="budgetBill.equipments.equipmentClassification.id " class="form-control " id="equipments_id " name="equipmentClassification.id" required style="width:100% " required  onChange="changeEqc(this)" >
+				<select v-model="budgetBill.equipments.equipmentsClassification.id " class="form-control " id="eqClass_id " name="equipmentsClassification.id" required style="width:100% " required  onChange="changeEqc(this)" >
 					<template v-for="option in eqClasses ">
-						<option :value="option.id " v-if="option.id==budgetBill.equipments.equipmentClassification.id " selected>
+						<option :value="option.id " v-if="option.id==budgetBill.equipments.equipmentsClassification.id " selected>
 							{{option.cname }}
 						</option>
 						<option :value="option.id " v-else>
