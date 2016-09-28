@@ -345,7 +345,7 @@ function del() {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
         return;
     }
-    var url = "/budget/delete/" + bid;
+    var url = "/eqUpdateBill/delete/" + bid;
     if (bid) {
         var confirm = window.confirm("确定要删除该记录么？");
         if (confirm) {
@@ -354,12 +354,12 @@ function del() {
                 url: url,
                 success: function (msg) {
                     if (msg) {
-                        showMessageBox("info", "采购信息删除成功!");
+                        showMessageBox("info", "设备采购更新信息删除成功!");
                         $("#budgetDataTable").bootgrid("reload");
                     }
                 },
                 error: function (msg) {
-                    showMessageBox("danger", "采购信息有关联数据，无法删除，请联系管理员");
+                    showMessageBox("danger", "设备采购更新信息有关联数据，无法删除，请联系管理员");
                 }
             });
         }
@@ -472,7 +472,7 @@ function changeLoc(a) {
     $.getJSON(url, function (data) {
         vdm.$set("eqClasses", data);
     });
-    var url ="/eqUpdateBill/findEqBy/"+locationsId+"/"+eqClasses[0].id;
+    var url = "/eqUpdateBill/findEqBy/" + locationsId + "/" + eqClasses[0].id;
     $.getJSON(url, function (data) {
         vdm.$set("myEqs", data);
     });
@@ -488,7 +488,7 @@ function changeLoc(a) {
 function changeEqc(a) {
     var lid = $("#locName").val();//获取位置id
     var cid = $(a).val();
-    var url ="/eqUpdateBill/findEqBy/"+lid+"/"+cid;
+    var url = "/eqUpdateBill/findEqBy/" + lid + "/" + cid;
     $.getJSON(url, function (data) {
         vdm.$set("myEqs", data);
     });
