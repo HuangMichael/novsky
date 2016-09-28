@@ -30,7 +30,7 @@
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
 										<div class="container-fluid">
-											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqUpdateBill/data">
+											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqAddBill/data">
 												<thead>
 													<tr>
 														<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
@@ -39,7 +39,6 @@
 														<th data-align="center" data-column-id="eqCode" data-width="10%">设备编号</th>
 														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
 														<th data-align="center" data-column-id="eqClass" data-width="10%">设备分类</th>
-														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
 														<th data-align="center" data-column-id="specifications" data-width="5%">规格型号</th>
 														<th data-align="center" data-column-id="applicant" data-width="5%">申请人</th>
 														<th data-align="center" data-column-id="applyDep" data-width="5%">申请部门</th>
@@ -65,4 +64,4 @@
 	</div>
 	<%@include file="../common/common-back2top.jsp" %>
 </div>
-<script src="/js/app/eqUpdateBill/eqUpdateBill.js"></script>
+<script src="/js/app/eqAddBill/eqAddBill.js"></script>

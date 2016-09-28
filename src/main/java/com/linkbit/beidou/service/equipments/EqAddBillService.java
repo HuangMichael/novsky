@@ -1,10 +1,19 @@
 package com.linkbit.beidou.service.equipments;
 
 import com.linkbit.beidou.dao.equipments.EqAddBillRepository;
+import com.linkbit.beidou.dao.equipments.VEqAddBillRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.equipments.EqAddBill;
+import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.VEqAddBill;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,8 +27,14 @@ public class EqAddBillService extends BaseService {
     @Autowired
     EqAddBillRepository eqAddBillRepository;
 
-   /* @Autowired
-    VEqAddBillRepository vEqAddBillRepository;*/
+    @Autowired
+    VEqAddBillRepository vEqAddBillRepository;
+
+    @Autowired
+    EquipmentAccountService equipmentAccountService;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
 
 
     /**
@@ -27,9 +42,9 @@ public class EqAddBillService extends BaseService {
      * @param pageable 分页
      * @return 按照配件名称模糊查询分页查询
      */
-   /* public Page<VEqAddBill> findByEqNameContaining(String eqName, Pageable pageable) {
+    public Page<VEqAddBill> findByEqNameContaining(String eqName, Pageable pageable) {
         return vEqAddBillRepository.findByEqNameContaining(eqName, pageable);
-    }*/
+    }
 
 
     /**
@@ -41,11 +56,16 @@ public class EqAddBillService extends BaseService {
 
 
     /**
-     * @return 查询所有
+     * @return 保存或者更新设备新置申请单
      */
+    @Transactional
     public EqAddBill save(EqAddBill budgetBill) {
-
-        return eqAddBillRepository.save(budgetBill);
+        EqAddBill result = eqAddBillRepository.save(budgetBill);
+        //如果是更新 不再添加设备台账
+        if (budgetBill.getId() == null) {
+            addEq(budgetBill);
+        }
+        return result;
     }
 
 
@@ -78,5 +98,23 @@ public class EqAddBillService extends BaseService {
         return eqAddBillRepository.findByEquipmentsId(eid);
     }*/
 
+    /**
+     * @param eqAddBill 设备新置申请单
+     * @return 根据设备新置申请单增加设备台账
+     */
+    @Transactional
+    public Equipments addEq(EqAddBill eqAddBill) {
+        Vlocations vlocations = vlocationsRepository.findById(eqAddBill.getLocation().getId());
+        Equipments equipments = new Equipments();
+        equipments.setEqCode(eqAddBill.getEqCode());
+        equipments.setEquipmentsClassification(eqAddBill.getEqClass());
+        equipments.setLocations(eqAddBill.getLocation());
+        equipments.setLocation(vlocations.getLocation());
+        equipments.setDescription(eqAddBill.getEqName());
+        equipments.setVlocations(vlocations);
+        equipments.setStatus(CommonStatusType.STATUS_YES);
+        equipmentAccountService.save(equipments);
+        return equipments;
+    }
 
 }

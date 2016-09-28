@@ -51,10 +51,12 @@ public class EqAddBill {
     @Column(length = 10)
     private String receiver; //接收人
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
-    private Equipments equipments; //位置
 
+    @Column(length = 20)
+    private String eqCode; //经办人
+
+    @Column(length = 50)
+    private String eqName; //接收人
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
@@ -68,5 +70,8 @@ public class EqAddBill {
 
     @Column(length = 1)
     private String dateType; //数据分类 1为采购  2为设备更新
+
+
+    //id, applicant, apply_date, apply_dep, approver, date_type, handler, purpose, receiver, specifications, eq_class, locName, eq_code, eq_name
 
 }
