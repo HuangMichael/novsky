@@ -1,10 +1,11 @@
 package com.linkbit.beidou.domain.equipments;
 
 import com.linkbit.beidou.domain.locations.Locations;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.xml.stream.Location;
 
 /**
  * 设备新置申请单

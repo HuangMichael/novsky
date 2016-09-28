@@ -48,7 +48,7 @@
                                         <%@include file="table_1_3.jsp" %>
                                     </div>
                                      <div class="tab-pane fade" id="tab_1_4">
-                                                                            <%@include file="table_1_4.jsp" %>
+                                         <%@include file="table_1_4.jsp" %>
                                                                         </div>
                                 </div>
                             </div>

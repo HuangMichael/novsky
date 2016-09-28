@@ -224,15 +224,14 @@ $(function () {
     });
 
 
-
     historyTab.on('click', function () {
         activeTab = "history";
         //首先判断是否有选中的
         var equipments = vdm.equipments;
         var histories = loadFixHistoryByEid(equipments.id);
         var xx = $("#locations_id").find("option:selected").text().trim();
-        hm.$set("e",equipments);
-        hm.$set("e.location.description",xx);
+        hm.$set("e", equipments);
+        hm.$set("e.location.description", xx);
         hm.$set("histories", histories);
     })
 
