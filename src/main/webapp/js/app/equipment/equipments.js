@@ -9,6 +9,7 @@ var allSize = 0;
 var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
+var uhm = null;
 var formLocked = true;
 
 var formStatusArray = ["READ", "CREATE", "EDIT", "SAVED", "DELETED"];
@@ -23,6 +24,8 @@ var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 //维修历史列表
 var historyTab = $('#myTab li:eq(2) a');
+
+var updateHistoryTab = $('#myTab li:eq(3) a');
 var pointer = 0;
 $.ajaxSettings.async = false;
 
@@ -175,6 +178,17 @@ $(function () {
             }
         }
     });
+
+
+    uhm = new Vue({
+        el: "#updateHistoryInfo",
+        data: {
+            e: eqs[0],
+            histories: loadUpdateHistoryByEid(eqs[0] ? eqs[0]["id"] : null)
+        }
+    });
+
+
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
@@ -209,17 +223,14 @@ $(function () {
         activeTab = "list";
     });
 
-    historyTab.on('click', function () {
-        activeTab = "history";
+
+    updateHistoryTab.on('click', function () {
+        activeTab = "updateHistory";
         //首先判断是否有选中的
         var equipments = vdm.equipments;
-        var histories = loadFixHistoryByEid(equipments.id);
-        var xx = $("#locations_id").find("option:selected").text().trim();
-        hm.$set("e", equipments);
-        hm.$set("e.locations.description", xx);
-
-        hm.$set("histories", histories);
-    });
+        var updateHistories = loadUpdateHistoryByEid(equipments.id);
+        uhm.$set("updateHistories", updateHistories);
+    })
 
 
     $('select').select2({theme: "bootstrap"});
@@ -693,7 +704,6 @@ function loadUpdateHistoryByEid(eid) {
     });
     return updatehistory;
 }
-
 
 
 /**
