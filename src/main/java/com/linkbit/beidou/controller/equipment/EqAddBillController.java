@@ -4,9 +4,7 @@ package com.linkbit.beidou.controller.equipment;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EqAddBill;
-import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.VEqAddBill;
-import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -96,16 +94,14 @@ public class EqAddBillController {
     @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
     @ResponseBody
     public List<Long> findAllIds() {
-        return eqAddBillService .findAllIds();
+        return eqAddBillService.findAllIds();
     }
-
-
 
 
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ResponseBody
     public EqAddBill findById(@PathVariable("id") Long id) {
-        return eqAddBillService .findById(id);
+        return eqAddBillService.findById(id);
     }
 
 
