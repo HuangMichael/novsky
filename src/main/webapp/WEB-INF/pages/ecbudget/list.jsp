@@ -64,4 +64,4 @@
 	</div>
 	<%@include file="../common/common-back2top.jsp" %>
 </div>
-<script src="/js/app/equipment/ecbudget.js"></script>
+<script src="/js/app/ecbudget/ecbudget.js"></script>
