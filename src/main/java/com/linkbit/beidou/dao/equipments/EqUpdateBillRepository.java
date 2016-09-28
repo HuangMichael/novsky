@@ -1,11 +1,10 @@
 package com.linkbit.beidou.dao.equipments;
 
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -28,4 +27,12 @@ public interface EqUpdateBillRepository extends PagingAndSortingRepository<EqUpd
      */
     @Query("select id from EqUpdateBill")
     List<Long> findAllIds();
+
+
+    /**
+     * @param id 设备id
+     * @return 根据设备id查询设备的更新历史
+     */
+    @Query("select ub from EqUpdateBill ub where ub.equipments.id =:id order By ub.id desc")
+    List<EqUpdateBill> findByEquipmentsId(@Param("id") Long id);
 }

@@ -14,10 +14,7 @@
                         <div class="box-title">
                             <h4 class="appTitle"><i class="fa fa-sitemap"></i>设备信息</h4>
                         </div>
-
                         <%@include file="../common/common-menubar.jsp"%>
-
-
                         <div class="box-body">
                             <div class="tabbable">
                                 <ul class="nav nav-tabs" id="myTab">
@@ -34,6 +31,10 @@
                                            style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
                                                                                           id="history"></i>维修历史信息</a>
                                     </li>
+                                    <li><a href="#tab_1_4" data-toggle="tab"
+                                                                               style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
+                                                                                                                              id="history"></i>设备更新历史信息</a>
+                                                                        </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab_1_0"
@@ -46,6 +47,9 @@
                                     <div class="tab-pane fade" id="tab_1_3">
                                         <%@include file="table_1_3.jsp" %>
                                     </div>
+                                     <div class="tab-pane fade" id="tab_1_4">
+                                                                            <%@include file="table_1_3.jsp" %>
+                                                                        </div>
                                 </div>
                             </div>
                         </div>

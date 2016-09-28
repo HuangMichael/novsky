@@ -681,6 +681,22 @@ function loadFixHistoryByEid(eid) {
 
 
 /**
+ * 根据设备ID查询设备更新信息
+ * @param eid
+ * @return {Array}
+ */
+function loadUpdateHistoryByEid(eid) {
+    var url = "/equipment/getUpdateHistoryById/" + eid;
+    var updatehistory = [];
+    $.getJSON(url, function (data) {
+        updatehistory = data;
+    });
+    return updatehistory;
+}
+
+
+
+/**
  *  弹出框显示维修历史明细信息
  */
 function showDetail(orderLineNo) {

@@ -2,15 +2,13 @@ package com.linkbit.beidou.controller.equipment;
 
 
 import com.linkbit.beidou.controller.common.BaseController;
-import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
-import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
-import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
@@ -18,9 +16,9 @@ import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
-import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.apache.commons.logging.Log;
@@ -34,7 +32,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,6 +66,9 @@ public class EquipmentController extends BaseController {
     @Autowired
     ResourceService resourceService;
 
+    @Autowired
+    EqUpdateBillService eqUpdateBillService;
+
 
     /**
      * 分页查询
@@ -82,7 +82,7 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<Vequipments> page = equipmentAccountService.findByEqNameContains(searchPhrase,new PageRequest(current - 1, rowCount.intValue()));
+        Page<Vequipments> page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -438,5 +438,16 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     public Boolean checkEqCodeExists(@PathVariable("eqCode") String eqCode) {
         return equipmentAccountService.eqCodeExists(eqCode);
+    }
+
+
+    /**
+     * @param id 设备id
+     * @return 根据设备id查询设备更新历史
+     */
+    @RequestMapping(value = "/getUpdateHistoryById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    List<EqUpdateBill> getUpdateHistoryById(@PathVariable("id") Long id) {
+        return eqUpdateBillService.getUpdateHistoryById(id);
     }
 }
