@@ -267,7 +267,7 @@ function showRole(roleId) {
 /**
  *  ajax加载新增页面
  */
-function loadNew() {
+function add() {
     $("#tab_1_1").load("/role/create");
     var newVue = new Vue({
         el: "#createForm",

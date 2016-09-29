@@ -2,9 +2,11 @@ package com.linkbit.beidou.controller.role;
 
 
 import com.linkbit.beidou.dao.role.RoleRepository;
+import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -26,17 +29,20 @@ public class RoleController {
     RoleRepository roleRepository;
     @Autowired
     RoleService roleService;
-
-
+    @Autowired
+    ResourceService resourceService;
     @RequestMapping(value = "/create")
     public String create() {
         return "/role/create";
     }
 
     @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap) {
+    public String list(ModelMap modelMap, HttpSession httpSession) {
         List<Role> roleList = roleRepository.findAll();
         modelMap.put("roleList", roleList);
+        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
+        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
+        modelMap.put("appMenus", appMenus);
         return "/role/list";
     }
 
