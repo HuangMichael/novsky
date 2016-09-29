@@ -1,6 +1,5 @@
 package com.linkbit.beidou.dao.macCost;
 
-import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,5 +48,5 @@ public interface MatCostRepository extends PagingAndSortingRepository<MatCost, L
     List<String> findMyLines();
 
 
-    List<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType,  String locName, String ecName);
+    List<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType, String locName, String ecName);
 }

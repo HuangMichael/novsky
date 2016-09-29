@@ -1,28 +1,21 @@
 package com.linkbit.beidou.controller.matcost;
 
 
-import com.linkbit.beidou.dao.locations.VlocationsRepository;
-import com.linkbit.beidou.dao.person.PersonRepository;
-import com.linkbit.beidou.dao.user.UserRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.matCost.MatCost;
-import com.linkbit.beidou.domain.user.User;
-import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.matCost.MatCostService;
-import com.linkbit.beidou.service.user.UserService;
-import com.linkbit.beidou.utils.CommonStatusType;
-import com.linkbit.beidou.utils.MD5Util;
-import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -97,4 +90,14 @@ public class MatCostController {
     public List<String> findMyLocs() {
         return matCostService.findMyLocs();
     }
+
+    /**
+     * @return 载入页面
+     */
+    @RequestMapping(value = "/loadPage", method = RequestMethod.GET)
+    public String loadPage() {
+        return "matCost/matCostList";
+    }
+
+
 }

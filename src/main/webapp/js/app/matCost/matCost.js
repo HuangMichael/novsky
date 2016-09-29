@@ -133,8 +133,16 @@ function search() {
     var url = "matCost/search";
     $.ajaxSettings.async = false;
     $.post(url, searchObject, function (data) {
+        // loadPage();
         searchListVue.$set("mcList", data);
 
     });
+
     $("#budgetDataTable").bootgrid();
+}
+
+
+function loadPage() {
+    var url = "matCost/loadPage";
+    $("#ctb").load(url);
 }

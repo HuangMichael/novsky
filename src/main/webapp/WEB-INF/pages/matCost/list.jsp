@@ -90,8 +90,10 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid">
-                                                 <thead>
+                                            <table id="budgetDataTable"
+                                                   class=" table table-striped table-bordered table-hover"
+                                                   data-toggle="bootgrid">
+                                                <thead>
                                                 <tr>
                                                     <th data-column-id="id" data-type="numeric" data-identifier="true"
                                                         data-visible="false">ID
@@ -115,7 +117,6 @@
                                                 </thead>
                                                 <tbody id="matCostList" v-for="mc in mcList">
                                                 <tr>
-                                                    <%--<td>{{mc.id}}</td>--%>
                                                     <td>{{mc.applyDate}}</td>
                                                     <td>{{mc.locName}}</td>
                                                     <td>{{mc.ecName}}</td>
