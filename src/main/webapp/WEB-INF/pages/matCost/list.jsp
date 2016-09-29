@@ -90,8 +90,8 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <table id="budgetDataTable" class=" table table-striped table-bordered table-hover">
-                                                <thead>
+                                            <table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid">
+                                                 <thead>
                                                 <tr>
                                                     <th data-column-id="id" data-type="numeric" data-identifier="true"
                                                         data-visible="false">ID
