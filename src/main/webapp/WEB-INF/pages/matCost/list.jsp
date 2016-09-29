@@ -37,7 +37,7 @@
                                                             <select v-model="ecType" class="form-control" id="ecType"
                                                                     name="locName"
                                                                     style="width:200px">
-                                                                <option selected>
+                                                                <option value="" selected>
                                                                     请选择分类
                                                                 </option>
                                                                 <option>
@@ -49,28 +49,28 @@
 
                                                             </select>
                                                         </div>
-                                                        <div class="input-group">
-                                                            <label class="sr-only" for="ecType">线路</label>
-                                                            <select v-model="line" class="form-control" id="line"
-                                                                    name="line"
-                                                                    style="width:200px">
-                                                                <option selected>
-                                                                    请选择线路
-                                                                </option>
-                                                                <template v-for="line in lines">
-                                                                    <option>
-                                                                        {{line.description}}
-                                                                    </option>
-                                                                </template>
+                                                        <%-- <div class="input-group">
+                                                             <label class="sr-only" for="ecType">线路</label>
+                                                             <select v-model="line" class="form-control" id="line"
+                                                                     name="line"
+                                                                     style="width:200px">
+                                                                 <option value="" selected>
+                                                                     请选择线路
+                                                                 </option>
+                                                                 <template v-for="line in lines">
+                                                                     <option>
+                                                                         {{line.description}}
+                                                                     </option>
+                                                                 </template>
 
-                                                            </select>
-                                                        </div>
+                                                             </select>
+                                                         </div>--%>
                                                         <div class="input-group">
                                                             <label class="sr-only" for="locName">位置</label>
                                                             <select v-model="locName" class="form-control" id="locName"
                                                                     name="locName"
                                                                     style="width:200px" required>
-                                                                <option>
+                                                                <option value="">
                                                                     请选择位置
                                                                 </option>
                                                                 <template v-for="loc in locs">
@@ -83,26 +83,23 @@
                                                         <div class="input-group">
                                                             <label class="sr-only" for="ecName">名称</label>
                                                             <input type="text" class="form-control" id="ecName"
-                                                                   placeholder="请输入名称">
+                                                                   placeholder="请输入名称" value="">
                                                         </div>
                                                     </div>
                                                     <button type="button" class="btn btn-default" id="searchBtn">查询
                                                     </button>
                                                 </div>
                                             </div>
-                                            <table id="budgetDataTable"
-                                                   class=" table table-striped table-bordered table-hover"
-                                                   data-toggle="bootgrid" data-ajax="true"
-                                                   data-url="/matCost/data">
+                                            <table id="budgetDataTable" class=" table table-striped table-bordered table-hover">
                                                 <thead>
                                                 <tr>
                                                     <th data-column-id="id" data-type="numeric" data-identifier="true"
                                                         data-visible="false">ID
                                                     </th>
-                                                    <th data-align="center" data-column-id="applyDate" data-width="5%">
+                                                    <th data-align="center" data-column-id="applyDate" data-width="10%">
                                                         采购日期
                                                     </th>
-                                                    <th data-align="center" data-column-id="locName" data-width="10%">
+                                                    <th data-align="center" data-column-id="locName" data-width="20%">
                                                         位置
                                                     </th>
                                                     <th data-align="center" data-column-id="ecName" data-width="10%">
@@ -116,7 +113,16 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-
+                                                <tbody id="matCostList" v-for="mc in mcList">
+                                                <tr>
+                                                    <%--<td>{{mc.id}}</td>--%>
+                                                    <td>{{mc.applyDate}}</td>
+                                                    <td>{{mc.locName}}</td>
+                                                    <td>{{mc.ecName}}</td>
+                                                    <td>{{mc.amount}}</td>
+                                                    <td>{{mc.ecType}}</td>
+                                                </tr>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>

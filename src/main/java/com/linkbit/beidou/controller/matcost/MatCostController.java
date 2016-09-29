@@ -70,6 +70,25 @@ public class MatCostController {
         return myPage;
     }
 
+
+    /**
+     * 分页查询
+     *
+     * @param ecType
+     * @param locName
+     * @param ecName
+     * @return
+     */
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @ResponseBody
+    public List<MatCost> search(
+            @RequestParam(value = "ecType", required = false) String ecType,
+            @RequestParam(value = "locName", required = false) String locName,
+            @RequestParam(value = "ecName", required = false) String ecName) {
+        return matCostService.findByCondition(ecType, locName, ecName);
+
+    }
+
     /**
      * @return 查询我的位置信息
      */

@@ -7,9 +7,9 @@
 var locs = [];
 var lines = [];
 var searchVue = null;
+var searchListVue = null;
+var searchObject = null;
 $(function () {
-
-
     var bootGridCfg = {
         searchSettings: {
             delay: 100,
@@ -17,8 +17,8 @@ $(function () {
         }
         ,
         templates: {
-
             search: ""
+
         }
     };
     $("#budgetDataTable").bootgrid(bootGridCfg);
@@ -38,6 +38,42 @@ $(function () {
             lines: lines
         }
     });
+
+
+    searchListVue = new Vue({
+        el: "#matCostList",
+        data: {
+            mcList: []
+        }
+
+    });
+
+
+    initData();
+
+
+    $("#searchBtn").on("click", function () {
+        search();
+    });
+
+    $("#locName").on("change", function () {
+        search();
+    });
+    $("#ecName").on("change", function () {
+        search();
+    });
+    $("#ecType").on("change", function () {
+        search();
+    });
+
+    $(document).keyup(function (e) {
+        var curKey = e.which;
+        if (curKey == 13) {
+            //调用查询方法
+            search();
+        }
+    });
+
 });
 
 
@@ -62,4 +98,43 @@ function getMyLines() {
         lines = data;
     });
     return lines;
+}
+
+
+/**
+ * 获取查询模型
+ */
+function getSearchObject() {
+    var ecType = $("#ecType").val();
+    var line = $("#line").val();
+    var locName = $("#locName").val();
+    var ecName = $("#ecName").val();
+
+    searchObject = {
+        ecType: ecType,
+        line: line,
+        locName: locName,
+        ecName: ecName
+    };
+    return searchObject;
+}
+
+
+/**
+ * 初始化数据
+ */
+function initData() {
+    search();
+}
+
+
+function search() {
+    searchObject = getSearchObject();
+    var url = "matCost/search";
+    $.ajaxSettings.async = false;
+    $.post(url, searchObject, function (data) {
+        searchListVue.$set("mcList", data);
+
+    });
+    $("#budgetDataTable").bootgrid();
 }

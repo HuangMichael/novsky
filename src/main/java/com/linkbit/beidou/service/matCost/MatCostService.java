@@ -52,4 +52,18 @@ public class MatCostService {
     public List<String> findMyLocs() {
         return matCostRepository.findMyLocs();
     }
+
+    // {"ecType":"物资","line":"10号线","locName":"10号线亮马桥办公区","ecName":""}
+
+
+    /**
+     * @param ecType  分类
+     * @param line    线路
+     * @param locName 位置名称
+     * @param ecName  物资名称
+     * @return
+     */
+    public List<MatCost> findByCondition(String ecType, String locName, String ecName) {
+        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName);
+    }
 }

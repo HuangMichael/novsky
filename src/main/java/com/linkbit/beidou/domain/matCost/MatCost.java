@@ -19,7 +19,7 @@ public class MatCost implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 10)
+    @Column(length = 100)
     private String locName; //位置描述
     @Column(length = 50)
     private String ecName; //位置描述

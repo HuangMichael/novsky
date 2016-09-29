@@ -47,4 +47,7 @@ public interface MatCostRepository extends PagingAndSortingRepository<MatCost, L
 
     @Query("SELECT DISTINCT m.locName FROM  MatCost m ORDER BY m.locName DESC")
     List<String> findMyLines();
+
+
+    List<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType,  String locName, String ecName);
 }
