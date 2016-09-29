@@ -42,7 +42,7 @@ public class MatCostController {
     MatCostService matCostService;
 
     @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession,ModelMap modelMap) {
+    public String list(HttpSession httpSession, ModelMap modelMap) {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
@@ -60,7 +60,7 @@ public class MatCostController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data( @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         Page<MatCost> page = matCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
@@ -68,5 +68,14 @@ public class MatCostController {
         myPage.setCurrent(current);
         myPage.setTotal(page.getTotalElements());
         return myPage;
+    }
+
+    /**
+     * @return 查询我的位置信息
+     */
+    @RequestMapping(value = "/findMyLocs", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> findMyLocs() {
+        return matCostService.findMyLocs();
     }
 }

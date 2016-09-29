@@ -40,4 +40,11 @@ public interface MatCostRepository extends PagingAndSortingRepository<MatCost, L
      */
     @Query("select id from MatCost")
     List<Long> findAllIds();
+
+    @Query("SELECT DISTINCT m.locName FROM  MatCost m ORDER BY m.locName DESC")
+    List<String> findMyLocs();
+
+
+    @Query("SELECT DISTINCT m.locName FROM  MatCost m ORDER BY m.locName DESC")
+    List<String> findMyLines();
 }

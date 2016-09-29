@@ -46,15 +46,10 @@ public class MatCostService {
     }
 
 
-   /* *//**
-     * @param location 位置
-     * @param ecName   物资易耗品名称
-     * @param pageable 可分页
-     * @return
-     *//*
-    public Page<MatCost> findByCondition(String location, String ecName, Pageable pageable) {
-
-        return null;
-
-    }*/
+    /**
+     * @return 返回有物资消耗单据的所有的位置
+     */
+    public List<String> findMyLocs() {
+        return matCostRepository.findMyLocs();
+    }
 }
