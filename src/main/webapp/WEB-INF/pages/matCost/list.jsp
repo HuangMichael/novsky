@@ -91,26 +91,26 @@
                                                 </div>
                                             </div>
                                             <table id="budgetDataTable"
-                                                   class=" table table-striped table-bordered table-hover"
+                                                   class="table  table-striped  table-bordered table-hover"
                                                    data-toggle="bootgrid">
                                                 <thead>
                                                 <tr>
                                                     <th data-column-id="id" data-type="numeric" data-identifier="true"
-                                                        data-visible="false">序号
+                                                        data-visible="false" width="2%">序号
                                                     </th>
-                                                    <th data-align="center" data-column-id="applyDate" data-width="10%">
+                                                    <th data-align="center" data-column-id="applyDate" width="10%">
                                                         采购日期
                                                     </th>
-                                                    <th data-align="center" data-column-id="locName" data-width="20%">
+                                                    <th data-align="center" data-column-id="locName" width="20%">
                                                         位置
                                                     </th>
-                                                    <th data-align="center" data-column-id="ecName" data-width="10%">
+                                                    <th data-align="center" data-column-id="ecName" width="10%">
                                                         名称
                                                     </th>
-                                                    <th data-align="center" data-column-id="amount" data-width="10%">
+                                                    <th data-align="center" data-column-id="amount" width="10%">
                                                         数量
                                                     </th>
-                                                    <th data-align="center" data-column-id="ecType" data-width="10%">
+                                                    <th data-align="center" data-column-id="ecType" width="10%">
                                                         分类
                                                     </th>
                                                 </tr>

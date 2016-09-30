@@ -10,19 +10,21 @@ var searchVue = null;
 var searchListVue = null;
 var searchObject = null;
 
+var bootGridCfg = {
+    searchSettings: {
+        delay: 100,
+        characters: 3
+    }
+    ,
+    templates: {
+        search: ""
+
+    }
+};
+
 var mcList = [];
 $(function () {
-    var bootGridCfg = {
-        searchSettings: {
-            delay: 100,
-            characters: 3
-        }
-        ,
-        templates: {
-            search: ""
 
-        }
-    };
 
 
     $("select").select2({
@@ -140,8 +142,11 @@ function search() {
     $.ajaxSettings.async = false;
     $.post(url, searchObject, function (data) {
         mcList = data;
+        searchListVue.$set("mcList", mcList);
+        // $("#budgetDataTable").bootgrid(bootGridCfg);
     });
-    searchListVue.$set("mcList", mcList);
+
+
     return mcList;
 }
 
