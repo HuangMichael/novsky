@@ -12,7 +12,7 @@
 					<!-- BOX -->
 					<div class="box border blue">
 						<div class="box-title">
-							<h4 class="appTitle"><i class="fa fa-sitemap"></i>设备新置申请信息</h4>
+							<h4 class="appTitle"><i class="fa fa-sitemap"></i>设备新置申请</h4>
 						</div>
 						<%@include file="../common/common-menubar.jsp"%>
 						<div class="box-body">
@@ -20,7 +20,7 @@
 								<ul class="nav nav-tabs" id="myTab">
 									<li class="active">
 										<a href="#list_tab" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
-											<i class="fa fa-home" id="list"></i>列表信息</a>
+											<i class="fa fa-home" id="list"></i>设备新置申请</a>
 									</li>
 									<li>
 										<a href="#detail_tab" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
@@ -39,7 +39,6 @@
 														<th data-align="center" data-column-id="eqCode" data-width="10%">设备编号</th>
 														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
 														<th data-align="center" data-column-id="eqClass" data-width="10%">设备分类</th>
-														<th data-align="center" data-column-id="specifications" data-width="5%">规格型号</th>
 														<th data-align="center" data-column-id="applicant" data-width="5%">申请人</th>
 														<th data-align="center" data-column-id="applyDep" data-width="5%">申请部门</th>
 														<th data-align="center" data-column-id="approver" data-width="5%">批准人</th>

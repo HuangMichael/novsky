@@ -12,7 +12,7 @@
 					<!-- BOX -->
 					<div class="box border blue">
 						<div class="box-title">
-							<h4 class="appTitle"><i class="fa fa-sitemap"></i>低值易耗品采购申请信息</h4>
+							<h4 class="appTitle"><i class="fa fa-sitemap"></i>低值易耗品采购申请</h4>
 						</div>
 						<%@include file="../common/common-menubar.jsp"%>
 						<div class="box-body">
@@ -20,7 +20,7 @@
 								<ul class="nav nav-tabs" id="myTab">
 									<li class="active">
 										<a href="#list_tab" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
-											<i class="fa fa-home" id="list"></i>低值易耗品列表信息</a>
+											<i class="fa fa-home" id="list"></i>低值易耗品采购申请</a>
 									</li>
 									<li>
 										<a href="#detail_tab" data-toggle="tab" style="font-family: 微软雅黑;font-weight: bold">
@@ -36,14 +36,14 @@
 														<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
 														<th data-align="center" data-column-id="applyDate" data-width="4%">采购日期</th>
 														<th data-align="center" data-column-id="applicant" data-width="3%">申请人</th>
-														<th data-align="center" data-column-id="ecname" data-width="6%">低值易耗品名称</th>
+														<th data-align="center" data-column-id="ecname" data-width="6%">易耗品名称</th>
 														<th data-align="center" data-column-id="amount" data-width="4%">申请数量</th>
 														<th data-align="center" data-column-id="locName" data-width="6%">位置</th>
-														<th data-align="center" data-column-id="epermited" data-width="5%">有无用电许可证</th>
-														<th data-align="center" data-column-id="updateReason" data-width="5%">申请更新原因</th>
+														<th data-align="center" data-column-id="epermited" data-width="5%">用电许可证</th>
+														<th data-align="center" data-column-id="updateReason" data-width="5%">更新原因</th>
 														<th data-align="center" data-column-id="auditDate" data-width="4%">填报日期</th>
 														<th data-align="center" data-column-id="auditor" data-width="3%">填报人</th>
-														<th data-align="center" data-column-id="confirmReason" data-width="5%">确认更新原因</th>
+														<th data-align="center" data-column-id="confirmReason" data-width="5%">更新原因</th>
 														<th data-align="center" data-column-id="fixAdvice" data-width="10%">综合维修中心意见</th>
 														<th data-align="center" data-column-id="leaderAdvice" data-width="10%">领导批示</th>
 													</tr>
