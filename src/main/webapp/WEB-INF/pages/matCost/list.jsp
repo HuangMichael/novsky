@@ -12,7 +12,7 @@
                     <!-- BOX -->
                     <div class="box border blue">
                         <div class="box-title">
-                            <h4 class="appTitle"><i class="fa fa-sitemap"></i>物料消耗信息</h4>
+                            <h4 class="appTitle"><i class="fa fa-sitemap"></i>物料消耗</h4>
                         </div>
                         <%@include file="../common/common-menubar.jsp" %>
                         <div class="box-body">
@@ -21,7 +21,7 @@
                                     <li class="active">
                                         <a href="#list_tab" data-toggle="tab"
                                            style="font-family: 微软雅黑;font-weight: bold">
-                                            <i class="fa fa-home" id="list"></i>列表信息</a>
+                                            <i class="fa fa-home" id="list"></i>物料消耗</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
