@@ -96,7 +96,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th data-column-id="id" data-type="numeric" data-identifier="true"
-                                                        data-visible="false">ID
+                                                        data-visible="false">序号
                                                     </th>
                                                     <th data-align="center" data-column-id="applyDate" data-width="10%">
                                                         采购日期
@@ -117,6 +117,7 @@
                                                 </thead>
                                                 <tbody id="matCostList" v-for="mc in mcList">
                                                 <tr>
+                                                    <td>{{$index+1}}</td>
                                                     <td>{{mc.applyDate}}</td>
                                                     <td>{{mc.locName}}</td>
                                                     <td>{{mc.ecName}}</td>

@@ -9,6 +9,8 @@ var lines = [];
 var searchVue = null;
 var searchListVue = null;
 var searchObject = null;
+
+var mcList = [];
 $(function () {
     var bootGridCfg = {
         searchSettings: {
@@ -21,7 +23,6 @@ $(function () {
 
         }
     };
-    $("#budgetDataTable").bootgrid(bootGridCfg);
 
 
     $("select").select2({
@@ -43,13 +44,13 @@ $(function () {
     searchListVue = new Vue({
         el: "#matCostList",
         data: {
-            mcList: []
+            mcList: null
         }
 
     });
 
 
-    initData();
+    //initData();
 
 
     $("#searchBtn").on("click", function () {
@@ -73,6 +74,7 @@ $(function () {
             search();
         }
     });
+    search();
 
 });
 
@@ -128,17 +130,19 @@ function initData() {
 }
 
 
+/**
+ * 查询返回集合
+ * @returns {Array}
+ */
 function search() {
     searchObject = getSearchObject();
     var url = "matCost/search";
     $.ajaxSettings.async = false;
     $.post(url, searchObject, function (data) {
-        // loadPage();
-        searchListVue.$set("mcList", data);
-
+        mcList = data;
     });
-
-    $("#budgetDataTable").bootgrid();
+    searchListVue.$set("mcList", mcList);
+    return mcList;
 }
 
 

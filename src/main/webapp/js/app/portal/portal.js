@@ -9,7 +9,6 @@ $(function () {
         for (var x in data) {
             if (data[x]['description']) {
                 lines[x] = data[x]['description'];
-                console.log(data[x]['description']);
             }
         }
     });
