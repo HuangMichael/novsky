@@ -83,7 +83,13 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<Vequipments> page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        Page<Vequipments> page = null;
+        if (searchPhrase != null && !searchPhrase.equals("")) {
+            page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        } else {
+            page = equipmentAccountService.findAll(new PageRequest(current - 1, rowCount.intValue()));
+        }
+
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -114,7 +120,7 @@ public class EquipmentController extends BaseController {
     public List<Vequipments> findMyEqs(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
         String userLocation = user.getLocation();
-        return vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(userLocation);
+        return vequipmentsRepository.findByLocationStartingWith(userLocation);
     }
 
     @RequestMapping(value = "/reload/{objId}")
@@ -461,5 +467,15 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     List<VEqRecord> getRecordsById(@PathVariable("id") Long id) {
         return eqUpdateBillService.getEqRecordsByEid(id);
+    }
+
+
+    /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/selectAllId", method = RequestMethod.GET)
+    @ResponseBody
+    List<Long> selectAllId() {
+        return equipmentAccountService.selectAllId();
     }
 }

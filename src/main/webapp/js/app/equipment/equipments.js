@@ -10,6 +10,7 @@ var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var hm = null;
 var uhm = null;
+var uhmd = null;
 var formLocked = true;
 
 var formStatusArray = ["READ", "CREATE", "EDIT", "SAVED", "DELETED"];
@@ -117,7 +118,7 @@ $(function () {
     });
 
 
-    var eq = getEquipmentByIdInEqs(eqs[0]["id"]);
+    var eq = getEquipmentById(eqs[0]["id"]);
     vdm = new Vue({
         el: "#detailForm",
         data: {
@@ -129,31 +130,37 @@ $(function () {
             runStatus: runStatus
         },
         methods: {
-            previous: function (event) {
+            previous: function () {
                 if (pointer <= 0) {
                     showMessageBoxCenter("danger", "center", "当前记录是第一条");
 
                 } else {
                     pointer = pointer - 1;
                     //判断当前指针位置
-
-                    var e = getEquipmentByIdInEqs(selectedIds[pointer]);
+                    var eid = selectedIds[pointer];
+                    var e = getEquipmentById(eid);
                     vdm.$set("equipments", e);
                     hm.$set("e", e);
                     //loadFixHistoryByEid(selectedIds[pointer]);
-                    hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
+                    hm.$set("histories", loadFixHistoryByEid(eid));
+                    uhm.set("records", loadRecordsByEid(eid));
+                    uhmd.$set("e", e);
                 }
             },
-            next: function (event) {
+            next: function () {
                 if (pointer >= selectedIds.length - 1) {
                     showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
                 } else {
                     pointer = pointer + 1;
-                    var e = getEquipmentByIdInEqs(selectedIds[pointer]);
+
+                    var eid = selectedIds[pointer];
+                    var e = getEquipmentById(eid);
                     vdm.$set("equipments", e);
                     hm.$set("e", e);
-                    hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
+                    hm.$set("histories", loadFixHistoryByEid(eid));
+                    uhm.set("records", loadRecordsByEid(eid));
+                    uhmd.$set("e", e);
                 }
             },
             checkEqCode: function () {
@@ -184,7 +191,15 @@ $(function () {
         el: "#updateHistoryInfo",
         data: {
             e: eqs[0],
-            histories: loadRecordsByEid(eqs[0] ? eqs[0]["id"] : null)
+            records: loadRecordsByEid(eqs[0] ? eqs[0]["id"] : null)
+        }
+    });
+
+
+    uhmd = new Vue({
+        el: "#recordForm",
+        data: {
+            e: eqs[0]
         }
     });
 
@@ -207,12 +222,15 @@ $(function () {
         var eq = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            eq = getEquipmentByIdInEqs(selectedIds[0]);
+
+            console.log("选中---------" + selectedIds[0]);
+            eq = getEquipmentById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            eq = getEquipmentByIdInEqs(eqs[0]["id"]);
             //所有的都在选中列表中
-            selectedIds = setAllInSelectedList(eqs);
+            selectedIds = setAllInSelectedList();
+            eq = getEquipmentById(selectedIds[0]);
+            console.log("未选中---------" + selectedIds[0]);
         }
         vdm.$set("equipments", eq);
 
@@ -239,12 +257,11 @@ $(function () {
     recordsTab.on('click', function () {
         activeTab = "updateHistory";
         //首先判断是否有选中的
-        var equipments = vdm.equipments;
+        var equipments = getEquipmentById(selectedIds[pointer]);
         console.log("equipments--------------" + JSON.stringify(equipments));
-        if (equipments) {
-            var updateHistories = loadRecordsByEid(equipments.id);
-            uhm.$set("updateHistories", updateHistories);
-        }
+        var records = loadRecordsByEid(equipments.id);
+        uhm.$set("records", records);
+        uhmd.$set("e", equipments);
     })
 
 
@@ -650,7 +667,7 @@ function initLoadData(url, elementName) {
  * @param eqs 设备信息集合
  * @param eid 设备ID
  */
-function getEquipmentByIdInEqs(eid) {
+function getEquipmentById(eid) {
     var equipment = null;
     var url = "/equipment/findById/" + eid;
     $.getJSON(url, function (data) {
@@ -660,36 +677,17 @@ function getEquipmentByIdInEqs(eid) {
 }
 
 /**
- * 根据ID获取设备信息
- * @param eqs 设备信息集合
- * @param eid 设备ID
- */
-function findEquipmentByIdInEqs(eid) {
-    var equipment = null;
-    for (var i in eqs) {
-        if (eqs[i].id == eid) {
-            equipment = eqs[i];
-            break;
-        }
-    }
-    return equipment;
-}
-
-
-/**
  *
  * @param eqs 所有的记录
  * @returns {Array}将所有的放入选中集合
  */
-function setAllInSelectedList(eqs) {
+function setAllInSelectedList() {
     var selecteds = [];
-    for (var x in eqs) {
-        if (!isNaN(eqs[x]["id"])) {
-            selecteds.push(eqs[x]["id"]);
-        }
-    }
-
-    selecteds = selecteds.reverse()
+    //全选所有id
+    var url = "equipment/selectAllId";
+    $.getJSON(url, function (data) {
+        selecteds = data;
+    });
     return selecteds;
 
 }
@@ -734,7 +732,7 @@ function loadRecordsByEid(eid) {
     var url = "/equipment/getRecordsById/" + eid;
     var records = [];
     $.getJSON(url, function (data) {
-        records = data;
+        records = data.sort(sortArr);
     });
     return records;
 }
@@ -776,7 +774,7 @@ function backwards() {
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
-        var e = getEquipmentByIdInEqs(selectedIds[pointer]);
+        var e = getEquipmentById(selectedIds[pointer]);
         vdm.$set("equipments", e);
         hm.$set("e", e);
         hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
@@ -792,7 +790,7 @@ function forwards() {
 
     } else {
         pointer = pointer + 1;
-        var e = getEquipmentByIdInEqs(selectedIds[pointer]);
+        var e = getEquipmentById(selectedIds[pointer]);
         vdm.$set("equipments", e);
         hm.$set("e", e);
         hm.$set("histories", loadFixHistoryByEid(selectedIds[pointer]));
@@ -813,7 +811,7 @@ function editEq() {
 
     $("#eqCode").attr("readonly", "readonly");
     var eid = selectedIds[0];
-    var eq = getEquipmentByIdInEqs(eid);
+    var eq = getEquipmentById(eid);
     if (eid) {
         vdm.$set("equipments", eq);
         formTab.tab('show');

@@ -221,3 +221,8 @@ Array.prototype.unique = function () {
 };
 
 
+function sortArr(m, n) {
+    return m > n ? 1 : (m < n ? -1 : 0);
+}
+
+

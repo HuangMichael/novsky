@@ -2,15 +2,11 @@ package com.linkbit.beidou.dao.equipments;
 
 
 import com.linkbit.beidou.domain.equipments.Vequipments;
-import org.omg.CORBA.Object;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
 
 /**
  * Created by huangbin on 2016/3/15 0008.
@@ -26,11 +22,10 @@ public interface VEqRepository extends PagingAndSortingRepository<Vequipments, L
      */
     Page<Vequipments> findByEqNameContains(String eqName, Pageable pageable);
 
-
-    @Query(nativeQuery = true, value = " select * from v_equipments where 1=1  and eq_code like :eqCode")
-    List<Vequipments> search(@Param("eqCode") String eqCode);
-
-
+    /**
+     * @param pageable
+     * @return
+     */
     Page<Vequipments> findAll(Pageable pageable);
 
     /**
@@ -42,19 +37,5 @@ public interface VEqRepository extends PagingAndSortingRepository<Vequipments, L
      */
     @Query
     Page<Vequipments> findByEqNameContainsAndLocNameContainsAndEqClassContains(String eqName, String locName, String eqClass, Pageable pageable);
-
-    /**
-     * @param eqName
-     * @param locName
-     * @param eqClass
-     * @return
-     */
-    // List<Vequipments> findByEqNameContainsAndLocNameContainsAndEqClassContains(String eqName, String locName, String eqClass,Pageable pageable);
-    @Query(nativeQuery = true, value = "select v.* from V_equipments v where 1=1 and v.eq_Name like :eqName and v.loc_Name like :locName and v.eq_Class like :eqClass limit :pageIndex, :pageCount")
-    List<Object> myQuery(@Param("eqName") String eqName, @Param("locName") String locName, @Param("eqClass") String eqClass, @Param("pageIndex") int pageIndex, @Param("pageCount") int pageCount);
-
-
-    @Query(nativeQuery = true, value = "select count(v.*) from V_equipments v where 1=1 and v.eq_Name like %:eqName% and v.loc_Name like %:locName% and v.eq_Class like %:eqClass% limit :pageIndex, :pageCount")
-    Long myQueryCount(@Param("eqName") String eqName, @Param("locName") String locName, @Param("eqClass") String eqClass, @Param("pageIndex") int pageIndex, @Param("pageCount") int pageCount);
 
 }

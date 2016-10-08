@@ -3,14 +3,14 @@ package com.linkbit.beidou.domain.equipments;
 
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Transient;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by huangbin on 2016/03/14 0023.
@@ -19,8 +19,6 @@ import java.util.List;
 @Entity
 @Table(name = "T_EQUIPMENTS")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Equipments {

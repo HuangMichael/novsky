@@ -5,6 +5,8 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +22,12 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
      * 查询所有设备类别
      */
     List<Equipments> findAll();
+
+
+    /**
+     * 查询所有设备类别
+     */
+    Page<Equipments> findAll(Pageable pageable);
 
 
     /**
@@ -136,5 +144,8 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
      */
     @Query("select ve from Vequipments ve where ve.id in ( select e.id from Equipments e where e.locations.id =:lid and e.equipmentsClassification.id =:cid)")
     List<Vequipments> findEqByLocIdAndEqcId(@Param("lid") Long lid, @Param("cid") Long cid);
+
+    @Query("select e.id from Vequipments e order by e.id")
+    List<Long> findAllId();
 
 }

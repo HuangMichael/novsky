@@ -3,7 +3,6 @@ package com.linkbit.beidou.service.equipments;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VEqRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
@@ -36,7 +35,7 @@ public class EquipmentAccountService extends BaseService {
 
 
     @Autowired
-    VEqRepository  vEqRepository;
+    VEqRepository vEqRepository;
 
 
     @Autowired
@@ -106,6 +105,13 @@ public class EquipmentAccountService extends BaseService {
      */
     public List<Equipments> findAll() {
         return equipmentsRepository.findAll();
+    }
+
+    /**
+     * @return 查询所有
+     */
+    public Page<Vequipments> findAll(Pageable pageable) {
+        return vEqRepository.findAll(pageable);
     }
 
 
@@ -181,7 +187,6 @@ public class EquipmentAccountService extends BaseService {
     }
 
 
-
     /**
      * @param eqCode
      * @return 查询维修历史信息
@@ -216,13 +221,20 @@ public class EquipmentAccountService extends BaseService {
         return equipments.getStatus();
 
     }
+
     /**
-     * @param eqName     设备名称
+     * @param eqName   设备名称
      * @param pageable
      * @return 分页查询 根据易耗品名称去查询
      */
     public Page<Vequipments> findByEqNameContains(String eqName, Pageable pageable) {
 
-        return vEqRepository.findByEqNameContains(eqName,pageable);
+        return vEqRepository.findByEqNameContains(eqName, pageable);
+    }
+
+
+    public List<Long> selectAllId() {
+
+        return equipmentsRepository.findAllId();
     }
 }
