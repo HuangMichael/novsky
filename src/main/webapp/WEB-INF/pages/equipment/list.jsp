@@ -31,8 +31,8 @@
                                            style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
                                                                                           id="history"></i>维修历史信息</a>
                                     </li>
-                                    <li><a href="#tab_1_4" data-toggle="tab"
-                                                                               style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
+                                    <li><a href="#tab_1_5" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
                                                                                                                               id="profile"></i>设备履历</a>
                                                                         </li>
                                 </ul>
