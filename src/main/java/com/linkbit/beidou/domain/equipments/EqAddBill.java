@@ -56,6 +56,11 @@ public class EqAddBill {
     @JoinColumn(name = "eq_class_id", referencedColumnName = "id")
     private EquipmentsClassification eqClass; //位置
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
+    private Equipments equipment; //设备
+
     @Column(length = 1, columnDefinition = "default '1'")
     private String dateType; //数据分类 1为采购  2为设备更新
 }

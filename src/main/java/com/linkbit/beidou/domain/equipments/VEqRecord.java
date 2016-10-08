@@ -19,7 +19,7 @@ public class VEqRecord {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;  //id
     @Column(length = 50)
-    private String dateType; //类型
+    private String dataType; //类型
     @Column(length = 20)
     private String applyDate;// 申购日期
     @Column(length = 50)
@@ -36,4 +36,8 @@ public class VEqRecord {
     private String handler; //经办人
     @Column(length = 10)
     private String receiver; //接收人
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
+    private Equipments equipment; //设备
 }

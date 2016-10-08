@@ -16,7 +16,7 @@
     <tbody id="history" v-for="uh in updateHistories">
     <tr>
         <td style="overflow: hidden">{{$index+1}}</td>
-        <td style="overflow: hidden">类型</td>
+        <td style="overflow: hidden">{{uh.dataType}}</td>
         <td style="overflow: hidden">{{uh.applicant}}</td>
         <td style="overflow: hidden">{{uh.applyDate}}</td>
         <td style="overflow: hidden">{{uh.applyDep}}</td>

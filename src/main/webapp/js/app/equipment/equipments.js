@@ -706,17 +706,17 @@ function loadFixHistoryByEid(eid) {
 
 
 /**
- * 根据设备ID查询设备更新信息
+ * 根据设备ID查询设备更新信息s
  * @param eid
  * @return {Array}
  */
 function loadUpdateHistoryByEid(eid) {
     var url = "/equipment/getUpdateHistoryById/" + eid;
-    var updatehistory = [];
+    var records = [];
     $.getJSON(url, function (data) {
-        updatehistory = data;
+        records = data;
     });
-    return updatehistory;
+    return records;
 }
 
 

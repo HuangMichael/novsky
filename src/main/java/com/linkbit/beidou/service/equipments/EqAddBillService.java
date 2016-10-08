@@ -64,7 +64,11 @@ public class EqAddBillService extends BaseService {
         EqAddBill result = eqAddBillRepository.save(budgetBill);
         //如果是更新 不再添加设备台账
         if (budgetBill.getId() == null) {
-            addEq(budgetBill);
+            Equipments equipments = addEq(budgetBill);
+
+            //保存完再更新设备的id到设备履历
+            budgetBill.setEquipment(equipments);
+            eqAddBillRepository.save(budgetBill);
         }
         return result;
     }

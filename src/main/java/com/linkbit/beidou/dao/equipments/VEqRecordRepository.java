@@ -1,8 +1,10 @@
 package com.linkbit.beidou.dao.equipments;
 
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VEqRecord;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,6 +20,12 @@ public interface VEqRecordRepository extends CrudRepository<VEqRecord, Long> {
      */
     VEqRecord findById(Long id);
 
+    /**
+     * @param equipment
+     * @return
+     */
+    @Query("select v from VEqRecord v where v.equipment  =:equipment")
+    List<VEqRecord> findByEquipment(@Param("equipment") Equipments equipment);
     /**
      * @return查询所有的id
      */

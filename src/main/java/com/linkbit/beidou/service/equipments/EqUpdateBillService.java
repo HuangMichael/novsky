@@ -1,8 +1,12 @@
 package com.linkbit.beidou.service.equipments;
 
 import com.linkbit.beidou.dao.equipments.EqUpdateBillRepository;
+import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
+import com.linkbit.beidou.dao.equipments.VEqRecordRepository;
 import com.linkbit.beidou.dao.equipments.VEqUpdateBillRepository;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
+import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.VEqRecord;
 import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,12 @@ public class EqUpdateBillService extends BaseService {
 
     @Autowired
     VEqUpdateBillRepository vEqUpdateBillRepository;
+
+    @Autowired
+    VEqRecordRepository vEqRecordRepository;
+
+    @Autowired
+    EquipmentsRepository equipmentsRepository;
 
 
     /**
@@ -80,6 +90,16 @@ public class EqUpdateBillService extends BaseService {
      */
     public List<EqUpdateBill> getUpdateHistoryById(Long eid) {
         return eqUpdateBillRepository.findByEquipmentsId(eid);
+    }
+
+
+    /**
+     * @param eid 设备id
+     * @return 根据设备id查询设备的更新历史
+     */
+    public List<VEqRecord> getEqRecordsByEid(Long eid) {
+        Equipments equipments = equipmentsRepository.findById(eid);
+        return vEqRecordRepository.findByEquipment(equipments);
     }
 
 
