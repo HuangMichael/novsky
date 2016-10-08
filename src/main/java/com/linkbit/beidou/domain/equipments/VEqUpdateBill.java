@@ -50,7 +50,4 @@ public class VEqUpdateBill {
     @Column(length = 10)
     private String receiver; //接收人
 
-    @Column(length = 50)
-    private String specifications; //规格
-
 }

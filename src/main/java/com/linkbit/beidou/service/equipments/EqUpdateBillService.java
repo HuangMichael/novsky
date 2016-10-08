@@ -48,7 +48,7 @@ public class EqUpdateBillService extends BaseService {
      * @return 查询所有
      */
     public EqUpdateBill save(EqUpdateBill budgetBill) {
-
+        budgetBill.setDateType("2"); //1为新置 2为更新
         return eqUpdateBillRepository.save(budgetBill);
     }
 

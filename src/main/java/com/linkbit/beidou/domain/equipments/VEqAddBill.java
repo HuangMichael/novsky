@@ -30,13 +30,13 @@ public class VEqAddBill {
     private String eqClass; //设备分类
 
     @Column(length = 50)
-    private String applicant; //申请人
-
-    @Column(length = 50)
     private String applyDep; //申请部门
 
     @Column(length = 50)
     private String purpose; //用途
+
+    @Column(length = 50)
+    private String applicant; //申请人
 
     @Column(length = 10)
     private String approver; //批准人
@@ -46,7 +46,4 @@ public class VEqAddBill {
 
     @Column(length = 10)
     private String receiver; //接收人
-
-    @Column(length = 50)
-    private String specifications; //规格
 }

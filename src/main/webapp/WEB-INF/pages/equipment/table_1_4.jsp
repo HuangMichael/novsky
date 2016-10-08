@@ -4,8 +4,7 @@
     <thead>
     <tr>
         <th width="5%" style="overflow: hidden">序号</th>
-        <th width="10%" style="overflow: hidden">设备名称</th>
-        <th width="10%" style="overflow: hidden">设备编号</th>
+        <th width="10%" style="overflow: hidden">类型</th>
         <th width="10%" style="overflow: hidden">申请人</th>
         <th width="10%" style="overflow: hidden">申请时间</th>
         <th width="10%" style="overflow: hidden">申请部门</th>
@@ -17,8 +16,7 @@
     <tbody id="history" v-for="uh in updateHistories">
     <tr>
         <td style="overflow: hidden">{{$index+1}}</td>
-        <td style="overflow: hidden">{{uh.equipments.description}}</td>
-        <td style="overflow: hidden">{{uh.equipments.eqCode}}</td>
+        <td style="overflow: hidden">类型</td>
         <td style="overflow: hidden">{{uh.applicant}}</td>
         <td style="overflow: hidden">{{uh.applyDate}}</td>
         <td style="overflow: hidden">{{uh.applyDep}}</td>

@@ -33,7 +33,7 @@
                                     </li>
                                     <li><a href="#tab_1_4" data-toggle="tab"
                                                                                style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
-                                                                                                                              id="history"></i>设备更新历史信息</a>
+                                                                                                                              id="profile"></i>设备履历</a>
                                                                         </li>
                                 </ul>
                                 <div class="tab-content">
@@ -49,7 +49,7 @@
                                     </div>
                                      <div class="tab-pane fade" id="tab_1_4">
                                          <%@include file="table_1_4.jsp" %>
-                                                                        </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -60,8 +60,6 @@
     </div>
     <%@include file="../common/common-back2top.jsp" %>
 </div>
-
-
 <div class="modal fade " id="show_eq_modal" tabindex="-1" back-drop="false"
      role="dialog" aria-labelledby="fix_work_order">
     <div class="modal-dialog" role="document">
