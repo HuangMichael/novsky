@@ -5,7 +5,6 @@ import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.equipments.VEqRecordRepository;
 import com.linkbit.beidou.dao.equipments.VEqUpdateBillRepository;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
-import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VEqRecord;
 import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.service.app.BaseService;
@@ -98,8 +97,8 @@ public class EqUpdateBillService extends BaseService {
      * @return 根据设备id查询设备的更新历史
      */
     public List<VEqRecord> getEqRecordsByEid(Long eid) {
-        Equipments equipments = equipmentsRepository.findById(eid);
-        return vEqRecordRepository.findByEquipment(equipments);
+        // Equipments equipments = equipmentsRepository.findById(eid);
+        return vEqRecordRepository.findByEquipmentId(eid);
     }
 
 

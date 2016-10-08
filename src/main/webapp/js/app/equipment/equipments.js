@@ -25,7 +25,7 @@ var formTab = $('#myTab li:eq(1) a');
 //维修历史列表
 var historyTab = $('#myTab li:eq(2) a');
 
-var updateHistoryTab = $('#myTab li:eq(3) a');
+var recordsTab = $('#myTab li:eq(3) a');
 var pointer = 0;
 $.ajaxSettings.async = false;
 
@@ -184,7 +184,7 @@ $(function () {
         el: "#updateHistoryInfo",
         data: {
             e: eqs[0],
-            histories: loadUpdateHistoryByEid(eqs[0] ? eqs[0]["id"] : null)
+            histories: loadRecordsByEid(eqs[0] ? eqs[0]["id"] : null)
         }
     });
 
@@ -236,12 +236,15 @@ $(function () {
     })
 
 
-    updateHistoryTab.on('click', function () {
+    recordsTab.on('click', function () {
         activeTab = "updateHistory";
         //首先判断是否有选中的
         var equipments = vdm.equipments;
-        var updateHistories = loadUpdateHistoryByEid(equipments.id);
-        uhm.$set("updateHistories", updateHistories);
+        console.log("equipments--------------" + JSON.stringify(equipments));
+        if (equipments) {
+            var updateHistories = loadRecordsByEid(equipments.id);
+            uhm.$set("updateHistories", updateHistories);
+        }
     })
 
 
@@ -712,6 +715,23 @@ function loadFixHistoryByEid(eid) {
  */
 function loadUpdateHistoryByEid(eid) {
     var url = "/equipment/getUpdateHistoryById/" + eid;
+    var records = [];
+    $.getJSON(url, function (data) {
+        records = data;
+    });
+    return records;
+}
+
+
+/**
+ * 根据设备ID查询设备更新信息s
+ * @param eid
+ * @return {Array}
+ */
+function loadRecordsByEid(eid) {
+
+    console.log("eid--------------" + eid);
+    var url = "/equipment/getRecordsById/" + eid;
     var records = [];
     $.getJSON(url, function (data) {
         records = data;

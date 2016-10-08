@@ -10,6 +10,7 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.VEqRecord;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
@@ -449,5 +450,16 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     List<EqUpdateBill> getUpdateHistoryById(@PathVariable("id") Long id) {
         return eqUpdateBillService.getUpdateHistoryById(id);
+    }
+
+
+    /**
+     * @param id 设备id
+     * @return 根据设备id查询设备履历
+     */
+    @RequestMapping(value = "/getRecordsById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    List<VEqRecord> getRecordsById(@PathVariable("id") Long id) {
+        return eqUpdateBillService.getEqRecordsByEid(id);
     }
 }

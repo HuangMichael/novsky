@@ -8,7 +8,7 @@ import javax.persistence.*;
  * 设备履历信息
  **/
 @Entity
-@Table(name = "V_EQ_RECORD")
+@Table(name = "V_EQ_RECORDS")
 @Data
 @Setter
 @Getter
