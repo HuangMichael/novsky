@@ -63,7 +63,7 @@ public class EqAddBillService extends BaseService {
         budgetBill.setDataType("1"); //1为新置 2为更新
         EqAddBill result = eqAddBillRepository.save(budgetBill);
         //如果是更新 不再添加设备台账
-        if (budgetBill.getId() == null) {
+        if (budgetBill.getEquipment() == null) {
             Equipments equipments = addEq(budgetBill);
 
             //保存完再更新设备的id到设备履历
@@ -117,8 +117,12 @@ public class EqAddBillService extends BaseService {
         equipments.setLocation(vlocations.getLocation());
         equipments.setDescription(eqAddBill.getEqName());
         equipments.setVlocations(vlocations);
+        equipments.setRunning(CommonStatusType.STATUS_ON);
         equipments.setStatus(CommonStatusType.STATUS_YES);
-        equipmentAccountService.save(equipments);
+        equipments = equipmentAccountService.save(equipments);
+
+        System.out.print(equipments.toString());
+
         return equipments;
     }
 
