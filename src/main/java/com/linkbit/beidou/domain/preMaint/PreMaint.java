@@ -1,4 +1,4 @@
-package com.linkbit.beidou.domain.premaint;
+package com.linkbit.beidou.domain.preMaint;
 
 
 import com.linkbit.beidou.domain.equipments.Equipments;

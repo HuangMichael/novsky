@@ -1,23 +1,23 @@
 package com.linkbit.beidou.dao.preMaint;
 
 
-import com.linkbit.beidou.domain.preMaint.PreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+
 /**
- * Created by huangbin on 2016/3/15 0008.
- * 设备信息查询接口
+ * 预防性维修视图查询接口
  */
-public interface PreMaintRepository extends PagingAndSortingRepository<PreMaint, Long> {
+public interface VpreMaintRepository extends PagingAndSortingRepository<VpreMaint, Long> {
 
 
     /**
      * @param pageable 分页
      * @return
      */
-    Page<PreMaint> findAll(Pageable pageable);
+    Page<VpreMaint> findAll(Pageable pageable);
 
 
     /**
@@ -25,5 +25,5 @@ public interface PreMaintRepository extends PagingAndSortingRepository<PreMaint,
      * @param pageable
      * @return 分页
      */
-    Page<PreMaint> findByDescriptionContains(String desc, Pageable pageable);
+    Page<VpreMaint> findByPmDescContains(String desc, Pageable pageable);
 }

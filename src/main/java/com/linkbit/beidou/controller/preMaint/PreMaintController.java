@@ -4,7 +4,7 @@ package com.linkbit.beidou.controller.preMaint;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.premaint.PreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -30,16 +30,10 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/preMaint")
 public class PreMaintController extends BaseController {
-
-
     @Autowired
     PreMaintService preMaintService;
-
-
     @Autowired
     ResourceService resourceService;
-
-
     /**
      * 分页查询
      *
@@ -52,9 +46,9 @@ public class PreMaintController extends BaseController {
     @ResponseBody
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<PreMaint> page = null;
+        Page<VpreMaint> page = null;
         if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = preMaintService.findByDescriptionContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+            page = preMaintService.findByPmDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         } else {
             page = preMaintService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         }
