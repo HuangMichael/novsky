@@ -102,10 +102,7 @@ $(function () {
     $.getJSON(url_location, function (data) {
         locs = data;
     });
-    var url = "/commonData/findVEqClass";
-    $.getJSON(url, function (data) {
-        eqClasses = data;
-    });
+    add
 
     var url = "/commonData/getEqStatus";
     $.getJSON(url, function (data) {

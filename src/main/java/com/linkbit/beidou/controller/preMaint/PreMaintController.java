@@ -4,7 +4,7 @@ package com.linkbit.beidou.controller.preMaint;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.preMaint.VpreMaint;
+import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -14,10 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -34,6 +31,7 @@ public class PreMaintController extends BaseController {
     PreMaintService preMaintService;
     @Autowired
     ResourceService resourceService;
+
     /**
      * 分页查询
      *
@@ -46,7 +44,7 @@ public class PreMaintController extends BaseController {
     @ResponseBody
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<VpreMaint> page = null;
+        Page<PreMaint> page = null;
         if (searchPhrase != null && !searchPhrase.equals("")) {
             page = preMaintService.findByPmDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         } else {
@@ -75,4 +73,22 @@ public class PreMaintController extends BaseController {
     }
 
 
+    /**
+     * 根据id查询
+     */
+    @RequestMapping(value = "/findById/{id}")
+    @ResponseBody
+    public PreMaint findById(@PathVariable("id") Long id) {
+        return preMaintService.findById(id);
+    }
+
+
+    /**
+     * 根据id查询
+     */
+    @RequestMapping(value = "/selectAllId")
+    @ResponseBody
+    public List<Long> selectAllId() {
+        return preMaintService.selectAllId();
+    }
 }

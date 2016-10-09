@@ -14,4 +14,5 @@ public class BaseService {
 
     protected Log log = LogFactory.getLog(this.getClass());
 
+
 }
