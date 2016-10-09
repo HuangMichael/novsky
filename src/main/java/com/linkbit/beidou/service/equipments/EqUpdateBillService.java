@@ -57,13 +57,13 @@ public class EqUpdateBillService extends BaseService {
      * @return 查询所有
      */
     public EqUpdateBill save(EqUpdateBill budgetBill) {
-        budgetBill.setDateType("2"); //1为新置 2为更新
+        budgetBill.setDataType("2"); //1为新置 2为更新
         return eqUpdateBillRepository.save(budgetBill);
     }
 
 
     /**
-     * @param id 根据id删除 删除成功返回true
+     * @param id 根据id删除 删除成功返回true/EqAddBillService
      * @return
      */
     public boolean delete(Long id) {

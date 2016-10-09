@@ -60,7 +60,7 @@ public class EqAddBillService extends BaseService {
      */
     @Transactional
     public EqAddBill save(EqAddBill budgetBill) {
-        budgetBill.setDateType("1"); //1为新置 2为更新
+        budgetBill.setDataType("1"); //1为新置 2为更新
         EqAddBill result = eqAddBillRepository.save(budgetBill);
         //如果是更新 不再添加设备台账
         if (budgetBill.getId() == null) {

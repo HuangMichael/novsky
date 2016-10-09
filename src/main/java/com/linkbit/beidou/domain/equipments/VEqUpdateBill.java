@@ -50,4 +50,12 @@ public class VEqUpdateBill {
     @Column(length = 10)
     private String receiver; //接收人
 
+    @Column(length = 10)
+    private String dataType; //类型
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipment_id", referencedColumnName = "id")
+    private Equipments equipments; //位置
+
 }

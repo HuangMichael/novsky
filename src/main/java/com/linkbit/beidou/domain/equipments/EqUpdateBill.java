@@ -8,7 +8,7 @@ import javax.persistence.*;
  * 采购申请单
  **/
 @Entity
-@Table(name = "T_EQ_RECORD")
+@Table(name = "T_EQ_RECORDS")
 @Data
 @Setter
 @Getter
@@ -50,6 +50,6 @@ public class EqUpdateBill {
 
 
     @Column(length = 1, columnDefinition = "default '2'")
-    private String dateType; //数据分类 1为新置  2为更新
+    private String dataType; //数据分类 1为新置  2为更新
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
  * 设备新置申请单
  **/
 @Entity
-@Table(name = "T_EQ_RECORD")
+@Table(name = "T_EQ_RECORDS")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -62,5 +62,5 @@ public class EqAddBill {
     private Equipments equipment; //设备
 
     @Column(length = 1, columnDefinition = "default '1'")
-    private String dateType; //数据分类 1为采购  2为设备更新
+    private String dataType; //数据分类 1为采购  2为设备更新
 }
