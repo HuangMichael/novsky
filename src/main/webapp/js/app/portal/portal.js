@@ -17,7 +17,7 @@ $(function () {
             type: 'column'
         },
         title: {
-            text:  (new Date().getMonth() + 1)+'月维修单状态按线别统计'
+            text: (new Date().getMonth() + 1) + '月维修单状态按线别统计'
         },
         xAxis: {
             categories: lines,
@@ -194,7 +194,7 @@ function get3MonthReportNum() {
     var reportNums = [];
     $.getJSON(url, function (data) {
         for (var x = 0; x < 3; x++) {
-            if (!isNaN(data[x]["reportNum"]) && data[x]["reportNum"]) {
+            if (data[x] && data[x]["reportNum"] && !isNaN(data[x]["reportNum"])) {
                 reportNums.push(data[x]["reportNum"]);
             } else {
                 reportNums.push(0);
@@ -210,7 +210,7 @@ function get3MonthFinishNum() {
     var finishNums = [];
     $.getJSON(url, function (data) {
         for (var x = 0; x < 3; x++) {
-            if (!isNaN(data[x]["finishNum"]) && data[x]["finishNum"]) {
+            if (data[x] && data[x]["finishNum"] && !isNaN(data[x]["finishNum"])) {
                 finishNums.push(data[x]["finishNum"]);
             } else {
                 finishNums.push(0);
