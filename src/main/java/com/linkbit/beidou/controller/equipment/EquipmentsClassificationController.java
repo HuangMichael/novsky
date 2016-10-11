@@ -67,14 +67,17 @@ public class EquipmentsClassificationController {
     @RequestMapping(value = "/findNodeByParentId/{id}")
     @ResponseBody
     public List<EquipmentsClassification> findNodeByParentId(@PathVariable("id") long id) {
-
         EquipmentsClassification equipmentClassification = equipmentsClassificationRepository.findById(id);
         List<EquipmentsClassification> equipmentsClassificationList = equipmentsClassificationRepository.findNodeByParent(equipmentClassification);
         return equipmentsClassificationList;
     }
 
     /**
-     * 查询根节点
+     * 显示设备分类明细
+     *
+     * @param id       设备分类id
+     * @param modelMap
+     * @return
      */
     @RequestMapping(value = "/detail/{id}")
     public String detail(@PathVariable("id") Long id, ModelMap modelMap) {
@@ -141,7 +144,9 @@ public class EquipmentsClassificationController {
 
 
     /**
-     * 查询根节点
+     * 查询所有设备分类
+     *
+     * @return
      */
     @RequestMapping(value = "/findAll")
     @ResponseBody
@@ -152,7 +157,10 @@ public class EquipmentsClassificationController {
 
 
     /**
-     * 保存部门信息
+     * 删除设备分类信息
+     *
+     * @param id
+     * @return
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
@@ -160,10 +168,8 @@ public class EquipmentsClassificationController {
         EquipmentsClassification equipmentsClassification = equipmentsClassificationService.findById(id);
         if (equipmentsClassification != null) {
             equipmentsClassificationService.delete(equipmentsClassificationService.findById(id));
-            return true;
-        } else {
-            return false;
         }
+        return equipmentsClassificationService.findById(id) == null;
     }
 
     /**
@@ -188,8 +194,6 @@ public class EquipmentsClassificationController {
     @RequestMapping(value = "/findUnitListByEqClassId/{cid}", method = RequestMethod.GET)
     @ResponseBody
     public List<Object> findUnitListByEqClassId(@PathVariable("cid") Long cid) {
-
-
         return outsoucingUnitService.findUnitListByEqClassIdEq(cid);
     }
 
@@ -209,10 +213,14 @@ public class EquipmentsClassificationController {
     }
 
 
+    /**
+     * @param cid 设备分类id
+     * @param ids 选中的外委单位id
+     * @return
+     */
     @RequestMapping(value = "/addUnits", method = RequestMethod.POST)
     @ResponseBody
     public List<OutsourcingUnit> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
-        EquipmentsClassification equipmentsClassification = null;
         List<OutsourcingUnit> outsourcingUnitList = null;
         if (cid != null && ids != null) {
             outsourcingUnitList = outsoucingUnitService.addUnits(cid, ids);
@@ -221,6 +229,12 @@ public class EquipmentsClassificationController {
     }
 
 
+    /**
+     * @param cid         设备分类id
+     * @param ids         外委单位id
+     * @param workOrderId
+     * @return 将外委单位加入设备分类
+     */
     @RequestMapping(value = "/addU2c", method = RequestMethod.POST)
     @ResponseBody
     public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, @RequestParam("workOrderId") Long workOrderId) {
