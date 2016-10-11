@@ -8,6 +8,7 @@ import com.linkbit.beidou.domain.workOrder.VworkOrderFixBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
@@ -30,16 +31,14 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/workOrderFix")
 public class WorkOrderFixController {
-
+    @Autowired
+    CommonDataService commonDataService;
 
     @Autowired
     WorkOrderReportService workOrderReportService;
 
-
     @Autowired
-
     WorkOrderFixService workOrderFixService;
-
 
     @Autowired
     WorkOrderHistoryRepository workOrderHistoryRepository;
@@ -57,16 +56,6 @@ public class WorkOrderFixController {
     public String list2(ModelMap modelMap, HttpSession session) {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
-        //过滤显示当前用户location数据 找出不完工的单子
-
-       /* List<WorkOrderReportCart> workOrderFixDetailListList0 = workOrderFixService.findDistributedOrders(location);
-        List<WorkOrderReportCart> workOrderFixDetailListList1 = workOrderFixService.findFinishOrders(location);
-        List<WorkOrderReportCart> workOrderFixDetailListList2 = workOrderFixService.findPausedOrders(location);
-        List<WorkOrderReportCart> workOrderFixDetailListList3 = workOrderFixService.findRemovedOrders(location);
-        modelMap.put("workOrderFixDetailListList0", workOrderFixDetailListList0);
-        modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
-        modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
-        modelMap.put("workOrderFixDetailListList3", workOrderFixDetailListList3);
         //查询出已派工的维修单*/
         return "/workOrderFix/list";
     }
@@ -103,12 +92,12 @@ public class WorkOrderFixController {
     public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         WorkOrderHistory workOrderHistory = workOrderFixService.handleWorkOrder(workOrderReportCart, fixDesc, "已完工");
-        return getReturnType(workOrderHistory != null, "维修单完工成功!", "维修单完工失败!");
+        return commonDataService.getReturnType(workOrderHistory != null, "维修单完工成功!", "维修单完工失败!");
     }
 
 
     /**
-     * @param fixId 维修单id
+     * @param fixId   维修单id
      * @param fixDesc 维修描述
      * @return 暂停单个维修工单
      */
@@ -117,7 +106,7 @@ public class WorkOrderFixController {
     public ReturnObject pauseDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         WorkOrderHistory workOrderHistory = workOrderFixService.handleWorkOrder(workOrderReportCart, fixDesc, "已暂停");
-        return getReturnType(workOrderHistory != null, "维修单暂停成功!", "维修单暂停失败!");
+        return commonDataService.getReturnType(workOrderHistory != null, "维修单暂停成功!", "维修单暂停失败!");
     }
 
     /**
@@ -130,7 +119,7 @@ public class WorkOrderFixController {
     public ReturnObject abortDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(fixId);
         WorkOrderHistory workOrderHistory = workOrderFixService.handleWorkOrder(workOrderReportCart, fixDesc, "已取消");
-        return getReturnType(workOrderHistory != null, "维修单取消成功!", "维修单取消失败!");
+        return commonDataService.getReturnType(workOrderHistory != null, "维修单取消成功!", "维修单取消失败!");
     }
 
 
@@ -162,22 +151,8 @@ public class WorkOrderFixController {
     public ReturnObject updateDeadLine(@RequestParam("orderId") Long orderId, @RequestParam("deadLine") String deadLineStr) {
         //根据维修单id查询分配订单时间
         WorkOrderReportCart workOrderReportCart = workOrderFixService.updateDeadLine(orderId, deadLineStr);
-        return getReturnType(workOrderReportCart.getDeadLine() != null,"维修单维修时限修改成功","维修单维修时限修改失败");
+        return commonDataService.getReturnType(workOrderReportCart.getDeadLine() != null, "维修单维修时限修改成功", "维修单维修时限修改失败");
     }
 
-
-    /**
-     * @param result      返回结果
-     * @param successDesc 执行成功后描述
-     * @param failureDesc 执行失败时描述
-     * @return
-     */
-    public ReturnObject getReturnType(Boolean result, String successDesc, String failureDesc) {
-        ReturnObject returnObject = new ReturnObject();
-        String resultDesc = result ? successDesc : failureDesc;
-        returnObject.setResult(result);
-        returnObject.setResultDesc(resultDesc);
-        return returnObject;
-    }
 
 }

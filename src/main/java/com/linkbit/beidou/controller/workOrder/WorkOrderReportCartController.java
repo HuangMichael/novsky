@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
@@ -42,6 +43,8 @@ public class WorkOrderReportCartController {
     ResourceService resourceService;
     @Autowired
     WorkOrderReportService workOrderReportService;
+    @Autowired
+    CommonDataService commonDataService;
 
 
     /**
@@ -49,18 +52,14 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(ModelMap modelMap, HttpSession httpSession) {
-
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        System.out.println("controllerName-----------------------" + controllerName);
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-
 
 
         User user = SessionUtil.getCurrentUserBySession(httpSession);
         String userLocation = user.getLocation();
         List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByLocationStartingWithAndNodeState(userLocation, "报修车");
-        System.out.println("workOrderReportCartList------------" + workOrderReportCartList.size());
         modelMap.put("workOrderReportCartList", workOrderReportCartList);
         return "/workOrderReportCart/list";
     }
@@ -71,9 +70,9 @@ public class WorkOrderReportCartController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage list2(@RequestParam(value = "current",defaultValue = "0") int current,@RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-      long reportCartListSize = workOrderReportCartService.selectCount();
-       Page<VworkOrderReportBill> page  = workOrderReportCartService.findAll(new PageRequest(current-1,rowCount.intValue()));
+    public MyPage list2(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
+        long reportCartListSize = workOrderReportCartService.selectCount();
+        Page<VworkOrderReportBill> page = workOrderReportCartService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -128,21 +127,6 @@ public class WorkOrderReportCartController {
         modelMap.put("reportedList", reportedList);
         return "/location/locList";
     }
-
-
-   /* *//**
-     * @param lid
-     * @param modelMap
-     * @return 在加入报修车之前检查是否已有该设备报修未完成的维修任务 objectList
-     *//*
-    @RequestMapping(value = "/loadWorkOrderStep/{lid}", method = RequestMethod.GET)
-    public String loadWorkOrderStep(@PathVariable("lid") Long lid, ModelMap modelMap) {
-        Locations locations = locationsService.findById(lid);
-        List<VworkOrderStep> vworkOrderStepList = workOrderReportCartService.findByLocations(locations);
-        modelMap.put("vworkOrderStepList", vworkOrderStepList);
-        return "/location/locList";
-    }*/
-
 
     /**
      * @param locationId 位置id
@@ -229,13 +213,8 @@ public class WorkOrderReportCartController {
     @RequestMapping(value = "/delCart", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject delCart(@RequestParam Long id) {
-        ReturnObject returnObject = new ReturnObject();
         WorkOrderReportCart workOrderReportCart = workOrderReportCartService.delCart(id);
-        returnObject.setResult(workOrderReportCart == null);
-        String resultDesc = "报修信息移报修车";
-        resultDesc += returnObject.getResult() ? "成功！" : "失败";
-        returnObject.setResultDesc(resultDesc);
-        return returnObject;
+        return commonDataService.getReturnType(workOrderReportCart == null, "报修信息移报修车成功", "报修信息移报修车失败");
     }
 
 

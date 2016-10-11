@@ -15,13 +15,7 @@ import java.util.List;
 /**
  * Created by huangbin on 2016/5/20.
  */
-public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderReportCart, Long> ,PagingAndSortingRepository<WorkOrderReportCart, Long> {
-    String SQL0L = "       SELECT  c.location,c.order_desc, DATE_FORMAT(c.report_time,'%Y-%m-%d %H:%m:%s '),c.status,'报修车' FROM  t_work_order_report_cart   c";
-    String SQL0WHEREL = " where c.location like :location and c.status <>:status  ";
-    String SQL1L = " UNION SELECT  d.location,d.order_desc, DATE_FORMAT(d.report_time,'%Y-%m-%d %H:%m:%s '),d.status,'报修单' FROM  t_work_order_report_detail d ";
-    String SQL1WHEREL = " where d.location like :location and d.status <>:status ";
-    String SQL2L = " UNION SELECT  e.location,e.order_desc, DATE_FORMAT(e.report_time,'%Y-%m-%d %H:%m:%s '),e.status,'维修单' FROM  t_work_order_fix_detail    e ";
-    String SQL2WHEREL = " where e.location like :location and e.status <>:status ";
+public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderReportCart, Long>, PagingAndSortingRepository<WorkOrderReportCart, Long> {
 
 
     WorkOrderReportCart save(WorkOrderReportCart workOrderReportCart);
@@ -100,12 +94,7 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findByEquipmentsAndNodeStateNot(@Param("equipment") Equipments equipment, @Param("nodeState") String nodeState);
 
 
-    /**
-     * @param locations 位置信息
-     * @param status    状态信息
-     * @return
-     */
-    List<WorkOrderReportCart> findByLocationsAndStatus(Locations locations, String status);
+/*    List<WorkOrderReportCart> findByLocationsAndStatus(Locations locations, String status);*/
 
 
     /**
@@ -140,16 +129,11 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findWorkOrderReportDetailByIds(@Param("ids") List<Long> ids);
 
 
-    @Query("SELECT count(r) from WorkOrderReportCart r  ")
-    Long selectCount();
-
-
-
     /**
      * @param
      * @return 根据位置和节点的状态查询
      */
-    List<WorkOrderReportCart> findByNodeStateAndDeadLineLessThan(String nodeState,Date now);
+    List<WorkOrderReportCart> findByNodeStateAndDeadLineLessThan(String nodeState, Date now);
 
 
 }

@@ -167,7 +167,7 @@ public class CommonDataService extends BaseService {
     public List<VeqClass> findVeqClass(HttpSession httpSession) {
         List<VeqClass> eqClassList = null;
         Object object = httpSession.getAttribute("eqClassList");
-        if (object != null) {
+       /* if (object != null) {
             eqClassList = (ArrayList<VeqClass>) object;
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备种类视图");
         } else {
@@ -175,7 +175,12 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类视图");
             httpSession.setAttribute("eqClassList", eqClassList);
             log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
-        }
+        }*/
+
+        eqClassList = veqClassRepository.findAll();
+        log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类");
+        httpSession.setAttribute("eqClassList", eqClassList);
+        log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
         return eqClassList;
 
 
@@ -346,8 +351,8 @@ public class CommonDataService extends BaseService {
      * @param cid
      * @return 查询位置下对应的设备分类
      */
-    public List<Vequipments> findEqByLocIdAndEqcId(Long lid,Long cid) {
-        return equipmentsRepository.findEqByLocIdAndEqcId(lid,cid);
+    public List<Vequipments> findEqByLocIdAndEqcId(Long lid, Long cid) {
+        return equipmentsRepository.findEqByLocIdAndEqcId(lid, cid);
     }
 
 }
