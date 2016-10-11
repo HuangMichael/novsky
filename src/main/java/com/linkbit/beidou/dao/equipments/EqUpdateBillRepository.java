@@ -23,9 +23,9 @@ public interface EqUpdateBillRepository extends PagingAndSortingRepository<EqUpd
 
 
     /**
-     * @return查询所有的id
+     * @return 查询所有的新置的id
      */
-    @Query("select id from EqUpdateBill")
+    @Query("select v.id from VEqRecord v where v.dataType ='更新'")
     List<Long> findAllIds();
 
 

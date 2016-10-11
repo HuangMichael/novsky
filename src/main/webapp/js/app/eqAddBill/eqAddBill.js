@@ -9,7 +9,6 @@ var vdm = null;
 var myEqs = [];
 var locs = [];
 var eqClasses = [];
-var eqAddBills = [];
 var ids = [];
 var pointer = 0;
 var newVue = null;
@@ -148,28 +147,9 @@ $(function () {
             },
         }
     };
-
-
-    //查询我的位置
     locs = findMyLoc();
-
-//查询所有的设备分类
     eqClasses = findMyEqClass();
-
-
-    vdm = new Vue({
-        el: "#detailContainer",
-        data: {
-            eqAddBill: null,
-            locs: locs,
-            eqClasses: eqClasses
-        }
-
-
-    });
-
-    ids = findAllIds().sort();
-
+    ids = findAllIds();
     //初始化加载列表
     $("#budgetDataTable").bootgrid({
         selection: true,
@@ -193,22 +173,41 @@ $(function () {
     });
     // 监听切换tab的方法
 
+    vdm = new Vue({
+        el: "#detailForm",
+        data: {
+            eqAddBill: getEqAddBillById(ids[pointer]),
+            locs: locs,
+            eqClasses: eqClasses
+        }
+    });
+
+
     $(formTab).on('click', function () {
 
         //首先判断是否有选中的
         var eqAddBill = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            eqAddBill = findById(selectedIds[0]);
+            eqAddBill = findById(selectedIds[pointer]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            eqAddBill = geteqAddBillById(ids[0]);
+            eqAddBill = getEqAddBillById(ids[pointer]);
             //所有的都在选中列表中
             selectedIds = ids;
         }
-        vdm.$set("eqAddBill", eqAddBill);
-        vdm.$set("locs", locs);
-        vdm.$set("eqClasses", eqClasses);
+     /*   vdm = new Vue({
+            el: "#detailForm",
+            data: {
+                eqAddBill: getEqAddBillById(ids[pointer]),
+                locs: locs,
+                eqClasses: eqClasses
+            }
+        });*/
+
+        vdm.$set("eqAddBill", getEqAddBillById(ids[pointer]));
+        vdm.$set("locs",locs);
+        vdm.$set("eqClasses",eqClasses);
         setFormReadStatus("#detailForm", true);
     });
 
@@ -245,14 +244,12 @@ function setAllInSelectedList(bugetBills) {
  * @param bid
  * @return {*}
  */
-function geteqAddBillById(bid) {
+function getEqAddBillById(bid) {
     var eqAddBill = null;
     var url = "/eqAddBill/findById/" + bid;
     $.getJSON(url, function (data) {
         eqAddBill = data;
     });
-
-    console.log("eqAddBill-------------" + JSON.stringify(eqAddBill));
     return eqAddBill;
 }
 
@@ -267,7 +264,7 @@ function backwards() {
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
-        var eqAddBill = geteqAddBillById(selectedIds[pointer]);
+        var eqAddBill = getEqAddBillById(selectedIds[pointer]);
         vdm.$set("eqAddBill", eqAddBill);
     }
 }
@@ -280,7 +277,7 @@ function forwards() {
 
     } else {
         pointer = pointer + 1;
-        var eqAddBill = geteqAddBillById(selectedIds[pointer]);
+        var eqAddBill = getEqAddBillById(selectedIds[pointer]);
         vdm.$set("eqAddBill", eqAddBill);
     }
 }
@@ -406,8 +403,8 @@ function findMyEqClass() {
  *查询所有的id
  * */
 function findAllIds() {
-
-    var ids = [];
+    $.ajaxSettings.async = false;
+    ids = [];
     var url = "eqAddBill/findAllIds";
     $.getJSON(url, function (data) {
         ids = data;

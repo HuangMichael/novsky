@@ -27,8 +27,14 @@ public interface VEqRecordRepository extends CrudRepository<VEqRecord, Long> {
     List<VEqRecord> findByEquipmentId(@Param("id") Long id);
 
     /**
-     * @return查询所有的id
+     * @return查询所有的新置的id
      */
-    @Query("select id from VEqRecord")
-    List<Long> findAllIds();
+    @Query("select v.id from VEqRecord v where v.dataType ='1'")
+    List<Long> findAllNewIds();
+
+    /**
+     * @return 查询所有更新的id
+     */
+    @Query("select v.id from VEqRecord v where v.dataType ='2'")
+    List<Long> findAllUpdateIds();
 }

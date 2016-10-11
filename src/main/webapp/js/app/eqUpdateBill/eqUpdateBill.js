@@ -152,21 +152,8 @@ $(function () {
     myEqs = findMyEqs();
     locs = findMyLoc();
     eqClasses = findMyEqClass();
+    ids = findAllIds();
 
-
-    vdm = new Vue({
-        el: "#detailContainer",
-        data: {
-            budgetBill: null,
-            myEqs: myEqs,
-            locs: locs,
-            eqClasses: eqClasses
-        }
-
-
-    });
-
-    ids = findAllIds().sort();
 
     //初始化加载列表
     $("#budgetDataTable").bootgrid({
@@ -192,22 +179,26 @@ $(function () {
     // 监听切换tab的方法
 
     $(formTab).on('click', function () {
-
         //首先判断是否有选中的
         var budgetBill = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            budgetBill = findById(selectedIds[0]);
+            budgetBill = findById(selectedIds[pointer]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            budgetBill = getEqUpdateBillById(ids[0]);
+            budgetBill = getEqUpdateBillById(ids[pointer]);
             //所有的都在选中列表中
             selectedIds = ids;
         }
-        vdm.$set("budgetBill", budgetBill);
-        vdm.$set("myEqs", myEqs);
-        vdm.$set("locs", locs);
-        vdm.$set("eqClasses", eqClasses);
+        vdm = new Vue({
+            el: "#detailContainer",
+            data: {
+                budgetBill: budgetBill,
+                myEqs: myEqs,
+                locs: locs,
+                eqClasses: eqClasses
+            }
+        });
         setFormReadStatus("#detailForm", true);
     });
 
@@ -250,8 +241,6 @@ function getEqUpdateBillById(bid) {
     $.getJSON(url, function (data) {
         budgetBill = data;
     });
-
-    console.log("budgetBill-------------" + JSON.stringify(budgetBill));
     return budgetBill;
 }
 
@@ -262,7 +251,6 @@ function getEqUpdateBillById(bid) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
@@ -413,23 +401,10 @@ function findMyEqClass() {
 }
 
 /**
- *获取服务器时间
- * */
-function getServerDate() {
-
-    var today = null;
-    var url = "/commonData/getServerDate";
-    $.getJSON(url, function (data) {
-        today = data;
-    });
-    return today;
-}
-
-
-/**
  *查询所有的id
  * */
 function findAllIds() {
+    $.ajaxSettings.async = false;
 
     var ids = [];
     var url = "eqUpdateBill/findAllIds";

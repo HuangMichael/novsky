@@ -102,7 +102,6 @@ $(function () {
     $.getJSON(url_location, function (data) {
         locs = data;
     });
-    add
 
     var url = "/commonData/getEqStatus";
     $.getJSON(url, function (data) {

@@ -40,7 +40,6 @@
 														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
 														<th data-align="center" data-column-id="eqClass" data-width="10%">设备分类</th>
 														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
-														<th data-align="center" data-column-id="specifications" data-width="5%">规格型号</th>
 														<th data-align="center" data-column-id="applicant" data-width="5%">申请人</th>
 														<th data-align="center" data-column-id="applyDep" data-width="5%">申请部门</th>
 														<th data-align="center" data-column-id="approver" data-width="5%">批准人</th>
