@@ -113,6 +113,11 @@ $(function () {
         runStatus = data;
     });
 
+    var url = "/commonData/findVEqClass";
+    $.getJSON(url, function (data) {
+        eqClasses = data;
+    });
+
 
     var eq = getEquipmentById(eqs[0]["id"]);
     vdm = new Vue({
@@ -218,15 +223,12 @@ $(function () {
         var eq = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-
-            console.log("选中---------" + selectedIds[0]);
             eq = getEquipmentById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
             //所有的都在选中列表中
             selectedIds = setAllInSelectedList();
             eq = getEquipmentById(selectedIds[0]);
-            console.log("未选中---------" + selectedIds[0]);
         }
         vdm.$set("equipments", eq);
 

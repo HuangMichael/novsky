@@ -165,9 +165,9 @@ public class CommonDataService extends BaseService {
      * @return 查询设备种类信息
      */
     public List<VeqClass> findVeqClass(HttpSession httpSession) {
-        List<VeqClass> eqClassList = null;
+        List<VeqClass> eqClassList;
         Object object = httpSession.getAttribute("eqClassList");
-       /* if (object != null) {
+        if (object != null) {
             eqClassList = (ArrayList<VeqClass>) object;
             log.info(this.getClass().getCanonicalName() + "------------从缓存中查询设备种类视图");
         } else {
@@ -175,12 +175,10 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类视图");
             httpSession.setAttribute("eqClassList", eqClassList);
             log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
-        }*/
+        }
 
-        eqClassList = veqClassRepository.findAll();
-        log.info(this.getClass().getCanonicalName() + "------------从数据库中查询设备种类");
-        httpSession.setAttribute("eqClassList", eqClassList);
-        log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
+        System.out.println("eqClassList---"+eqClassList.toString());
+
         return eqClassList;
 
 
