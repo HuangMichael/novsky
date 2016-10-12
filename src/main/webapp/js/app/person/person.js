@@ -81,7 +81,7 @@ $(function () {
         el: "#detailForm",
         data: {
             formLocked: formLocked,
-            person: getPersonById(selectedIds[0])
+            person: getPersonById(personList[0]["id"])
         }
     });
 

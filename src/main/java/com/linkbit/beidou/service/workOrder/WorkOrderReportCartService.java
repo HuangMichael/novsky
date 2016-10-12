@@ -315,10 +315,11 @@ public class WorkOrderReportCartService extends BaseService {
 
 
     /**
+     * @param offset 月份偏移量
      * @return 查询当月报修的设备分类的前5
      */
-    public List<Object> findTopNReportCartByEqClass() {
-        return workOrderReportCartRepository.findTopNReportCartByEqClass();
+    public List<Object> findTopNReportCartByEqClass(int offset) {
+        return workOrderReportCartRepository.findTopNReportCartByEqClass(offset);
     }
 
 
@@ -358,7 +359,6 @@ public class WorkOrderReportCartService extends BaseService {
     public Long selectCount() {
         return vworkOrderReportBillRepository.selectCount();
     }
-
 
 
 }

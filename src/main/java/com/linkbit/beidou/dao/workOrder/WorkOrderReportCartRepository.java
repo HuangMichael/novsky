@@ -2,6 +2,7 @@ package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.workOrder.MonthEqClassRank;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,6 +17,8 @@ import java.util.List;
  * Created by huangbin on 2016/5/20.
  */
 public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderReportCart, Long>, PagingAndSortingRepository<WorkOrderReportCart, Long> {
+
+    String sql = "select v.reportMonth,v.eqClass,v.cCount from v_month_eq_class_rank v where 1=1 ";
 
 
     WorkOrderReportCart save(WorkOrderReportCart workOrderReportCart);
@@ -107,7 +110,11 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
 
 
     @Query(nativeQuery = true, value = "SELECT b.eqclass,b.y AS y FROM(select v.eqclass,v.ccount AS y FROM v_top5_reportcart_eqclass v LIMIT 5) b UNION SELECT d.eqclass,sum(d.y) AS q5 FROM (SELECT '其它' AS eqclass,v.ccount AS y FROM v_top5_reportcart_eqclass v LIMIT 5,1000) d")
-    List<Object> findTopNReportCartByEqClass();
+    List<Object> findTopNReportCartByEqClass(int offset);
+
+
+    @Query(nativeQuery = true, value = sql + " and reportMonth = DATE_FORMAT(ADDDATE(NOW(), INTERVAL :offset  MONTH), '%Y-%m') order by ccount desc")
+    List<Object> findTopNReportByEqClass(@Param("offset") int offset);
 
 
     /**

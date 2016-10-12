@@ -89,7 +89,7 @@ $(function () {
     });
 
 
-    $('#highcharts2').highcharts({
+    var eqClassChartConfig = {
         chart: {
             type: 'pie'
         },
@@ -116,7 +116,8 @@ $(function () {
             colorByPoint: true,
             data: chart2Data
         }]
-    });
+    }
+    $('#highcharts2').highcharts(eqClassChartConfig);
 
 
     var seriesOptions = [];
@@ -134,7 +135,7 @@ $(function () {
     seriesOptions.push(option1);
 
 
-    $('#highcharts0').highcharts({
+    var reportFinishChartConfig = {
         chart: {
             type: 'column'
         },
@@ -163,7 +164,8 @@ $(function () {
             }
         },
         series: seriesOptions
-    });
+    }
+    $('#highcharts0').highcharts(reportFinishChartConfig);
     loadReportCartNum();
 
 
@@ -178,14 +180,7 @@ function loadReportCartNum() {
     })
 }
 
-function get3MonthTitle() {
-    var title = [];
-    var date = new Date();
-    title.push((date.getMonth() - 1) + "月");
-    title.push(date.getMonth() + "月");
-    title.push((date.getMonth() + 1) + "月");
-    return title;
-}
+
 
 
 function get3MonthReportNum() {

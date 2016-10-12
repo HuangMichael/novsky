@@ -43,10 +43,15 @@ public class PortalController {
     }
 
 
-    @RequestMapping(value = "/findTopEqClass", method = RequestMethod.GET)
+    /**
+     * @param offset 月份偏移量
+     * @return
+     */
+    @RequestMapping(value = "/findTopEqClass/{offset}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Object> findTopNReportCartByEqClass() {
-        return workOrderReportCartService.findTopNReportCartByEqClass();
+    public List<Object> findTopNReportCartByEqClass(@PathVariable(value = "offset") int offset) {
+        // System.out.println(workOrderReportCartService.findTopNReportCartByEqClass(offset));
+        return portalService.findTopNReportByEqClass(offset);
     }
 
 
