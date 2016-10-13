@@ -22,64 +22,19 @@ public class PortalService extends BaseService {
 
 
     @Autowired
-    VworkOrderLineNumReportRepository vworkOrderLineNumReportRepository;
+    VlineMonthRepository vlineMonthRepository;
     @Autowired
-    VworkOrderLineNumFixedRepository vworkOrderLineNumFixedRepository;
-    @Autowired
-    VworkOrderLineNumFixingRepository vworkOrderLineNumFixingRepository;
-    @Autowired
-    VworkOrderLineNumSuspendRepository vworkOrderLineNumSuspendRepository;
-    @Autowired
-    VworkOrderLineNumAbortRepository vworkOrderLineNumAbortRepository;
-    @Autowired
-    WorkOrderReportCartRepository
-            workOrderReportCartRepository;
-
+    WorkOrderReportCartRepository workOrderReportCartRepository;
 
     /**
-     * @return 获取线路总报修数量
+     * @param reportMonth 月份
+     * @param name        工单状态
+     * @return 获取线路统计汇总
      */
-    public List<VworkOrderLineNumReport> getLineReportNumReportMonth(String reportMonth) {
+    public List<VlineMonth> getLineReportNumReportMonth(String reportMonth, String name) {
 
-        return vworkOrderLineNumReportRepository.findByReportMonth(reportMonth);
+        return vlineMonthRepository.findByReportMonthAndName(reportMonth, name);
     }
-
-    /**
-     * @param reportMonth
-     * @return 获取线路总完工数量
-     */
-    public List<VworkOrderLineNumFixed> getLineFixedNumByReportMonth(String reportMonth) {
-
-        return vworkOrderLineNumFixedRepository.findByReportMonth(reportMonth);
-    }
-
-
-    /**
-     * @return 获取线路总维修中数量
-     */
-    public List<VworkOrderLineNumFixing> getLineFixingNumByReportMonth(String reportMonth) {
-
-        return vworkOrderLineNumFixingRepository.findByReportMonth(reportMonth);
-    }
-
-    /**
-     * @return 获取线路总维修中数量
-     */
-    public List<VworkOrderLineNumAbort> getLineAbortNumReportMonth(String reportMonth) {
-
-
-        return vworkOrderLineNumAbortRepository.findByReportMonth(reportMonth);
-    }
-
-
-    /**
-     * @return 获取线路总暂停数量
-     */
-    public List<VworkOrderLineNumSuspend> getLineSuspendNumByReportMonth(String reportMonth) {
-
-        return vworkOrderLineNumSuspendRepository.findByReportMonth(reportMonth);
-    }
-
 
     /**
      * @param offset

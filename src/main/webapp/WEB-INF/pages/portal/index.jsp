@@ -75,8 +75,8 @@
      */
     function loadChartData(offset) {
         loadEqClassChart(offset);
-        loadReportFinishChart("2016-10");
-        loadLineChart('2016-10');
+        loadReportFinishChart(addMonth(offset));
+        loadLineChart(addMonth(offset));
     }
 
     /**
@@ -257,65 +257,22 @@
     function loadLineChart(reportMonth) {
 
 
-        function getReportNumByLine(reportMonth) {
-            var reportLineNum = [];
-            var url = "/portal/getLineReportNum/"+reportMonth;
+        function loadByStatus(status) {
+            var url = "/portal/getLineReportNum/" + reportMonth + "/" + status;
+            var dataList = [];
+            $.ajaxSettings.async = false;
             $.getJSON(url, function (data) {
                 for (var x in data) {
-                    reportLineNum[x] = data[x]["reportNum"];
+                    if (data[x]['num']) {
+                        dataList[x] = data[x]['num'];
+                    }
                 }
             });
-            return reportLineNum;
+            return dataList;
         }
 
 
-        function getAbortNumByLine(reportMonth) {
-            var abortLineNum = [];
-            var url = "/portal/getLineAbortNum/" + reportMonth;
-            $.getJSON(url, function (data) {
-                for (var x in data) {
-                    abortLineNum[x] = data[x]["abortNum"];
-                }
-            });
-            return abortLineNum;
-        }
-
-
-        function getFixedNumByLine(reportMonth) {
-            var fixedLineNum = [];
-            var url = "/portal/getLineFixedNum/" + reportMonth;
-            $.getJSON(url, function (data) {
-                for (var x in data) {
-                    fixedLineNum[x] = data[x]["fixedNum"];
-                }
-            });
-            return fixedLineNum;
-        }
-
-
-        function getFixingNumByLine(reportMonth) {
-            var fixingLineNum = [];
-            var url = "/portal/getLineFixingNum/" + reportMonth;
-            $.getJSON(url, function (data) {
-                for (var x in data) {
-                    fixingLineNum[x] = data[x]["fixingNum"];
-                }
-            });
-            return fixingLineNum;
-        }
-
-        function getSuspendNumByLine(reportMonth) {
-            var suspendLineNum = [];
-            var url = "/portal/getLineSuspendNum/" + reportMonth;
-            $.getJSON(url, function (data) {
-                for (var x in data) {
-                    suspendLineNum[x] = data[x]["suspendNum"];
-                }
-            });
-            return suspendLineNum;
-        }
-
-
+        var orderStatus = ["待分配", "维修中", "完工", "暂停", "取消"];
         var url = "/line/findAllLines";
         var lines = [];
         $.ajaxSettings.async = false;
@@ -367,29 +324,29 @@
                     borderWidth: 0
                 }
             },
-            series: [{
-                name: '待分配',
-                data: getReportNumByLine(reportMonth)
+            series: [
+                {
+                    name: orderStatus[0],
+                    data: loadByStatus(0)
 
-            }, {
-                name: '维修中',
-                data: getFixingNumByLine(reportMonth)
+                }, {
+                    name: orderStatus[1],
+                    data: loadByStatus(1)
 
-            },
+                },
 
                 {
-                    name: '完工',
-                    data: getFixedNumByLine(reportMonth)
+                    name: orderStatus[2],
+                    data: loadByStatus(2)
+                },
+                {
+                    name: orderStatus[3],
+                    data: loadByStatus(3)
 
                 },
                 {
-                    name: '暂停',
-                    data: getSuspendNumByLine(reportMonth)
-
-                },
-                {
-                    name: '取消',
-                    data: getAbortNumByLine(reportMonth)
+                    name: orderStatus[4],
+                    data: loadByStatus(4)
 
                 }
             ]

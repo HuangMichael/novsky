@@ -63,37 +63,15 @@ public class PortalController {
     }
 
 
-    @RequestMapping(value = "/getLineReportNum/{reportMonth}", method = RequestMethod.GET)
+    /**
+     * @param reportMonth 月份
+     * @param name        工单状态
+     * @return
+     */
+    @RequestMapping(value = "/getLineReportNum/{reportMonth}/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VworkOrderLineNumReport> getLineReportNumReportMonth(@PathVariable("reportMonth") String reportMonth) {
-        return portalService.getLineReportNumReportMonth(reportMonth);
-    }
-
-
-    @RequestMapping(value = "/getLineFixedNum/{reportMonth}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<VworkOrderLineNumFixed> getLineFixedNumByReportMonth(@PathVariable("reportMonth") String reportMonth) {
-        return portalService.getLineFixedNumByReportMonth(reportMonth);
-    }
-
-
-    @RequestMapping(value = "/getLineFixingNum/{reportMonth}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<VworkOrderLineNumFixing> getLineFixingNumByReportMonth(@PathVariable("reportMonth") String reportMonth) {
-        return portalService.getLineFixingNumByReportMonth(reportMonth);
-    }
-
-    @RequestMapping(value = "/getLineAbortNum/{reportMonth}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<VworkOrderLineNumAbort> getLineAbortNumReportMonth(@PathVariable("reportMonth") String reportMonth) {
-        return portalService.getLineAbortNumReportMonth(reportMonth);
-    }
-
-
-    @RequestMapping(value = "/getLineSuspendNum/{reportMonth}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<VworkOrderLineNumSuspend> getLineSuspendNumByReportMonth(@PathVariable("reportMonth") String reportMonth) {
-        return portalService.getLineSuspendNumByReportMonth(reportMonth);
+    public List<VlineMonth> getLineReportNumReportMonth(@PathVariable("reportMonth") String reportMonth, @PathVariable("name") String name) {
+        return portalService.getLineReportNumReportMonth(reportMonth, name);
     }
 
 

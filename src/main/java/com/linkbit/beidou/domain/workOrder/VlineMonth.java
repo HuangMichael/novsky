@@ -6,20 +6,17 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "v_work_order_line_num_suspend")
+@Table(name = "V_Month_line")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-/**
- * 工单报修完成率
- * */
-public class VworkOrderLineNumSuspend {
+
+public class VlineMonth {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String line;
     private String reportMonth;
-    private Long suspendNum;
+    private Long num;
+    private String name;
 }
