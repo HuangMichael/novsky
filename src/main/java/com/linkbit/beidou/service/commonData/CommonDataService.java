@@ -11,7 +11,6 @@ import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
-import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.equipments.Vequipments;
@@ -19,15 +18,21 @@ import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -177,7 +182,7 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
         }
 
-        System.out.println("eqClassList---"+eqClassList.toString());
+        System.out.println("eqClassList---" + eqClassList.toString());
 
         return eqClassList;
 
@@ -351,6 +356,30 @@ public class CommonDataService extends BaseService {
      */
     public List<Vequipments> findEqByLocIdAndEqcId(Long lid, Long cid) {
         return equipmentsRepository.findEqByLocIdAndEqcId(lid, cid);
+    }
+
+
+    /**
+     * 获取导入的数据
+     */
+    public List<MatCost> importExcel() {
+        try {
+            InputStream is = new FileInputStream("D:/user.xls");
+            jxl.Workbook rwb = Workbook.getWorkbook(is);
+            Sheet rs = rwb.getSheet(0);
+            int colNum = rs.getColumns();
+            int rowNum = rs.getRows();
+            System.out.println(rowNum + "行" + colNum + "列" );
+            for (int r = 0; r < rowNum ; r++) {
+                for (int c = 0; c < colNum; c++) {
+                    Cell cell = rs.getCell(c, r);
+                    System.out.println("第" + r + "行 第" + c + "列:" + cell.getContents());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
+import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -149,7 +150,17 @@ public class CommnDataController extends BaseController {
     @RequestMapping(value = "/getServerDate", method = RequestMethod.GET)
     @ResponseBody
     public String getServerDate() {
-        return  commonDataService.getServerDate();
+        return commonDataService.getServerDate();
+    }
+
+
+    /**
+     * @return 获得服务器时间
+     */
+    @RequestMapping(value = "/importExcel", method = RequestMethod.GET)
+    @ResponseBody
+    public List<MatCost> importExcel() throws Exception {
+        return commonDataService.importExcel();
     }
 }
 
