@@ -22,13 +22,15 @@
                     <div class="clearfix">
                         <span class="date-range pull-right">
 											<div class="btn-group">
-												<a class="js_update btn btn-default" onclick="loadChartData(0)">当月</a>
-												<a class="js_update btn btn-default" onclick="loadChartData(-1)">上月</a>
-												<a id="reportrange" class="btn reportrange">
+												<a class="js_update btn btn-default"
+                                                   onclick="loadChartData(addMonth(0))">当月</a>
+												<a class="js_update btn btn-default"
+                                                   onclick="loadChartData(addMonth(-1))">上月</a>
+												<%--<a id="reportrange" class="btn reportrange">
 													<i class="fa fa-calendar"></i>
 													<span>选择月份</span>
 													<i class="fa fa-angle-down"></i>
-												</a>
+												</a>--%>
 											</div>
 										</span>
                         <!-- /DATE RANGE PICKER -->
@@ -57,35 +59,32 @@
     $(document).ready(function () {
         App.setPage("inbox");  //Set current page
         App.init(); //Initialise plugins and elements
-
-
         Highcharts.setOptions({
-            colors: ['#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#058DC7']
+            colors: ['#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#058DC7'],
+            exporting: {
+                enabled: true
+            },
         });
-
-
         //默认加载当月数据
-        loadChartData(0);
+        loadChartData(addMonth(0));
     });
 
 
     /**
      *
-     * @param offset
+     * @param reportMonth
      */
-    function loadChartData(offset) {
-        loadEqClassChart(offset);
-        loadReportFinishChart(addMonth(offset));
-        loadLineChart(addMonth(offset));
+    function loadChartData(reportMonth) {
+        loadEqClassChart(reportMonth);
+        loadReportFinishChart(reportMonth);
+        loadLineChart(reportMonth);
     }
 
     /**
      *加载设备分类统计
-     * @param offset
+     * @param reportMonth
      */
-    function loadEqClassChart(offset) {
-
-
+    function loadEqClassChart(reportMonth) {
         /**
          *
          * @param chart2Data
@@ -115,7 +114,7 @@
 
         //ajax 请求当月设备分类前5
         var chart2Data = [];
-        $.getJSON("/portal/findTopEqClass/" + offset, function (data) {
+        $.getJSON("/portal/findTopEqClass/" + reportMonth, function (data) {
             chart2Data = assembleData(data);
         });
         var eqClassChartConfig = {
@@ -123,7 +122,7 @@
                 type: 'pie'
             },
             title: {
-                text: (new Date().getMonth() + 1 + offset) + '月报修按设备类型统计'
+                text: reportMonth + '报修按设备类型统计'
             },
             plotOptions: {
                 series: {
@@ -154,7 +153,7 @@
 
     /**
      *加载设备分类统计
-     * @param offset
+     * @param reportMonth
      */
     function loadReportFinishChart(reportMonth) {
         var seriesOptions = [];
@@ -220,7 +219,7 @@
             },
 
             exporting: {
-                enabled: false
+                enabled: true
             },
             title: {
                 text: '最近3个月报修完成情况统计'
@@ -252,11 +251,9 @@
 
     /**
      * 根据线路统计各状态的订单数量
-     * @param offset
+     * @param reportMonth
      */
     function loadLineChart(reportMonth) {
-
-
         function loadByStatus(status) {
             var url = "/portal/getLineReportNum/" + reportMonth + "/" + status;
             var dataList = [];

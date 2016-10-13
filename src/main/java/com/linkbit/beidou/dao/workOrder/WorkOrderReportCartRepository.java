@@ -113,8 +113,8 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<Object> findTopNReportCartByEqClass(int offset);
 
 
-    @Query(nativeQuery = true, value = sql + " and reportMonth = DATE_FORMAT(ADDDATE(NOW(), INTERVAL :offset  MONTH), '%Y-%m') order by ccount desc")
-    List<Object> findTopNReportByEqClass(@Param("offset") int offset);
+    @Query(nativeQuery = true, value = sql + " and reportMonth = :reportMonth order by ccount desc")
+    List<Object> findTopNReportByEqClass(@Param("reportMonth") String reportMonth);
 
 
     /**

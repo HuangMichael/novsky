@@ -37,12 +37,12 @@ public class PortalService extends BaseService {
     }
 
     /**
-     * @param offset
-     * @return
+     * @param reportMonth
+     * @return 设备分类按照数量排序
      */
-    public List<Object> findTopNReportByEqClass(int offset) {
+    public List<Object> findTopNReportByEqClass(String reportMonth) {
 
-        List<Object> dataList = workOrderReportCartRepository.findTopNReportByEqClass(offset);
+        List<Object> dataList = workOrderReportCartRepository.findTopNReportByEqClass(reportMonth);
         return dataList;
 
     }

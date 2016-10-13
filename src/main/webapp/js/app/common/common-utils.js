@@ -30,41 +30,6 @@ function transformDateHMS(timestamp) {
     }
     return dateStr;
 }
-
-
-function addDate(type, NumDay, dtDate) {
-    var date = new Date(dtDate)
-    type = parseInt(type) //类型
-    lIntval = parseInt(NumDay)//间隔
-    switch (type) {
-        case 6 ://年
-            date.setYear(date.getYear() + lIntval)
-            break;
-        case 7 ://季度
-            date.setMonth(date.getMonth() + (lIntval * 3))
-            break;
-        case 5 ://月
-            date.setMonth(date.getMonth() + lIntval)
-            break;
-        case 4 ://天
-            date.setDate(date.getDate() + lIntval)
-            break
-        case 3 ://时
-            date.setHours(date.getHours() + lIntval)
-            break
-        case 2 ://分
-            date.setMinutes(date.getMinutes() + lIntval)
-            break
-        case 1 ://秒
-            date.setSeconds(date.getSeconds() + lIntval)
-            break;
-        default:
-
-    }
-    return date.getYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
-}
-
-
 /**
  *
  * @param interval 间隔可为正负整数 不传默认为0
@@ -75,7 +40,10 @@ function addMonth(interval, dtDate) {
     var date = (dtDate != null) ? new Date(dtDate) : new Date();
     interval = (interval) ? parseInt(interval) : 0;//间隔
     date.setMonth(date.getMonth() + interval);
-    return date.getFullYear() + '-' + (date.getMonth() + 1);
+
+
+    var month = (date.getMonth() + 1 < 10) ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+    return date.getFullYear() + '-' + month;
 }
 
 
