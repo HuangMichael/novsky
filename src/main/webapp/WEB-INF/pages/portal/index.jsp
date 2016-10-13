@@ -22,15 +22,18 @@
                     <div class="clearfix">
                         <span class="date-range pull-right">
 											<div class="btn-group">
-												<a class="js_update btn btn-default"
+												<a class="js_update btn btn-default" id="currentMonth"
                                                    onclick="loadChartData(addMonth(0))">当月</a>
-												<a class="js_update btn btn-default"
+												<a class="js_update btn btn-default" id="lastMonth"
                                                    onclick="loadChartData(addMonth(-1))">上月</a>
-												<%--<a id="reportrange" class="btn reportrange">
-													<i class="fa fa-calendar"></i>
-													<span>选择月份</span>
-													<i class="fa fa-angle-down"></i>
-												</a>--%>
+												 <a class="js_update btn btn-default"><input class="Wdate form-control"
+                                                                                             type="text"
+                                                                                             onClick="WdatePicker({maxDate:'%y-%M-%d',dateFmt: 'yyyy-MM', isShowToday: false, isShowClear: false})"
+                                                                                             id="setupDate"
+                                                                                             style="width:80%"
+                                                                                             name="setupDate"
+                                                 /></a>
+                                                <a class="js_update btn btn-default" id="displayBtn">显示</a>
 											</div>
 										</span>
                         <!-- /DATE RANGE PICKER -->
@@ -67,6 +70,26 @@
         });
         //默认加载当月数据
         loadChartData(addMonth(0));
+
+
+        $("#currentMonth").on("click", function () {
+            var reportMonth = addMonth(0);
+            loadChartData(reportMonth);
+            $("#setupDate").val(reportMonth);
+        });
+        $("#lastMonth").on("click", function () {
+            var reportMonth = addMonth(-1);
+            loadChartData(reportMonth);
+            $("#setupDate").val(reportMonth);
+        })
+
+
+        $("#displayBtn").on("click", function () {
+            var reportMonth = $("#setupDate").val();
+            reportMonth = (!reportMonth) ? addMonth(0) : reportMonth;
+            loadChartData(reportMonth);
+
+        })
     });
 
 

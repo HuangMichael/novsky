@@ -41,7 +41,6 @@ public class PortalService extends BaseService {
      * @return 设备分类按照数量排序
      */
     public List<Object> findTopNReportByEqClass(String reportMonth) {
-
         List<Object> dataList = workOrderReportCartRepository.findTopNReportByEqClass(reportMonth);
         return dataList;
 
