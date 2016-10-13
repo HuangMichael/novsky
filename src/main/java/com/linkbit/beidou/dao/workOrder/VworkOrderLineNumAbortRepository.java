@@ -1,6 +1,7 @@
 package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumAbort;
+import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumFixed;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,5 +11,12 @@ import java.util.List;
  */
 public interface VworkOrderLineNumAbortRepository extends CrudRepository<VworkOrderLineNumAbort, Long> {
     List<VworkOrderLineNumAbort> findAll();
+
+
+    /**
+     * @param reportMonth 根据月份查询
+     * @return
+     */
+    List<VworkOrderLineNumAbort> findByReportMonth(String reportMonth);
 
 }

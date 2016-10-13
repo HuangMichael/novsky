@@ -1,5 +1,6 @@
 package com.linkbit.beidou.dao.workOrder;
 
+import com.linkbit.beidou.domain.workOrder.VworkOrderLineNumSuspend;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
 import org.springframework.data.repository.CrudRepository;
 
@@ -12,5 +13,7 @@ public interface VworkOrderNumFinishRepository extends CrudRepository<VworkOrder
 
 
     List<VworkOrderNumFinish> findAll();
+
+
 
 }

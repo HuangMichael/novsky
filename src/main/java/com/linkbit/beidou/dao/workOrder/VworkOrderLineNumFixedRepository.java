@@ -12,4 +12,10 @@ import java.util.List;
 public interface VworkOrderLineNumFixedRepository extends CrudRepository<VworkOrderLineNumFixed, Long> {
     List<VworkOrderLineNumFixed> findAll();
 
+
+    /**
+     * @param reportMonth 根据月份查询
+     * @return
+     */
+    List<VworkOrderLineNumFixed> findByReportMonth(String reportMonth);
 }

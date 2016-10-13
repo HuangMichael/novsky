@@ -20,5 +20,6 @@ public class VworkOrderLineNumAbort {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String line;
-    private Long abortNum;
+    private String reportMonth;
+    private Long num;
 }

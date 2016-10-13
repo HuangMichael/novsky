@@ -39,45 +39,45 @@ public class PortalService extends BaseService {
     /**
      * @return 获取线路总报修数量
      */
-    public List<VworkOrderLineNumReport> getLineReportNum() {
+    public List<VworkOrderLineNumReport> getLineReportNumReportMonth(String reportMonth) {
 
-        return vworkOrderLineNumReportRepository.findAll();
+        return vworkOrderLineNumReportRepository.findByReportMonth(reportMonth);
     }
 
-
     /**
+     * @param reportMonth
      * @return 获取线路总完工数量
      */
-    public List<VworkOrderLineNumFixed> getLineFixedNum() {
+    public List<VworkOrderLineNumFixed> getLineFixedNumByReportMonth(String reportMonth) {
 
-        return vworkOrderLineNumFixedRepository.findAll();
+        return vworkOrderLineNumFixedRepository.findByReportMonth(reportMonth);
     }
 
 
     /**
      * @return 获取线路总维修中数量
      */
-    public List<VworkOrderLineNumFixing> getLineFixingNum() {
+    public List<VworkOrderLineNumFixing> getLineFixingNumByReportMonth(String reportMonth) {
 
-        return vworkOrderLineNumFixingRepository.findAll();
+        return vworkOrderLineNumFixingRepository.findByReportMonth(reportMonth);
     }
 
     /**
      * @return 获取线路总维修中数量
      */
-    public List<VworkOrderLineNumAbort> getLineAbortNum() {
+    public List<VworkOrderLineNumAbort> getLineAbortNumReportMonth(String reportMonth) {
 
 
-        return vworkOrderLineNumAbortRepository.findAll();
+        return vworkOrderLineNumAbortRepository.findByReportMonth(reportMonth);
     }
 
 
     /**
      * @return 获取线路总暂停数量
      */
-    public List<VworkOrderLineNumSuspend> getLineSuspendNum() {
+    public List<VworkOrderLineNumSuspend> getLineSuspendNumByReportMonth(String reportMonth) {
 
-        return vworkOrderLineNumSuspendRepository.findAll();
+        return vworkOrderLineNumSuspendRepository.findByReportMonth(reportMonth);
     }
 
 
@@ -91,23 +91,4 @@ public class PortalService extends BaseService {
         return dataList;
 
     }
-
-
-    /**
-     * @param dataList
-     * @return
-     */
-    public List<Object> assembleData(List<Object> dataList) {
-        List<Object> data = null;
-        int sumCount = 0;
-        for (int i = 5; i < dataList.size(); i++) {
-            Map map = (HashMap) dataList.get(i);
-            System.out.println("object-------" + map.get("0"));
-            System.out.println("object-------" + map.get("1"));
-            System.out.println("object-------" + map.get("2"));
-            System.out.println("----------------------------");
-        }
-        return data;
-    }
-
 }

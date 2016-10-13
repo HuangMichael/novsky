@@ -75,8 +75,8 @@
      */
     function loadChartData(offset) {
         loadEqClassChart(offset);
-        loadReportFinishChart(offset);
-        loadLineChart(offset);
+        loadReportFinishChart("2016-10");
+        loadLineChart('2016-10');
     }
 
     /**
@@ -92,6 +92,7 @@
          * @returns {*}
          */
         var newData = [];
+
         function assembleData(chart2Data) {
             var sumOther = 0;
             for (var x in chart2Data) {
@@ -101,7 +102,7 @@
                         y: chart2Data[x][2]
                     }
                 } else {
-                    sumOther += chart2Data[x][2]?chart2Data[x][2]:0;
+                    sumOther += chart2Data[x][2] ? chart2Data[x][2] : 0;
                 }
             }
             newData[6] = {
@@ -155,23 +156,23 @@
      *加载设备分类统计
      * @param offset
      */
-    function loadReportFinishChart(offset) {
+    function loadReportFinishChart(reportMonth) {
         var seriesOptions = [];
         var option0, option1;
 
         option0 = {
             "name": "报修数量",
-            "data": get3MonthReportNum()
+            "data": get3MonthReportNum(reportMonth)
         };
         option1 = {
             "name": "完工数量",
-            "data": get3MonthFinishNum()
+            "data": get3MonthFinishNum(reportMonth)
         };
         seriesOptions.push(option0);
         seriesOptions.push(option1);
 
 
-        function get3MonthTitle() {
+        function get3MonthTitle(reportMonth) {
             var title = [];
             var date = new Date();
             title.push((date.getMonth() - 1) + "月");
@@ -181,7 +182,7 @@
         }
 
 
-        function get3MonthReportNum() {
+        function get3MonthReportNum(reportMonth) {
             $.ajaxSettings.async = false;
             var url = "/workOrderReport/sel3mRptNum";
             var reportNums = [];
@@ -253,12 +254,12 @@
      * 根据线路统计各状态的订单数量
      * @param offset
      */
-    function loadLineChart(offset) {
+    function loadLineChart(reportMonth) {
 
 
-        function getReportNumByLine(offset) {
+        function getReportNumByLine(reportMonth) {
             var reportLineNum = [];
-            var url = "/portal/getLineReportNum/";
+            var url = "/portal/getLineReportNum/"+reportMonth;
             $.getJSON(url, function (data) {
                 for (var x in data) {
                     reportLineNum[x] = data[x]["reportNum"];
@@ -268,9 +269,9 @@
         }
 
 
-        function getAbortNumByLine(offset) {
+        function getAbortNumByLine(reportMonth) {
             var abortLineNum = [];
-            var url = "/portal/getLineAbortNum";
+            var url = "/portal/getLineAbortNum/" + reportMonth;
             $.getJSON(url, function (data) {
                 for (var x in data) {
                     abortLineNum[x] = data[x]["abortNum"];
@@ -280,9 +281,9 @@
         }
 
 
-        function getFixedNumByLine(offset) {
+        function getFixedNumByLine(reportMonth) {
             var fixedLineNum = [];
-            var url = "/portal/getLineFixedNum";
+            var url = "/portal/getLineFixedNum/" + reportMonth;
             $.getJSON(url, function (data) {
                 for (var x in data) {
                     fixedLineNum[x] = data[x]["fixedNum"];
@@ -292,9 +293,9 @@
         }
 
 
-        function getFixingNumByLine(offset) {
+        function getFixingNumByLine(reportMonth) {
             var fixingLineNum = [];
-            var url = "/portal/getLineFixingNum";
+            var url = "/portal/getLineFixingNum/" + reportMonth;
             $.getJSON(url, function (data) {
                 for (var x in data) {
                     fixingLineNum[x] = data[x]["fixingNum"];
@@ -303,9 +304,9 @@
             return fixingLineNum;
         }
 
-        function getSuspendNumByLine(offset) {
+        function getSuspendNumByLine(reportMonth) {
             var suspendLineNum = [];
-            var url = "/portal/getLineSuspendNum";
+            var url = "/portal/getLineSuspendNum/" + reportMonth;
             $.getJSON(url, function (data) {
                 for (var x in data) {
                     suspendLineNum[x] = data[x]["suspendNum"];
@@ -330,7 +331,7 @@
                 type: 'column'
             },
             title: {
-                text: (new Date().getMonth() + 1 + offset) + '月维修单状态按线别统计'
+                text: reportMonth + '月维修单状态按线别统计'
             },
             xAxis: {
                 categories: lines,
@@ -368,27 +369,27 @@
             },
             series: [{
                 name: '待分配',
-                data: getReportNumByLine(offset)
+                data: getReportNumByLine(reportMonth)
 
             }, {
                 name: '维修中',
-                data: getFixingNumByLine(offset)
+                data: getFixingNumByLine(reportMonth)
 
             },
 
                 {
                     name: '完工',
-                    data: getFixedNumByLine(offset)
+                    data: getFixedNumByLine(reportMonth)
 
                 },
                 {
                     name: '暂停',
-                    data: getSuspendNumByLine(offset)
+                    data: getSuspendNumByLine(reportMonth)
 
                 },
                 {
                     name: '取消',
-                    data: getAbortNumByLine(offset)
+                    data: getAbortNumByLine(reportMonth)
 
                 }
             ]

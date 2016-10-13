@@ -6,6 +6,7 @@ import com.linkbit.beidou.service.portal.PortalService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -62,37 +63,37 @@ public class PortalController {
     }
 
 
-    @RequestMapping(value = "/getLineReportNum", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLineReportNum/{reportMonth}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VworkOrderLineNumReport> getLineReportNum() {
-        return portalService.getLineReportNum();
+    public List<VworkOrderLineNumReport> getLineReportNumReportMonth(@PathVariable("reportMonth") String reportMonth) {
+        return portalService.getLineReportNumReportMonth(reportMonth);
     }
 
 
-    @RequestMapping(value = "/getLineFixedNum", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLineFixedNum/{reportMonth}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VworkOrderLineNumFixed> getLineFixedNum() {
-        return portalService.getLineFixedNum();
+    public List<VworkOrderLineNumFixed> getLineFixedNumByReportMonth(@PathVariable("reportMonth") String reportMonth) {
+        return portalService.getLineFixedNumByReportMonth(reportMonth);
     }
 
 
-    @RequestMapping(value = "/getLineFixingNum", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLineFixingNum/{reportMonth}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VworkOrderLineNumFixing> getLineFixingNum() {
-        return portalService.getLineFixingNum();
+    public List<VworkOrderLineNumFixing> getLineFixingNumByReportMonth(@PathVariable("reportMonth") String reportMonth) {
+        return portalService.getLineFixingNumByReportMonth(reportMonth);
     }
 
-    @RequestMapping(value = "/getLineAbortNum", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLineAbortNum/{reportMonth}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VworkOrderLineNumAbort> getLineAbortNum() {
-        return portalService.getLineAbortNum();
+    public List<VworkOrderLineNumAbort> getLineAbortNumReportMonth(@PathVariable("reportMonth") String reportMonth) {
+        return portalService.getLineAbortNumReportMonth(reportMonth);
     }
 
 
-    @RequestMapping(value = "/getLineSuspendNum", method = RequestMethod.GET)
+    @RequestMapping(value = "/getLineSuspendNum/{reportMonth}", method = RequestMethod.GET)
     @ResponseBody
-    public List<VworkOrderLineNumSuspend> getLineSuspendNum() {
-        return portalService.getLineSuspendNum();
+    public List<VworkOrderLineNumSuspend> getLineSuspendNumByReportMonth(@PathVariable("reportMonth") String reportMonth) {
+        return portalService.getLineSuspendNumByReportMonth(reportMonth);
     }
 
 

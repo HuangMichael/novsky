@@ -20,5 +20,6 @@ public class VworkOrderLineNumFixing {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String line;
+    private String reportMonth;
     private Long fixingNum;
 }
