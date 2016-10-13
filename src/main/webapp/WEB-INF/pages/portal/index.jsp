@@ -104,7 +104,7 @@
                     sumOther += chart2Data[x][2] ? chart2Data[x][2] : 0;
                 }
             }
-            newData[6] = {
+            newData[5] = {
                 name: "其他分类",
                 y: sumOther
             }
