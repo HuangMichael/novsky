@@ -48,13 +48,12 @@ public class WorkOrderMatCostService {
     }
 
     /**
-     * @param ecType  分类
-     * @param locName 位置名称
-     * @param ecName  物资名称
+     * @param searchPhase 查询关键字
+     * @param pageable    分页
      * @return
      */
-    public List<MatCost> findByCondition(String ecType, String locName, String ecName) {
-        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName);
+    public Page<WorkOrderMatCost> findByCondition(String searchPhase, Pageable pageable) {
+        return workOrderMatCostRepository.findByOrderLineNoContainsOrMatNameContainsOrMatModelContains(searchPhase, searchPhase, searchPhase, pageable);
     }
 
 

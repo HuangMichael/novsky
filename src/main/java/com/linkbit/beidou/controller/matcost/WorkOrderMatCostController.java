@@ -58,7 +58,12 @@ public class WorkOrderMatCostController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<WorkOrderMatCost> page = workOrderMatCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
+        Page<WorkOrderMatCost> page = null;
+        if (searchPhrase != null && !searchPhrase.equals("")) {
+            page = workOrderMatCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
+        } else {
+            page = workOrderMatCostService.findByCondition(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        }
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
