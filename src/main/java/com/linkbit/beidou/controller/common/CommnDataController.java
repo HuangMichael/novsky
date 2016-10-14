@@ -153,14 +153,5 @@ public class CommnDataController extends BaseController {
         return commonDataService.getServerDate();
     }
 
-
-    /**
-     * @return 获得服务器时间
-     */
-    @RequestMapping(value = "/importExcel", method = RequestMethod.GET)
-    @ResponseBody
-    public List<MatCost> importExcel() throws Exception {
-        return commonDataService.importExcel();
-    }
 }
 

@@ -3,9 +3,11 @@ package com.linkbit.beidou.controller.matcost;
 
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.matCost.MatCost;
+import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
-import com.linkbit.beidou.service.matCost.MatCostService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.workOrderMatCost.WorkOrderMatCostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -32,7 +34,10 @@ public class WorkOrderMatCostController {
     ResourceService resourceService;
 
     @Autowired
-    MatCostService matCostService;
+    WorkOrderMatCostService workOrderMatCostService;
+
+    @Autowired
+    CommonDataService commonDataService;
 
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
@@ -41,6 +46,7 @@ public class WorkOrderMatCostController {
         modelMap.put("appMenus", appMenus);
         return "/workOrderMatCost/list";
     }
+
     /**
      * 分页查询
      *
@@ -52,12 +58,23 @@ public class WorkOrderMatCostController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<MatCost> page = matCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
+        Page<WorkOrderMatCost> page = workOrderMatCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
         myPage.setCurrent(current);
         myPage.setTotal(page.getTotalElements());
         return myPage;
+    }
+
+
+    /**
+     * @return 获得服务器时间
+     */
+    @RequestMapping(value = "/importExcel", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnObject importExcel() throws Exception {
+        String filePath = "d:/user.xls";
+        return workOrderMatCostService.importExcel(filePath);
     }
 }

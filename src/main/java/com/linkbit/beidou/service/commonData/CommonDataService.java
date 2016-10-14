@@ -357,29 +357,4 @@ public class CommonDataService extends BaseService {
     public List<Vequipments> findEqByLocIdAndEqcId(Long lid, Long cid) {
         return equipmentsRepository.findEqByLocIdAndEqcId(lid, cid);
     }
-
-
-    /**
-     * 获取导入的数据
-     */
-    public List<MatCost> importExcel() {
-        try {
-            InputStream is = new FileInputStream("D:/user.xls");
-            jxl.Workbook rwb = Workbook.getWorkbook(is);
-            Sheet rs = rwb.getSheet(0);
-            int colNum = rs.getColumns();
-            int rowNum = rs.getRows();
-            System.out.println(rowNum + "行" + colNum + "列" );
-            for (int r = 0; r < rowNum ; r++) {
-                for (int c = 0; c < colNum; c++) {
-                    Cell cell = rs.getCell(c, r);
-                    System.out.println("第" + r + "行 第" + c + "列:" + cell.getContents());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }

@@ -25,13 +25,13 @@ public class WorkOrderMatCost implements java.io.Serializable {
     private String orderLineNo; //维修单号
     @Column(length = 50)
     private String matName; //物资名称
-    @Column(length = 3)
+    @Column(length = 30)
     private String matModel; //物资型号
     @Column(length = 20)
     private Long matAmount; //数量
     @Column(length = 10)
     private Double matPrice; //单价
     @Column(length = 1, columnDefinition = "default 0")
-    private String dataSource; //数据来源  0导入 默认导入
+    private String dataType; //数据来源  0导入 默认导入
 
 }
