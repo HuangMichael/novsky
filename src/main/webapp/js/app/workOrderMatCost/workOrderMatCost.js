@@ -31,9 +31,10 @@ $(function () {
         dictResponseError: '上传文件错误!',
         //change the previewTemplate to use Bootstrap progress bars
         previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-sm progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
-        complete: function () {
-            $("#import_modal").modal("hide");
-            // refresh();
+        success: function () {
+            showMessageBox("info", "工单物资数据导入成功!");
+        }, error: function () {
+            showMessageBox("danger", "工单物资数据导入失败!");
         }
     });
 
@@ -58,6 +59,13 @@ function refresh() {
  */
 function importExcel() {
     $("#import_modal").modal("show");
+}
+
+
+function downExcel() {
+    var url = "\\docs\\wocost\\工单物资消耗模板.xls";
+    window.location.href = url;
+
 }
 
 

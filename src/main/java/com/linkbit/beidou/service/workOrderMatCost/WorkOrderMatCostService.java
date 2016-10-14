@@ -19,9 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,9 +73,15 @@ public class WorkOrderMatCostService {
     @Transactional
     public ReturnObject upload(MultipartFile file, HttpServletRequest request) {
         String contextPath = SessionUtil.getContextPath(request);
-
         System.out.println("文件类型:" + file.getContentType());
-        String realPath = "upload\\excel\\matcost\\工单物资消耗" + DateUtils.convertDate2Str(null, "yyyy-MM-dd-HH-mm-ss") + ".xls";
+        String contentType = "application/vnd.ms-excel";
+        if (!contentType.equals(file.getContentType())) {
+            System.out.println("-----------sb--------------");
+            return commonDataService.getReturnType(false, "上传文件格式有误，请重新上传!", "上传文件格式有误，请重新上传!");
+        }
+        System.out.println("-----------sp--------------");
+        String dir = "docs\\wocost";
+        String realPath = dir + "\\工单物资消耗" + DateUtils.convertDate2Str(null, "yyyy-MM-dd-HH-mm-ss") + ".xls";
         String filePath = contextPath + realPath;
         UploadUtil.uploadFile(file, filePath);
         return importExcel(filePath);
@@ -90,9 +98,18 @@ public class WorkOrderMatCostService {
         List<WorkOrderMatCost> workOrderMatCostList = readExcelData(filePath);
         List<WorkOrderMatCost> savedList = new ArrayList<WorkOrderMatCost>();
         for (WorkOrderMatCost workOrderMatCost : workOrderMatCostList) {
+            workOrderMatCost.setImportTime(new Date());
+            workOrderMatCost.setFileName(filePath);
             savedList.add(workOrderMatCostRepository.save(workOrderMatCost));
         }
-        return commonDataService.getReturnType(savedList != null, "工单物料消耗数据导入成功", "工单物料消耗数据导入失败");
+        //如果上传失败删除文件
+        if (savedList.isEmpty()) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        return commonDataService.getReturnType(!savedList.isEmpty(), "工单物料消耗数据导入成功", "工单物料消耗数据导入失败");
     }
 
 

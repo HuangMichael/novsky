@@ -71,7 +71,10 @@ public class WorkOrderMatCostController {
 
 
     /**
-     * @return 获得服务器时间
+     * @param file
+     * @param request
+     * @return 上传文件
+     * @throws Exception
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
@@ -81,7 +84,9 @@ public class WorkOrderMatCostController {
 
 
     /**
-     * @return 获得服务器时间
+     * @param filePath 文件路径
+     * @return 导入excel返回结果
+     * @throws Exception
      */
     @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
     @ResponseBody
