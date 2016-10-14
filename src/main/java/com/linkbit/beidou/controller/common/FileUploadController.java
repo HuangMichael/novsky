@@ -42,23 +42,17 @@ public class FileUploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional
-    public Locations handleFileUpload(@RequestParam("llid") Long llid, @RequestParam("name") String name, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public Boolean handleFileUpload(@RequestParam("llid") Long llid, @RequestParam("name") String name, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
         log.info("isMultipart-------------" + isMultipart);
-
         String contextPath = SessionUtil.getContextPath(request);
         String realPath = "img\\app\\locations\\" + name;
         String filePath = contextPath + realPath;
         log.info(contextPath);
         log.info(realPath);
         log.info(filePath);
-        UploadUtil.uploadFile(file, filePath);
-        Locations locations = locationsRepository.findById(llid);
-        locations.setImgUrl("/"+realPath.replace("\\","/"));
-        locations = locationsRepository.save(locations);
-        return locations;
+        return true;
 
     }
 }

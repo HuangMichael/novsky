@@ -37,6 +37,10 @@ public class DateUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         String dateStr = "";
         try {
+
+            if(date==null){
+                date = new Date();
+            }
             dateStr = simpleDateFormat.format(date);
         } catch (Exception e) {
             e.printStackTrace();

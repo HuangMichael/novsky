@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -58,12 +60,7 @@ public class WorkOrderMatCostController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<WorkOrderMatCost> page = null;
-        if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = workOrderMatCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
-        } else {
-            page = workOrderMatCostService.findByCondition(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        }
+        Page<WorkOrderMatCost> page = workOrderMatCostService.findByCondition(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -73,13 +70,24 @@ public class WorkOrderMatCostController {
     }
 
 
+
+
     /**
      * @return 获得服务器时间
      */
-    @RequestMapping(value = "/importExcel", method = RequestMethod.GET)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject importExcel() throws Exception {
-        String filePath = "d:/user.xls";
+    public ReturnObject upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+        return workOrderMatCostService.upload(file,request);
+    }
+
+
+    /**
+     * @return 获得服务器时间
+     */
+    @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject importExcel(@RequestParam("filePath") String filePath) throws Exception {
         return workOrderMatCostService.importExcel(filePath);
     }
 }

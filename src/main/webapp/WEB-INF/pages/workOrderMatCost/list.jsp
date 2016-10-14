@@ -67,4 +67,22 @@
     </div>
     <%@include file="../common/common-back2top.jsp" %>
 </div>
+
+
+<div class="modal fade " id="import_modal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">请选择导入的excel文件</h4>
+            </div>
+            <div class="modal-body">
+                <%@include file="matCostList.jsp" %>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/js/app/workOrderMatCost/workOrderMatCost.js"></script>

@@ -11,6 +11,10 @@ import java.io.FileOutputStream;
  * 上传附件工具类
  */
 public class UploadUtil {
+    /**
+     * @param file     二进制文件
+     * @param filePath 目标文件路径
+     */
     public static void uploadFile(MultipartFile file, String filePath) {
         if (!file.isEmpty()) {
             try {

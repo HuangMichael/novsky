@@ -12,6 +12,7 @@
 <script type="text/javascript" src="js/app/common/common-utils.js"></script>
 <script src="js/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="/js/select2/select2.cdn.js"></script>
+<script src="js/dropzone/dropzone.min.js"></script>
 <script src="js/script.js"></script>
 <script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
