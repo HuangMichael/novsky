@@ -3,7 +3,6 @@ package com.linkbit.beidou.service.workOrderMatCost;
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.dao.macCost.MatCostRepository;
 import com.linkbit.beidou.dao.macCost.WorkOrderMatCostRepository;
-import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -12,11 +11,9 @@ import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.UploadUtil;
 import jxl.Sheet;
 import jxl.Workbook;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,6 +71,8 @@ public class WorkOrderMatCostService {
     @Transactional
     public ReturnObject upload(MultipartFile file, HttpServletRequest request) {
         String contextPath = SessionUtil.getContextPath(request);
+
+        System.out.println("文件类型:" + file.getContentType());
         String realPath = "upload\\excel\\matcost\\工单物资消耗" + DateUtils.convertDate2Str(null, "yyyy-MM-dd-HH-mm-ss") + ".xls";
         String filePath = contextPath + realPath;
         UploadUtil.uploadFile(file, filePath);
@@ -89,10 +88,11 @@ public class WorkOrderMatCostService {
     @Transactional
     public ReturnObject importExcel(String filePath) {
         List<WorkOrderMatCost> workOrderMatCostList = readExcelData(filePath);
+        List<WorkOrderMatCost> savedList = new ArrayList<WorkOrderMatCost>();
         for (WorkOrderMatCost workOrderMatCost : workOrderMatCostList) {
-            workOrderMatCostRepository.save(workOrderMatCost);
+            savedList.add(workOrderMatCostRepository.save(workOrderMatCost));
         }
-        return commonDataService.getReturnType(!workOrderMatCostList.isEmpty(), "工单物料消耗数据导入成功", "工单物料消耗数据导入失败");
+        return commonDataService.getReturnType(savedList != null, "工单物料消耗数据导入成功", "工单物料消耗数据导入失败");
     }
 
 

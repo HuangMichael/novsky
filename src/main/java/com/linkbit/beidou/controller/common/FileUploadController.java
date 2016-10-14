@@ -2,16 +2,13 @@ package com.linkbit.beidou.controller.common;
 
 
 import com.linkbit.beidou.dao.locations.LocationsRepository;
-import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.utils.SessionUtil;
-import com.linkbit.beidou.utils.UploadUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;

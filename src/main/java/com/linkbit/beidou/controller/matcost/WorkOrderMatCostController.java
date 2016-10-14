@@ -70,15 +70,13 @@ public class WorkOrderMatCostController {
     }
 
 
-
-
     /**
      * @return 获得服务器时间
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
-        return workOrderMatCostService.upload(file,request);
+        return workOrderMatCostService.upload(file, request);
     }
 
 
