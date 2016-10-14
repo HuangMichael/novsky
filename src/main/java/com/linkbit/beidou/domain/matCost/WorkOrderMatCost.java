@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by huangbin
@@ -21,7 +22,7 @@ public class WorkOrderMatCost implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 100)
+    @Column(length = 20, unique = true)
     private String orderLineNo; //维修单号
     @Column(length = 50)
     private String matName; //物资名称
@@ -33,5 +34,9 @@ public class WorkOrderMatCost implements java.io.Serializable {
     private Double matPrice; //单价
     @Column(length = 1, columnDefinition = "default 0")
     private String dataType; //数据来源  0导入 默认导入
+    @Column(length = 100)
+    private String fileName;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date importTime; //数据来源  0导入 默认导入
 
 }
