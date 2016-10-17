@@ -32,7 +32,7 @@
                                         <%@include file="stationList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                        <%@include file="detail.jsp" %>
+                                      <%@include file="detail.jsp" %>
                                     </div>
                                 </div>
                             </div>

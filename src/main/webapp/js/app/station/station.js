@@ -121,7 +121,7 @@ function setAllInSelectedList(stations) {
 function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
+        return;
     } else {
         //  pointer = pointer - 1;
         //判断当前指针位置
@@ -138,7 +138,7 @@ function backwards() {
 function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-
+        return;
     } else {
         var station = getStationByIdInStations(selectedIds[++pointer]);
         vdm.station = station;
@@ -158,11 +158,11 @@ function edit() {
         setFormReadStatus("#detailForm", false, null);
     } else {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-
+        return;
     }
 }
 
-function save() {
+function saveUser() {
     $("#saveBtn").trigger("click");
 }
 
@@ -185,30 +185,7 @@ function setFormReadStatus(formId, formLocked, except) {
 }
 
 $(function () {
-    //  initLoadData("/station/findActiveStation", dataTableName);
-
-    $(dataTableName).bootgrid({
-        selection: true,
-        multiSelect: true,
-        rowSelect: false,
-        keepSelection: true
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        //如果默认全部选中
-        if (selectedIds.length === stations.length) {
-            selectedIds.clear();
-        }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
-    });
-
-
+    initLoadData("/station/findActiveStation", dataTableName);
     var url = "/line/findLines";
     $.getJSON(url, function (data) {
         lines = data;
