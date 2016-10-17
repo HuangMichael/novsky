@@ -143,4 +143,12 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findByNodeStateAndDeadLineLessThan(String nodeState, Date now);
 
 
+    /**
+     * @return 返回工单跟踪号
+     * 格式：年月+4位顺序号  16100001
+     */
+    @Query(nativeQuery = true, value = "select order_line_no from v_work_order_line_no_gen")
+    List<Object> genOrderLineNo();
+
+
 }

@@ -72,7 +72,7 @@ public class WorkOrderReportCartService extends BaseService {
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(equipments);
         //生成跟踪号
-        workOrderReportCart.setOrderLineNo("WF" + new Date().getTime());
+        workOrderReportCart.setOrderLineNo(workOrderReportCartRepository.genOrderLineNo().get(0).toString());
         workOrderReportCart.setLocations(equipments.getLocations());
         workOrderReportCart.setLocation(equipments.getLocations().getLocation());
         workOrderReportCart.setEquipmentsClassification(equipments.getEquipmentsClassification());
@@ -112,7 +112,7 @@ public class WorkOrderReportCartService extends BaseService {
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(null);
         //生成跟踪号
-        workOrderReportCart.setOrderLineNo("WF" + new Date().getTime());
+        workOrderReportCart.setOrderLineNo(workOrderReportCartRepository.genOrderLineNo().get(0).toString());
         Locations locations = locationsService.findById(locationId);
         if (locations != null) {
             workOrderReportCart.setLocations(locations);
