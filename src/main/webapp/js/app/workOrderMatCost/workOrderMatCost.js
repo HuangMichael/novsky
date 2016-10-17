@@ -62,9 +62,11 @@ function importExcel() {
 }
 
 
+/**
+ * 下载excel
+ */
 function downExcel() {
-    var url = "\\docs\\wocost\\工单物资消耗模板.xls";
-    window.location.href = url;
+    window.location.href = "/workOrderMatCost/download";
 
 }
 

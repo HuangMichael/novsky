@@ -8,6 +8,7 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.workOrderMatCost.WorkOrderMatCostService;
+import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -93,4 +100,12 @@ public class WorkOrderMatCostController {
     public ReturnObject importExcel(@RequestParam("filePath") String filePath) throws Exception {
         return workOrderMatCostService.importExcel(filePath);
     }
+
+
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public String download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return "redirect:/docs/wocost/mb.xls";
+    }
+
+
 }
