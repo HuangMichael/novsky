@@ -43,7 +43,8 @@
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu" id="dropdown">
-                     <li><a onclick="showUser()"><i class="fa fa-lock"></i>修改密码</a></li>
+                    <li><a onclick="reload()"><i class="fa fa-download"></i>重新加载</a></li>
+                    <li><a onclick="showUser()"><i class="fa fa-lock"></i>修改密码</a></li>
                     <li><a href="/"><i class="fa fa-power-off"></i>退出登录</a></li>
                 </ul>
             </li>
@@ -75,6 +76,17 @@
         });
     }
 
+
+    /**
+     * 重载session数据
+     */
+    function reload() {
+        var url = "/commonData/reload";
+        $.getJSON(url, function (data) {
+            showMessageBox("info", "数据加载成功");
+            console.log("data-----------" + JSON.stringify(data));
+        });
+    }
 
     $(function () {
         $("#reportOrder").on("click", function () {

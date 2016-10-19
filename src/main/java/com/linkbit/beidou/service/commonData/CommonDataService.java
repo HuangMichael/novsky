@@ -1,5 +1,6 @@
 package com.linkbit.beidou.service.commonData;
 
+import com.linkbit.beidou.dao.app.org.OrgRepository;
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
@@ -10,6 +11,7 @@ import com.linkbit.beidou.dao.line.StationRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.person.PersonRepository;
+import com.linkbit.beidou.domain.app.org.Org;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.equipments.VeqClass;
@@ -20,9 +22,13 @@ import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.service.line.LineService;
+import com.linkbit.beidou.service.line.StationService;
+import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import jxl.Cell;
 import jxl.Sheet;
@@ -31,12 +37,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.stream.Location;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -75,6 +83,19 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     EquipmentsRepository equipmentsRepository;
+
+    @Autowired
+    LocationsService locationsService;
+
+    @Autowired
+    StationService stationService;
+
+    @Autowired
+    LineService lineService;
+
+
+    @Autowired
+    OrgRepository orgRepository;
 
 
     /**
@@ -356,5 +377,28 @@ public class CommonDataService extends BaseService {
      */
     public List<Vequipments> findEqByLocIdAndEqcId(Long lid, Long cid) {
         return equipmentsRepository.findEqByLocIdAndEqcId(lid, cid);
+    }
+
+
+    /**
+     * @param session 会话
+     * @return 重载session值
+     */
+    public Boolean reload(User currentUser, HttpSession session) {
+
+        List<Line> lineList = lineService.findByStatus("1");
+        List<Station> stationList = stationService.findByStatus("1");
+        List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
+        List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
+        List<VeqClass> veqClassList = veqClassRepository.findAll();
+        List<Resource> menusList = findMenus(session);
+        session.setAttribute("locationsList", locationsList);
+        session.setAttribute("locList", locList);
+        session.setAttribute("veqClassList", veqClassList);
+        session.setAttribute("lineList", lineList);
+        session.setAttribute("stationList", stationList);
+        session.setAttribute("menusList", menusList);
+
+        return true;
     }
 }

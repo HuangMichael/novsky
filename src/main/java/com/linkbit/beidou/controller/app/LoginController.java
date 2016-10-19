@@ -94,24 +94,9 @@ public class LoginController {
         List<User> userList = userService.findByUserNameAndPasswordAndStatus(userName, encryptPassword, "1");
         if (!userList.isEmpty()) {
             User currentUser = userList.get(0);
-            List<Line> lineList = lineService.findByStatus("1");
-            List<Station> stationList = stationService.findByStatus("1");
-            List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
-            List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
-            List<VeqClass> veqClassList = veqClassRepository.findAll();
-            session.setAttribute("currentUser", currentUser);
-            session.setAttribute("personName", currentUser.getPerson().getPersonName());
-            List<Resource> menusList = commonDataService.findMenus(session);
-            Org org = orgRepository.findByStatus("1").get(0);
-            session.setAttribute("org", org);
-            session.setAttribute("locationsList", locationsList);
-            session.setAttribute("locList", locList);
-            session.setAttribute("veqClassList", veqClassList);
-            session.setAttribute("lineList", lineList);
-            session.setAttribute("stationList", stationList);
-
-            session.setAttribute("menusList", menusList);
-
+            if (currentUser != null) {
+                commonDataService.reload(currentUser, session);
+            }
             return "redirect:/portal/index";
         } else {
             return "/index";
