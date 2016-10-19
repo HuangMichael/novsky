@@ -103,4 +103,15 @@ public class PreMaintController extends BaseController {
         preMaint = preMaintService.save(preMaint);
         return commonDataService.getReturnType(preMaint != null, "预防性维修信息保存成功", "预防性维修信息保存失败");
     }
+
+
+    /**
+     * 保存信息
+     */
+    @RequestMapping(value = "/delete/{id}")
+    @ResponseBody
+    public ReturnObject delete(@PathVariable("id") Long id) {
+        Boolean result = preMaintService.delete(id);
+        return commonDataService.getReturnType(result, "预防性维修信息保存成功", "预防性维修信息保存失败");
+    }
 }
