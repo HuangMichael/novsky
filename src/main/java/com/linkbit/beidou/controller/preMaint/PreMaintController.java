@@ -6,7 +6,9 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class PreMaintController extends BaseController {
     PreMaintService preMaintService;
     @Autowired
     ResourceService resourceService;
+
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
      * 分页查询
@@ -86,5 +91,16 @@ public class PreMaintController extends BaseController {
     @ResponseBody
     public List<Long> selectAllId() {
         return preMaintService.selectAllId();
+    }
+
+
+    /**
+     * 保存信息
+     */
+    @RequestMapping(value = "/save")
+    @ResponseBody
+    public ReturnObject save(PreMaint preMaint) {
+        preMaint = preMaintService.save(preMaint);
+        return commonDataService.getReturnType(preMaint != null, "预防性维修信息保存成功", "预防性维修信息保存失败");
     }
 }

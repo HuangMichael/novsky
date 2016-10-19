@@ -32,25 +32,11 @@
                 </template>
             </select>
         </div>
-        <%--<label for="eq_class_id" class="col-md-1 control-label">分类</label>
-        <div class="col-md-3">
-            <select v-model="pm.equipment.eqClassification.id" class="form-control" id="eq_class_id" name="eqClass.id"
-                    required style="width:100%" required>
-                <template v-for="option in eqClasses">
-                    <option :value="option.id" v-if="option.id == pm.equipment.eqClassification.id" selected>
-                        {{option.cpName }}{{option.cname }}
-                    </option>
-                    <option :value="option.id" v-else>
-                        {{option.cpName }}{{option.cname }}
-                    </option>
-                </template>
-            </select>
-        </div>--%>
         <label for="locations_id" class="col-md-1 control-label">设备</label>
         <div class="col-md-3">
-            <select v-model="pm.equipment.id" class="form-control" id="equipment_id" name="equipment_id.id"
+            <select v-model="pm.equipment.id" class="form-control" id="equipment_id" name="equipment.id"
                     required style="width:100%" required>
-                <template v-for="option in locs">
+                <template v-for="option in eqs">
                     <option :value="option.id" v-if="option.id == pm.equipment.id" selected>
                         {{option.eqName }}
                     </option>
@@ -64,7 +50,7 @@
         <div class="col-md-3">
             <select class="form-control" id="status" name="status" required v-model="pm.status"
                     style="width:100%" required>
-                <template v-for="option in pmStatuses">
+                <template v-for="option in statuses">
                     <option :value="option.key" v-if="option.key == pm.status" selected>
                         {{ option.text }}
                     </option>
@@ -87,7 +73,7 @@
             <select class="form-control" id="unit" name="unit"
                     required v-model="pm.unit"
                     style="width:100%;background-color:#ffffce" required>
-                <template v-for="option in units">
+                <template v-for="option in f_units">
                     <option :value="option.key" v-if="option.key == pm.unit" selected>
                         {{ option.text }}
                     </option>
@@ -99,15 +85,14 @@
         </div>
         <label for="unit_id" class="col-md-1 control-label">维修单位</label>
         <div class="col-md-3">
-            <select class="form-control" id="unit_id" name="unit.id"
-                    required v-model="pm.outUnit.id"
+            <select class="form-control" id="unit_id" name="outUnit.id" required v-model="pm.outUnit.id"
                     style="width:100%;background-color:#ffffce" required>
                 <template v-for="option in units">
-                    <option :value="option.key" v-if="option.key == pm.unit" selected>
-                        {{ option.text }}
+                    <option :value="option.id" v-if="option.id == pm.outUnit.id" selected>
+                        {{ option.description }}
                     </option>
-                    <option :value="option.key" v-else>
-                        {{ option.text }}
+                    <option :value="option.id" v-else>
+                        {{ option.description }}
                     </option>
                 </template>
             </select>

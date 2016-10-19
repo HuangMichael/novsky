@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 预防性维修值对象视图
@@ -30,4 +31,6 @@ public class VpreMaint {
     private String eqClass;//设备分类
     private String outUnit; //外委单位
     private String status; //状态
+    private String createBy; //创建人
+    private Date createTime; //创建时间
 }

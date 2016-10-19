@@ -266,3 +266,21 @@ function getFilePath(obj) {
     }
 }
 
+/**
+ *
+ * @param formId 设置form为只读
+ */
+function setFormReadStatus(formId, formLocked, except) {
+    if (formLocked) {
+        $(formId + " input").attr("readonly", "readonly");
+        $(formId + " select").attr("disabled", "disabled");
+    } else {
+        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
+        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
+        // $(formId + " #status").attr("disabled", "disabled");
+        for (var x in except) {
+            $("#" + except[x]).attr("readonly", "readonly");
+        }
+    }
+}
+

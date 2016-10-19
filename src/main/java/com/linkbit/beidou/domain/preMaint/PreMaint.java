@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by huangbin on 2016年10月9日11:42:09
@@ -54,8 +55,16 @@ public class PreMaint {
 
 
     @Column(length = 1, columnDefinition = "default 1")
-    private String status; //默认为正常  0不正常 1正常  2报修   3报废
+    private String status; // 1 已执行 0未执行
 
     @Column(length = 20)
     private String location; //加入冗余字段location 方便模糊查询
+
+
+    @Column(length = 20)
+    private String createBy; //创建人
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createTime; //创建时间
 }

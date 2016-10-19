@@ -64,4 +64,12 @@ public class PreMaintService extends BaseService {
 
         return preMaintRepository.selectAllId();
     }
+    
+    /**
+     * @param preMaint 预防性维修信息
+     * @return 保存预防性维修信息
+     */
+    public PreMaint save(PreMaint preMaint) {
+        return preMaintRepository.save(preMaint);
+    }
 }
