@@ -15,7 +15,7 @@ import javax.persistence.*;
  * 预防性维修
  */
 @Entity
-@Table(name = "T_PRE_MAINTAIN")
+@Table(name = "T_PRE_MAINT")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

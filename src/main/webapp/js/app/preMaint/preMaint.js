@@ -14,7 +14,7 @@ $(function () {
     //初始化从数据库获取列表数据
     //initLoadData("/outsourcingUnit/findAll", dataTableName);
 
-    $("#dataTableName").bootgrid();
+    $(dataTableName).bootgrid();
 
     $('select').select2({theme: "bootstrap"});
     // 表单ajax提交
@@ -285,7 +285,7 @@ function deleteUnit() {
                 type: "GET",
                 url: url,
                 success: function (msg) {
-                    showMessageBoxCenter("info", "center", "外委单位信息删除成功 ");
+                    showMessageBoxCenter("info", "center", "外委单位信息删除成功");
                 },
                 error: function (msg) {
                     showMessageBoxCenter("danger", "center", "删除失败，请联系管理员操作!");

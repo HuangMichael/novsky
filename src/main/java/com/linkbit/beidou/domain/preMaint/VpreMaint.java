@@ -13,7 +13,7 @@ import javax.persistence.*;
  * @create 2016-10-09 14:08
  **/
 @Entity
-@Table(name = "V_PRE_MAINTAIN")
+@Table(name = "V_PRE_MAINT")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

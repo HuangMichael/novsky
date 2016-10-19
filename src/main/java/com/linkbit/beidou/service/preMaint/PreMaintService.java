@@ -3,6 +3,7 @@ package com.linkbit.beidou.service.preMaint;
 import com.linkbit.beidou.dao.preMaint.PreMaintRepository;
 import com.linkbit.beidou.dao.preMaint.VpreMaintRepository;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,10 +33,18 @@ public class PreMaintService extends BaseService {
         return preMaintRepository.findAll(pageable);
     }
 
+    /**
+     * @return 查询所有
+     */
+    public Page<VpreMaint> findAllv(Pageable pageable) {
 
-    public Page<PreMaint> findByPmDescContains(String desc, Pageable pageable) {
+        return vpreMaintRepository.findAll(pageable);
+    }
 
-        return preMaintRepository.findByDescriptionContains(desc, pageable);
+
+    public Page<VpreMaint> findByPmDescContains(String desc, Pageable pageable) {
+
+        return vpreMaintRepository.findByPmDescContaining(desc, pageable);
     }
 
 

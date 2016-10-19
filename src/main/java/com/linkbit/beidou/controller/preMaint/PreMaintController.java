@@ -5,6 +5,7 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -43,13 +44,8 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<PreMaint> page = null;
-        if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = preMaintService.findByPmDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        } else {
-            page = preMaintService.findAll(new PageRequest(current - 1, rowCount.intValue()));
-        }
+        Page<VpreMaint>
+                page = preMaintService.findByPmDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
