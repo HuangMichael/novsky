@@ -114,4 +114,19 @@ public class PreMaintController extends BaseController {
         Boolean result = preMaintService.delete(id);
         return commonDataService.getReturnType(result, "预防性维修信息保存成功", "预防性维修信息保存失败");
     }
+
+
+    /**
+     * 生成预防性维修工单
+     *
+     * @param pmId
+     * @param deadLine
+     * @return
+     */
+    @RequestMapping(value = "/genPmOrder")
+    @ResponseBody
+    public ReturnObject generatePmOrder(@RequestParam("pmId") Long pmId, @RequestParam("deadLine") String deadLine) {
+        List<PreMaint> preMaintList = preMaintService.generatePmOrder(pmId, deadLine);
+        return commonDataService.getReturnType(preMaintList != null, "预防性维修信息生成成功", "预防性维修信息生成失败");
+    }
 }

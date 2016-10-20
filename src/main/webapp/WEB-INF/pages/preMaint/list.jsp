@@ -46,4 +46,38 @@
     </div>
     <%@include file="../common/common-back2top.jsp" %>
 </div>
+
+<div class="modal fade " id="confirm_modal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">请选择预防性维修工单截止日期</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal myform" role="form" id="form">
+                            <label class="col-md-3 control-label" for="deadLine">截止日期</label>
+                            <div class="col-md-5">
+                                <input class="Wdate form-control" id="deadLine"
+                                       onLoad="WdatePicker({minDate:'%y-%M-%d'})"
+                                       onClick="WdatePicker({minDate:'%y-%M-%d'})" name="deadLine"
+                                       style="height:34px;border:1px solid #cccccc"/>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger" onclick="generateOrder()">
+                                    生成工单
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/js/app/preMaint/preMaint.js"></script>

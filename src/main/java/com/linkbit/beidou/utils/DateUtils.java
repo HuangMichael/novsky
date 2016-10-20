@@ -1,5 +1,6 @@
 package com.linkbit.beidou.utils;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,7 +38,7 @@ public class DateUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         String dateStr = "";
         try {
-            if(date==null){
+            if (date == null) {
                 date = new Date();
             }
             dateStr = simpleDateFormat.format(date);

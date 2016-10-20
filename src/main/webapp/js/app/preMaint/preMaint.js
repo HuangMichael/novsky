@@ -66,7 +66,12 @@ $(function () {
             selection: true,
             multiSelect: true,
             rowSelect: false,
-            keepSelection: true
+            keepSelection: true,
+            formatters: {
+                "generateOrder": function (column, row) {
+                    return '<a class="btn btn-default btn-xs"  onclick="popGen(' + row.id + ')" title="生成工单" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                }
+            }
         }
     ).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
@@ -258,7 +263,6 @@ function getPmByIdRomote(pid) {
     var pm = null;
     var url = "/preMaint/findById/" + pid;
     $.getJSON(url, function (data) {
-        console.log("----------------" + JSON.stringify(data));
         pm = data;
     });
     return pm;
@@ -400,5 +404,45 @@ function forwards() {
         pmDetail.$set("pm", pm);
     }
 }
+
+
+/**
+ * 生成工单
+ */
+function popGen(pmId) {
+
+    $("#confirm_modal").data("pmId", pmId).modal("show");
+}
+
+
+/**
+ * 生成工单
+ */
+function generateOrder() {
+    var deadLine = $("#deadLine").val();
+    console.log("deadLine---------" + deadLine);
+    var pmId = $("#confirm_modal").data("pmId");
+
+    var url = "/preMaint/genPmOrder";
+
+    var obj = {
+        pmId: pmId,
+        deadLine: deadLine
+    };
+    $.post(url, obj, function (data) {
+
+        if (data.result) {
+            $("#confirm_modal").modal("hide");
+            showMessageBox("info", data["resultDesc"]);
+        } else {
+            showMessageBox("danger", data["resultDesc"]);
+        }
+    });
+}
+
+
+
+
+
 
 

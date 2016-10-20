@@ -65,6 +65,13 @@ public class PreMaint {
     private String createBy; //创建人
 
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime; //创建时间
+    @Column(length = 20)
+    private String createTime; //创建时间
+
+
+    @Column(length = 20)
+    private String latestTime; //最近执行时间
+
+    @Column(length = 20)
+    private String nextTime; //下个时间
 }

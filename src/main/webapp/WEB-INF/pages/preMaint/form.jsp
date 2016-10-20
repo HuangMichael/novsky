@@ -16,6 +16,11 @@
             <input class="form-control" id="description" type="text" name="description" required
                    v-model="pm.description"/>
         </div>
+        <label for="createBy" class="col-md-1 control-label">创建人</label>
+        <div class="col-md-3">
+            <input class="form-control" id="createBy" type="text" name="createBy" required
+                   v-model="pm.createBy"/>
+        </div>
     </div>
     <div class="form-group">
         <label for="locations_id" class="col-md-1 control-label">位置</label>
@@ -98,9 +103,30 @@
             </select>
         </div>
     </div>
+
     <div class="form-group">
 
+        <label class="col-md-1 control-label" for="createTime">创建日期</label>
+        <div class="col-md-3">
+            <input class="Wdate form-control" id="createTime" onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
+                   onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="createTime" v-model="pm.createTime"
+                   style="height:34px;border:1px solid #cccccc"/>
+        </div>
+
+        <label class="col-md-1 control-label" for="frequency">最近日期</label>
+        <div class="col-md-3">
+            <input class="Wdate form-control" id="latestTime" onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
+                   onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="latestTime" v-model="pm.latestTime"
+                   style="height:34px;border:1px solid #cccccc"/>
+        </div>
+        <label for="applyDate" class="col-md-1 control-label ">下次日期</label>
+        <div class="col-md-3 ">
+            <input class="Wdate form-control" id="applyDate" onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
+                   onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="nextTime" v-model="pm.nextTime"
+                   style="height:34px;border:1px solid #cccccc"/>
+        </div>
     </div>
+
     <div class="modal-footer">
         <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
         </button>

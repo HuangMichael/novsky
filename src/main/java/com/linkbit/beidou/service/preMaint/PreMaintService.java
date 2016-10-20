@@ -5,10 +5,12 @@ import com.linkbit.beidou.dao.preMaint.VpreMaintRepository;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -82,4 +84,33 @@ public class PreMaintService extends BaseService {
         preMaintRepository.delete(id);
         return preMaintRepository.findOne(id) == null;
     }
+
+
+    /**
+     * @param id       根据id删除
+     * @param deadLine
+     * @return
+     */
+    @Transactional
+    public List<PreMaint> generatePmOrder(Long id, String deadLine) {
+        // TODO: 2016/10/20  根据id获取周期和单位
+
+        PreMaint preMaint = preMaintRepository.findOne(id);
+        long frequency = 0;
+        String unit = "";
+        if (null != preMaint) {
+            frequency = preMaint.getFrequency();
+            unit = preMaint.getUnit();
+
+        }
+
+
+        //TODO:2016-10-20  根据deadLine计算出周期数 按照每个周期生成工单
+
+
+        preMaintRepository.delete(id);
+        return null;
+    }
+
+
 }

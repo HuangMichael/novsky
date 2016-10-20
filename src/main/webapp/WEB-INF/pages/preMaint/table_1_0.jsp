@@ -14,6 +14,7 @@
         <th data-column-id="frequency" data-width="5%">频率</th>
         <th data-column-id="unit" data-width="5%">单位</th>
         <th data-column-id="outUnit" data-width="15%">维修单位</th>
+        <th data-column-id="generateOrder" data-width="5%" data-formatter="generateOrder">生成工单</th>
     </tr>
     </thead>
 </table>
