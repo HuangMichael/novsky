@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -126,7 +127,7 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/genPmOrder")
     @ResponseBody
     public ReturnObject generatePmOrder(@RequestParam("pmId") Long pmId, @RequestParam("deadLine") String deadLine) {
-        List<PreMaint> preMaintList = preMaintService.generatePmOrder(pmId, deadLine);
+        List<WorkOrderReportCart> preMaintList = preMaintService.generatePmOrder(pmId, deadLine);
         return commonDataService.getReturnType(preMaintList != null, "预防性维修信息生成成功", "预防性维修信息生成失败");
     }
 }

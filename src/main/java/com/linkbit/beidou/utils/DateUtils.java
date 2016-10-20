@@ -2,8 +2,10 @@ package com.linkbit.beidou.utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/24.
@@ -105,5 +107,40 @@ public class DateUtils {
         Date outDate = calendar.getTime();
 
         return outDate;
+    }
+
+    /**
+     * @param beginDate
+     * @param endDate   结束日期
+     * @param num
+     * @param type
+     * @return 返回日期list
+     */
+    public static List<Date> digDateList(Date beginDate, Date endDate, int num, int type) {
+
+        // 0 DAY  1 WEEK 2 MONTH  3 QUARTER  4 YEAR
+        List<Date> dateList = new ArrayList<Date>();
+        Calendar calendar = Calendar.getInstance();
+        if (beginDate.after(endDate)) {
+            return dateList;
+        } else {
+            while (calendar.getTime().before(endDate)) {
+                switch (type) {
+                    case 0:
+                        calendar.add(Calendar.DATE, num);
+                    case 1:
+                        calendar.add(Calendar.DATE, num * 7);
+                    case 2:
+                        calendar.add(Calendar.MONTH, num);
+                    case 3:
+                        calendar.add(Calendar.MONTH, num * 3);
+                    case 4:
+                        calendar.add(Calendar.YEAR, num);
+                }
+                dateList.add(calendar.getTime());
+            }
+        }
+        System.out.println("dateList------" + dateList.size());
+        return dateList;
     }
 }

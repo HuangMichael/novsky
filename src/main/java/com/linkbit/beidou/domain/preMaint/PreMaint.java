@@ -47,11 +47,11 @@ public class PreMaint {
     private OutsourcingUnit outUnit; //外委单位
 
 
-    @Column(length = 20)
-    private Long frequency; //频率
+    @Column(length = 3)
+    private int frequency; //频率
 
-    @Column(length = 20)
-    private String unit; //单位
+    @Column(length = 1)
+    private int unit; //单位
 
 
     @Column(length = 1, columnDefinition = "default 1")
