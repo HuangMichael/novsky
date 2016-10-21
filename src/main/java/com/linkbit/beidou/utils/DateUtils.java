@@ -117,13 +117,13 @@ public class DateUtils {
      * @return 返回日期list
      */
     public static List<Date> digDateList(Date beginDate, Date endDate, int num, int type) {
-
         // 0 DAY  1 WEEK 2 MONTH  3 QUARTER  4 YEAR
         List<Date> dateList = new ArrayList<Date>();
         Calendar calendar = Calendar.getInstance();
         if (beginDate.after(endDate)) {
             return dateList;
         } else {
+            calendar.setTime(beginDate);
             while (calendar.getTime().before(endDate)) {
                 switch (type) {
                     case 0:

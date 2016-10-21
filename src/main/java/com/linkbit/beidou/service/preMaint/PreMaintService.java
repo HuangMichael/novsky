@@ -112,16 +112,17 @@ public class PreMaintService extends BaseService {
             unit = preMaint.getUnit();
             // 0 DAY 1 WEEK 2 MONTH 3 QUARTER 4 YEAR
             try {
-                endDate = DateUtils.convertStr2Date(deadLine, "yyyy-MM-dd");
-                nextDate = DateUtils.convertStr2Date(preMaint.getNextTime(), "yyyy-MM-dd");
+                nextDate = DateUtils.convertStr2Date(deadLine, "yyyy-MM-dd");
+                endDate = DateUtils.convertStr2Date(preMaint.getNextTime(), "yyyy-MM-dd");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            dateList = DateUtils.digDateList(nextDate, endDate, frequency, unit);
-
-            for (int i = 0; i < dateList.size(); i++) {
+            long a = nextDate.getTime() - endDate.getTime();
+            System.out.println("=" + a / (1000 * 3600 * 24) + "天");
+            int dayNum = (int) (a / (1000 * 3600 * 24));
+            for (int i = 0; i < dayNum; i++) {
                 WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
-                workOrderReportCart.setOrderLineNo("PM" + preMaint.getPmCode()+i);
+                workOrderReportCart.setOrderLineNo("PM" + preMaint.getPmCode() + i);
                 workOrderReportCart.setOrderDesc(preMaint.getDescription());
                 workOrderReportCart.setCreator(preMaint.getCreateBy());
                 workOrderReportCart.setEquipments(preMaint.getEquipment());

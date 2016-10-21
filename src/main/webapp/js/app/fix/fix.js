@@ -22,7 +22,7 @@ $(document).ready(function () {
         }
     });
 
-    fillColor(709);
+    //fillColor(709);
 
     $('#fixListTable1').bootgrid();
 
