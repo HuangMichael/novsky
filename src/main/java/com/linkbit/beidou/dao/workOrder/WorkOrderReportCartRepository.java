@@ -4,6 +4,8 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.MonthEqClassRank;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -124,6 +126,16 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      */
     @OrderBy("id desc")
     List<WorkOrderReportCart> findByLocationStartingWithAndNodeState(String location, String nodeState);
+
+
+    /**
+     * @param orderDesc
+     * @param reportType
+     * @param pageable  可分页
+     * @return 根据位置和节点的状态查询
+     */
+    @OrderBy("id desc")
+    Page<WorkOrderReportCart> findByOrderDescContainingAndReportType(String orderDesc, String reportType, Pageable pageable);
 
 
     /**

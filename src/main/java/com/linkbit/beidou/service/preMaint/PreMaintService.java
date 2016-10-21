@@ -1,10 +1,12 @@
 package com.linkbit.beidou.service.preMaint;
 
 import com.linkbit.beidou.dao.preMaint.PreMaintRepository;
+import com.linkbit.beidou.dao.preMaint.VpreMaintOrderRepository;
 import com.linkbit.beidou.dao.preMaint.VpreMaintRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaintOrder;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.DateUtils;
@@ -32,6 +34,10 @@ public class PreMaintService extends BaseService {
     PreMaintRepository preMaintRepository;
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
+
+
+    @Autowired
+    VpreMaintOrderRepository vpreMaintOrderRepository;
 
     /**
      * @return 查询所有
@@ -130,11 +136,25 @@ public class PreMaintService extends BaseService {
                 workOrderReportCart.setLocation(preMaint.getLocation());
                 workOrderReportCart.setEquipmentsClassification(preMaint.getEquipment().getEquipmentsClassification());
                 workOrderReportCart.setReportType("p");
+                workOrderReportCart.setUnit(preMaint.getOutUnit());
+                workOrderReportCart.setReporter(preMaint.getCreateBy());
+                workOrderReportCart.setReportTime(new Date());
+                workOrderReportCart.setNodeState("已派工");
                 workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
                 pmOrderList.add(workOrderReportCart);
             }
         }
         // 根据deadLine计算出周期数 按照每个周期生成工单
         return pmOrderList;
+    }
+
+
+    /**
+     * @param orderDesc 维修描述
+     * @param pageable
+     * @return
+     */
+    public Page<VpreMaintOrder> findByOrderDescContaining(String orderDesc, Pageable pageable) {
+        return vpreMaintOrderRepository.findByOrderDescContaining(orderDesc, pageable);
     }
 }

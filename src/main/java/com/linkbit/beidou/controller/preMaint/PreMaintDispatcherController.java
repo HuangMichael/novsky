@@ -6,11 +6,13 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaintOrder;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
+import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -38,6 +40,9 @@ public class PreMaintDispatcherController extends BaseController {
     @Autowired
     CommonDataService commonDataService;
 
+    @Autowired
+    WorkOrderReportCartService workOrderReportCartService;
+
     /**
      * 分页查询
      *
@@ -48,9 +53,9 @@ public class PreMaintDispatcherController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VpreMaint>
-                page = preMaintService.findByPmDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<VpreMaintOrder> page =
+                preMaintService.findByOrderDescContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);

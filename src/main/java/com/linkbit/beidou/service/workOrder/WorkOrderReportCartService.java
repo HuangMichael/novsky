@@ -225,6 +225,20 @@ public class WorkOrderReportCartService extends BaseService {
         return workOrderReportCartList;
     }
 
+
+    /**
+     * @param orderDesc
+     * @param pageable
+     * @return 根据状态查询所有报修车信息
+     */
+    public Page<WorkOrderReportCart> findByOrderDescContainingAndReportType(String orderDesc, String reportType, Pageable pageable) {
+        Page<WorkOrderReportCart> workOrderReportCartList = null;
+        if (orderDesc != null) {
+            workOrderReportCartList = workOrderReportCartRepository.findByOrderDescContainingAndReportType(orderDesc, reportType, pageable);
+        }
+        return workOrderReportCartList;
+    }
+
     /**
      * @param location
      * @return 根据状态查询所有报修车信息

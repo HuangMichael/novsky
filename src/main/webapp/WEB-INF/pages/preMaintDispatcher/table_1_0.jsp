@@ -1,20 +1,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table id="pmDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"
-       data-ajax="true" data-url="/preMaint/data">
+<table id="pmOrderList" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"
+       data-ajax="true" data-url="/preMaintDispatcher/data">
     <thead>
     <tr>
-        <th data-column-id="id" data-width="5%">序号</th>
-        <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false" data-width="10%">ID</th>
-        <th data-column-id="pmCode" data-width="5%">编号</th>
-        <th data-column-id="pmDesc" data-width="15%">名称</th>
-        <th data-column-id="locName" data-width="10%">设备位置</th>
+        <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+        <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
         <th data-column-id="eqName" data-width="10%">设备名称</th>
+        <th data-column-id="locName" data-width="15%">设备位置</th>
         <th data-column-id="eqClass" data-width="10%">设备分类</th>
-        <th data-column-id="frequency" data-width="5%">频率</th>
-        <th data-column-id="unit" data-width="5%">单位</th>
-        <th data-column-id="outUnit" data-width="15%">维修单位</th>
-        <th data-column-id="generateOrder" data-width="5%" data-formatter="generateOrder">生成工单</th>
+        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
+        <th data-column-id="reportTime" data-width="10%">生成时间</th>
+        <th data-column-id="reporter" data-width="5%">操作人员</th>
+        <th data-column-id="nodeState" data-width="5%">工单状态</th>
+        <th data-column-id="opMenus" data-formatter="opMenus" data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
+        </th>
     </tr>
     </thead>
 </table>
+
+<div class="modal fade " id="fix_desc_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="fix_desc_modal_label">请输入维修描述</h4>
+            </div>
+            <div class="modal-body" id="fix_desc_modal_div">
+                <%@include file="fixDescForm.jsp" %>
+            </div>
+        </div>
+    </div>
+</div>
