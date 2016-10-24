@@ -156,11 +156,12 @@ public class PreMaintService extends BaseService {
 
 
     /**
+     * @param nodeState 节点状态
      * @param orderDesc 维修描述
      * @param pageable
      * @return
      */
-    public Page<VpreMaintOrder> findByOrderDescContaining(String orderDesc, Pageable pageable) {
-        return vpreMaintOrderRepository.findByOrderDescContaining(orderDesc, pageable);
+    public Page<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc, Pageable pageable) {
+        return vpreMaintOrderRepository.findByNodeStateAndOrderDescContaining(nodeState, orderDesc, pageable);
     }
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <table id="pmOrderList0" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"
-       data-ajax="true" data-url="/preMaintDispatcher/data">
+       data-ajax="true" data-url="/preMaintDispatcher/data/0">
     <thead>
     <tr>
         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>

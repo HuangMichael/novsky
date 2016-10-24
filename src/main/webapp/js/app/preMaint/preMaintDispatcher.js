@@ -14,14 +14,7 @@ $(document).ready(function () {
 
     $('#pmOrderList1').bootgrid({
         columnSelection: 1,
-        rowCount: [10, 20, 25, -1],
-        formatters: {
-            "opMenus": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
-            }
-        }
+        rowCount: [10, 20, 25, -1]
     });
 
     $('#pmOrderList2').bootgrid({
@@ -38,14 +31,7 @@ $(document).ready(function () {
 
     $('#pmOrderList3').bootgrid({
         columnSelection: 1,
-        rowCount: [10, 20, 25, -1],
-        formatters: {
-            "opMenus": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
-            }
-        }
+        rowCount: [10, 20, 25, -1]
     });
 
 

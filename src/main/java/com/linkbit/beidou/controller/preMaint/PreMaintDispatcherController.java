@@ -52,10 +52,15 @@ public class PreMaintDispatcherController extends BaseController {
      * @param searchPhrase 查询关键字
      * @return
      */
-    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @RequestMapping(value = "/data/{ns}", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VpreMaintOrder> page =  preMaintService.findByOrderDescContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+    public MyPage data(@PathVariable("ns") int nodeState, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        String nodeStateArray[] = {"已派工", "已完工", "已暂停", "已取消"};
+        String nodeStateStr = "";
+        if (nodeState >= 0) {
+            nodeStateStr = nodeStateArray[nodeState];
+        }
+        Page<VpreMaintOrder> page = preMaintService.findByNodeStateOrderDescContaining(nodeStateStr, searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
