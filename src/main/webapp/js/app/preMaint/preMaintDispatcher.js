@@ -80,22 +80,6 @@ function finish(id) {
     dealResult(orderId, operationType, operationDesc);
 }
 
-
-/**
- *  调整维修期限
- * @param id
- */
-function adjust(id) {
-    var orderId = id;
-    var url = "/workOrderFix/getCellingDate/" + orderId;
-    $("#orderId").val(orderId);
-    $.getJSON(url, function (data) {
-        $("#fixAdjust0").val(transformDate(data));
-        $("#fix_adjust_modal").modal("show");
-    })
-}
-
-
 /**
  *
  * @param id 暂停

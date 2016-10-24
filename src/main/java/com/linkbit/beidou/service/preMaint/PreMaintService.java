@@ -109,7 +109,6 @@ public class PreMaintService extends BaseService {
      */
     @Transactional
     public List<PreMaintWorkOrder> generatePmOrder(Long id, String deadLine) {
-        // TODO: 2016/10/20  根据id获取周期和单位
         List<PreMaintWorkOrder> pmOrderList = new ArrayList<PreMaintWorkOrder>();
         PreMaint preMaint = preMaintRepository.findOne(id);
         int frequency, unit;
@@ -120,13 +119,15 @@ public class PreMaintService extends BaseService {
             unit = preMaint.getUnit();
             // 1 DAY 2 MONTH 3 YEAR
             try {
+                String nextTime = preMaint.getNextTime();
+                if (nextTime == null || nextTime.equals("")) {
+                    preMaint.setNextTime(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd"));
+                }
                 nextDate = DateUtils.convertStr2Date(preMaint.getNextTime(), "yyyy-MM-dd");
                 endDate = DateUtils.convertStr2Date(deadLine, "yyyy-MM-dd");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("下次维修日期-----------" + nextDate.toString());
-            System.out.println("选择截止日期-----------" + endDate.toString());
             // 先将下一个日期和选择日期对比
             while (nextDate.getTime() < endDate.getTime()) {
                 PreMaintWorkOrder preMaintWorkOrder = new PreMaintWorkOrder();
@@ -144,10 +145,13 @@ public class PreMaintService extends BaseService {
                 preMaintWorkOrder.setNodeState("已派工");
                 preMaintWorkOrder = preMaintWorkOrderRepository.save(preMaintWorkOrder);
                 pmOrderList.add(preMaintWorkOrder);
+                //如果最近时间为空  赋值当前时间
+                if (preMaint.getLatestTime() == null) {
+                    preMaint.setLatestTime(DateUtils.convertDate2Str(new Date(), "yyyy-MM-dd"));
+                }
                 preMaint.setLatestTime(DateUtils.convertDate2Str(nextDate, "yyyy-MM-dd"));
                 nextDate = DateUtils.addDateByNumAndType(nextDate, frequency, unit);
                 preMaint.setNextTime(DateUtils.convertDate2Str(nextDate, "yyyy-MM-dd"));
-
             }
 
             preMaintRepository.save(preMaint);
@@ -175,7 +179,6 @@ public class PreMaintService extends BaseService {
      */
     @Transactional
     public PreMaintWorkOrder handleWorkOrder(PreMaintWorkOrder preMaintWorkOrder, String fixDesc, String status) {
-
         PreMaintWorkOrder saved = null;
         if (!preMaintWorkOrder.getNodeState().equals(status)) {
             preMaintWorkOrder.setStatus("1");
