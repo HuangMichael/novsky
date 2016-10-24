@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table id="pmOrderList0" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"
+<table id="pmOrderList2" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"
        data-ajax="true" data-url="/preMaintDispatcher/data">
     <thead>
     <tr>
@@ -18,18 +18,3 @@
     </tr>
     </thead>
 </table>
-
-<div class="modal fade " id="fix_desc_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="fix_desc_modal_label">请输入维修描述</h4>
-            </div>
-            <div class="modal-body" id="fix_desc_modal_div">
-                <%@include file="fixDescForm.jsp" %>
-            </div>
-        </div>
-    </div>
-</div>

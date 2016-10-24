@@ -20,7 +20,19 @@
                                 <ul class="nav nav-tabs" id="myTab">
                                     <li class="active"><a href="#tab_1_0" data-toggle="tab"
                                                           style="font-family: 微软雅黑;font-weight: bold">
-                                        <i class="fa fa-home" id="eq"></i>预防性维修调度信息</a>
+                                        <i class="fa fa-home" id="eq0"></i>已派工工单信息</a>
+                                    </li>
+                                    <li><a href="#tab_1_1" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-home" id="eq1"></i>已完工工单信息</a>
+                                    </li>
+                                    <li><a href="#tab_1_2" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-home" id="eq2"></i>已暂停工单信息</a>
+                                    </li>
+                                    <li><a href="#tab_1_3" data-toggle="tab"
+                                           style="font-family: 微软雅黑;font-weight: bold">
+                                        <i class="fa fa-home" id="eq3"></i>已取消工单信息</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -28,6 +40,19 @@
                                          style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
                                         <%@include file="table_1_0.jsp" %>
                                     </div>
+                                    <div class="tab-pane fade  " id="tab_1_1"
+                                         style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                        <%@include file="table_1_1.jsp" %>
+                                    </div>
+                                    <div class="tab-pane fade  " id="tab_1_2"
+                                         style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                        <%@include file="table_1_2.jsp" %>
+                                    </div>
+                                    <div class="tab-pane fade  " id="tab_1_3"
+                                         style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                        <%@include file="table_1_3.jsp" %>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
