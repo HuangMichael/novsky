@@ -1,7 +1,6 @@
 var dataTableName = '#pmDataTable';
 var pms = [];
 var selectedIds = []; //获取被选择记录集合
-var allSize = 0;
 var pmDetail = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var pm = null;
@@ -44,19 +43,13 @@ $(function () {
     }];
 
     f_units = [{
-        key: 1,
+        key: 0,
         text: "天"
     }, {
-        key: 2,
-        text: "周"
-    }, {
-        key: 3,
+        key: 1,
         text: "月"
     }, {
-        key: 4,
-        text: "季度"
-    }, {
-        key: 5,
+        key: 2,
         text: "年"
     }];
 
@@ -95,37 +88,76 @@ $(function () {
         .bootstrapValidator({
             message: '该值无效 ',
             fields: {
-                unitNo: {
-                    message: '单位编号无效',
+
+                pmCode: {
+                    message: '预防性维修计划编号无效',
                     validators: {
                         notEmpty: {
-                            message: '单位编号不能为空!'
+                            message: '预防性维修计划编号不能为空!'
                         },
                         stringLength: {
                             min: 3,
                             max: 20,
-                            message: '单位编号长度为3到20个字符'
+                            message: '预防性维修计划编号长度为3到20个字符'
                         }
                     }
                 },
+
+
                 description: {
-                    message: '单位名称无效',
+                    message: '预防性维修计划描述无效',
                     validators: {
                         notEmpty: {
-                            message: '单位名称不能为空!'
+                            message: '预防性维修计划描述不能为空!'
                         },
                         stringLength: {
-                            min: 2,
+                            min: 3,
                             max: 20,
-                            message: '单位名称长度为2到20个字符'
+                            message: '预防性维修计划描述长度为3到20个字符'
                         }
                     }
                 },
-                "status": {
-                    message: '单位状态无效',
+                "locations.id": {
+                    message: '设备位置无效',
                     validators: {
                         notEmpty: {
-                            message: '单位状态不能为空!'
+                            message: '设备位置不能为空!'
+                        }
+                    }
+                },
+
+                "equipment.id": {
+                    message: '设备无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备不能为空!'
+                        }
+                    }
+                },
+                "frequency": {
+                    message: '频率设置无效',
+                    validators: {
+                        notEmpty: {
+                            message: '频率不能为空!'
+                        },
+                        min: {
+                            message: '频率必须大于0'
+                        }
+                    }
+                },
+                "unit": {
+                    message: '计划执行频率单位无效',
+                    validators: {
+                        notEmpty: {
+                            message: '计划执行频率单位不能为空!'
+                        }
+                    }
+                },
+                "outUnit.id": {
+                    message: '维修单位无效',
+                    validators: {
+                        notEmpty: {
+                            message: '维修单位不能为空!'
                         }
                     }
                 }
@@ -254,6 +286,7 @@ function setAllInSelectedList(pms) {
 
 }
 
+
 /**
  * 根据ID获取设备信息
  * @param uid
@@ -269,8 +302,10 @@ function getPmByIdRomote(pid) {
 }
 
 
+/**
+ * 新增预防性维修计划
+ */
 function add() {
-
     pmDetail.$set("pm", null);
     //设置设备状态和运行状态默认值;
     formTab.tab('show');

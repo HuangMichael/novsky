@@ -111,36 +111,16 @@ public class DateUtils {
 
     /**
      * @param beginDate
-     * @param endDate   结束日期
      * @param num
      * @param type
      * @return 返回日期list
      */
-    public static List<Date> digDateList(Date beginDate, Date endDate, int num, int type) {
-        // 0 DAY  1 WEEK 2 MONTH  3 QUARTER  4 YEAR
-        List<Date> dateList = new ArrayList<Date>();
+    public static Date addDateByNumAndType(Date beginDate, int num, int type) {
+        int typeArray[] = {Calendar.DATE, Calendar.MONTH, Calendar.YEAR};
         Calendar calendar = Calendar.getInstance();
-        if (beginDate.after(endDate)) {
-            return dateList;
-        } else {
-            calendar.setTime(beginDate);
-            while (calendar.getTime().before(endDate)) {
-                switch (type) {
-                    case 0:
-                        calendar.add(Calendar.DATE, num);
-                    case 1:
-                        calendar.add(Calendar.DATE, num * 7);
-                    case 2:
-                        calendar.add(Calendar.MONTH, num);
-                    case 3:
-                        calendar.add(Calendar.MONTH, num * 3);
-                    case 4:
-                        calendar.add(Calendar.YEAR, num);
-                }
-                dateList.add(calendar.getTime());
-            }
-        }
-        System.out.println("dateList------" + dateList.size());
-        return dateList;
+        calendar.setTime(beginDate);
+        calendar.add(typeArray[type], num);
+        System.out.println("date------" + calendar.getTime());
+        return calendar.getTime();
     }
 }

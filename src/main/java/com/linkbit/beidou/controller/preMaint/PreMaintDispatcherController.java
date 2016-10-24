@@ -5,6 +5,7 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
+import com.linkbit.beidou.domain.preMaint.PreMaintWorkOrder;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaintOrder;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
@@ -54,8 +55,7 @@ public class PreMaintDispatcherController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VpreMaintOrder> page =
-                preMaintService.findByOrderDescContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        Page<VpreMaintOrder> page =  preMaintService.findByOrderDescContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -131,7 +131,7 @@ public class PreMaintDispatcherController extends BaseController {
     @RequestMapping(value = "/genPmOrder")
     @ResponseBody
     public ReturnObject generatePmOrder(@RequestParam("pmId") Long pmId, @RequestParam("deadLine") String deadLine) {
-        List<WorkOrderReportCart> preMaintList = preMaintService.generatePmOrder(pmId, deadLine);
-        return commonDataService.getReturnType(preMaintList != null, "预防性维修信息生成成功", "预防性维修信息生成失败");
+        List<PreMaintWorkOrder> preMaintList = preMaintService.generatePmOrder(pmId, deadLine);
+        return commonDataService.getReturnType(!preMaintList.isEmpty(), "预防性维修信息生成成功", "预防性维修信息生成失败");
     }
 }
