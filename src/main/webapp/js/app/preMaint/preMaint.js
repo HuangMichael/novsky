@@ -53,7 +53,7 @@ $(function () {
         text: "年"
     }];
 
-    selectedIds = getAllId();
+    // selectedIds = getAllId();
 
     $(dataTableName).bootgrid({
             selection: true,
@@ -243,7 +243,6 @@ $(function () {
                     showMessageBoxCenter("danger", "center", "当前记录是最后一条");
                 } else {
                     pointer = pointer + 1;
-                    console.log("pm----------------------------" + JSON.stringify(pm));
                     pm = getUnitByIdRomote(selectedIds[pointer]);
                     this.$set("pm", pm);
                 }
@@ -260,9 +259,8 @@ $(function () {
             pm = getPmByIdRomote(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            pm = pms[0];
-            //所有的都在选中列表中
-            selectedIds = setAllInSelectedList(pms);
+            selectedIds = getAllId();
+            pm = getPmByIdRomote(selectedIds[0]);
         }
         pmDetail.$set("pm", pm);
         setFormReadStatus("#detailForm", true);
