@@ -2,12 +2,14 @@ package com.linkbit.beidou.controller.preMaint;
 
 
 import com.linkbit.beidou.controller.common.BaseController;
+import com.linkbit.beidou.dao.preMaint.PreMaintWorkOrderRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.PreMaintWorkOrder;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaintOrder;
+import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
@@ -42,7 +44,7 @@ public class PreMaintDispatcherController extends BaseController {
     CommonDataService commonDataService;
 
     @Autowired
-    WorkOrderReportCartService workOrderReportCartService;
+    PreMaintWorkOrderRepository preMaintWorkOrderRepository;
 
     /**
      * 分页查询
@@ -138,5 +140,45 @@ public class PreMaintDispatcherController extends BaseController {
     public ReturnObject generatePmOrder(@RequestParam("pmId") Long pmId, @RequestParam("deadLine") String deadLine) {
         List<PreMaintWorkOrder> preMaintList = preMaintService.generatePmOrder(pmId, deadLine);
         return commonDataService.getReturnType(!preMaintList.isEmpty(), "预防性维修信息生成成功", "预防性维修信息生成失败");
+    }
+
+
+    /**
+     * @param fixId
+     * @return 完成单个维修工单
+     */
+    @RequestMapping(value = "/finishDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject finishDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
+        PreMaintWorkOrder preMaintWorkOrder = preMaintWorkOrderRepository.findById(fixId);
+        preMaintWorkOrder = preMaintService.handleWorkOrder(preMaintWorkOrder, fixDesc, "已完工");
+        return commonDataService.getReturnType(preMaintWorkOrder != null, "预防性维修单完工成功!", "预防性维修单完工失败!");
+    }
+
+
+    /**
+     * @param fixId   预防性维修单id
+     * @param fixDesc 维修描述
+     * @return 暂停单个维修工单
+     */
+    @RequestMapping(value = "/pauseDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject pauseDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
+        PreMaintWorkOrder preMaintWorkOrder = preMaintWorkOrderRepository.findById(fixId);
+        preMaintWorkOrder = preMaintService.handleWorkOrder(preMaintWorkOrder, fixDesc, "已暂停");
+        return commonDataService.getReturnType(preMaintWorkOrder != null, "预防性维修单暂停成功!", "预防性维修单暂停失败!");
+    }
+
+    /**
+     * @param fixId
+     * @param fixDesc
+     * @return 取消单个维修工单
+     */
+    @RequestMapping(value = "/abortDetail", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject abortDetail(@RequestParam Long fixId, @RequestParam String fixDesc) {
+        PreMaintWorkOrder preMaintWorkOrder = preMaintWorkOrderRepository.findById(fixId);
+        preMaintWorkOrder = preMaintService.handleWorkOrder(preMaintWorkOrder, fixDesc, "已取消");
+        return commonDataService.getReturnType(preMaintWorkOrder != null, "预防性维修单取消成功!", "预防性维修单取消失败!");
     }
 }

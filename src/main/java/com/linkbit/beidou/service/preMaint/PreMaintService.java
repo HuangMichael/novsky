@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.PreMaintWorkOrder;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.domain.preMaint.VpreMaintOrder;
+import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.DateUtils;
@@ -40,6 +41,7 @@ public class PreMaintService extends BaseService {
 
     @Autowired
     VpreMaintOrderRepository vpreMaintOrderRepository;
+
 
     /**
      * @return 查询所有
@@ -163,5 +165,25 @@ public class PreMaintService extends BaseService {
      */
     public Page<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc, Pageable pageable) {
         return vpreMaintOrderRepository.findByNodeStateAndOrderDescContaining(nodeState, orderDesc, pageable);
+    }
+
+    /**
+     * @param preMaintWorkOrder
+     * @param fixDesc           维修描述
+     * @param status            工单状态
+     * @return
+     */
+    @Transactional
+    public PreMaintWorkOrder handleWorkOrder(PreMaintWorkOrder preMaintWorkOrder, String fixDesc, String status) {
+
+        PreMaintWorkOrder saved = null;
+        if (!preMaintWorkOrder.getNodeState().equals(status)) {
+            preMaintWorkOrder.setStatus("1");
+            preMaintWorkOrder.setNodeState(status);
+            preMaintWorkOrder.setFixDesc(fixDesc);
+            preMaintWorkOrder.setLastStatusTime(new Date());
+            saved = preMaintWorkOrderRepository.save(preMaintWorkOrder);
+        }
+        return saved;
     }
 }
