@@ -179,26 +179,30 @@ $(function () {
     // 监听切换tab的方法
 
     $(formTab).on('click', function () {
-        //首先判断是否有选中的
-        var budgetBill = null;
-        if (selectedIds.length > 0) {
-            //切换tab时默认给detail中第一个数据
-            budgetBill = findById(selectedIds[pointer]);
-        } else {
-            //没有选中的 默认显示整个列表的第一条
-            budgetBill = getEqUpdateBillById(ids[pointer]);
-            //所有的都在选中列表中
-            selectedIds = ids;
-        }
+
         vdm = new Vue({
             el: "#detailContainer",
             data: {
-                budgetBill: budgetBill,
                 myEqs: myEqs,
                 locs: locs,
                 eqClasses: eqClasses
             }
         });
+
+        //首先判断是否有选中的
+        var budgetBill = null;
+        if (selectedIds.length > 0) {
+            //切换tab时默认给detail中第一个数据
+            budgetBill = findById(selectedIds[pointer]);
+            vdm.$set("budgetBill", budgetBill);
+        } else {
+            //没有选中的 默认显示整个列表的第一条
+            budgetBill = getEqUpdateBillById(ids[pointer]);
+            //所有的都在选中列表中
+            selectedIds = ids;
+            vdm.$set("budgetBill", budgetBill);
+        }
+
         setFormReadStatus("#detailForm", true);
     });
 
@@ -249,6 +253,9 @@ function getEqUpdateBillById(bid) {
  *  上一条
  */
 function backwards() {
+
+
+    console.log("当前指针------------------" + pointer);
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
     } else {
@@ -262,6 +269,7 @@ function backwards() {
  *  下一条
  */
 function forwards() {
+    console.log("当前指针------------------" + pointer);
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
