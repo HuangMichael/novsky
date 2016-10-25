@@ -57,9 +57,8 @@ $(document).ready(function () {
 
     $("#authListTable").bootgrid();
     $("select").select2({theme: "bootstrap"});
-
     var roleId = $("#role_id").val();
-    markAuthByRole(roleId);
+    // markAuthByRole(roleId);
 });
 
 
@@ -86,37 +85,38 @@ function grant() {
         roleId: roleId,
         resourceIds: resourceIds
     };
-
-
     $.post(url, data, function (value) {
         if (value.result) {
             loadAuthView();
-            showMessageBox("info", value.resultDesc);
+            showMessageBox("info", value["resultDesc"]);
 
         } else {
-            showMessageBox("danger", value.resultDesc);
+            showMessageBox("danger", value["resultDesc"]);
         }
     });
-
-
-    //先根据roleID获取role
-
-    //保存set
 }
 
 
+/**
+ * 根据角色加载权限视图
+ */
 function loadAuthView() {
     var roleId = $("#role_id").val();
     var url = "/authority/loadAuthView/" + roleId;
     $("#authViewDiv").load(url, function (data) {
         $("#authListTable").bootgrid();
-        console.log("data---------" + JSON.stringify(data));
     });
 
 
 }
 
 var checkedNodeIds = null;
+/**
+ *
+ * @param e
+ * @param treeId 树的id
+ * @param treeNode 树节点
+ */
 function onCheck(e, treeId, treeNode) {
     var zTree = $.fn.zTree.getZTreeObj("tree");
     var nodes = zTree.getCheckedNodes(true),
@@ -134,12 +134,9 @@ function onCheck(e, treeId, treeNode) {
  */
 function markAuthByRole(roleId) {
     var zTree = $.fn.zTree.getZTreeObj("tree");
-    console.log("markAuthByRole------------------" + roleId);
-
     var node = zTree.getNodeByParam("id", 2);
     zTree.selectNode(node);
     // var roleId = $("#role_id").val();
-
 
 
 }

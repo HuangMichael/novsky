@@ -253,9 +253,6 @@ function getEqUpdateBillById(bid) {
  *  上一条
  */
 function backwards() {
-
-
-    console.log("当前指针------------------" + pointer);
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
     } else {
@@ -269,7 +266,6 @@ function backwards() {
  *  下一条
  */
 function forwards() {
-    console.log("当前指针------------------" + pointer);
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
