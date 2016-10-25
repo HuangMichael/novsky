@@ -28,7 +28,7 @@ public interface VbudgetBillRepository extends PagingAndSortingRepository<Vbudge
      * @param pageable      设置可分页
      * @return 返回易耗品名称模糊查询分页对象
      */
-    Page<VbudgetBill> findByAccessoryNameContains(String accessoryName, Pageable pageable);
+    Page<VbudgetBill> findByAccessoryNameContaining(String accessoryName, Pageable pageable);
 
     /**
      * @return

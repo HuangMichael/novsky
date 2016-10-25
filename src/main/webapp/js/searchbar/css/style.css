@@ -99,3 +99,9 @@ body {
     color: #039;
     border-radius: 2px;
 }
+
+/*列表tab标题*/
+.tab_title {
+    font-family: 微软雅黑;
+    font-weight: bold
+}

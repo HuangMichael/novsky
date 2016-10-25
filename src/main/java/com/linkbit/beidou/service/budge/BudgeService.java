@@ -63,7 +63,7 @@ public class BudgeService extends BaseService {
      * @return 按照配件名称模糊查询分页查询
      */
     public Page<VbudgetBill> findByAccessoryNameContains(String accessoryName, Pageable pageable) {
-        return vbudgetBillRepository.findByAccessoryNameContains(accessoryName, pageable);
+        return vbudgetBillRepository.findByAccessoryNameContaining(accessoryName, pageable);
     }
 
 

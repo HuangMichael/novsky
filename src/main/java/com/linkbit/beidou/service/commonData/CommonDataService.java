@@ -202,9 +202,6 @@ public class CommonDataService extends BaseService {
             httpSession.setAttribute("eqClassList", eqClassList);
             log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
         }
-
-        System.out.println("eqClassList---" + eqClassList.toString());
-
         return eqClassList;
 
 

@@ -224,11 +224,7 @@ $(function () {
             //切换tab时默认给detail中第一个数据
             budgetBill = getBudgetBillById(selectedIds[0]);
         } else {
-            //没有选中的 默认显示整个列表的第一条
-
-            console.log("ids[0]---------------" + ids[0]);
             budgetBill = getBudgetBillById(ids[0]);
-            //所有的都在选中列表中
             selectedIds = (ids);
         }
         vdm.$set("budgetBill", budgetBill);

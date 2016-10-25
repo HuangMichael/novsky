@@ -304,6 +304,7 @@ function getPmByIdRomote(pid) {
  * 新增预防性维修计划
  */
 function add() {
+    setFormReadStatus("#detailForm", false);
     pmDetail.$set("pm", null);
     //设置设备状态和运行状态默认值;
     formTab.tab('show');

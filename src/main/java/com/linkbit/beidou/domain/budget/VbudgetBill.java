@@ -34,6 +34,9 @@ public class VbudgetBill {
     @Column(length = 50)
     private String applicant; //申请人
 
+    @Column(length = 20)
+    private String applyDep; //申请部门
+
     @Column(length = 50)
     private String purpose; //用途
 
@@ -57,6 +60,8 @@ public class VbudgetBill {
 
     @Column(length = 20)
     private String location; //接收人
+
+
 
 
 }
