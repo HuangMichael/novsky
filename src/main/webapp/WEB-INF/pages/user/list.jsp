@@ -58,7 +58,6 @@
                                                 <th data-column-id="id">序号</th>
                                                 <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
                                                 <th data-column-id="userName">用户名</th>
-                                                <th data-column-id="person">人员</th>
                                                 <th data-column-id="location">位置</th>
                                             </tr>
                                             </thead>
