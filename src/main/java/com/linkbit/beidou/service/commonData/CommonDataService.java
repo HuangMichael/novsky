@@ -21,15 +21,19 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.matCost.MatCost;
+import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import com.linkbit.beidou.service.locations.LocationsService;
+import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.utils.CommonStatusType;
+import com.linkbit.beidou.utils.DateUtils;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -96,6 +100,10 @@ public class CommonDataService extends BaseService {
 
     @Autowired
     OrgRepository orgRepository;
+
+
+    @Autowired
+    WorkOrderReportCartService workOrderReportCartService;
 
 
     /**
@@ -397,5 +405,32 @@ public class CommonDataService extends BaseService {
         session.setAttribute("menusList", menusList);
 
         return true;
+    }
+
+
+    /**
+     * @return 根据序号生成
+     */
+    public String genWorkOrderLineNo() {
+        //先查询该月工单数量
+        String workOrderLineNo ;
+        String startNo = DateUtils.convertDate2Str(new Date(), "yyMM");
+        //工单模糊查询数量
+        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByOrderLineNoContaining(startNo);
+        if (workOrderReportCartList.size() > 0) {
+            // 如果本月存在工单  取单号最大的
+            workOrderLineNo = workOrderReportCartList.get(workOrderReportCartList.size() - 1).getOrderLineNo();
+            int len = 8;
+            String endNo = workOrderLineNo.substring(len - 4);
+            long index = Long.parseLong(endNo) + 1;
+            workOrderLineNo = startNo + "0" + index;
+        } else {
+            //如果不存在工单，从startNo+0001开始
+            workOrderLineNo = startNo + "0001";
+        }
+
+
+        return workOrderLineNo;
+
     }
 }

@@ -316,11 +316,11 @@ function report(id) {
     if (status == "0") {
         $("#eqList").load(curl, function (data) {
             $("#show_eq_modal").modal("show");
-            eqId = id;
+            //eqId = id;
             reportId = id;
         })
     } else {
-        equipReport(id)
+        equipReport(id);
     }
 }
 

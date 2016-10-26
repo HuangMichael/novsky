@@ -12,6 +12,7 @@ import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
@@ -20,6 +21,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,6 +62,8 @@ public class WorkOrderReportCartService extends BaseService {
     VworkOrderReportBillRepository vworkOrderReportBillRepository;
     @Autowired
     WorkOrderFixService workOrderFixService;
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
      * @param equipmentId
@@ -72,7 +76,8 @@ public class WorkOrderReportCartService extends BaseService {
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(equipments);
         //生成跟踪号
-        workOrderReportCart.setOrderLineNo(workOrderReportCartRepository.genOrderLineNo().get(0).toString());
+        String workOrderNo = commonDataService.genWorkOrderLineNo();
+        workOrderReportCart.setOrderLineNo(workOrderNo);
         workOrderReportCart.setLocations(equipments.getLocations());
         workOrderReportCart.setLocation(equipments.getLocations().getLocation());
         workOrderReportCart.setEquipmentsClassification(equipments.getEquipmentsClassification());
@@ -112,7 +117,9 @@ public class WorkOrderReportCartService extends BaseService {
         WorkOrderReportCart workOrderReportCart = new WorkOrderReportCart();
         workOrderReportCart.setEquipments(null);
         //生成跟踪号
-        workOrderReportCart.setOrderLineNo(workOrderReportCartRepository.genOrderLineNo().get(0).toString());
+
+        String workOrderNo = commonDataService.genWorkOrderLineNo();
+        workOrderReportCart.setOrderLineNo(workOrderNo);
         Locations locations = locationsService.findById(locationId);
         if (locations != null) {
             workOrderReportCart.setLocations(locations);
@@ -375,5 +382,12 @@ public class WorkOrderReportCartService extends BaseService {
     }
 
 
+    /**
+     * @param dateStr 模糊查询工单编号
+     * @return
+     */
+    public List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr) {
+        return vworkOrderReportBillRepository.findByOrderLineNoContaining(dateStr);
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
+import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -40,6 +41,9 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
 
 
     Page<VworkOrderReportBill> findByLocNameContains(String locName, Pageable pageable);
+
+
+     List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr);
 
 
 }
