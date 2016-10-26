@@ -10,7 +10,6 @@ var units = [];
 
 var f_units = [];
 var pointer = 0;
-var statuses = [];
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 $.ajaxSettings.async = false;
@@ -34,13 +33,7 @@ $(function () {
         eqs = data;
     });
 
-    statuses = [{
-        key: 0,
-        text: "未执行"
-    }, {
-        key: 1,
-        text: "已执行"
-    }];
+
 
     f_units = [{
         key: 0,
@@ -223,7 +216,6 @@ $(function () {
             pm: pms[0],
             locs: locs,
             units: units,
-            statuses: statuses,
             eqs: eqs,
             f_units: f_units
         },

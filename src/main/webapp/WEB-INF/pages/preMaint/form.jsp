@@ -23,51 +23,50 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="locations_id" class="col-md-1 control-label">位置</label>
-        <div class="col-md-3">
-            <select v-model="pm.locations.id" class="form-control" id="locations_id" name="locations.id"
-                    required style="width:100%" required>
-                <template v-for="option in locs">
-                    <option :value="option.id" v-if="option.id == pm.locations.id" selected>
-                        {{option.locName }}
-                    </option>
-                    <option :value="option.id" v-else>
-                        {{option.locName }}
-                    </option>
-                </template>
-            </select>
-        </div>
-        <label for="locations_id" class="col-md-1 control-label">设备</label>
+        <%--        <label for="locations_id" class="col-md-1 control-label">位置</label>
+                <div class="col-md-3">
+                    <select v-model="pm.locations.id" class="form-control" id="locations_id" name="locations.id"
+                            required style="width:100%" required>
+                        <template v-for="option in locs">
+                            <option :value="option.id" v-if="option.id == pm.locations.id" selected>
+                                {{option.locName }}
+                            </option>
+                            <option :value="option.id" v-else>
+                                {{option.locName }}
+                            </option>
+                        </template>
+                    </select>
+                </div>--%>
+        <label for="equipment_id" class="col-md-1 control-label">设备</label>
         <div class="col-md-3">
             <select v-model="pm.equipment.id" class="form-control" id="equipment_id" name="equipment.id"
                     required style="width:100%" required>
                 <template v-for="option in eqs">
                     <option :value="option.id" v-if="option.id == pm.equipment.id" selected>
-                        {{option.eqName }}
+                        {{option.locName}} {{option.eqName }}
                     </option>
                     <option :value="option.id" v-else>
-                        {{option.eqName }}
+                        {{option.locName}}{{option.eqName }}
                     </option>
                 </template>
             </select>
         </div>
-        <label for="status" class="col-md-1 control-label">状态</label>
-        <div class="col-md-3">
-            <select class="form-control" id="status" name="status" required v-model="pm.status"
-                    style="width:100%" required>
-                <template v-for="option in statuses">
-                    <option :value="option.key" v-if="option.key == pm.status" selected>
-                        {{ option.text }}
-                    </option>
-                    <option :value="option.key" v-else>
-                        {{ option.text }}
-                    </option>
-                </template>
-            </select>
-        </div>
+        <%-- <label for="status" class="col-md-1 control-label">状态</label>
+         <div class="col-md-3">
+             <select class="form-control" id="status" name="status" required v-model="pm.status"
+                     style="width:100%" required>
+                 <template v-for="option in statuses">
+                     <option :value="option.key" v-if="option.key == pm.status" selected>
+                         {{ option.text }}
+                     </option>
+                     <option :value="option.key" v-else>
+                         {{ option.text }}
+                     </option>
+                 </template>
+             </select>
+         </div>--%>
 
-    </div>
-    <div class="form-group">
+
         <label class="col-md-1 control-label" for="frequency">频率</label>
         <div class="col-md-3">
             <input class="form-control" id="frequency" type="text" name="frequency" v-model="pm.frequency"
@@ -88,6 +87,8 @@
                 </template>
             </select>
         </div>
+    </div>
+    <div class="form-group">
         <label for="unit_id" class="col-md-1 control-label">维修单位</label>
         <div class="col-md-3">
             <select class="form-control" id="unit_id" name="outUnit.id" required v-model="pm.outUnit.id"
@@ -102,16 +103,9 @@
                 </template>
             </select>
         </div>
-    </div>
 
-    <div class="form-group">
 
-        <label class="col-md-1 control-label" for="createTime">创建日期</label>
-        <div class="col-md-3">
-            <input class="Wdate form-control" id="createTime" onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
-                   onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="createTime" v-model="pm.createTime"
-                   style="height:34px;border:1px solid #cccccc"/>
-        </div>
+
 
         <label class="col-md-1 control-label" for="frequency">最近日期</label>
         <div class="col-md-3">
