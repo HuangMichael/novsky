@@ -30,7 +30,6 @@ public class VpreMaint {
     private String eqName;//设备名称
     private String eqClass;//设备分类
     private String outUnit; //外委单位
-    private String status; //状态
     private String createBy; //创建人
     private Date createTime; //创建时间
 }

@@ -135,8 +135,7 @@ public class PreMaintService extends BaseService {
                 preMaintWorkOrder.setOrderDesc(preMaint.getDescription());
                 preMaintWorkOrder.setCreator(preMaint.getCreateBy());
                 preMaintWorkOrder.setEquipments(preMaint.getEquipment());
-                preMaintWorkOrder.setLocations(preMaint.getEquipment().getLocations());
-                preMaintWorkOrder.setLocation(preMaint.getLocation());
+                preMaintWorkOrder.setLocation(preMaint.getEquipment().getLocations().getLocation());
                 preMaintWorkOrder.setEquipmentsClassification(preMaint.getEquipment().getEquipmentsClassification());
                 preMaintWorkOrder.setReportType("p");
                 preMaintWorkOrder.setUnit(preMaint.getOutUnit());

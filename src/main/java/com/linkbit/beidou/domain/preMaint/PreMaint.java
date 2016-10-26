@@ -34,11 +34,6 @@ public class PreMaint {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
-    private Vlocations locations;  //位置
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "equipment_id", referencedColumnName = "id")
     private Equipments equipment;  //设备
 
@@ -53,9 +48,6 @@ public class PreMaint {
     @Column(length = 1)
     private int unit; //单位
 
-
-    @Column(length = 1, columnDefinition = "default 1")
-    private String status; // 1 已执行 0未执行
 
     @Column(length = 20)
     private String location; //加入冗余字段location 方便模糊查询
