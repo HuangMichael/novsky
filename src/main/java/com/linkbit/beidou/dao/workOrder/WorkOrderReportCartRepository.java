@@ -3,6 +3,7 @@ package com.linkbit.beidou.dao.workOrder;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.MonthEqClassRank;
+import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -131,7 +132,7 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     /**
      * @param orderDesc
      * @param reportType
-     * @param pageable  可分页
+     * @param pageable   可分页
      * @return 根据位置和节点的状态查询
      */
     @OrderBy("id desc")
@@ -163,6 +164,6 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<Object> genOrderLineNo();
 
 
-
+    List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr);
 
 }

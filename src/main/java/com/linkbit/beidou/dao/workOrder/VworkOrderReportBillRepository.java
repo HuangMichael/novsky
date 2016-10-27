@@ -43,7 +43,7 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
     Page<VworkOrderReportBill> findByLocNameContains(String locName, Pageable pageable);
 
 
-     List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr);
+
 
 
 }

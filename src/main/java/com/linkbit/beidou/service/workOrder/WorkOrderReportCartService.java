@@ -387,7 +387,7 @@ public class WorkOrderReportCartService extends BaseService {
      * @return
      */
     public List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr) {
-        return vworkOrderReportBillRepository.findByOrderLineNoContaining(dateStr);
+        return workOrderReportCartRepository.findByOrderLineNoContaining(dateStr);
     }
 }
 

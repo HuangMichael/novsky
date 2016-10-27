@@ -24,6 +24,7 @@ import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.domain.user.User;
+import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.object.ReturnObject;
@@ -413,7 +414,7 @@ public class CommonDataService extends BaseService {
      */
     public String genWorkOrderLineNo() {
         //先查询该月工单数量
-        String workOrderLineNo ;
+        String workOrderLineNo;
         String startNo = DateUtils.convertDate2Str(new Date(), "yyMM");
         //工单模糊查询数量
         List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByOrderLineNoContaining(startNo);
