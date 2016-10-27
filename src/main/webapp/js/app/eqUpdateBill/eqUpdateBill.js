@@ -294,6 +294,15 @@ function add() {
 }
 
 function eqUpdateAdd(eid) {
+
+    vdm = new Vue({
+        el: "#detailContainer",
+        data: {
+            myEqs: myEqs,
+            locs: locs,
+            eqClasses: eqClasses
+        }
+    });
     //重新建立模型 新建对象模型
     $.getJSON("eqUpdateBill/create/" + eid, function (data) {
         vdm.$set("budgetBill", data);

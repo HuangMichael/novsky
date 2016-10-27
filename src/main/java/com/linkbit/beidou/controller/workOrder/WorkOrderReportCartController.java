@@ -250,5 +250,15 @@ public class WorkOrderReportCartController {
         return workOrderReportCart;
     }
 
+    /**
+     * 更新维修描述
+     */
+    @RequestMapping(value = "/updateReporter", method = RequestMethod.POST)
+    @ResponseBody
+    public WorkOrderReportCart updateReporter(@RequestParam("id") Long id, @RequestParam("reporter") String reporter) {
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartService.updateReporter(id, reporter);
+        return workOrderReportCart;
+    }
+
 
 }

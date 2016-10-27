@@ -39,6 +39,7 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -425,6 +426,8 @@ public class CommonDataService extends BaseService {
             String endNo = workOrderLineNo.substring(len - 4);
             long index = Long.parseLong(endNo) + 1;
             workOrderLineNo = startNo + "0" + index;
+
+            System.out.println("workOrderLineNo--------------------"+workOrderLineNo);
         } else {
             //如果不存在工单，从startNo+0001开始
             workOrderLineNo = startNo + "0001";
