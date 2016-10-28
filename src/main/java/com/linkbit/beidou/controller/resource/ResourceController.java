@@ -4,6 +4,7 @@ import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ResourceController {
 
     @Autowired
     ResourceService resourceService;
+
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
      * @param modelMap
@@ -116,35 +120,11 @@ public class ResourceController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject save(@RequestParam("id") Long id,
-                             @RequestParam("resourceName") String resourceName,
-                             @RequestParam("resourceCode") String resourceCode,
-                             @RequestParam("description") String description,
-                             @RequestParam("resourceUrl") String resourceUrl,
-                             @RequestParam("iconClass") String iconClass,
-                             @RequestParam("appName") String appName,
-                             @RequestParam("parentId") Long parentId,
-                             @RequestParam(value = "staticFlag", required = false) boolean staticFlag,
-                             @RequestParam(value = "sortNo", required = false) Long sortNo) {
-
-
-        ReturnObject returnObject = new ReturnObject();
-        Resource resource = new Resource();
-        resource.setResourceName(resourceName);
-        resource.setResourceCode(resourceCode);
-        resource.setDescription(description);
-        resource.setResourceUrl(resourceUrl);
-        resource.setIconClass(iconClass);
-        resource.setAppName(appName);
-        resource.setParent(resourceService.findById(parentId));
-        resource.setStaticFlag(staticFlag);
-        resource.setSortNo(sortNo);
+    public ReturnObject save(Resource resource) {
+        System.out.println("resource----------------------" + resource.toString());
         resource = resourceService.save(resource);
-        returnObject.setResult(resource != null);
-        returnObject.setResultDesc("资源信息保存成功");
-        return returnObject;
+        return commonDataService.getReturnType(resource != null, "资源信息保存成功", "资源信息保存失败");
     }
-
 
     /**
      * 保存资源信息
@@ -195,11 +175,11 @@ public class ResourceController {
     @ResponseBody
     public Boolean delete(@PathVariable("id") Long id) {
         boolean hasChildren = resourceService.hasChildren(id);
-        Resource resource =null;
+        Resource resource = null;
         if (!hasChildren) {
             resourceService.delete(id);
             resource = resourceService.findById(id);
         }
-        return (resource==null);
+        return (resource == null);
     }
 }
