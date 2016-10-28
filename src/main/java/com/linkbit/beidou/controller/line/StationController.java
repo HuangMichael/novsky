@@ -58,7 +58,6 @@ public class StationController {
     }
 
 
-
     @RequestMapping(value = "/list")
     public String list(ModelMap modelMap, HttpSession httpSession) {
 
@@ -184,7 +183,7 @@ public class StationController {
      * @param id id
      * @return 根据删除车站信息
      */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
     public boolean delete(@RequestParam("id") Long id) {
         return stationService.delete(id);

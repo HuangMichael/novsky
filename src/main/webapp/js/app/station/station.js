@@ -241,19 +241,48 @@ $(function () {
  * 根据id删除
  */
 function del() {
-    var selectedId = vdm.station.id;
+    var selectedId = selectedIds[0];
     if (!selectedId) {
         showMessageBox("danger", "请选择一条后再进行删除!");
     }
-    var url = "/station/delete";
-    $.post(url, {id: selectedId}, function (data) {
-        if (data) {
-            showMessageBox("info", "车站信息删除成功!");
-        }
-        else {
-            showMessageBox("danger", "车站信息删除失败!");
-        }
-    });
+    var url = "/station/delete/" + selectedId;
+    if (selectedId) {
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "车站信息删除成功!");
+                                $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "车站信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+
+    }
+
+
 }
 
 function save() {
