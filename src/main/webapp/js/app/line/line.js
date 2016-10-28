@@ -177,7 +177,7 @@ function del() {
                 }
             },
             callback: function (result) {
-                var url = "line/delete/uid";
+                var url = "line/delete/" + uid;
                 if (result) {
                     $.ajax({
                         type: "GET",

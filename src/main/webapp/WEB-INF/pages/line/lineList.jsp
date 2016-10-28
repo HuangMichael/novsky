@@ -8,7 +8,6 @@
         <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID
         </th>
         <th data-column-id="description">线路名称</th>
-        <th data-column-id="status"> 使用状态</th>
     </tr>
     </thead>
     <tbody>
@@ -22,7 +21,6 @@
             <td>
                     ${line.description}
             </td>
-            <td class="center">${line.status}</td>
         </tr>
     </c:forEach>
     </tbody>
