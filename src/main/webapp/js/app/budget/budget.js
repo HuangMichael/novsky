@@ -341,22 +341,35 @@ function del() {
     }
     var url = "/budget/delete/" + bid;
     if (bid) {
-        var confirm = window.confirm("确定要删除该记录么？");
-        if (confirm) {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (msg) {
-                    if (msg) {
-                        showMessageBox("info", "采购信息删除成功!");
-                        $("#budgetDataTable").bootgrid("reload");
-                    }
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
                 },
-                error: function (msg) {
-                    showMessageBox("danger", "采购信息有关联数据，无法删除，请联系管理员");
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
                 }
-            });
-        }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "采购信息删除成功!");
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "采购信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
     }
 }
 /**
@@ -368,8 +381,6 @@ function findById(id) {
     $.getJSON(url, function (data) {
         budgetBill = data;
     });
-
-    console.log(JSON.stringify(budgetBill));
     return budgetBill;
 
 }

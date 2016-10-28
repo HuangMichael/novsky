@@ -17,6 +17,9 @@
 <script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/dist/js/bootstrapValidator.js"></script>
 <script type="text/javascript" src="/js/bootstrapvalidator/src/js/language/zh_CN.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+
+
 
 
 
