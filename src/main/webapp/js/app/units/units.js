@@ -109,7 +109,6 @@ $(function () {
             createUnit();
         });
 
-    console.log("units--------------" + JSON.stringify(units[0]));
     unitDetail = new Vue({
         el: "#unitDetailForm",
         data: {
@@ -124,10 +123,10 @@ $(function () {
                     pointer = pointer - 1;
                     //判断当前指针位置
 
-                    console.log("unit----------------------------" + JSON.stringify(unit));
+
                     unit = getUnitByIdRomote(selectedIds[pointer]);
 
-                    console.log("unit---------------" + unit);
+
                     this.$set("unit", unit);
                 }
             },
@@ -137,7 +136,7 @@ $(function () {
 
                 } else {
                     pointer = pointer + 1;
-                    console.log("unit----------------------------" + JSON.stringify(unit));
+
                     unit = getUnitByIdRomote(selectedIds[pointer]);
                     this.$set("unit", unit);
                     //loadFixHistoryByEid(selectedIds[pointer]);
@@ -160,7 +159,6 @@ $(function () {
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
             unit = getUnitByIdRomote(selectedIds[0]);
-            console.log("单位名称----" + unit.description);
         } else {
             //没有选中的 默认显示整个列表的第一条
             unit = units[0];
@@ -197,7 +195,6 @@ function setAllInSelectedList(units) {
 function getUnitByIdRomote(eid) {
     var unit = null;
     var url = "/outsourcingUnit/findById/" + eid;
-    console.log("url-----------------" + url);
     $.getJSON(url, function (data) {
         unit = data;
     });
@@ -279,14 +276,35 @@ function deleteUnit() {
     if (uid) {
         var confirm = window.confirm("确定要删除该记录么？");
         if (confirm) {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (msg) {
-                    showMessageBoxCenter("info", "center", "外委单位信息删除成功 ");
+
+            bootbox.confirm({
+                message: "确定要删除该记录么？?",
+                buttons: {
+                    confirm: {
+                        label: '是',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: '否',
+                        className: 'btn-danger'
+                    }
                 },
-                error: function (msg) {
-                    showMessageBoxCenter("danger", "center", "删除失败，请联系管理员操作!");
+                callback: function (result) {
+                    if (result) {
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            success: function (msg) {
+                                if (msg) {
+                                    showMessageBox("info", "外委单位信息删除成功!");
+                                    $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
+                                }
+                            },
+                            error: function (msg) {
+                                showMessageBox("danger", "外委单位信息有关联数据，无法删除，请联系管理员");
+                            }
+                        });
+                    }
                 }
             });
         } else {
