@@ -274,43 +274,40 @@ function deleteUnit() {
     var uid = selectedIds[0];
     var url = "/outsourcingUnit/delete/" + uid;
     if (uid) {
-        var confirm = window.confirm("确定要删除该记录么？");
-        if (confirm) {
 
-            bootbox.confirm({
-                message: "确定要删除该记录么？?",
-                buttons: {
-                    confirm: {
-                        label: '是',
-                        className: 'btn-success'
-                    },
-                    cancel: {
-                        label: '否',
-                        className: 'btn-danger'
-                    }
+
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
                 },
-                callback: function (result) {
-                    if (result) {
-                        $.ajax({
-                            type: "GET",
-                            url: url,
-                            success: function (msg) {
-                                if (msg) {
-                                    showMessageBox("info", "外委单位信息删除成功!");
-                                    $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
-                                }
-                            },
-                            error: function (msg) {
-                                showMessageBox("danger", "外委单位信息有关联数据，无法删除，请联系管理员");
-                            }
-                        });
-                    }
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
                 }
-            });
-        } else {
-            showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-
-        }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "外委单位信息删除成功!");
+                                $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "外委单位信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
     }
 }
 
