@@ -183,7 +183,6 @@ public class ResourceService {
         Resource resource = new Resource();
         boolean exits = resourceRepository.findByResourceUrl(url).size() > 0;
         if (!exits) {
-            resource.setDescription(url);
             resource.setResourceUrl(url);
             resource.setResourceName(url);
             resource.setStaticFlag(true);
@@ -311,7 +310,6 @@ public class ResourceService {
             resource.setResourceLevel(-1l);
             resource.setResourceName("静态资源");
             resource.setAppName("无");
-            resource.setDescription("静态资源");
             resource.setIconClass("");
             resource.setResourceCode(new Date().getTime()+"");
             resource.setSortNo(0l);

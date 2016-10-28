@@ -121,50 +121,8 @@ public class ResourceController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject save(Resource resource) {
-        System.out.println("resource----------------------" + resource.toString());
         resource = resourceService.save(resource);
         return commonDataService.getReturnType(resource != null, "资源信息保存成功", "资源信息保存失败");
-    }
-
-    /**
-     * 保存资源信息
-     *
-     * @param id
-     * @param resourceName
-     * @param description
-     * @param resourceUrl
-     * @param iconClass
-     * @param appName
-     * @param parentId
-     * @return
-     */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
-    public ReturnObject update(
-            @RequestParam("id") Long id,
-            @RequestParam("resourceName") String resourceName,
-            @RequestParam("description") String description,
-            @RequestParam("resourceUrl") String resourceUrl,
-            @RequestParam("iconClass") String iconClass,
-            @RequestParam("appName") String appName,
-            @RequestParam("parentId") Long parentId,
-            @RequestParam(value = "staticFlag", required = false) boolean staticFlag,
-            @RequestParam(value = "sortNo", required = false) Long sortNo
-    ) {
-        ReturnObject returnObject = new ReturnObject();
-        Resource resource = resourceService.findById(id);
-        resource.setResourceName(resourceName);
-        resource.setDescription(description);
-        resource.setResourceUrl(resourceUrl);
-        resource.setIconClass(iconClass);
-        resource.setAppName(appName);
-        resource.setParent(resourceService.findById(parentId));
-        resource.setStaticFlag(staticFlag);
-        resource.setSortNo(sortNo);
-        resource = resourceService.save(resource);
-        returnObject.setResult(resource != null);
-        returnObject.setResultDesc("资源更新成功!");
-        return returnObject;
     }
 
 

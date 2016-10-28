@@ -7,4 +7,4 @@
     </div>
 </div>
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="js/app/menu/ menu.js"></script>
+<script type="text/javascript" src="/js/app/menu/menu.js"></script>
