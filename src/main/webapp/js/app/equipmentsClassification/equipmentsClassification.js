@@ -152,25 +152,51 @@ function selectTreeNode(data, add) {
 }
 
 
+/**
+ * 删除节点信息
+ */
 function del() {
-    if (!confirm("确定要删除该信息么？")) {
-        return;
-    }
     var zTree = $.fn.zTree.getZTreeObj("tree");
     var selectedNode = zTree.getSelectedNodes()[0];
     var id = selectedNode.id;
     var url = "/equipmentsClassification/delete/" + id;
-    $.getJSON(url, function (data) {
-        var zTree = $.fn.zTree.getZTreeObj("tree");
-        zTree.removeNode(zTree.getSelectedNodes()[0]);
-        $.bootstrapGrowl("设备分类信息删除成功！", {
-            type: 'info',
-            align: 'right',
-            stackup_spacing: 30
+
+    if (id) {
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "设备分类信息删除成功!");
+                                var zTree = $.fn.zTree.getZTreeObj("tree");
+                                zTree.removeNode(zTree.getSelectedNodes()[0]);
+                                zTree.selectNode(zTree.getNodeByParam("id", 1));
+                                showMessageBox("info", data["resultDesc"]);
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "设备分类有关联数据无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
         });
-        //部门
-        zTree.selectNode(zTree.getNodeByParam("id", 1));
-    });
+    }
+
 }
 
 
