@@ -150,7 +150,7 @@ function save() {
     var objStr = getFormJsonData("form");
     var locations = JSON.parse(objStr);
 
-    console.log("locations------------"+JSON.stringify(locations));
+    console.log("locations------------" + JSON.stringify(locations));
     var url = "/location/save";
     if (!locations.description) {
         showMessageBox("danger", "位置描述不能为空!");
@@ -222,23 +222,46 @@ function equipReport(id) {
  *  删除位置信息
  */
 function deleteObject() {
-    if (!confirm("确定要删除该信息么？")) {
-        return;
-    }
     var zTree = $.fn.zTree.getZTreeObj("tree");
     var selectedNode = zTree.getSelectedNodes()[0];
     var id = selectedNode.id;
     var url = "/location/delete/" + id;
-    $.getJSON(url, function (data) {
-        if (data.result) {
-            var zTree = $.fn.zTree.getZTreeObj("tree");
-            zTree.removeNode(zTree.getSelectedNodes()[0]);
-            zTree.selectNode(zTree.getNodeByParam("id", 1));
-            showMessageBox("info", data.resultDesc);
-        } else {
-            showMessageBox("danger", data.resultDesc);
-        }
-    })
+
+    if (id) {
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "位置信息删除成功!");
+                                var zTree = $.fn.zTree.getZTreeObj("tree");
+                                zTree.removeNode(zTree.getSelectedNodes()[0]);
+                                zTree.selectNode(zTree.getNodeByParam("id", 1));
+                                showMessageBox("info", data["resultDesc"]);
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "位置信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
+    }
 }
 function fillForm1(treeNode) {
     $("#parent_id").attr("readonly", "readonly");
