@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.line;
 
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.line.Line;
+import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -98,10 +99,6 @@ public class LineController {
                        @RequestParam("lineNo") String lineNo,
                        @RequestParam("sortNo") Long sortNo,
                        @RequestParam("description") String description) {
-
-        System.out.println("lineId--" + lineId);
-        System.out.println("lineNo--" + lineNo);
-        System.out.println("description--" + description);
         Line line = lineService.findById(lineId);
         line.setDescription(description);
         line.setSortNo(sortNo);
@@ -118,6 +115,21 @@ public class LineController {
     public List<Line> findAllLines() {
         List<Line> lineList = lineService.findAll();
         return lineList;
+    }
+
+
+    /**
+     * @param id 根据id删除设备信息
+     */
+    @RequestMapping(value = "/delete/{id}")
+    @ResponseBody
+    public Boolean delete(@PathVariable("id") Long id) {
+        Line line = null;
+        if (id != null) {
+            line = lineService.findById(id);
+        }
+        return lineService.delete(line);
+
     }
 
 

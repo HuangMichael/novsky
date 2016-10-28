@@ -159,6 +159,50 @@ function edit() {
     }
 }
 
+
+function del() {
+    var uid = selectedIds[pointer];
+    var line = getLineByIdInLines(uid);
+    if (uid) {
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                var url = "line/delete/uid";
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "线路信息删除成功!");
+                                $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "线路信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
+
+    }
+
+
+}
+
 function saveUser() {
     $("#saveBtn").trigger("click");
 }
@@ -193,11 +237,11 @@ $(function () {
         el: "#detailForm",
         data: {
             line: null,
-            type:[{
-                key:'1',value:'站区'
+            type: [{
+                key: '1', value: '站区'
 
-            },{
-                key:'2',value:'段区'
+            }, {
+                key: '2', value: '段区'
 
             }]
         }

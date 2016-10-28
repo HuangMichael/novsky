@@ -2,6 +2,7 @@ package com.linkbit.beidou.service.line;
 
 import com.linkbit.beidou.dao.line.LineRepository;
 import com.linkbit.beidou.domain.line.Line;
+import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,16 @@ public class LineService extends BaseService {
         }
         return line;
 
+    }
+
+    /**
+     * @param line
+     * @return 删除线路信息
+     */
+    public Boolean delete(Line line) {
+        lineRepository.delete(line);
+        line = lineRepository.findById(line.getId());
+        return line == null;
     }
 
 
