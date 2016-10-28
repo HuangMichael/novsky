@@ -196,18 +196,18 @@ $(function () {
             //所有的都在选中列表中
             selectedIds = ids;
         }
-     /*   vdm = new Vue({
-            el: "#detailForm",
-            data: {
-                eqAddBill: getEqAddBillById(ids[pointer]),
-                locs: locs,
-                eqClasses: eqClasses
-            }
-        });*/
+        /*   vdm = new Vue({
+         el: "#detailForm",
+         data: {
+         eqAddBill: getEqAddBillById(ids[pointer]),
+         locs: locs,
+         eqClasses: eqClasses
+         }
+         });*/
 
         vdm.$set("eqAddBill", getEqAddBillById(ids[pointer]));
-        vdm.$set("locs",locs);
-        vdm.$set("eqClasses",eqClasses);
+        vdm.$set("locs", locs);
+        vdm.$set("eqClasses", eqClasses);
         setFormReadStatus("#detailForm", true);
     });
 
@@ -337,7 +337,6 @@ function edit() {
  * 删除选中的对象
  */
 function del() {
-    //判断选中的tab
     var bid = selectedIds[0];
     if (!bid) {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
@@ -345,22 +344,35 @@ function del() {
     }
     var url = "/eqAddBill/delete/" + bid;
     if (bid) {
-        var confirm = window.confirm("确定要删除该记录么？");
-        if (confirm) {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (msg) {
-                    if (msg) {
-                        showMessageBox("info", "设备采购更新信息删除成功!");
-                        $("#budgetDataTable").bootgrid("reload");
-                    }
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
                 },
-                error: function (msg) {
-                    showMessageBox("danger", "设备采购更新信息有关联数据，无法删除，请联系管理员");
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
                 }
-            });
-        }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "设备新置申请信息删除成功!");
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "设备新置申请信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
     }
 }
 /**

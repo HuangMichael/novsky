@@ -34,7 +34,6 @@ $(function () {
     });
 
 
-
     f_units = [{
         key: 0,
         text: "天"
@@ -209,7 +208,7 @@ $(function () {
             createUnit();
         });
 
-    console.log("units--------------" + JSON.stringify(pms[0]));
+
     pmDetail = new Vue({
         el: "#detailForm",
         data: {
@@ -334,26 +333,44 @@ function save() {
 }
 
 
+/**
+ * 删除记录
+ */
 function del() {
-    var uid = selectedIds[0];
-    var url = "/preMaint/delete/" + uid;
-    if (uid) {
-        var confirm = window.confirm("确定要删除该记录么？");
-        if (confirm) {
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (msg) {
-                    showMessageBoxCenter("info", "center", "预防性维修信息删除成功");
+    var bid = selectedIds[0];
+    var url = "/preMaint/delete/" + bid;
+    if (bid) {
+        bootbox.confirm({
+            message: "确定要删除该记录么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
                 },
-                error: function (msg) {
-                    showMessageBoxCenter("danger", "center", "删除失败，请联系管理员操作!");
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
                 }
-            });
-        } else {
-            showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-
-        }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        success: function (msg) {
+                            if (msg) {
+                                showMessageBox("info", "预防性维修计划信息删除成功!");
+                            }
+                        },
+                        error: function (msg) {
+                            showMessageBox("danger", "预防性维修计划信息有关联数据，无法删除，请联系管理员");
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
     }
 }
 
