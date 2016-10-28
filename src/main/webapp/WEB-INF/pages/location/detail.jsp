@@ -46,6 +46,9 @@
                                         ${equipment.eqName}
                                 </td>
                                 <td>
+                                        ${equipment.eqClass}
+                                </td>
+                                <td>
                                         ${equipment.locName}
                                 </td>
                             </tr>
