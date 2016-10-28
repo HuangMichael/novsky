@@ -127,7 +127,7 @@ $(document).ready(function() {
     });
 
 
-    $("#saveBtn").on("click",function(){
+    /*$("#saveBtn").on("click",function(){
         var resourceId = $("#resourceId").val();
         var resourceName = $("#resourceName").val();
         var resourceCode = $("#resourceCode").val();
@@ -169,7 +169,7 @@ $(document).ready(function() {
                 showMessageBox("info", "资源信息添加成功")
             }
         })
-    })
+    })*/
 
 
 

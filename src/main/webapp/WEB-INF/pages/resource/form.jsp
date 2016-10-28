@@ -6,7 +6,7 @@
 		<div class="col-md-12 col-sm-12 col-lg-12">
 			<div class="form-group">
 				<input class="form-control" id="resourceId" type="hidden" name="resourceId" value="${resource.id}" />
-				<label class="col-md-1 col-sm-1 col-lg-1 control-label" for="classId">资源编号</label>
+				<label class="col-md-1 col-sm-1 col-lg-1 control-label" for="resourceCode">资源编号</label>
 				<div class="col-md-3 col-sm-3 col-lg-3">
 					<input class="form-control" id="parentId" type="hidden" name="parentId" value="${resource.parent.id}" />
 					<input class="form-control" type="text" name="resourceCode" id="resourceCode" value="${resource.resourceCode}"  />
@@ -36,10 +36,6 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="staticFlag" class="col-md-1 control-label">资源标识</label>
-				<div class="col-md-3 col-sm-3 col-lg-3">
-					<input class="form-control" id="resourceUrl" type="text" name="staticFlag" value="${resource.staticFlag}" />
-				</div>
 				<label class="col-md-1 col-sm-1 col-lg-1 control-label" for="status">启用状态</label>
 				<div class="col-md-3 col-sm-3 col-lg-3">
 					<input class="form-control" type="text" name="status" id="status" value="${resource.status}" />
