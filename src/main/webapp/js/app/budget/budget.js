@@ -216,8 +216,6 @@ $(function () {
 
 
     formTab.on('click', function () {
-        // activeTab = "detail";
-        //setFormReadStatus("#detailForm", formLocked);
         //首先判断是否有选中的
         var budgetBill = null;
         if (selectedIds.length > 0) {
@@ -305,6 +303,7 @@ function add() {
     setFormReadStatus("#detailForm", false);
     clearForm("#detailForm");
     formTab.tab('show');
+    formTab.data("status", "add");
     //alert("add一条记录");
 }
 /**
@@ -324,10 +323,11 @@ function saveObject() {
     var url = "budget/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
-            showMessageBox("info", data.resultDesc);
+            showMessageBox("info", data["resultDesc"]);
+            formTab.data("status", "saved");
         } else {
 
-            showMessageBox("danger", data.resultDesc);
+            showMessageBox("danger", data["resultDesc"]);
         }
     });
 }
@@ -340,6 +340,14 @@ function edit() {
  * 删除选中的对象
  */
 function del() {
+    //删除时判断当前form的状态
+    var status = formTab.data("status");
+    if (status == "add") {
+        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
+        return;
+    }
+
+
     //判断选中的tab
     var bid = selectedIds[0];
     if (!bid) {
