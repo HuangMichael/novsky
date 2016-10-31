@@ -90,7 +90,7 @@ $(function () {
                     }
                 }
             },
-            "locations": {
+            "location.id": {
                 message: '位置无效',
                 validators: {
                     notEmpty: {
@@ -98,7 +98,26 @@ $(function () {
                     }
                 }
             },
-            "eqclass": {
+
+            "eqCode": {
+                message: '设备编号无效',
+                validators: {
+                    notEmpty: {
+                        message: '设备编号不能为空!'
+                    }
+                }
+            },
+
+            "eqName": {
+                message: '设备名称无效',
+                validators: {
+                    notEmpty: {
+                        message: '设备名称不能为空!'
+                    }
+                }
+            },
+
+            "eqClass.id": {
                 message: '设备分类无效',
                 validators: {
                     notEmpty: {
@@ -218,7 +237,7 @@ $(function () {
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        save();
+        saveObject();
     });
 });
 
@@ -314,7 +333,7 @@ function eqUpdateAdd(eid) {
 /**
  *保存或者更新
  * */
-function save() {
+function saveObject() {
     var objStr = getFormJsonData("detailForm");
     var eqAddBill = JSON.parse(objStr);
     console.log(JSON.stringify(eqAddBill));
@@ -327,6 +346,11 @@ function save() {
             showMessageBox("danger", data.resultDesc);
         }
     });
+}
+
+
+function save() {
+    $("#saveBtn").trigger("click");
 }
 
 function edit() {

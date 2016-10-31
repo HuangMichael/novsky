@@ -16,138 +16,151 @@ var newVue = null;
 $(function () {
     //设置数据有效性验证配置项
     var validateOptions = {
-        message: '该值无效 ',
-        fields: {
-            "applicant": {
-                message: '申请人无效',
-                validators: {
-                    notEmpty: {
-                        message: '申请人不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 20,
-                        message: '1到20个字符'
+            message: '该值无效 ',
+            fields: {
+                "applicant": {
+                    message: '申请人无效',
+                    validators: {
+                        notEmpty: {
+                            message: '申请人不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: '1到20个字符'
+                        }
+                    }
+                },
+                "applyDep": {
+                    message: '申请部门无效',
+                    validators: {
+                        notEmpty: {
+                            message: '申请部门不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: '1到20个字符'
+                        }
+                    }
+                },
+                "amount": {
+                    message: '申请数量无效',
+                    validators: {
+                        notEmpty: {
+                            message: '申请数量不能为空!'
+                        }
+                    }
+                },
+                "accessoryName": {
+                    message: '配件名称无效',
+                    validators: {
+                        notEmpty: {
+                            message: '配件名称不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: '1到20个字符'
+                        }
+                    }
+                },
+                "specifications": {
+                    message: '规格型号无效',
+                    validators: {
+                        notEmpty: {
+                            message: '规格型号不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 20,
+                            message: '1到20个字符'
+                        }
+                    }
+                },
+                "purpose": {
+                    message: '用途无效',
+                    validators: {
+                        notEmpty: {
+                            message: '用途不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 50,
+                            message: '1到50个字符'
+                        }
+                    }
+                },
+                "locations.id": {
+                    message: '位置无效',
+                    validators: {
+                        notEmpty: {
+                            message: '位置不能为空!'
+                        }
                     }
                 }
-            },
-            "applyDep": {
-                message: '申请部门无效',
-                validators: {
-                    notEmpty: {
-                        message: '申请部门不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 20,
-                        message: '1到20个字符'
+
+
+                , "equipments.id": {
+                    message: '设备无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备不能为空!'
+                        }
+                    }
+                },
+
+
+                "equipmentsClassification.id": {
+                    message: '设备分类无效',
+                    validators: {
+                        notEmpty: {
+                            message: '设备分类不能为空!'
+                        }
+                    }
+                },
+                "approver": {
+                    message: '批准人无效',
+                    validators: {
+                        notEmpty: {
+                            message: '批准人不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 50,
+                            message: '1到50个字符'
+                        }
+                    }
+                },
+                "handler": {
+                    message: '经办人无效',
+                    validators: {
+                        notEmpty: {
+                            message: '经办人不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 50,
+                            message: '1到50个字符'
+                        }
+                    }
+                },
+                "receiver": {
+                    message: '接收人无效',
+                    validators: {
+                        notEmpty: {
+                            message: '接收人不能为空!'
+                        },
+                        stringLength: {
+                            min: 1,
+                            max: 50,
+                            message: '1到50个字符'
+                        }
                     }
                 }
-            },
-            "amount": {
-                message: '申请数量无效',
-                validators: {
-                    notEmpty: {
-                        message: '申请数量不能为空!'
-                    }
-                }
-            },
-            "accessoryName": {
-                message: '配件名称无效',
-                validators: {
-                    notEmpty: {
-                        message: '配件名称不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 20,
-                        message: '1到20个字符'
-                    }
-                }
-            },
-            "specifications": {
-                message: '规格型号无效',
-                validators: {
-                    notEmpty: {
-                        message: '规格型号不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 20,
-                        message: '1到20个字符'
-                    }
-                }
-            },
-            "purpose": {
-                message: '用途无效',
-                validators: {
-                    notEmpty: {
-                        message: '用途不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 50,
-                        message: '1到50个字符'
-                    }
-                }
-            },
-            "locations": {
-                message: '位置无效',
-                validators: {
-                    notEmpty: {
-                        message: '位置不能为空!'
-                    }
-                }
-            },
-            "eqclass": {
-                message: '设备分类无效',
-                validators: {
-                    notEmpty: {
-                        message: '设备分类不能为空!'
-                    }
-                }
-            },
-            "approver": {
-                message: '批准人无效',
-                validators: {
-                    notEmpty: {
-                        message: '批准人不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 50,
-                        message: '1到50个字符'
-                    }
-                }
-            },
-            "handler": {
-                message: '经办人无效',
-                validators: {
-                    notEmpty: {
-                        message: '经办人不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 50,
-                        message: '1到50个字符'
-                    }
-                }
-            },
-            "receiver": {
-                message: '接收人无效',
-                validators: {
-                    notEmpty: {
-                        message: '接收人不能为空!'
-                    },
-                    stringLength: {
-                        min: 1,
-                        max: 50,
-                        message: '1到50个字符'
-                    }
-                }
-            },
+            }
         }
-    };
+        ;
 
     myEqs = findMyEqs();
     locs = findMyLoc();
@@ -213,7 +226,7 @@ $(function () {
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        save();
+        saveObject();
     });
 });
 
@@ -317,19 +330,23 @@ function eqUpdateAdd(eid) {
 /**
  *保存或者更新
  * */
-function save() {
+function saveObject() {
     var objStr = getFormJsonData("detailForm");
     var budgetBill = JSON.parse(objStr);
     console.log(JSON.stringify(budgetBill));
     var url = "eqUpdateBill/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
-            showMessageBox("info", data.resultDesc);
+            showMessageBox("info", data["resultDesc"]);
         } else {
-
-            showMessageBox("danger", data.resultDesc);
+            showMessageBox("danger", data["resultDesc"]);
         }
     });
+}
+
+function save() {
+
+    $("#saveBtn").trigger("click");
 }
 
 function edit() {

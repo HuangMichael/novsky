@@ -5,11 +5,11 @@
 <%@ taglib prefix="v-on" uri="http://www.springframework.org/tags/form" %>
 <form class="form-horizontal myform" role="form" id="detailForm">
 
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="affb">
 		<legend>申请人信息</legend>
 		<div class="form-group">
 
-			<label for="applicant " class="col-md-1 control-label ">申请人</label>
+			<label for="applicant" class="col-md-1 control-label ">申请人</label>
 			<div class="col-md-3 ">
 				<input class="form-control " id="applicant" type="text " name="applicant" required v-model="budgetBill.applicant" />
 			</div>
@@ -18,16 +18,16 @@
 				<input class="form-control " id="applyDep" type="text " name="applyDep" required v-model="budgetBill.applyDep" />
 			</div>
 
-			<label for="applicant " class="col-md-1 control-label ">申请日期</label>
+			<label for="applyDate" class="col-md-1 control-label ">申请日期</label>
 			<div class="col-md-3 ">
 				<input class="Wdate form-control" id="applyDate" onLoad="WdatePicker({maxDate:'%y-%M-%d'})" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
 			</div>
 		</div>
 	</fieldset>
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="aff">
 		<legend>设备信息</legend>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="accessoryName">设备位置</label>
+			<label class="col-md-1 control-label" for="locName">设备位置</label>
 			<div class="col-md-5">
 				<select v-model="budgetBill.equipments.locations.id" class="form-control " id="locName" name="locations.id" required style="width:100% " required onChange="changeLoc(this)">
 					<template v-for="option in locs ">
@@ -40,9 +40,9 @@
 					</template>
 				</select>
 			</div>
-			<label for="eq_class_id " class="col-md-1 control-label ">设备分类</label>
+			<label for="eq_class_id" class="col-md-1 control-label ">设备分类</label>
 			<div class="col-md-5 ">
-				<select v-model="budgetBill.equipments.equipmentsClassification.id " class="form-control " id="eqClass_id " name="equipmentsClassification.id" required style="width:100% " required  onChange="changeEqc(this)" >
+				<select v-model="budgetBill.equipments.equipmentsClassification.id " class="form-control " id="eq_class_id" name="equipmentsClassification.id" required style="width:100% " required  onChange="changeEqc(this)" >
 					<template v-for="option in eqClasses ">
 						<option :value="option.id " v-if="option.id==budgetBill.equipments.equipmentsClassification.id " selected>
 							{{option.cname }}
@@ -55,10 +55,10 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="accessoryName">设备名称</label>
+			<label class="col-md-1 control-label" for="vequipments_id">设备名称</label>
 			<div class="col-md-5">
 				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
-				<select v-model="budgetBill.equipments.id " class="form-control " id="vequipments_id " name="equipments.id" required style="width:100% " required>
+				<select v-model="budgetBill.equipments.id " class="form-control " id="vequipments_id" name="equipments.id" required style="width:100% " required>
 					<template v-for="option in myEqs ">
 						<option :value="option.id " v-if="option.id==budgetBill.equipments.id " selected>
 							{{option.eqCode }}-{{option.eqName }}
@@ -70,7 +70,7 @@
 				</select>
 			</div>
 
-			<label class="col-md-1 control-label" for="accessoryName">设备编号</label>
+			<label class="col-md-1 control-label" for="eqCode">设备编号</label>
 			<div class="col-md-5">
 				<input class="form-control" id="eqCode" type="text" name="equipments.eqCode" v-model="budgetBill.equipments.eqCode" />
 
@@ -88,26 +88,26 @@
 		</div>
 	</fieldset>
 
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="ad">
 		<legend>批准信息</legend>
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="approver">批准人</label>
 			<div class="col-md-3">
 				<input class="form-control" id="approver" type="text" name="approver" v-model="budgetBill.approver" />
 			</div>
-			<label for="handler " class="col-md-1 control-label ">经办人</label>
+			<label for="handler" class="col-md-1 control-label ">经办人</label>
 			<div class="col-md-3 ">
 				<input class="form-control" id="handler" type="text" name="handler" v-model="budgetBill.handler" />
 			</div>
 			<label for="receiver" class="col-md-1 control-label ">接收人</label>
 			<div class="col-md-3 ">
-				<input class="form-control " id="receiver " type="text" name="receiver" required v-model="budgetBill.receiver " />
+				<input class="form-control " id="receiver" type="text" name="receiver" required v-model="budgetBill.receiver " />
 			</div>
 		</div>
 	</fieldset>
 
 	<div class="modal-footer ">
-		<button type="submit " id="saveBtn " name="saveBtn " class="btn btn-primary btn-danger ">保存记录
+		<button type="submit" id="saveBtn" name="saveBtn " class="btn btn-primary btn-danger ">保存记录
         </button>
 	</div>
 </form>

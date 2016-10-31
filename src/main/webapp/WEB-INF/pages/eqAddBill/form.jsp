@@ -97,13 +97,13 @@
             <label for="receiver" class="col-md-1 control-label ">接收人</label>
             <div class="col-md-3 ">
                 <input class="form-control " id="receiver" type="text" name="receiver" required
-                       v-model="eqAddBill.receiver "/>
+                       v-model="eqAddBill.receiver"/>
             </div>
         </div>
     </fieldset>
 
     <div class="modal-footer ">
-        <button type="submit " id="saveBtn " name="saveBtn " class="btn btn-primary btn-danger ">保存记录
+        <button type="submit" id="saveBtn" name="saveBtn " class="btn btn-primary btn-danger ">保存记录
         </button>
     </div>
 </form>
