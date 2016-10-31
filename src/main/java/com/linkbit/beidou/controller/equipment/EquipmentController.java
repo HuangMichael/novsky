@@ -21,6 +21,7 @@ import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.ExportUtil;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,7 +33,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -101,13 +105,10 @@ public class EquipmentController extends BaseController {
 
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
-
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
         System.out.println("controllerName-----------------------" + controllerName);
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-
-
         return "/equipment/list";
     }
 
@@ -477,5 +478,21 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     List<Long> selectAllId() {
         return equipmentAccountService.selectAllId();
+    }
+
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value="/exportExcel")
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response) {
+        List<Equipments> equipmentsList = equipmentAccountService.findAll();
+        try {
+            ExportUtil.exportExcel(request, response, equipmentsList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

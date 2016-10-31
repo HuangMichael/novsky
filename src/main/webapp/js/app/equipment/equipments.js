@@ -967,6 +967,14 @@ function changeValue(data) {
 
 
 /**
+ *导出excel
+ */
+function exportExcel() {
+    window.location.href = "/equipment/exportExcel";
+}
+
+
+/**
  * 新建之前清空表单
  */
 /*
