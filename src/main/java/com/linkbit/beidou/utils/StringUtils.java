@@ -1,6 +1,7 @@
 package com.linkbit.beidou.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class StringUtils {
     public static String replaceStrSeparator(String arrayStr, String separator) {
 
         String array[] = arrayStr.split(separator);
-        String newStr ="";
+        String newStr = "";
 
         for (String s : array) {
             if (s != null && !s.equals("")) {
@@ -57,4 +58,48 @@ public class StringUtils {
         System.out.println(newStr);
         return newStr;
     }
+
+
+    /**
+     * @param str
+     * @return 首字母大写
+     */
+    public static String upperCaseFirstOne(String str) {
+        char[] ch = str.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            if (i == 0) {
+                ch[0] = Character.toUpperCase(ch[0]);
+            } else {
+                ch[i] = Character.toLowerCase(ch[i]);
+            }
+        }
+        StringBuffer a = new StringBuffer();
+        a.append(ch);
+        return a.toString();
+    }
+
+    /**
+     * @param str
+     * @return 首字母大写
+     */
+    public static String upperCaseCamel(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1, str.length());
+    }
+
+
+    /**
+     * @param array
+     * @return 数组去空值
+     */
+    public static List<String> removeNullValue(String array[]) {
+        List<String> strList = new ArrayList<String>();
+        for (String str : array) {
+            if (str != null && !str.equals("")) {
+                strList.add(str);
+            }
+
+        }
+        return strList;
+    }
+
 }

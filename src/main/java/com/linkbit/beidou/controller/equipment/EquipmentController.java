@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.equipment;
 
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
@@ -23,6 +24,7 @@ import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.ExportUtil;
 import com.linkbit.beidou.utils.SessionUtil;
+import com.linkbit.beidou.utils.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -486,12 +488,13 @@ public class EquipmentController extends BaseController {
      * @param response
      */
     @ResponseBody
-    @RequestMapping(value = "/exportExcel",method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName) {
-        String titles[] = {"序号", "设备编号", "设备名称", "设备分类", "设备位置"};
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
         List<Vequipments> equipmentsList = equipmentAccountService.findByEqNameContains(eqName);
         try {
-            ExportUtil.exportExcel(request, response, equipmentsList, titles);
+            ExportUtil.exportExcel(request, response, equipmentsList, titleList, colNameList, docName);
         } catch (Exception e) {
             e.printStackTrace();
         }

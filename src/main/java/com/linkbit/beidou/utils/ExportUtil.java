@@ -1,27 +1,18 @@
 package com.linkbit.beidou.utils;
 
-import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import org.apache.poi.hssf.usermodel.*;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static javafx.scene.input.KeyCode.H;
 
 /**
  * Created by huangbin on 2016/2/22 0022.
@@ -36,17 +27,21 @@ public class ExportUtil {
      *
      * @param request
      * @param resp
+     * @param equipmentsList
+     * @param titles
+     * @param colNames
+     * @param docName
      * @throws UnsupportedEncodingException
      */
-    public static void exportExcel(HttpServletRequest request, HttpServletResponse resp, List<Vequipments> equipmentsList, String[] titles) throws UnsupportedEncodingException {
+    public static void exportExcel(HttpServletRequest request, HttpServletResponse resp, List<Vequipments> equipmentsList, List<String> titles, List<String> colNames, String docName) throws UnsupportedEncodingException {
         HSSFWorkbook wb = new HSSFWorkbook();
         request.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/x-download");
-        String fileName = "设备信息.xls";
+        String fileName = docName + ".xls";
         fileName = URLEncoder.encode(fileName, "UTF-8");
         resp.addHeader("Content-Disposition", "attachment;filename=" + fileName);
-        HSSFSheet sheet = wb.createSheet("设备信息");
+        HSSFSheet sheet = wb.createSheet(docName);
         sheet.setDefaultRowHeight((short) (256));
         sheet.setDefaultColumnWidth((short) (20));
         sheet.setFitToPage(true);
@@ -63,28 +58,52 @@ public class ExportUtil {
         style.setVerticalAlignment(VerticalAlignment.CENTER);
         style.setAlignment(HorizontalAlignment.LEFT);
 
-        for (int i = 0; i < titles.length; i++) {
-            HSSFCell cell = row.createCell(i);
-            cell.setCellValue(titles[i]);
-            cell.setCellStyle(style);
+        for (int i = 0; i < titles.size(); i++) {
+            if (titles.get(i) != null) {
+                HSSFCell cell = row.createCell(i);
+                cell.setCellValue(titles.get(i).toString());
+                cell.setCellStyle(style);
+            }
+
         }
+        Method method = null;
         for (int i = 0; i < equipmentsList.size(); i++) {
             HSSFRow row1 = sheet.createRow(i + 1);
             row1.setRowStyle(style);
             Vequipments equipments = equipmentsList.get(i);
-            row1.createCell(0).setCellValue(i + 1);
-            row1.createCell(1).setCellValue(equipments.getEqCode());//设备编号
-            row1.createCell(2).setCellValue(equipments.getEqName());//设备名称
-            row1.createCell(3).setCellValue(equipments.getEqClass());//设备分类
-            row1.createCell(4).setCellValue(equipments.getLocName());//设备位置
+            for (int j = 0; j < colNames.size(); j++) {
+                if (j > 0 && colNames.get(j) != null) {
+
+                    System.out.println();
+                    try {
+                        method = equipments.getClass().getMethod("get" + StringUtils.upperCaseCamel(colNames.get(j).toString()));
+                        System.out.println("取值-----------"+method.invoke(equipments).toString());
+                        row1.createCell(j).setCellValue(method.invoke(equipments).toString());//设备编号
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                    }
+                } else {
+                    row1.createCell(j).setCellValue(i + 1);
+                }
+
+            }
+
+
         }
         try {
             OutputStream out = resp.getOutputStream();
             wb.write(out);
             out.close();
-        } catch (ServiceException e) {
+        } catch (
+                ServiceException e)
+
+        {
             System.out.println("=====导出excel异常====");
-        } catch (Exception e1) {
+        } catch (
+                Exception e1)
+
+        {
             System.out.println("=====导出excel异常====");
         }
     }
