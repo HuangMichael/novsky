@@ -19,15 +19,15 @@ $(function () {
     var validateOptions = {
         message: '该值无效',
         fields: {
-/*            "applyDate": {
-                message: '申请日期无效',
-                validators: {
-                    notEmpty: {
-                        message: '申请日期不能为空!'
-                    }
+            /*            "applyDate": {
+             message: '申请日期无效',
+             validators: {
+             notEmpty: {
+             message: '申请日期不能为空!'
+             }
 
-                }
-            },*/
+             }
+             },*/
             "ecname": {
                 message: '易耗品名称无效',
                 validators: {
@@ -109,13 +109,13 @@ $(function () {
             },
 
             /*"auditDate": {
-                message: '审核日期无效',
-                validators: {
-                    notEmpty: {
-                        message: '审核日期不能为空!'
-                    }
-                }
-            },*/
+             message: '审核日期无效',
+             validators: {
+             notEmpty: {
+             message: '审核日期不能为空!'
+             }
+             }
+             },*/
 
             "amount": {
                 message: '申请数量无效',
@@ -327,6 +327,7 @@ function add() {
     setFormReadStatus("#detailForm", false);
     clearForm("#detailForm");
     formTab.tab('show');
+    formTab.data("status", "add");
     //alert("add一条记录");
 }
 
@@ -346,10 +347,11 @@ function saveObject() {
     var url = "ecbudget/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
-            showMessageBox("info", data.resultDesc);
+            showMessageBox("info", data["resultDesc"]);
             setFormReadStatus("#detailForm", true);
+            formTab.data("status", "saved");
         } else {
-            showMessageBox("danger", data.resultDesc);
+            showMessageBox("danger", data["resultDesc"]);
             setFormReadStatus("#detailForm", false);
         }
     });
@@ -367,6 +369,16 @@ function edit() {
  * 删除记录
  */
 function del() {
+
+
+    //删除时判断当前form的状态
+    var status = formTab.data("status");
+    if (status == "add") {
+        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
+        return;
+    }
+
+
     //判断选中的tab
     var bid = selectedIds[0];
     if (!bid) {

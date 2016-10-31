@@ -191,7 +191,7 @@ $(function () {
         var budgetBill = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            budgetBill = findById(selectedIds[0]);
+            budgetBill = getBudgetBillById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
             budgetBill = getBudgetBillById(ids[0]);
@@ -292,9 +292,7 @@ function forwards() {
 
 
 function add() {
-
     //重新建立模型 新建对象模型
-
     var newVue = new Vue({
         el: "#detailContainer",
         locs: locs,
@@ -304,7 +302,6 @@ function add() {
     clearForm("#detailForm");
     formTab.tab('show');
     formTab.data("status", "add");
-    //alert("add一条记录");
 }
 /**
  *保存或者更新
@@ -319,14 +316,13 @@ function save() {
 function saveObject() {
     var objStr = getFormJsonData("detailForm");
     var budgetBill = JSON.parse(objStr);
-    console.log(JSON.stringify(budgetBill));
     var url = "budget/save";
     $.post(url, budgetBill, function (data) {
         if (data.result) {
             showMessageBox("info", data["resultDesc"]);
             formTab.data("status", "saved");
+            setFormReadStatus("#detailForm", true);
         } else {
-
             showMessageBox("danger", data["resultDesc"]);
         }
     });
@@ -387,18 +383,7 @@ function del() {
         });
     }
 }
-/**
- *根据id查询
- * */
-function findById(id) {
-    var budgetBill = null;
-    var url = "budget/findById/" + id;
-    $.getJSON(url, function (data) {
-        budgetBill = data;
-    });
-    return budgetBill;
 
-}
 /**
  *查询我的位置
  * */
