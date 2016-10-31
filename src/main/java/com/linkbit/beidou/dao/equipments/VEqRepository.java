@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 /**
  * Created by huangbin on 2016/3/15 0008.
  * 设备信息查询接口
@@ -21,6 +23,13 @@ public interface VEqRepository extends PagingAndSortingRepository<Vequipments, L
      * @return
      */
     Page<Vequipments> findByEqNameContains(String eqName, Pageable pageable);
+
+
+    /**
+     * @param eqName 设备名称
+     * @return
+     */
+    List<Vequipments> findByEqNameContains(String eqName);
 
     /**
      * @param pageable

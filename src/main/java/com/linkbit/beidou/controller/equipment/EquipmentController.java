@@ -486,11 +486,12 @@ public class EquipmentController extends BaseController {
      * @param response
      */
     @ResponseBody
-    @RequestMapping(value="/exportExcel")
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response) {
-        List<Equipments> equipmentsList = equipmentAccountService.findAll();
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName) {
+        String titles[] = {"序号", "设备编号", "设备名称", "设备分类", "设备位置"};
+        List<Vequipments> equipmentsList = equipmentAccountService.findByEqNameContains(eqName);
         try {
-            ExportUtil.exportExcel(request, response, equipmentsList);
+            ExportUtil.exportExcel(request, response, equipmentsList, titles);
         } catch (Exception e) {
             e.printStackTrace();
         }

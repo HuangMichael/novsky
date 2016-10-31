@@ -958,8 +958,8 @@ function changeValue(data) {
     var trId = data.id;
     $("tr[data-row-id='" + trId + "'] td:eq(2)").html(data.eqCode);
     $("tr[data-row-id='" + trId + "'] td:eq(3)").html(data.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(4)").html(data.equipmentsClassification.description);
-    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data.vlocations.locName);
+    $("tr[data-row-id='" + trId + "'] td:eq(4)").html(data["equipmentsClassification"]["description"]);
+    $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data["vlocations"]["locName"]);
     $("tr[data-row-id='" + trId + "'] td:eq(6)").html(eqStatuses[data.status]["value"]);
     $("tr[data-row-id='" + trId + "'] td:eq(7)").html(runStatus[data.running]["value"]);
 
@@ -970,18 +970,28 @@ function changeValue(data) {
  *导出excel
  */
 function exportExcel() {
-    window.location.href = "/equipment/exportExcel";
+    var eqName = $("#equipmentsDataTable").bootgrid("getSearchPhrase");
+    var url = "equipment/exportExcel?eqName=" + eqName;
+    bootbox.confirm({
+        message: "确定导出查询结果记录么？?",
+        buttons: {
+            confirm: {
+                label: '是',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: '否',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                window.location.href = url;
+            }
+        }
+    });
+
 }
-
-
-/**
- * 新建之前清空表单
- */
-/*
- function clearForm() {
-
- $("#detailForm select").find("")
- }*/
 
 
 function setTrackStatus(id) {

@@ -237,22 +237,18 @@ public class EquipmentAccountService extends BaseService {
     }
 
 
+
+    /**
+     * @param eqName   设备名称
+     * @return 分页查询 根据易耗品名称去查询
+     */
+    public List<Vequipments> findByEqNameContains(String eqName) {
+
+        return vEqRepository.findByEqNameContains(eqName);
+    }
+
     public List<Long> selectAllId() {
 
         return equipmentsRepository.findAllId();
-    }
-
-
-    /**
-     * @param request
-     * @param response
-     */
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response) {
-        List<Equipments> equipmentsList = new ArrayList<Equipments>();
-        try {
-            ExportUtil.exportExcel(request, response, equipmentsList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

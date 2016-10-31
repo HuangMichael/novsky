@@ -1,6 +1,7 @@
 package com.linkbit.beidou.utils;
 
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -33,7 +34,7 @@ public class ExportUtil {
      * @param resp
      * @throws UnsupportedEncodingException
      */
-    public static void exportExcel(HttpServletRequest request, HttpServletResponse resp, List<Equipments> equipmentsList) throws UnsupportedEncodingException {
+    public static void exportExcel(HttpServletRequest request, HttpServletResponse resp, List<Vequipments> equipmentsList, String[] titles) throws UnsupportedEncodingException {
         HSSFWorkbook wb = new HSSFWorkbook();
         request.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -43,7 +44,7 @@ public class ExportUtil {
         resp.addHeader("Content-Disposition", "attachment;filename=" + fileName);
         HSSFSheet sheet = wb.createSheet("设备信息");
         sheet.setDefaultRowHeight((short) (256));
-        sheet.setDefaultColumnWidth((short)(12));
+        sheet.setDefaultColumnWidth((short) (12));
         sheet.setFitToPage(true);
         //sheet.setColumnWidth(0, 50 * 160);
         HSSFFont font = wb.createFont();
@@ -53,22 +54,23 @@ public class ExportUtil {
         sheet.createRow(1);
         sheet.createRow(2);
         sheet.createRow(3);
+        sheet.createRow(4);
+
         HSSFCellStyle style = wb.createCellStyle();
         HSSFCell cell = row.createCell(0);
-        cell.setCellValue("序号");
-        cell.setCellStyle(style);
-        cell = row.createCell(1);
-        cell.setCellValue("编号");
-        cell.setCellStyle(style);
-        cell = row.createCell(2);
-        cell.setCellStyle(style);
-        cell.setCellValue("设备名称");
+        for (int i = 0; i < titles.length; i++) {
+            cell.setCellValue(titles[i]);
+            cell.setCellStyle(style);
+            cell = row.createCell(i);
+        }
         for (int i = 0; i < equipmentsList.size(); i++) {
             HSSFRow row1 = sheet.createRow(i + 1);
-            Equipments equipments = equipmentsList.get(i);
+            Vequipments equipments = equipmentsList.get(i);
             row1.createCell(0).setCellValue(i + 1);
-            row1.createCell(1).setCellValue(equipments.getEqCode());//订单号
-            row1.createCell(2).setCellValue(equipments.getDescription());//会员姓名
+            row1.createCell(1).setCellValue(equipments.getEqCode());//设备编号
+            row1.createCell(2).setCellValue(equipments.getEqName());//设备名称
+            row1.createCell(3).setCellValue(equipments.getEqClass());//设备分类
+            row1.createCell(4).setCellValue(equipments.getLocName());//设备位置
         }
         try {
             OutputStream out = resp.getOutputStream();
