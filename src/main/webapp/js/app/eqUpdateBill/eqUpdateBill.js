@@ -325,7 +325,6 @@ function eqUpdateAdd(eid) {
     $("#locName").attr("readonly", "readonly");
     $("#eqClass").attr("readonly", "readonly");
 
-    //alert("add一条记录");
 }
 /**
  *保存或者更新
@@ -357,6 +356,14 @@ function edit() {
  * 删除选中的对象
  */
 function del() {
+
+    //删除时判断当前form的状态
+    var status = formTab.data("status");
+    if (status == "add") {
+        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
+        return;
+    }
+
     var bid = selectedIds[0];
     if (!bid) {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");

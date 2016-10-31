@@ -316,6 +316,7 @@ function add() {
     setFormReadStatus("#detailForm", false);
     clearForm("#detailForm");
     formTab.tab('show');
+    formTab.data("status", "add");
 }
 
 function eqUpdateAdd(eid) {
@@ -340,10 +341,11 @@ function saveObject() {
     var url = "eqAddBill/save";
     $.post(url, eqAddBill, function (data) {
         if (data.result) {
-            showMessageBox("info", data.resultDesc);
+            showMessageBox("info", data["resultDesc"]);
+            formTab.data("status", "saved");
         } else {
 
-            showMessageBox("danger", data.resultDesc);
+            showMessageBox("danger", data["resultDesc"]);
         }
     });
 }
@@ -361,6 +363,13 @@ function edit() {
  * 删除选中的对象
  */
 function del() {
+
+    //删除时判断当前form的状态
+    var status = formTab.data("status");
+    if (status == "add") {
+        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
+        return;
+    }
     var bid = selectedIds[0];
     if (!bid) {
         showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
