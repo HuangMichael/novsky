@@ -160,14 +160,13 @@ function showMessageBox(type, message) {
 function showMessageBoxCenter(type, position, message) {
     $.bootstrapGrowl(message, {type: type, align: position, stackup_spacing: 30})
 }
-/*
- Array.prototype.indexOf = function (val) {
- for (var i = 0; i < this.length; i++) {
- if (this[i] == val) return i;
- }
- return -1;
- };
- */
+
+Array.prototype.indexOf = function (val) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == val) return i;
+    }
+    return -1;
+};
 
 
 /**
@@ -220,7 +219,6 @@ function getAllTableIdsByTableId(tableName) {
     return records;
 
 }
-
 
 
 Array.prototype.unique = function () {
