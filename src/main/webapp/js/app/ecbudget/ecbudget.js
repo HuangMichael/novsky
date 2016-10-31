@@ -17,9 +17,9 @@ $(function () {
 
     //设置数据有效性验证配置项
     var validateOptions = {
-        message: '该值无效 ',
+        message: '该值无效',
         fields: {
-            "applyDate": {
+/*            "applyDate": {
                 message: '申请日期无效',
                 validators: {
                     notEmpty: {
@@ -27,7 +27,7 @@ $(function () {
                     }
 
                 }
-            },
+            },*/
             "ecname": {
                 message: '易耗品名称无效',
                 validators: {
@@ -47,10 +47,10 @@ $(function () {
                 }
             },
             "updateReason": {
-                message: '更新原因无效',
+                message: '申请原因无效',
                 validators: {
                     notEmpty: {
-                        message: '更新原因不能为空!'
+                        message: '申请原因不能为空!'
                     }
 
                 }
@@ -108,14 +108,14 @@ $(function () {
                 }
             },
 
-            "auditDate": {
-                message: '填报日期无效',
+            /*"auditDate": {
+                message: '审核日期无效',
                 validators: {
                     notEmpty: {
-                        message: '填报日期不能为空!'
+                        message: '审核日期不能为空!'
                     }
                 }
-            },
+            },*/
 
             "amount": {
                 message: '申请数量无效',
@@ -126,7 +126,7 @@ $(function () {
                 }
             },
 
-            "locations": {
+            "vlocations.id": {
                 message: '位置无效',
                 validators: {
                     notEmpty: {
@@ -136,19 +136,19 @@ $(function () {
             },
 
             "fixAdvice": {
-                message: '维修建议无效',
+                message: '维修意见无效',
                 validators: {
                     notEmpty: {
-                        message: '维修建议不能为空!'
+                        message: '维修意见不能为空!'
                     }
                 }
             },
 
             "leaderAdvice": {
-                message: '领导建议无效',
+                message: '领导意见无效',
                 validators: {
                     notEmpty: {
-                        message: '领导建议不能为空!'
+                        message: '领导意见不能为空!'
                     }
                 }
             },
@@ -231,7 +231,7 @@ $(function () {
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        save();
+        saveObject();
     });
 
 
@@ -329,10 +329,18 @@ function add() {
     formTab.tab('show');
     //alert("add一条记录");
 }
+
 /**
  *保存或者更新
  * */
 function save() {
+    $("#saveBtn").trigger("click");
+}
+
+/**
+ *保存或者更新
+ * */
+function saveObject() {
     var objStr = getFormJsonData("detailForm");
     var budgetBill = JSON.parse(objStr);
     var url = "ecbudget/save";

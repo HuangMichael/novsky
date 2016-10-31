@@ -8,17 +8,16 @@
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="applyDate">申请日期</label>
 			<div class="col-md-3">
-				<input class="Wdate form-control" id="applyDate" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" required="required" style="height:34px;border:1px solid #cccccc" />
+				<input class="Wdate form-control" id="applyDate" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
 			</div>
-			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>
+			<label for="applicant" class="col-md-1 control-label ">填报人</label>
 			<div class="col-md-3">
 				<input class="form-control" id="applicant" type="text" name="applicant" v-model="budgetBill.applicant" required="required" />
 				<input class="form-control" id="id" type="hidden" name="id" v-model="budgetBill.id" />
-
 			</div>
 			<label class="col-md-1 control-label" for="locations_id">使用位置</label>
 			<div class="col-md-3">
-				<select v-model="budgetBill.vlocations.id " class="form-control " id="locations_id " name="vlocations.id" required style="width:80% " required>
+				<select v-model="budgetBill.vlocations.id " class="form-control " id="locations_id" name="vlocations.id" required style="width:80% " required>
 					<template v-for="option in locs ">
 						<option :value="option.id " v-if="option.id==budgetBill.vlocations.id " selected>
 							{{option.locName }}
@@ -32,7 +31,7 @@
 
 		</div>
 	</fieldset>
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="ab">
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="ecname">易耗品名称</label>
 			<div class="col-md-3">
@@ -43,7 +42,7 @@
 				<input class="form-control" id="amount" type="number" name="amount" v-model="budgetBill.amount" value="1" />
 			</div>
 			<div class="form-group">
-				<label for="epermited " class="col-md-1 control-label ">有无用电许可证</label>
+				<label for="epermited" class="col-md-1 control-label ">有无用电许可证</label>
 				<div class="col-md-3">
 					<select class="js-example-basic-multiple" style="width:80% " name="epermited" id="epermited" v-model="budgetBill.epermited">
 						<option>有</option>
@@ -53,7 +52,7 @@
 			</div>
 		</div>
 	</fieldset>
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="ac">
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="updateReason">选择原因</label>
 			<div class="col-md-3">
@@ -69,21 +68,21 @@
 			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.updateReason" disabled></div>
 		</div>
 	</fieldset>
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="ad">
 		<legend>综合维修中心填写</legend>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="auditDate">申请日期</label>
+			<label class="col-md-1 control-label" for="auditDate">审核日期</label>
 			<div class="col-md-3">
-				<input class="Wdate form-control" id="auditDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})" type="text" name="auditDate" v-model="budgetBill.auditDate" required="required" style="height:34px;border:1px solid #cccccc" />
+				<input class="Wdate form-control" id="auditDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})" type="text" name="auditDate" v-model="budgetBill.auditDate"  style="height:34px;border:1px solid #cccccc" />
 			</div>
 
-			<label for="vlocations_id " class="col-md-1 control-label ">填报人</label>
+			<label for="auditor" class="col-md-1 control-label ">填报人</label>
 			<div class="col-md-3">
 				<input class="form-control" id="auditor" type="text" name="auditor" v-model="budgetBill.auditor" value="1" required="required" />
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-md-1 control-label" for="accessoryName">选择原因</label>
+			<label class="col-md-1 control-label" for="confirmReason">选择原因</label>
 			<div class="col-md-3">
 				<select class="js-example-basic-multiple" multiple="multiple" style="width:90% " id="confirmReason" name="confirmReason" required="required" v-model="budgetBill.confirmReason" style="width:100%">
 					<option>使用年限较长</option>
@@ -97,7 +96,7 @@
 			<div class="col-md-3"><input type="text" class="form-control" v-model="budgetBill.confirmReason" disabled></div>
 		</div>
 	</fieldset>
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="ae">
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="fixAdvice">维修意见</label>
 			<div class="col-md-11">
@@ -105,7 +104,7 @@
 			</div>
 		</div>
 	</fieldset>
-	<fieldset class="form-group" id="a">
+	<fieldset class="form-group" id="af">
 		<div class="form-group">
 			<label class="col-md-1 control-label" for="leaderAdvice">领导意见</label>
 			<div class="col-md-11">
