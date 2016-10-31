@@ -5,6 +5,8 @@ import com.linkbit.beidou.domain.equipments.Vequipments;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static javafx.scene.input.KeyCode.H;
 
 /**
  * Created by huangbin on 2016/2/22 0022.
@@ -44,7 +48,7 @@ public class ExportUtil {
         resp.addHeader("Content-Disposition", "attachment;filename=" + fileName);
         HSSFSheet sheet = wb.createSheet("设备信息");
         sheet.setDefaultRowHeight((short) (256));
-        sheet.setDefaultColumnWidth((short) (12));
+        sheet.setDefaultColumnWidth((short) (20));
         sheet.setFitToPage(true);
         //sheet.setColumnWidth(0, 50 * 160);
         HSSFFont font = wb.createFont();
@@ -55,16 +59,18 @@ public class ExportUtil {
         sheet.createRow(2);
         sheet.createRow(3);
         sheet.createRow(4);
-
         HSSFCellStyle style = wb.createCellStyle();
-        HSSFCell cell = row.createCell(0);
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setAlignment(HorizontalAlignment.LEFT);
+
         for (int i = 0; i < titles.length; i++) {
+            HSSFCell cell = row.createCell(i);
             cell.setCellValue(titles[i]);
             cell.setCellStyle(style);
-            cell = row.createCell(i);
         }
         for (int i = 0; i < equipmentsList.size(); i++) {
             HSSFRow row1 = sheet.createRow(i + 1);
+            row1.setRowStyle(style);
             Vequipments equipments = equipmentsList.get(i);
             row1.createCell(0).setCellValue(i + 1);
             row1.createCell(1).setCellValue(equipments.getEqCode());//设备编号
