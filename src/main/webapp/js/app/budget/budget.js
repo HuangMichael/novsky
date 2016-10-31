@@ -89,7 +89,7 @@ var validateOptions = {
                 }
             }
         },
-        "locations": {
+        "vlocations.id": {
             message: '位置无效',
             validators: {
                 notEmpty: {
@@ -97,7 +97,7 @@ var validateOptions = {
                 }
             }
         },
-        "eqclass": {
+        "eqClass.id": {
             message: '设备分类无效',
             validators: {
                 notEmpty: {
