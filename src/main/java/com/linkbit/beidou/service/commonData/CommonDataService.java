@@ -425,15 +425,15 @@ public class CommonDataService extends BaseService {
             int len = 8;
             String endNo = workOrderLineNo.substring(len - 4);
             long index = Long.parseLong(endNo) + 1;
-            workOrderLineNo = startNo + "0" + index;
-
-            System.out.println("workOrderLineNo--------------------"+workOrderLineNo);
+            String endStr = index + "";
+            for (int i = endStr.length(); i < 4; i++) {
+                endStr = "0" + endStr;
+            }
+            workOrderLineNo = startNo + endStr;
         } else {
             //如果不存在工单，从startNo+0001开始
             workOrderLineNo = startNo + "0001";
         }
-
-
         return workOrderLineNo;
 
     }

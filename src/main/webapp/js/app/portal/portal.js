@@ -1,7 +1,238 @@
-$(function () {
+$(document).ready(function () {
+    App.setPage("inbox");  //Set current page
+    App.init(); //Initialise plugins and elements
     Highcharts.setOptions({
-        colors: ['#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#058DC7']
+        colors: ['#50B432', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4', '#058DC7'],
+        exporting: {
+            enabled: true
+        },
     });
+    //默认加载当月数据
+    loadChartData(addMonth(0));
+
+
+    $("#currentMonth").on("click", function () {
+        var reportMonth = addMonth(0);
+        loadChartData(reportMonth);
+        $("#setupDate").val(reportMonth);
+    });
+    $("#lastMonth").on("click", function () {
+        var reportMonth = addMonth(-1);
+        loadChartData(reportMonth);
+        $("#setupDate").val(reportMonth);
+    })
+
+
+    $("#displayBtn").on("click", function () {
+        var reportMonth = $("#setupDate").val();
+        reportMonth = (!reportMonth) ? addMonth(0) : reportMonth;
+        loadChartData(reportMonth);
+
+    })
+});
+
+
+/**
+ *
+ * @param reportMonth
+ */
+function loadChartData(reportMonth) {
+    loadEqClassChart(reportMonth);
+    loadReportFinishChart(reportMonth);
+    loadLineChart(reportMonth);
+}
+
+/**
+ *加载设备分类统计
+ * @param reportMonth
+ */
+function loadEqClassChart(reportMonth) {
+    /**
+     *
+     * @param chart2Data
+     * @returns {*}
+     */
+    var newData = [];
+
+    function assembleData(chart2Data) {
+        var sumOther = 0;
+        chart2Data.forEach(function (e, i) {
+            var obj = null;
+            if (i <= 5) {
+                obj = {name: e[1], y: e[2]}
+                newData.push(obj);
+            } else {
+                sumOther += e[2];
+            }
+
+        });
+        if (sumOther) {
+            newData.push({
+                name: "其他分类",
+                y: sumOther
+            })
+            return newData;
+        }
+    }
+
+    //ajax 请求当月设备分类前5
+    var chart2Data = [];
+    $.getJSON("/portal/findTopEqClass/" + reportMonth, function (data) {
+        chart2Data = assembleData(data);
+    });
+    var eqClassChartConfig = {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: reportMonth + '报修按设备类型统计'
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}: {point.y}'
+                }
+            }
+        },
+        exporting: {
+            enabled: true
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>报修: <b>{point.y}</b>单/共<b>{point.total}</b>单<b>/占比:{point.percentage:.1f}%</b>'
+        },
+        series: [{
+            name: '报修数量',
+            colorByPoint: true,
+            data: newData
+        }]
+    }
+    $('#highCharts0').highcharts(eqClassChartConfig);
+
+
+}
+
+
+/**
+ *加载设备分类统计
+ * @param reportMonth
+ */
+function loadReportFinishChart(reportMonth) {
+    var seriesOptions = [];
+    var option0, option1;
+
+    option0 = {
+        "name": "报修数量",
+        "data": get3MonthReportNum(reportMonth)
+    };
+    option1 = {
+        "name": "完工数量",
+        "data": get3MonthFinishNum(reportMonth)
+    };
+    seriesOptions.push(option0);
+    seriesOptions.push(option1);
+
+
+    function get3MonthTitle(reportMonth) {
+        var title = [];
+        var date = new Date();
+        title.push((date.getMonth() - 1) + "月");
+        title.push(date.getMonth() + "月");
+        title.push((date.getMonth() + 1) + "月");
+        return title;
+    }
+
+
+    function get3MonthReportNum(reportMonth) {
+        $.ajaxSettings.async = false;
+        var url = "/workOrderReport/sel3mRptNum";
+        var reportNums = [];
+        $.getJSON(url, function (data) {
+            for (var x = 0; x < 3; x++) {
+                if (data[x] && data[x]["reportNum"] && !isNaN(data[x]["reportNum"])) {
+                    reportNums.push(data[x]["reportNum"]);
+                } else {
+                    reportNums.push(0);
+                }
+            }
+        });
+        return reportNums;
+    }
+
+    function get3MonthFinishNum() {
+        $.ajaxSettings.async = false;
+        var url = "/workOrderReport/sel3mFinishNum";
+        var finishNums = [];
+        $.getJSON(url, function (data) {
+            for (var x = 0; x < 3; x++) {
+                if (data[x] && data[x]["finishNum"] && !isNaN(data[x]["finishNum"])) {
+                    finishNums.push(data[x]["finishNum"]);
+                } else {
+                    finishNums.push(0);
+                }
+            }
+        });
+        return finishNums;
+    }
+
+    var reportFinishChartConfig = {
+        chart: {
+            type: 'column'
+        },
+
+        exporting: {
+            enabled: true
+        },
+        title: {
+            text: '最近3个月报修完成情况统计'
+        },
+        /*    subtitle: {
+         text: get3MonthTitle()
+         },*/
+        plotOptions: {
+            column: {
+                depth: 25
+            }
+        },
+        xAxis: {
+            categories: get3MonthTitle()
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '工单数量(单位:个)'
+            }
+        },
+        series: seriesOptions
+    }
+    $('#highCharts1').highcharts(reportFinishChartConfig);
+
+
+}
+
+
+/**
+ * 根据线路统计各状态的订单数量
+ * @param reportMonth
+ */
+function loadLineChart(reportMonth) {
+    function loadByStatus(status) {
+        var url = "/portal/getLineReportNum/" + reportMonth + "/" + status;
+        var dataList = [];
+        $.ajaxSettings.async = false;
+        $.getJSON(url, function (data) {
+            for (var x in data) {
+                if (data[x]['num']) {
+                    dataList[x] = data[x]['num'];
+                }
+            }
+        });
+        return dataList;
+    }
+
+
+    var orderStatus = ["待分配", "维修中", "完工", "暂停", "取消"];
     var url = "/line/findAllLines";
     var lines = [];
     $.ajaxSettings.async = false;
@@ -12,12 +243,12 @@ $(function () {
             }
         }
     });
-    $('#highcharts1').highcharts({
+    $('#highCharts2').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: (new Date().getMonth() + 1) + '月维修单状态按线别统计'
+            text: reportMonth + '月维修单状态按线别统计'
         },
         xAxis: {
             categories: lines,
@@ -53,223 +284,31 @@ $(function () {
                 borderWidth: 0
             }
         },
-        series: [{
-            name: '待分配',
-            data: getReportNumByLine()
+        series: [
+            {
+                name: orderStatus[0],
+                data: loadByStatus(0)
 
-        }, {
-            name: '维修中',
-            data: getFixingNumByLine()
+            }, {
+                name: orderStatus[1],
+                data: loadByStatus(1)
 
-        },
+            },
 
             {
-                name: '完工',
-                data: getFixedNumByLine()
+                name: orderStatus[2],
+                data: loadByStatus(2)
+            },
+            {
+                name: orderStatus[3],
+                data: loadByStatus(3)
 
             },
             {
-                name: '暂停',
-                data: getSuspendNumByLine()
-
-            },
-            {
-                name: '取消',
-                data: getAbortNumByLine()
+                name: orderStatus[4],
+                data: loadByStatus(4)
 
             }
         ]
     });
-
-
-    //ajax 请求当月设备分类前5
-    var chart2Data = [];
-    $.getJSON("/portal/findTopEqClass", function (data) {
-        chart2Data = data;
-    });
-
-
-    var eqClassChartConfig = {
-        chart: {
-            type: 'pie'
-        },
-        title: {
-            text: (new Date().getMonth() + 1) + '月报修按设备类型统计'
-        },
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}: {point.y}'
-                }
-            }
-        },
-        exporting: {
-            enabled: true
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>报修: <b>{point.y}</b>单/共<b>{point.total}</b>单<b>/占比:{point.percentage:.1f}%</b>'
-        },
-        series: [{
-            name: '报修数量',
-            colorByPoint: true,
-            data: chart2Data
-        }]
-    }
-    $('#highcharts2').highcharts(eqClassChartConfig);
-
-
-    var seriesOptions = [];
-    var option0, option1, months;
-
-    option0 = {
-        "name": "报修数量",
-        "data": get3MonthReportNum()
-    };
-    option1 = {
-        "name": "完工数量",
-        "data": get3MonthFinishNum()
-    };
-    seriesOptions.push(option0);
-    seriesOptions.push(option1);
-
-
-    var reportFinishChartConfig = {
-        chart: {
-            type: 'column'
-        },
-
-        exporting: {
-            enabled: false
-        },
-        title: {
-            text: '最近3个月报修完成情况统计'
-        },
-        /*    subtitle: {
-         text: get3MonthTitle()
-         },*/
-        plotOptions: {
-            column: {
-                depth: 25
-            }
-        },
-        xAxis: {
-            categories: get3MonthTitle()
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '工单数量(单位:个)'
-            }
-        },
-        series: seriesOptions
-    }
-    $('#highcharts0').highcharts(reportFinishChartConfig);
-    loadReportCartNum();
-
-
-});
-
-function loadReportCartNum() {
-    var url = "/workOrderReportCart/findMyCartSize";
-    $.getJSON(url, function (data) {
-        if (data) {
-            $("#reportOrderSize").html(data);
-        }
-    })
-}
-
-
-
-
-function get3MonthReportNum() {
-    $.ajaxSettings.async = false;
-    var url = "/workOrderReport/sel3mRptNum";
-    var reportNums = [];
-    $.getJSON(url, function (data) {
-        for (var x = 0; x < 3; x++) {
-            if (data[x] && data[x]["reportNum"] && !isNaN(data[x]["reportNum"])) {
-                reportNums.push(data[x]["reportNum"]);
-            } else {
-                reportNums.push(0);
-            }
-        }
-    });
-    return reportNums;
-}
-
-function get3MonthFinishNum() {
-    $.ajaxSettings.async = false;
-    var url = "/workOrderReport/sel3mFinishNum";
-    var finishNums = [];
-    $.getJSON(url, function (data) {
-        for (var x = 0; x < 3; x++) {
-            if (data[x] && data[x]["finishNum"] && !isNaN(data[x]["finishNum"])) {
-                finishNums.push(data[x]["finishNum"]);
-            } else {
-                finishNums.push(0);
-            }
-        }
-    });
-    return finishNums;
-}
-
-
-function getReportNumByLine() {
-    var reportLineNum = [];
-    var url = "/portal/getLineReportNum";
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            reportLineNum[x] = data[x]["reportNum"];
-        }
-    });
-    return reportLineNum;
-}
-
-
-function getAbortNumByLine() {
-    var abortLineNum = [];
-    var url = "/portal/getLineAbortNum";
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            abortLineNum[x] = data[x]["abortNum"];
-        }
-    });
-    return abortLineNum;
-}
-
-
-function getFixedNumByLine() {
-    var fixedLineNum = [];
-    var url = "/portal/getLineFixedNum";
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            fixedLineNum[x] = data[x]["fixedNum"];
-        }
-    });
-    return fixedLineNum;
-}
-
-
-function getFixingNumByLine() {
-    var fixingLineNum = [];
-    var url = "/portal/getLineFixingNum";
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            fixingLineNum[x] = data[x]["fixingNum"];
-        }
-    });
-    return fixingLineNum;
-}
-
-function getSuspendNumByLine() {
-    var suspendLineNum = [];
-    var url = "/portal/getLineSuspendNum";
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            suspendLineNum[x] = data[x]["suspendNum"];
-        }
-    });
-    return suspendLineNum;
 }

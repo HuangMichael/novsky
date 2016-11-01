@@ -43,6 +43,8 @@ function addMonth(interval, dtDate) {
 
 
     var month = (date.getMonth() + 1 < 10) ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+
+    console.log(date.getFullYear() + '-' + month);
     return date.getFullYear() + '-' + month;
 }
 
