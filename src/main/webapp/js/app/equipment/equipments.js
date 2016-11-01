@@ -1015,9 +1015,6 @@ function exportExcel() {
 
     }
 
-    console.log("titles--" + JSON.stringify(titles));
-    console.log("colNames--" + JSON.stringify(colNames));
-
     var docName = "设备信息";
     var url = "equipment/exportExcel?eqName=" + eqName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
     bootbox.confirm({

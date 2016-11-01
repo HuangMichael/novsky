@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
+import com.linkbit.beidou.dao.workOrder.VworkOrderReportBillRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.Vequipments;
@@ -13,8 +14,10 @@ import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
+import com.linkbit.beidou.utils.ExportUtil;
 import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
+import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -46,6 +51,9 @@ public class WorkOrderReportCartController {
     @Autowired
     CommonDataService commonDataService;
 
+    @Autowired
+    VworkOrderReportBillRepository vworkOrderReportBillRepository;
+
 
     /**
      * 显示所有的报修车列表信息
@@ -56,11 +64,6 @@ public class WorkOrderReportCartController {
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
 
-
-        User user = SessionUtil.getCurrentUserBySession(httpSession);
-        String userLocation = user.getLocation();
-        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findByLocationStartingWithAndNodeState(userLocation, "报修车");
-        modelMap.put("workOrderReportCartList", workOrderReportCartList);
         return "/workOrderReportCart/list";
     }
 
@@ -71,8 +74,9 @@ public class WorkOrderReportCartController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage list2(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-        long reportCartListSize = workOrderReportCartService.selectCount();
-        Page<VworkOrderReportBill> page = workOrderReportCartService.findAll(new PageRequest(current - 1, rowCount.intValue()));
+
+        Page<VworkOrderReportBill> page = workOrderReportCartService.findByNodeState("已报修",new PageRequest(current - 1, rowCount.intValue()));
+        long reportCartListSize = page.getTotalElements();
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -258,6 +262,23 @@ public class WorkOrderReportCartController {
     public WorkOrderReportCart updateReporter(@RequestParam("id") Long id, @RequestParam("reporter") String reporter) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartService.updateReporter(id, reporter);
         return workOrderReportCart;
+    }
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
+        List<VworkOrderReportBill> vworkOrderReportBillList = vworkOrderReportBillRepository.findByNodeState("已报修");
+        try {
+            ExportUtil.exportExcelReportCart(request, response, vworkOrderReportBillList, titleList, colNameList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

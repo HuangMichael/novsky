@@ -1,7 +1,6 @@
 package com.linkbit.beidou.controller.equipment;
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
@@ -90,8 +89,10 @@ public class EquipmentController extends BaseController {
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String location = SessionUtil.getCurrentUserLocationBySession(session);
         Page<Vequipments> page = null;
+
+        System.out.println("searchPhrase-----from controller------------"+searchPhrase);
         if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+            page = equipmentAccountService.findByComplex(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         } else {
             page = equipmentAccountService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         }

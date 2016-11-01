@@ -7,6 +7,7 @@ import com.linkbit.beidou.dao.workOrder.VworkOrderReportBillRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
@@ -16,6 +17,7 @@ import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
+import com.linkbit.beidou.utils.ExportUtil;
 import com.linkbit.beidou.utils.StringUtils;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -237,7 +245,7 @@ public class WorkOrderReportCartService extends BaseService {
      * @param orderDesc
      * @param pageable
      * @return 根据状态查询所有报修车信息
-     */
+     *//*
     public Page<WorkOrderReportCart> findByOrderDescContainingAndReportType(String orderDesc, String reportType, Pageable pageable) {
         Page<WorkOrderReportCart> workOrderReportCartList = null;
         if (orderDesc != null) {
@@ -246,17 +254,17 @@ public class WorkOrderReportCartService extends BaseService {
         return workOrderReportCartList;
     }
 
-    /**
+    *//**
      * @param location
      * @return 根据状态查询所有报修车信息
-     */
+     *//*
     public List<WorkOrderReportCart> findByLocationStartingWith(String location) {
         List<WorkOrderReportCart> workOrderReportCartList = null;
         if (location != null) {
             workOrderReportCartList = workOrderReportCartRepository.findByLocationStartingWith(location);
         }
         return workOrderReportCartList;
-    }
+    }*/
 
 
     /**
@@ -283,15 +291,6 @@ public class WorkOrderReportCartService extends BaseService {
     public WorkOrderReportCart findById(Long id) {
         return workOrderReportCartRepository.findById(id);
     }
-
-
-    /**
-     * @param locations
-     * @return 根据位置查询维修流程
-     *//*
-    public List<VworkOrderStep> findByLocations(Locations locations) {
-        return vworkOrderStepRepository.findByLocations(locations);
-    }*/
 
 
     /**
@@ -402,5 +401,18 @@ public class WorkOrderReportCartService extends BaseService {
     public List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr) {
         return workOrderReportCartRepository.findByOrderLineNoContaining(dateStr);
     }
+
+
+    public List<VworkOrderReportBill> findByNodeState(String nodeState) {
+
+        return vworkOrderReportBillRepository.findByNodeState(nodeState);
+    }
+
+    public Page<VworkOrderReportBill> findByNodeState(String nodeState, Pageable pageable) {
+
+        return vworkOrderReportBillRepository.findByNodeState(nodeState, pageable);
+    }
+
+
 }
 

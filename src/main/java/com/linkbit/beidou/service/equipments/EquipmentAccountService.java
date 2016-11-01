@@ -237,9 +237,25 @@ public class EquipmentAccountService extends BaseService {
     }
 
 
+    /**
+     * @param searchPhrase 查询字符串数组
+     * @param pageable
+     * @return 分页查询 根据易耗品名称去查询
+     */
+    public Page<Vequipments> findByComplex(String searchPhrase, Pageable pageable) {
+        String eqName = "", eqClass = "", locName = "";
+        if(searchPhrase!=null && !searchPhrase.equals("")){
+            String searchParams[] = searchPhrase.split(",");
+            eqName = searchParams[0];
+            eqClass = searchParams[1];
+            locName = searchParams[2];
+        }
+        return vEqRepository.findByEqNameContainsAndLocNameContainsAndEqClassContains(eqName, locName, eqClass, pageable);
+    }
+
 
     /**
-     * @param eqName   设备名称
+     * @param eqName 设备名称
      * @return 分页查询 根据易耗品名称去查询
      */
     public List<Vequipments> findByEqNameContains(String eqName) {

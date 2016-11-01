@@ -58,7 +58,7 @@ function loadEqClassChart(reportMonth) {
         var sumOther = 0;
         chart2Data.forEach(function (e, i) {
             var obj = null;
-            if (i <= 5) {
+            if (i < 5) {
                 obj = {name: e[1], y: e[2]}
                 newData.push(obj);
             } else {

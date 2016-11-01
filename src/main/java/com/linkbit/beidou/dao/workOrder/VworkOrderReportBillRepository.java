@@ -29,7 +29,7 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
      * @param locName   位置名称
      * @return 模糊查询
      */
-    Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc, String locName,String eqName,Pageable pageable);
+    Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc, String locName, String eqName, Pageable pageable);
 
 
     /**
@@ -43,7 +43,18 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
     Page<VworkOrderReportBill> findByLocNameContains(String locName, Pageable pageable);
 
 
+    /**
+     * @param
+     * @return 根据位置和节点的状态查询
+     */
+    Page<VworkOrderReportBill> findByNodeState(String nodeState, Pageable pageable);
 
+
+    /**
+     * @param
+     * @return 根据位置和节点的状态查询
+     */
+    List<VworkOrderReportBill> findByNodeState(String nodeState);
 
 
 }
