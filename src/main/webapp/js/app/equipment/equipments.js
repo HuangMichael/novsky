@@ -172,7 +172,10 @@ $(function () {
                 }
             }
         }
+
+
     });
+
 
     hm = new Vue({
         el: "#historyInfo",
@@ -267,6 +270,11 @@ $(function () {
     // 表单ajax提交
 
 
+    $(dataTableName).bootgrid().on("load.rs.jquery.bootgrid", function (e) {
+
+
+        console.log("数据loading------------------");
+    });
 });
 
 
@@ -631,6 +639,11 @@ function initLoadData(url, elementName) {
             });
             //ajax载入设备信息  并且监听选择事件
             $(dataTableName).bootgrid({
+
+                    searchSettings: {
+                        delay: 500,
+                        characters: 4
+                    },
                     selection: true,
                     multiSelect: true,
                     rowSelect: false,
@@ -641,6 +654,7 @@ function initLoadData(url, elementName) {
                                 + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
                         }
                     }
+
                 }
             ).on("selected.rs.jquery.bootgrid", function (e, rows) {
                 //如果默认全部选中
@@ -672,6 +686,24 @@ function getEquipmentById(eid) {
         equipment = data;
     });
     return equipment;
+}
+
+/**
+ * 查询
+ */
+function search() {
+    var searchParams = $(dataTableName).bootgrid("getSearchPhrase");
+
+    console.log("searchParams-----------" + searchParams);
+    $(dataTableName).bootgrid("search", searchParams);
+
+
+    //查询完毕后  重新给查询框赋值
+    var searchArray = searchParams.split(",");
+    $("#param0").val(searchArray[0]);
+    $("#param1").val(searchArray[1]);
+    $("#param2").val(searchArray[2]);
+    $(dataTableName).bootgrid("reload");
 }
 
 /**
@@ -976,15 +1008,15 @@ function exportExcel() {
     var titles = [];
     var colNames = [];
     for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"]  && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
+        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
             titles[x] = columnSettings[x]["text"];
             colNames[x] = columnSettings[x]["id"];
         }
 
     }
 
-    console.log("titles--"+JSON.stringify(titles));
-    console.log("colNames--"+JSON.stringify(colNames));
+    console.log("titles--" + JSON.stringify(titles));
+    console.log("colNames--" + JSON.stringify(colNames));
 
     var docName = "设备信息";
     var url = "equipment/exportExcel?eqName=" + eqName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;

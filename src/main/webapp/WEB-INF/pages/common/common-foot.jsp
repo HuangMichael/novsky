@@ -8,7 +8,7 @@
 <script type="text/javascript" src="js/terebentina-sco/js/sco.modal.js"></script>
 <script type="text/javascript" src="js/terebentina-sco/js/sco.confirm.js"></script>
 <script type="text/javascript" src="http://cdn.bootcss.com/jquery-backstretch/2.0.3/jquery.backstretch.min.js"></script>
-<script type="text/javascript" src="js/jquery.bootgrid-1.3.1/jquery.bootgrid.min.js"></script>
+<script type="text/javascript" src="js/jquery.bootgrid-1.3.1/jquery.bootgrid.js"></script>
 <script type="text/javascript" src="js/app/common/common-utils.js"></script>
 <script src="js/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
 <script src="/js/select2/select2.cdn.js"></script>
