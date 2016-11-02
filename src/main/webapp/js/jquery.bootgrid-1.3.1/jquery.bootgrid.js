@@ -1594,7 +1594,7 @@
      * @since 1.2.0
      **/
     Grid.prototype.getSearchPhrase = function () {
-        return $("#param0").val() + "," + $("#param1").val() + "," + $("#param2").val() + ","
+        return this.searchPhrase
     };
 
     /**

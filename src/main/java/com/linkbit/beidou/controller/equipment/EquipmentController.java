@@ -374,7 +374,6 @@ public class EquipmentController extends BaseController {
     }
 
 
-
     /**
      * 查询根节点
      */
@@ -460,11 +459,13 @@ public class EquipmentController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        System.out.println("eqName-----------" + eqName);
+
         List<String> titleList = StringUtils.removeNullValue(titles);
         List<String> colNameList = StringUtils.removeNullValue(colNames);
         List<Vequipments> equipmentsList = equipmentAccountService.findByEqNameContains(eqName);
 
-        System.out.println("equipmentsList-----------"+equipmentsList.size());
+        System.out.println("equipmentsList-----------" + equipmentsList.size());
         try {
             DataExport dataExport = new ExcelDataExporter();
             dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, equipmentsList, docName);

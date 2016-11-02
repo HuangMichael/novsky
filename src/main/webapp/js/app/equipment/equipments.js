@@ -639,11 +639,6 @@ function initLoadData(url, elementName) {
             });
             //ajax载入设备信息  并且监听选择事件
             $(dataTableName).bootgrid({
-
-                    searchSettings: {
-                        delay: 500,
-                        characters: 4
-                    },
                     selection: true,
                     multiSelect: true,
                     rowSelect: false,
@@ -1014,6 +1009,8 @@ function exportExcel() {
         }
 
     }
+
+    console.log("eqName------------"+eqName);
 
     var docName = "设备信息";
     var url = "equipment/exportExcel?eqName=" + eqName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
