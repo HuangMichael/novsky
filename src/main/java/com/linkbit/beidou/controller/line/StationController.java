@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.line;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.line.Line;
@@ -26,7 +27,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/station")
-public class StationController {
+public class StationController extends BaseController {
 
 
     @Autowired
@@ -55,19 +56,6 @@ public class StationController {
         myPage.setCurrent(current);
         myPage.setTotal(page.getTotalElements());
         return myPage;
-    }
-
-
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession httpSession) {
-
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-
-        List<Station> stationList = stationService.findByStatus("1");
-        modelMap.put("stationList", stationList);
-        return "/station/list";
     }
 
     /**
