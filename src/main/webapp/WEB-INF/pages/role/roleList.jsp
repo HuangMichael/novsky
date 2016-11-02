@@ -9,6 +9,4 @@
         <th data-column-id="roleDesc">角色描述</th>
     </tr>
     </thead>
-    <tfoot>
-    </tfoot>
 </table>
