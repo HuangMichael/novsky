@@ -4,8 +4,6 @@ package com.linkbit.beidou.controller.workOrder;
 import com.linkbit.beidou.dao.workOrder.VworkOrderReportBillRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.equipments.Vequipments;
-import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
@@ -14,10 +12,11 @@ import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
-import com.linkbit.beidou.utils.ExportUtil;
-import com.linkbit.beidou.utils.PageUtils;
-import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.docType.PdfDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -38,6 +37,7 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/workOrderReportCart")
 public class WorkOrderReportCartController {
+
 
     @Autowired
     WorkOrderReportCartService workOrderReportCartService;
@@ -75,7 +75,7 @@ public class WorkOrderReportCartController {
     @ResponseBody
     public MyPage list2(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
 
-        Page<VworkOrderReportBill> page = workOrderReportCartService.findByNodeState("已报修",new PageRequest(current - 1, rowCount.intValue()));
+        Page<VworkOrderReportBill> page = workOrderReportCartService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         long reportCartListSize = page.getTotalElements();
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
@@ -273,9 +273,10 @@ public class WorkOrderReportCartController {
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
         List<String> titleList = StringUtils.removeNullValue(titles);
         List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VworkOrderReportBill> vworkOrderReportBillList = vworkOrderReportBillRepository.findByNodeState("已报修");
+        List<VworkOrderReportBill> reportBillList = vworkOrderReportBillRepository.findByNodeState("已报修");
         try {
-            ExportUtil.exportExcelReportCart(request, response, vworkOrderReportBillList, titleList, colNameList, docName);
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, reportBillList, docName);
         } catch (Exception e) {
             e.printStackTrace();
         }

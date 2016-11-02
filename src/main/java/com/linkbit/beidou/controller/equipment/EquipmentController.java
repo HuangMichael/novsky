@@ -12,7 +12,6 @@ import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VEqRecord;
 import com.linkbit.beidou.domain.equipments.Vequipments;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
@@ -21,9 +20,12 @@ import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.DateUtils;
-import com.linkbit.beidou.utils.ExportUtil;
 import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.docType.PdfDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -462,8 +463,11 @@ public class EquipmentController extends BaseController {
         List<String> titleList = StringUtils.removeNullValue(titles);
         List<String> colNameList = StringUtils.removeNullValue(colNames);
         List<Vequipments> equipmentsList = equipmentAccountService.findByEqNameContains(eqName);
+
+        System.out.println("equipmentsList-----------"+equipmentsList.size());
         try {
-            ExportUtil.exportExcel(request, response, equipmentsList, titleList, colNameList, docName);
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, equipmentsList, docName);
         } catch (Exception e) {
             e.printStackTrace();
         }

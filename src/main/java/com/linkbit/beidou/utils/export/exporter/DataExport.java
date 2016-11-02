@@ -1,6 +1,8 @@
 package com.linkbit.beidou.utils.export.exporter;
 
 
+import com.linkbit.beidou.utils.export.docType.DocType;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -10,7 +12,9 @@ import java.util.List;
  * 数据导出接口
  */
 public interface DataExport {
+
     /**
+     * @param docType
      * @param request
      * @param response
      * @param titles
@@ -19,5 +23,5 @@ public interface DataExport {
      * @param docName
      * @throws Exception
      */
-    void export(HttpServletRequest request, HttpServletResponse response, List titles, List colNames, List dataList, String docName) throws Exception;
+    void export(DocType docType, HttpServletRequest request, HttpServletResponse response, List titles, List colNames, List dataList, String docName) throws Exception;
 }

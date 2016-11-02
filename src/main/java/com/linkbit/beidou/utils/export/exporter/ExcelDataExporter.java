@@ -1,13 +1,11 @@
 package com.linkbit.beidou.utils.export.exporter;
 
 
-import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.DocType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
@@ -27,7 +25,7 @@ import java.util.List;
 @Data
 @Getter
 @Setter
-public class DataExporter implements DataExport {
+public class ExcelDataExporter implements DataExport {
 
 
     private HSSFWorkbook hssfWorkbook;
@@ -35,7 +33,7 @@ public class DataExporter implements DataExport {
     private HSSFSheet hssfSheet;
 
     private HSSFCellStyle hssfCellStyle;
-
+    private DocType docType;
 
     /**
      * @param request
@@ -123,7 +121,13 @@ public class DataExporter implements DataExport {
                 if (j > 0 && colNames.get(j) != null) {
                     try {
                         method = object.getClass().getMethod("get" + StringUtils.upperCaseCamel(colNames.get(j).toString()));
-                        row1.createCell(j).setCellValue(method.invoke(object).toString());
+                        Object obj = method.invoke(object);
+                        if (obj != null) {
+                            row1.createCell(j).setCellValue(obj.toString());
+                        } else {
+                            row1.createCell(j).setCellValue("");
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
 
@@ -167,11 +171,12 @@ public class DataExporter implements DataExport {
      * @param docName  文档名称  sheet名称
      * @throws Exception
      */
-    public void export(HttpServletRequest request, HttpServletResponse response, List titles, List colNames, List dataList, String docName) throws Exception {
+    public void export(DocType docType, HttpServletRequest request, HttpServletResponse response, List titles, List colNames, List dataList, String docName) throws Exception {
         createHSSFWorkbook(request, response, docName);
         createSheet(docName);
         createStyle();
         exportData(titles, colNames, dataList);
         closeStream(response);
+
     }
 }
