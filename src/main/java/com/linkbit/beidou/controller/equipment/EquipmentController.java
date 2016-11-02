@@ -89,10 +89,8 @@ public class EquipmentController extends BaseController {
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String location = SessionUtil.getCurrentUserLocationBySession(session);
         Page<Vequipments> page = null;
-
-        System.out.println("searchPhrase-----from controller------------"+searchPhrase);
         if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = equipmentAccountService.findByComplex(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+            page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         } else {
             page = equipmentAccountService.findAll(new PageRequest(current - 1, rowCount.intValue()));
         }
@@ -109,7 +107,6 @@ public class EquipmentController extends BaseController {
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        System.out.println("controllerName-----------------------" + controllerName);
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
         return "/equipment/list";
@@ -139,8 +136,6 @@ public class EquipmentController extends BaseController {
      */
     @RequestMapping(value = "/create")
     public String create(ModelMap modelMap) {
-        List<OutsourcingUnit> outsourcingUnitList = equipmentAccountService.findAllUnit();
-        //  modelMap.put("outsourcingUnitList", outsourcingUnitList);
         //查询出所有的设备分类
         return "/equipment/create";
     }
@@ -335,21 +330,6 @@ public class EquipmentController extends BaseController {
         return equipmentAccountService.findById(eid);
     }
 
-   /* *//**
-     * @param eid 设备编号
-     * @return 根据设备id获取设备维修节点信息信息
-     *//*
-    @RequestMapping(value = "/getFixSteps/{eid}")
-    @ResponseBody
-    public List<Object> getFixSteps(@PathVariable("eid") Long eid) {
-        String orderLineNo = workOrderReportService.getLastOrderLineNoByEquipmentId(eid);
-        List<Object> fixSteps = null;
-        if (orderLineNo != null && !orderLineNo.equals("")) {
-            fixSteps = equipmentAccountService.findFixStepsByOrderLineNo(orderLineNo);
-        }
-        return fixSteps;
-    }*/
-
     /**
      * @param eid 设备编号
      * @return 根据设备id获取设备维修节点信息信息
@@ -392,18 +372,6 @@ public class EquipmentController extends BaseController {
         return "/equipment/table_1_4";
     }
 
-
-    /**
-     * 查询设备对应的维修历史
-     *
-     * @param eid
-     * @return 根据设备id查询维修历史信息
-     *//*
-    @RequestMapping(value = "/findFixHisory/{eid}")
-    @ResponseBody
-    public List<VworkOrderStep> findFixHisory(@PathVariable("eid") Long eid) {
-        return equipmentAccountService.findFixHistory(eid);
-    }*/
 
 
     /**

@@ -160,8 +160,13 @@ public class ExportUtil {
                 if (j > 0 && colNames.get(j) != null) {
                     try {
                         method = vworkOrderReportBill.getClass().getMethod("get" + StringUtils.upperCaseCamel(colNames.get(j).toString()));
-                        System.out.println("get"+StringUtils.upperCaseCamel(colNames.get(j)));
-                        row1.createCell(j).setCellValue(method.invoke(vworkOrderReportBill).toString());//设备编号
+                        Object object = method.invoke(vworkOrderReportBill);
+                        if (object != null) {
+                            row1.createCell(j).setCellValue(object.toString());
+                        } else {
+                            row1.createCell(j).setCellValue("");
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
