@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.person;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.person.Person;
@@ -27,7 +28,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/person")
-public class PersonController {
+public class PersonController extends BaseController{
     @Autowired
     PersonService personService;
     @Autowired
@@ -36,20 +37,6 @@ public class PersonController {
     @Autowired
     CommonDataService commonDataService;
 
-
-    /**
-     * @param modelMap
-     * @param httpSession
-     * @return
-     */
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession httpSession) {
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, "person");
-        modelMap.put("appMenus", appMenus);
-//        List<Person> personList = personService.findAll();
-//        modelMap.put("personList", personList);
-        return "/person/list";
-    }
 
     /**
      * 分页查询

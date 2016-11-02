@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.user;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
@@ -32,7 +33,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BaseController {
 
     @Autowired
     UserRepository userRepository;
@@ -47,14 +48,6 @@ public class UserController {
 
     @Autowired
     ResourceService resourceService;
-
-    @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession,ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/user/list";
-    }
 
 
     /**

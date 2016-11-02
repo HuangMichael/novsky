@@ -80,12 +80,21 @@ public class StringUtils {
 
     /**
      * @param str
-     * @return 首字母大写
+     * @return 首字母小写
      */
     public static String upperCaseCamel(String str) {
         return str.substring(0, 1).toUpperCase() + str.substring(1, str.length());
     }
 
+
+
+    /**
+     * @param str
+     * @return 首字母大写
+     */
+    public static String lowerCaseCamel(String str) {
+        return str.substring(0, 1).toLowerCase() + str.substring(1, str.length());
+    }
 
     /**
      * @param array

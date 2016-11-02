@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.user.User;
@@ -30,7 +31,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/workOrderFix")
-public class WorkOrderFixController {
+public class WorkOrderFixController extends BaseController {
     @Autowired
     CommonDataService commonDataService;
 

@@ -14,7 +14,6 @@ import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
-import com.linkbit.beidou.utils.export.docType.PdfDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
 import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,15 +54,11 @@ public class WorkOrderReportCartController {
     VworkOrderReportBillRepository vworkOrderReportBillRepository;
 
 
-    /**
-     * 显示所有的报修车列表信息
-     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(ModelMap modelMap, HttpSession httpSession) {
         String controllerName = this.getClass().getSimpleName().split("Controller")[0];
         List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
         modelMap.put("appMenus", appMenus);
-
         return "/workOrderReportCart/list";
     }
 

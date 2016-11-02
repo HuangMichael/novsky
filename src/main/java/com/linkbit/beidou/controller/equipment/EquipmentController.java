@@ -103,15 +103,7 @@ public class EquipmentController extends BaseController {
         myPage.setTotal(page.getTotalElements());
         return myPage;
     }
-
-
-    @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/equipment/list";
-    }
+    
 
     /**
      * @param session 当前会话
