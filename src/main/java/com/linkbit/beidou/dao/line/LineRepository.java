@@ -2,8 +2,11 @@ package com.linkbit.beidou.dao.line;
 
 
 import com.linkbit.beidou.domain.line.Line;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
@@ -11,7 +14,7 @@ import java.util.List;
  * Created by huangbin on 2016/3/15 0008.
  * 线路信息查询接口
  */
-public interface LineRepository extends CrudRepository<Line, Long> {
+public interface LineRepository extends CrudRepository<Line, Long>, PagingAndSortingRepository<Line, Long> {
     /**
      * 查询所有线路
      */
@@ -34,5 +37,15 @@ public interface LineRepository extends CrudRepository<Line, Long> {
      */
     List<Line> findByType(String type);
 
+
+    Page<Line> findAll(Pageable pageable);
+
+
+    /**
+     * @param desc     线路描述
+     * @param pageable
+     * @return 线路描述模糊查询 可分页
+     */
+    Page<Line> findByDescriptionContains(String desc, Pageable pageable);
 
 }

@@ -5,6 +5,8 @@ import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -79,9 +81,26 @@ public class LineService extends BaseService {
 
 
     /**
+     * @param desc
+     * @param pageable
+     * @return
+     */
+    public Page<Line>  findByDescriptionContains(String desc ,Pageable pageable){
+       return  lineRepository.findByDescriptionContains(desc,pageable);
+    }
+
+    /**
      * @return 查询所有段
      */
     public List<Line> findAll() {
         return lineRepository.findAll();
+    }
+
+
+    /**
+     * @return 查询所有段
+     */
+    public Page<Line> findAll(Pageable pageable) {
+        return lineRepository.findAll(pageable);
     }
 }
