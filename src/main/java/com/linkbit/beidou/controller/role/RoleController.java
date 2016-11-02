@@ -1,7 +1,9 @@
 package com.linkbit.beidou.controller.role;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.role.RoleRepository;
+import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
@@ -10,6 +12,8 @@ import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +27,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/role")
-public class RoleController {
+public class RoleController extends BaseController {
 
     @Autowired
     RoleRepository roleRepository;
@@ -31,19 +35,32 @@ public class RoleController {
     RoleService roleService;
     @Autowired
     ResourceService resourceService;
+
+
+    /**
+     * 分页查询
+     *
+     * @param current      当前页
+     * @param rowCount     每页条数
+     * @param searchPhrase 查询关键字
+     * @return
+     */
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Page<Role> page = roleService.findByRoleDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+        return myPage;
+    }
+
+
     @RequestMapping(value = "/create")
     public String create() {
         return "/role/create";
-    }
-
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession httpSession) {
-        List<Role> roleList = roleRepository.findAll();
-        modelMap.put("roleList", roleList);
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/role/list";
     }
 
 
@@ -154,7 +171,6 @@ public class RoleController {
     }
 
 
-
     /**
      * @return 查询不在当前角色中的用户
      */
@@ -163,7 +179,6 @@ public class RoleController {
     public ReturnObject removeUser(@RequestParam("roleId") Long roleId, @RequestParam("userId") Long userId) {
         return roleService.removeUser(roleId, userId);
     }
-
 
 
 }

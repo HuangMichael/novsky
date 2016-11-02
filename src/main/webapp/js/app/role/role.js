@@ -60,7 +60,7 @@ function initLoadData(url, elementName) {
                 $(dataTableName).bootgrid({
                     selection: true,
                     multiSelect: true,
-                    rowSelect: false,
+                    rowSelect: true,
                     keepSelection: true
                 }).on("selected.rs.jquery.bootgrid",
                     function (e, rows) {

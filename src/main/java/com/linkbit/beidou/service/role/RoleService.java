@@ -8,6 +8,8 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,6 +42,16 @@ public class RoleService extends BaseService {
      */
     public Role findById(Long id) {
         return roleRepository.findById(id);
+    }
+
+
+    /**
+     *
+     * @param roleDesc 角色描述
+     * @return 根据角色描述关键字进行查询
+     */
+    public Page<Role> findByRoleDescContains(String roleDesc, Pageable pageable) {
+        return roleRepository.findByRoleDescContains(roleDesc,pageable);
     }
 
 
@@ -81,8 +93,8 @@ public class RoleService extends BaseService {
             String[] ids = usersIdStr.split(",");
             List<User> userList = role.getUserList();
             for (String id : ids) {
-                User user =userRepository.findById(Long.parseLong(id));
-                if(!userList.contains(user)){
+                User user = userRepository.findById(Long.parseLong(id));
+                if (!userList.contains(user)) {
                     userList.add(user);
                 }
             }
