@@ -7,8 +7,16 @@ $(document).ready(function () {
             enabled: true
         },
     });
+
+
+    var now = new Date();
+    if (now.getDate() <= 5) {
+        loadChartData(addMonth(-1));
+    } else {
+        loadChartData(addMonth(0));
+    }
+
     //默认加载当月数据
-    loadChartData(addMonth(0));
 
 
     $("#currentMonth").on("click", function () {
