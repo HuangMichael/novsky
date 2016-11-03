@@ -10,7 +10,6 @@
         <th data-column-id="linkman" width="10%">联系人</th>
         <th data-column-id="telephone" width="10%">电话</th>
         <th data-column-id="workDays" width="10%">工作制</th>
-        <th width="5%" data-column-id="status" width="10%">使用状态</th>
     </tr>
     </thead>
     <tbody>
@@ -33,15 +32,6 @@
         </td>
         <td width="10%">
             {{unit.workDays}}
-        </td>
-        <td width="10%">
-
-            <div v-if="unit.status=='0'">
-                禁用
-            </div>
-            <div v-if="unit.status=='1'">
-                启用
-            </div>
         </td>
     </tr>
     </tbody>

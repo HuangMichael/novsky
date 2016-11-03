@@ -184,4 +184,13 @@ public class OutsoucingUnitService extends BaseService {
         equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
         return equipmentsClassification.getUnitSet();
     }
+
+
+    /**
+     * @param param 根据名称模糊查询
+     * @return
+     */
+    public List<OutsourcingUnit> findByDescriptionContains(String param) {
+        return outsourcingUnitRepository.findByDescriptionContains(param);
+    }
 }
