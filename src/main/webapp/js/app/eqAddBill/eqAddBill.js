@@ -9,6 +9,8 @@ var vdm = null;
 var myEqs = [];
 var locs = [];
 var eqClasses = [];
+
+var dataTableName ="#eqAddBillDataTable";
 var ids = [];
 var pointer = 0;
 var newVue = null;
@@ -170,7 +172,7 @@ $(function () {
     eqClasses = findMyEqClass();
     ids = findAllIds();
     //初始化加载列表
-    $("#budgetDataTable").bootgrid({
+    $(dataTableName).bootgrid({
         selection: true,
         multiSelect: true,
         rowSelect: false,
@@ -508,4 +510,46 @@ function changeEqc(a) {
     $.getJSON(url, function (data) {
         vdm.$set("myEqs", data);
     });
+}
+
+
+
+/**
+ *导出excel
+ */
+function exportExcel() {
+    var param = $(dataTableName).bootgrid("getSearchPhrase");
+    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
+
+    var titles = [];
+    var colNames = [];
+    for (var x in columnSettings) {
+        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
+            titles[x] = columnSettings[x]["text"];
+            colNames[x] = columnSettings[x]["id"];
+        }
+
+    }
+
+    var docName = "设备新置申请信息";
+    var url = "eqAddBill/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
+    bootbox.confirm({
+        message: "确定导出查询结果记录么？?",
+        buttons: {
+            confirm: {
+                label: '是',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: '否',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                window.location.href = url;
+            }
+        }
+    });
+
 }

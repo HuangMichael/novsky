@@ -30,7 +30,7 @@
 								<div class="tab-content">
 									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
 										<div class="container-fluid">
-											<table id="budgetDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqAddBill/data">
+											<table id="eqAddBillDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqAddBill/data">
 												<thead>
 													<tr>
 														<th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>

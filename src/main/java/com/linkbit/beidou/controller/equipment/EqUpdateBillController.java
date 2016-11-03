@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.equipment;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
@@ -35,7 +36,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/eqUpdateBill")
-public class EqUpdateBillController {
+public class EqUpdateBillController  extends BaseController{
     @Autowired
     EqUpdateBillService eqUpdateBillService;
     @Autowired
@@ -81,14 +82,6 @@ public class EqUpdateBillController {
         return eqUpdateBill;
     }
 
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/eqUpdateBill/list";
-    }
 
     /**
      * @param id 根据id查询

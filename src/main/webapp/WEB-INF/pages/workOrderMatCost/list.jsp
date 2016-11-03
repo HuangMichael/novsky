@@ -6,7 +6,7 @@
 
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-    String docPath = basePath + "/docs/wocost/工单物资消耗模板.xls";
+    String docPath =  "/docs/wocost/工单物资消耗模板.xls";
 
 %>
 <!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->

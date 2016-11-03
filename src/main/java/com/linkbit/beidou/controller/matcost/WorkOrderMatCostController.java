@@ -3,12 +3,17 @@ package com.linkbit.beidou.controller.matcost;
 
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.equipments.VEqAddBill;
 import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.workOrderMatCost.WorkOrderMatCostService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -105,6 +110,33 @@ public class WorkOrderMatCostController {
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public String download(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return "redirect:/docs/wocost/mb.xls";
+    }
+
+
+
+
+
+
+    /**
+     * @param request
+     * @param response
+     * @param param
+     * @param docName
+     * @param titles
+     * @param colNames
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
+        List<WorkOrderMatCost> matCostList = workOrderMatCostService.findByCondition(param);
+        try {
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

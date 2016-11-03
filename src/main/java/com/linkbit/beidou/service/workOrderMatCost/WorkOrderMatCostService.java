@@ -63,6 +63,17 @@ public class WorkOrderMatCostService {
     }
 
 
+
+    /**
+     * @param searchPhase 查询关键字
+     * @param pageable    分页
+     * @return
+     */
+    public List<WorkOrderMatCost> findByCondition(String searchPhase) {
+        return workOrderMatCostRepository.findByOrderLineNoContainsOrMatNameContainsOrMatModelContains(searchPhase, searchPhase, searchPhase);
+    }
+
+
     /**
      * 获取导入的数据
      *
