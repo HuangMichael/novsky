@@ -66,8 +66,9 @@ public class WorkOrderFixController extends BaseController {
      * @param modelMap
      * @return 显示维修工单列表
      */
+    @Override
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(ModelMap modelMap, HttpSession session) {
+    public String list( HttpSession session,ModelMap modelMap) {
         User user = SessionUtil.getCurrentUserBySession(session);
         String location = user.getLocation();
         //过滤显示当前用户location数据 找出不完工的单子
