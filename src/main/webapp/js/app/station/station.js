@@ -369,3 +369,44 @@ function getAllStations() {
 }
 
 
+/**
+ *导出excel
+ */
+function exportExcel() {
+    var description = $(dataTableName).bootgrid("getSearchPhrase");
+    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
+
+    var titles = [];
+    var colNames = [];
+    for (var x in columnSettings) {
+        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
+            titles[x] = columnSettings[x]["text"];
+            colNames[x] = columnSettings[x]["id"];
+        }
+
+    }
+
+    var docName = "车站信息";
+    var url = "station/exportExcel?param=" + description + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
+    bootbox.confirm({
+        message: "确定导出查询结果记录么？?",
+        buttons: {
+            confirm: {
+                label: '是',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: '否',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                window.location.href = url;
+            }
+        }
+    });
+
+}
+
+

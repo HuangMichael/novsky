@@ -58,4 +58,11 @@ public interface StationRepository extends CrudRepository<Station, Long> {
      */
     Page<Station> findByDescriptionContains(String description, Pageable pageable);
 
+
+    /**
+     * @param description 站名
+     * @return 根据站名模糊查询
+     */
+    List<Station> findByDescriptionContains(String description);
+
 }

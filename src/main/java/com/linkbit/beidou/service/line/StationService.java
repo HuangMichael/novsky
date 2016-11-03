@@ -85,6 +85,17 @@ public class StationService extends BaseService {
     }
 
 
+
+    /**
+     * @param stationName
+     * @param pageable    可分页
+     * @return 根据站名模糊查询
+     */
+    public List<Station> findByStationNameContains(String stationName) {
+        return stationRepository.findByDescriptionContains(stationName);
+    }
+
+
     /**
      * 根据状态查询所有的站
      *

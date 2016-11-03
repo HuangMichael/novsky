@@ -9,6 +9,10 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
+import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -17,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -175,5 +181,24 @@ public class StationController extends BaseController {
     @ResponseBody
     public boolean delete(@RequestParam("id") Long id) {
         return stationService.delete(id);
+    }
+
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
+        List<Station> stationList = stationService.findByStationNameContains(param);
+        try {
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, stationList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
