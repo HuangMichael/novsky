@@ -58,6 +58,16 @@ public class EcBudgeService extends BaseService {
         return vecbudgetBillRepository.findByEcnameContains(ecname, pageable);
     }
 
+
+    /**
+     * @param ecname   易耗品名称
+     * @return 分页查询 根据易耗品名称去查询
+     */
+    public List<VEcBudgetBill> findByEcnameContains(String ecname) {
+
+        return vecbudgetBillRepository.findByEcnameContains(ecname);
+    }
+
     /**
      * @param pageable
      * @return 分页查询
