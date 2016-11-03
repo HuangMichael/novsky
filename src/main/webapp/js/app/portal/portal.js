@@ -9,13 +9,16 @@ $(document).ready(function () {
     });
 
 
-    var now = new Date();
+   /* var now = new Date();
     if (now.getDate() <= 5) {
         loadChartData(addMonth(-1));
     } else {
         loadChartData(addMonth(0));
-    }
+    }*/
 
+
+
+    loadChartData(addMonth(0));
     //默认加载当月数据
 
 
