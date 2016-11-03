@@ -336,6 +336,19 @@ public class WorkOrderReportCartService extends BaseService {
 
     }
 
+    /**
+     * @param id
+     * @param reportTime
+     * @return 根据id更新报修人
+     */
+    public WorkOrderReportCart updateReportTime(Long id, Date reportTime) {
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(id);
+        workOrderReportCart.setReportTime(reportTime);
+        workOrderReportCart = workOrderReportCartRepository.save(workOrderReportCart);
+        return workOrderReportCart;
+
+    }
+
 
     /**
      * @param offset 月份偏移量

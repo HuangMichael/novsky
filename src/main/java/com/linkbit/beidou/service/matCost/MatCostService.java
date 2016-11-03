@@ -46,12 +46,24 @@ public class MatCostService {
 
     /**
      * @param ecType  分类
-     * @param line    线路
      * @param locName 位置名称
      * @param ecName  物资名称
      * @return
      */
     public List<MatCost> findByCondition(String ecType, String locName, String ecName) {
         return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName);
+    }
+
+
+
+    /**
+     * @param ecType  分类
+     * @param locName 位置名称
+     * @param ecName  物资名称
+     * @param pageable    分页
+     * @return
+     */
+    public Page<MatCost> findByCondition(String ecType, String locName, String ecName,Pageable pageable) {
+        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName,pageable);
     }
 }

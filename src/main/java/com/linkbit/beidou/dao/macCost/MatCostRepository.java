@@ -48,5 +48,21 @@ public interface MatCostRepository extends PagingAndSortingRepository<MatCost, L
     List<String> findMyLines();
 
 
+    /**
+     * @param ecType
+     * @param locName
+     * @param ecName
+     * @return
+     */
     List<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType, String locName, String ecName);
+
+
+    /**
+     * @param ecType   分类
+     * @param locName  位置
+     * @param ecName   名称
+     * @param pageable 模糊查询分页
+     * @return
+     */
+    Page<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType, String locName, String ecName, Pageable pageable);
 }

@@ -14,6 +14,7 @@ import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
+import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -273,6 +275,38 @@ public class WorkOrderReportCartController extends BaseController {
     @ResponseBody
     public WorkOrderReportCart updateOrderDesc(@RequestParam("id") Long id, @RequestParam("orderDesc") String orderDesc) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartService.updateOrderDesc(id, orderDesc);
+        return workOrderReportCart;
+    }
+
+
+    /**
+     * 更新报修人
+     *
+     * @param id
+     * @param reporter
+     * @return
+     */
+    @RequestMapping(value = "/updateReporter", method = RequestMethod.POST)
+    @ResponseBody
+    public WorkOrderReportCart updateReporter(@RequestParam("id") Long id, @RequestParam("reporter") String reporter) {
+        WorkOrderReportCart workOrderReportCart = workOrderReportCartService.updateReporter(id, reporter);
+        return workOrderReportCart;
+    }
+
+
+    /**
+     * 更新报修时间
+     */
+    @RequestMapping(value = "/updateReportTime", method = RequestMethod.POST)
+    @ResponseBody
+    public WorkOrderReportCart updateReportTime(@RequestParam("id") Long id, @RequestParam("reportTime") String reportTime) {
+        WorkOrderReportCart workOrderReportCart = null;
+        try {
+            Date date = DateUtils.convertStr2Date(reportTime, "yyyy-MM-dd");
+            workOrderReportCart = workOrderReportCartService.updateReportTime(id, date);
+        } catch (Exception e) {
+
+        }
         return workOrderReportCart;
     }
 

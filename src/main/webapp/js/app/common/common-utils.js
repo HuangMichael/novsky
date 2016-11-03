@@ -40,11 +40,7 @@ function addMonth(interval, dtDate) {
     var date = (dtDate != null) ? new Date(dtDate) : new Date();
     interval = (interval) ? parseInt(interval) : 0;//间隔
     date.setMonth(date.getMonth() + interval);
-
-
     var month = (date.getMonth() + 1 < 10) ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-
-    console.log(date.getFullYear() + '-' + month);
     return date.getFullYear() + '-' + month;
 }
 

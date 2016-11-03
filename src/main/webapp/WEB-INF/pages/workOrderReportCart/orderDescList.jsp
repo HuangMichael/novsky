@@ -13,6 +13,7 @@
         <th width="10%">设备分类</th>
         <th width="15%">故障描述</th>
         <th width="10%">报告人</th>
+        <th width="10%">报修时间</th>
     </tr>
     </thead>
     <tbody id="tbody2">
@@ -24,10 +25,16 @@
             <td width="15%">${workOrder.vlocations.locName}</td>
             <td width="10%">${workOrder.equipmentsClassification.description}</td>
             <td width="15%"><input type="text" id="orderDesc${workOrder.id}" class="form-control" style="height:28px"
-                       value="${workOrder.orderDesc}" onchange="changeContent(${workOrder.id})"/>
+                                   value="${workOrder.orderDesc}" onchange="changeContent(${workOrder.id})"/>
             <td width="10%"><input type="text" id="reporter${workOrder.id}" class="form-control" style="height:28px"
-                       value="${workOrder.reporter}" onchange="changeReporter(${workOrder.id})"/>
+                                   value="${workOrder.reporter}" onchange="changeReporter(${workOrder.id})"/>
             </td>
+            <td width="10%"><input class="Wdate form-control" type="text" onClick="WdatePicker()"
+                                   id="reportTime${workOrder.id}" value="${workOrder.reportTime}"
+                                   style="height:28px;width:80%;border:1px solid #cccccc"/></td>
+            <td width="10%"><a class="btn  btn-default btn-xs"
+                               onclick="changeReportTime(${workOrder.id})" title="修改时间"><i
+                    class="glyphicon glyphicon-refresh"></i></a>
         </tr>
     </c:forEach>
     </tbody>
@@ -42,7 +49,7 @@
     function changeContent(id) {
         var orderDesc = $("#orderDesc" + id).val();
         if (!orderDesc) {
-            showMessageBox("danger", "故障描述不能为空,请输入故障描述 !");
+            showMessageBox("danger", "故障描述不能为空,请输入故障描述!");
             return;
         }
         $.ajaxSettings.async = false;
@@ -71,6 +78,28 @@
         $.post(url, {id: id, reporter: reporter}, function (data) {
             if (data) {
                 showMessageBox("info", "报告人更新成功!");
+                return;
+            }
+        });
+    }
+
+    /**
+     *
+     * @param id  报修明细ID
+     * 修改报修时间
+     */
+    function changeReportTime(id) {
+        var reportTime = $("#reportTime" + id).val();
+        console.log(reportTime);
+        if (!reportTime) {
+            showMessageBox("danger", "报修时间不能为空,请输入报修时间!");
+            return;
+        }
+        $.ajaxSettings.async = false;
+        var url = "/workOrderReportCart/updateReportTime";
+        $.post(url, {id: id, reportTime: reportTime}, function (data) {
+            if (data) {
+                showMessageBox("info", "报修时间更新成功!");
                 return;
             }
         });

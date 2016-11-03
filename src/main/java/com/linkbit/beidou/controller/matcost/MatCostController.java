@@ -74,11 +74,22 @@ public class MatCostController {
      */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
-    public List<MatCost> search(
+    public MyPage search(
             @RequestParam(value = "ecType", required = false) String ecType,
             @RequestParam(value = "locName", required = false) String locName,
-            @RequestParam(value = "ecName", required = false) String ecName) {
-        return matCostService.findByCondition(ecType, locName, ecName);
+            @RequestParam(value = "ecName", required = false) String ecName,
+            @RequestParam(value = "current", defaultValue = "1") int current,
+            @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
+
+        Page<MatCost> page = matCostService.findByCondition(ecType, locName, ecName, new PageRequest(current - 1, rowCount.intValue()));
+
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+
+        return myPage ;
 
     }
 
