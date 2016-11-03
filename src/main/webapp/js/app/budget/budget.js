@@ -9,6 +9,8 @@ var vdm = null;
 var locs = [];
 var eqClasses = [];
 var budgetBills = [];
+
+var dataTableName = "#budgetDataTable";
 var ids = [];
 var pointer = 0;
 $(function () {
@@ -456,4 +458,45 @@ function clearForm(formId) {
     $(formId + " input ").val("");
     $(formId + " textarea ").val("");
     $(formId + " select").val("");
+}
+
+
+/**
+ *导出excel
+ */
+function exportExcel() {
+    var param = $(dataTableName).bootgrid("getSearchPhrase");
+    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
+
+    var titles = [];
+    var colNames = [];
+    for (var x in columnSettings) {
+        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
+            titles[x] = columnSettings[x]["text"];
+            colNames[x] = columnSettings[x]["id"];
+        }
+
+    }
+
+    var docName = "采购申请信息";
+    var url = "budget/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
+    bootbox.confirm({
+        message: "确定导出查询结果记录么？?",
+        buttons: {
+            confirm: {
+                label: '是',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: '否',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                window.location.href = url;
+            }
+        }
+    });
+
 }

@@ -74,44 +74,44 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <%--  <table id="budgetDataTable"
-                                                     class=" table table-striped table-bordered table-hover"
-                                                     data-toggle="bootgrid">
-                                                  <thead>
-                                                  <tr>
-                                                      <th data-column-id="id" data-type="numeric" data-identifier="true"
-                                                          data-visible="false" width="2%">序号
-                                                      </th>
-                                                      <th data-align="center" data-column-id="applyDate" width="10%">
-                                                          采购日期
-                                                      </th>
-                                                      <th data-align="center" data-column-id="locName" width="20%">
-                                                          位置
-                                                      </th>
-                                                      <th data-align="center" data-column-id="ecName" width="10%">
-                                                          名称
-                                                      </th>
-                                                      <th data-align="center" data-column-id="amount" width="10%">
-                                                          数量
-                                                      </th>
-                                                      <th data-align="center" data-column-id="ecType" width="10%">
-                                                          分类
-                                                      </th>
-                                                  </tr>
-                                                  </thead>
-                                                  <tbody id="matCostList" v-for="mc in mcList">
-                                                  <tr>
-                                                      <td>{{$index+1}}</td>
-                                                      <td>{{mc.applyDate}}</td>
-                                                      <td>{{mc.locName}}</td>
-                                                      <td>{{mc.ecName}}</td>
-                                                      <td>{{mc.amount}}</td>
-                                                      <td>{{mc.ecType}}</td>
-                                                  </tr>
-                                                  </tbody>
-                                              </table>--%>
-                                            <div id="mainContent"></div>
-                                            <div id="callBackPager"></div>
+                                            <table id="matCostDataTable"
+                                                   class=" table table-striped table-bordered table-hover"
+                                                   data-toggle="bootgrid">
+                                                <thead>
+                                                <tr>
+                                                    <th data-column-id="id" data-type="numeric" data-identifier="true"
+                                                        data-visible="false" width="2%">序号
+                                                    </th>
+                                                    <th data-align="center" data-column-id="applyDate" width="10%">
+                                                        采购日期
+                                                    </th>
+                                                    <th data-align="center" data-column-id="locName" width="20%">
+                                                        位置
+                                                    </th>
+                                                    <th data-align="center" data-column-id="ecName" width="10%">
+                                                        名称
+                                                    </th>
+                                                    <th data-align="center" data-column-id="amount" width="10%">
+                                                        数量
+                                                    </th>
+                                                    <th data-align="center" data-column-id="ecType" width="10%">
+                                                        分类
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="matCostList" v-for="mc in mcList">
+                                                <tr>
+                                                    <td>{{$index+1}}</td>
+                                                    <td>{{mc.applyDate}}</td>
+                                                    <td>{{mc.locName}}</td>
+                                                    <td>{{mc.ecName}}</td>
+                                                    <td>{{mc.amount}}</td>
+                                                    <td>{{mc.ecType}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <%-- <div id="mainContent"></div>
+                                             <div id="callBackPager"></div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -124,6 +124,10 @@
     </div>
     <%@include file="../common/common-back2top.jsp" %>
 </div>
+
+
+<script src="/js/app/matCost/matCost.js"></script>
+<%--
 <script src="/js/bootstrap-pager/js/extendPagination.js"></script>
 <script type="text/javascript">
 
@@ -293,4 +297,4 @@
         });
         return page;
     }
-</script>
+</script>--%>

@@ -35,6 +35,14 @@ public class MatCostService {
 
 
     /**
+     * 查询所有数据资源
+     */
+    public List<MatCost> findAll() {
+        return matCostRepository.findAll();
+    }
+
+
+    /**
      * @return 返回有物资消耗单据的所有的位置
      */
     public List<String> findMyLocs() {
@@ -55,15 +63,14 @@ public class MatCostService {
     }
 
 
-
     /**
-     * @param ecType  分类
-     * @param locName 位置名称
-     * @param ecName  物资名称
-     * @param pageable    分页
+     * @param ecType   分类
+     * @param locName  位置名称
+     * @param ecName   物资名称
+     * @param pageable 分页
      * @return
      */
-    public Page<MatCost> findByCondition(String ecType, String locName, String ecName,Pageable pageable) {
-        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName,pageable);
+    public Page<MatCost> findByCondition(String ecType, String locName, String ecName, Pageable pageable) {
+        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName, pageable);
     }
 }

@@ -67,6 +67,18 @@ public class BudgeService extends BaseService {
     }
 
 
+
+
+    /**
+     * @param accessoryName 配件名称
+     * @return 按照配件名称模糊查询分页查询
+     */
+    public List<VbudgetBill> findByAccessoryNameContains(String accessoryName) {
+        return vbudgetBillRepository.findByAccessoryNameContaining(accessoryName);
+    }
+
+
+
     /**
      * @param pageable
      * @return 分页查询

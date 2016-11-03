@@ -5,11 +5,16 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
+import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.budge.BudgeService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -18,6 +23,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -111,6 +118,25 @@ public class BudgetController {
     @ResponseBody
     public List<Long> findAllIds() {
         return budgeService.findAllIds();
+    }
+
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
+        List<VbudgetBill> matCostList = budgeService.findByAccessoryNameContains(param);
+        try {
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
