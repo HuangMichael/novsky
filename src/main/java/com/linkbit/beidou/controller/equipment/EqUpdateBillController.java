@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.equipment;
 
 
+import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.*;
@@ -9,6 +10,10 @@ import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
+import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -17,6 +22,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -152,5 +159,25 @@ public class EqUpdateBillController {
     @ResponseBody
     public List<Vequipments> findEqClassesByLocationId(@PathVariable("lid") Long lid, @PathVariable("cid") Long cid) {
         return commonDataService.findEqByLocIdAndEqcId(lid, cid);
+    }
+
+
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
+        List<VEqUpdateBill> matCostList = eqUpdateBillService.findByEqNameContaining(param);
+        try {
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

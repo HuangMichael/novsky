@@ -46,6 +46,15 @@ public class EqUpdateBillService extends BaseService {
 
 
     /**
+     * @param eqName
+     * @return 按照配件名称模糊查询分页查询
+     */
+    public List<VEqUpdateBill> findByEqNameContaining(String eqName) {
+        return vEqUpdateBillRepository.findByEqNameContaining(eqName);
+    }
+
+
+    /**
      * @return 查询所有
      */
     public EqUpdateBill findById(Long id) {

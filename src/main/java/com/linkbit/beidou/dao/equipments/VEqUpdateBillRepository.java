@@ -26,6 +26,12 @@ public interface VEqUpdateBillRepository extends PagingAndSortingRepository<VEqU
 
 
     /**
+     * @param eqName 设备名称
+     * @return 根据设备名称模糊查询
+     */
+    List<VEqUpdateBill> findByEqNameContaining(String eqName);
+
+    /**
      * @param id 根据id查询
      * @return
      */
