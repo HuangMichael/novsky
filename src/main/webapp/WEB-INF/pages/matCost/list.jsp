@@ -49,22 +49,6 @@
 
                                                             </select>
                                                         </div>
-                                                        <%-- <div class="input-group">
-                                                             <label class="sr-only" for="ecType">线路</label>
-                                                             <select v-model="line" class="form-control" id="line"
-                                                                     name="line"
-                                                                     style="width:200px">
-                                                                 <option value="" selected>
-                                                                     请选择线路
-                                                                 </option>
-                                                                 <template v-for="line in lines">
-                                                                     <option>
-                                                                         {{line.description}}
-                                                                     </option>
-                                                                 </template>
-
-                                                             </select>
-                                                         </div>--%>
                                                         <div class="input-group">
                                                             <label class="sr-only" for="locName">位置</label>
                                                             <select v-model="locName" class="form-control" id="locName"
@@ -91,7 +75,7 @@
                                                 </div>
                                             </div>
                                             <table id="budgetDataTable"
-                                                   class="table  table-striped  table-bordered table-hover"
+                                                   class="table table-bordered table-hover table-striped"
                                                    data-toggle="bootgrid">
                                                 <thead>
                                                 <tr>
