@@ -1010,8 +1010,6 @@ function exportExcel() {
 
     }
 
-    console.log("eqName------------"+eqName);
-
     var docName = "设备信息";
     var url = "equipment/exportExcel?eqName=" + eqName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
     bootbox.confirm({

@@ -90,6 +90,14 @@ public class LineService extends BaseService {
     }
 
     /**
+     * @param desc
+     * @return
+     */
+    public List<Line>  findByDescriptionContains(String desc){
+        return  lineRepository.findByDescriptionContains(desc);
+    }
+
+    /**
      * @return 查询所有段
      */
     public List<Line> findAll() {

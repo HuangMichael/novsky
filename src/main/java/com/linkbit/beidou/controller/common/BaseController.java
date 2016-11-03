@@ -2,14 +2,23 @@ package com.linkbit.beidou.controller.common;
 
 
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -34,5 +43,10 @@ public abstract class BaseController {
         System.out.println("url----------" + url);
         return url;
     }
+
+
+
+
+
 }
 

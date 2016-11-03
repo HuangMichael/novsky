@@ -48,4 +48,11 @@ public interface LineRepository extends CrudRepository<Line, Long>, PagingAndSor
      */
     Page<Line> findByDescriptionContains(String desc, Pageable pageable);
 
+
+    /**
+     * @param desc     线路描述
+     * @return 线路描述模糊查询 可分页
+     */
+    List<Line> findByDescriptionContains(String desc);
+
 }
