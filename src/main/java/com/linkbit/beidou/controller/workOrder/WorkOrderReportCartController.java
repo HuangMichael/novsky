@@ -277,17 +277,16 @@ public class WorkOrderReportCartController extends BaseController {
     }
 
 
-
     /**
      * @param request
      * @param response
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("locName") String locName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
         List<String> titleList = StringUtils.removeNullValue(titles);
         List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VworkOrderReportBill> reportBillList = vworkOrderReportBillRepository.findByNodeState("已报修");
+        List<VworkOrderReportBill> reportBillList = vworkOrderReportBillRepository.findByLocNameContains(locName);
         try {
             DataExport dataExport = new ExcelDataExporter();
             dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, reportBillList, docName);

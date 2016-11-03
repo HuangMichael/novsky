@@ -15,7 +15,7 @@ $(function () {
  *导出excel
  */
 function exportExcel() {
-    var eqName = $("#fixListTable").bootgrid("getSearchPhrase");
+    var locName = $("#fixListTable").bootgrid("getSearchPhrase");
     var columnSettings = $("#fixListTable").bootgrid("getColumnSettings");
 
     var titles = [];
@@ -29,7 +29,7 @@ function exportExcel() {
     }
 
     var docName = "报修单信息";
-    var url = "workOrderReportCart/exportExcel?eqName=" + eqName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
+    var url = "workOrderReportCart/exportExcel?locName=" + locName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
     bootbox.confirm({
         message: "确定导出查询结果记录么？?",
         buttons: {
