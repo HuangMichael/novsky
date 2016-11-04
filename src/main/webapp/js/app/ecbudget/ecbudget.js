@@ -8,8 +8,9 @@ var vdm = null;
 //位置信息
 var locs = [];
 var eqClasses = [];
-var budgetBills = [];
-var dataTableName ="#ecBudgetDataTable";
+var dataTableName = "#ecBudgetDataTable";
+var formName = "detailForm";
+var mainObject = "ecbudget";
 var ids = [];
 var pointer = 0;
 $(function () {
@@ -229,10 +230,10 @@ $(function () {
     });
 
 
-    $('#detailForm')
+    $(formName)
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        saveObject();
+        saveMainObject();
     });
 
 
@@ -287,35 +288,6 @@ function getBudgetBillById(bid) {
 }
 
 
-/**
- *  上一条
- */
-function backwards() {
-    if (pointer <= 0) {
-        showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
-    } else {
-        pointer = pointer - 1;
-        //判断当前指针位置
-        var budgetBill = getBudgetBillById(selectedIds[pointer]);
-        vdm.$set("budgetBill", budgetBill);
-    }
-}
-/**
- *  下一条
- */
-function forwards() {
-    if (pointer >= selectedIds.length - 1) {
-        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-
-    } else {
-        pointer = pointer + 1;
-        var budgetBill = getBudgetBillById(selectedIds[pointer]);
-        vdm.$set("budgetBill", budgetBill);
-    }
-}
-
-
 function add() {
 
     //重新建立模型 新建对象模型
@@ -339,24 +311,6 @@ function save() {
     $("#saveBtn").trigger("click");
 }
 
-/**
- *保存或者更新
- * */
-function saveObject() {
-    var objStr = getFormJsonData("detailForm");
-    var budgetBill = JSON.parse(objStr);
-    var url = "ecbudget/save";
-    $.post(url, budgetBill, function (data) {
-        if (data.result) {
-            showMessageBox("info", data["resultDesc"]);
-            setFormReadStatus("#detailForm", true);
-            formTab.data("status", "saved");
-        } else {
-            showMessageBox("danger", data["resultDesc"]);
-            setFormReadStatus("#detailForm", false);
-        }
-    });
-}
 
 /**
  * 编辑记录 使文本框可编辑
@@ -408,6 +362,7 @@ function del() {
                         success: function (msg) {
                             if (msg) {
                                 showMessageBox("info", "易耗品采购申请信息删除成功!");
+                                $(dataTableName).bootgrid("loadRows");
                             }
                         },
                         error: function (msg) {
@@ -419,18 +374,7 @@ function del() {
         });
     }
 }
-/**
- *根据id查询
- * */
-function findById(id) {
-    var budgetBill = null;
-    var url = "ecbudget/findById/" + id;
-    $.getJSON(url, function (data) {
-        budgetBill = data;
-    });
-    return budgetBill;
 
-}
 /**
  *查询我的位置
  * */
@@ -545,3 +489,5 @@ function exportExcel() {
     });
 
 }
+
+

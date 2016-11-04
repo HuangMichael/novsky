@@ -9,7 +9,7 @@ var vdm = null;
 var locs = [];
 var eqClasses = [];
 var budgetBills = [];
-
+var mainObject = "budget";
 var dataTableName = "#budgetDataTable";
 var ids = [];
 var pointer = 0;
@@ -213,7 +213,7 @@ $(function () {
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        saveObject();
+        saveMainObject();
     });
 
 
@@ -312,23 +312,6 @@ function save() {
     $("#saveBtn").trigger("click");
 }
 
-/**
- *保存或者更新
- * */
-function saveObject() {
-    var objStr = getFormJsonData("detailForm");
-    var budgetBill = JSON.parse(objStr);
-    var url = "budget/save";
-    $.post(url, budgetBill, function (data) {
-        if (data.result) {
-            showMessageBox("info", data["resultDesc"]);
-            formTab.data("status", "saved");
-            setFormReadStatus("#detailForm", true);
-        } else {
-            showMessageBox("danger", data["resultDesc"]);
-        }
-    });
-}
 
 function edit() {
     setFormReadStatus("#detailForm", false);
@@ -374,6 +357,7 @@ function del() {
                         success: function (msg) {
                             if (msg) {
                                 showMessageBox("info", "采购信息删除成功!");
+                                $(dataTableName).bootgrid("reload");
                             }
                         },
                         error: function (msg) {
