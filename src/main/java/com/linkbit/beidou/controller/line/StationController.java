@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
+import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
@@ -185,20 +186,18 @@ public class StationController extends BaseController {
 
 
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<Station> stationList = stationService.findByStationNameContains(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, stationList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<Station> dataList = stationService.findByStationNameContains(param);
+        stationService.setDataList(dataList);
+        stationService.exportExcel(request, response, docName, titles, colNames);
     }
 }

@@ -5,6 +5,7 @@ import com.linkbit.beidou.dao.macCost.MatCostRepository;
 import com.linkbit.beidou.dao.macCost.WorkOrderMatCostRepository;
 import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.SessionUtil;
@@ -33,7 +34,7 @@ import java.util.List;
  * 物料消耗查询业务类
  */
 @Service
-public class WorkOrderMatCostService {
+public class WorkOrderMatCostService extends BaseService {
 
     @Autowired
     public ResourceRepository resourceRepository;

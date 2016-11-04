@@ -171,11 +171,14 @@ public class ExcelDataExporter implements DataExport {
      * @param docName  文档名称  sheet名称
      * @throws Exception
      */
-    public void export(DocType docType, HttpServletRequest request, HttpServletResponse response, List titles, List colNames, List dataList, String docName) throws Exception {
+    public void export(DocType docType, HttpServletRequest request, HttpServletResponse response, String[] titles, String[] colNames, List dataList, String docName) throws Exception {
+
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
         createHSSFWorkbook(request, response, docName);
         createSheet(docName);
         createStyle();
-        exportData(titles, colNames, dataList);
+        exportData(titleList, colNameList, dataList);
         closeStream(response);
 
     }

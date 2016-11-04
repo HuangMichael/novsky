@@ -1,18 +1,37 @@
 package com.linkbit.beidou.service.app;
 
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
+import lombok.Data;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by huangbin  on 2016/5/20.
  * 日志对象
  */
 @Service
-public class BaseService {
+@Data
+public abstract class BaseService {
 
 
     protected Log log = LogFactory.getLog(this.getClass());
 
+    protected List dataList;
+
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, String docName, String[] titles, String[] colNames) {
+        DataExport dataExport = new ExcelDataExporter();
+        try {
+            dataExport.export(new ExcelDoc(), request, response, titles, colNames, this.getDataList(), docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

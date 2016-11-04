@@ -12,6 +12,8 @@ var hm = null;
 var uhm = null;
 var uhmd = null;
 var formLocked = true;
+mainObject = "equipment";
+docName = "设备信息";
 
 var formStatusArray = ["READ", "CREATE", "EDIT", "SAVED", "DELETED"];
 
@@ -989,47 +991,6 @@ function changeValue(data) {
     $("tr[data-row-id='" + trId + "'] td:eq(5)").html(data["vlocations"]["locName"]);
     $("tr[data-row-id='" + trId + "'] td:eq(6)").html(eqStatuses[data.status]["value"]);
     $("tr[data-row-id='" + trId + "'] td:eq(7)").html(runStatus[data.running]["value"]);
-
-}
-
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var eqName = $("#equipmentsDataTable").bootgrid("getSearchPhrase");
-    var columnSettings = $("#equipmentsDataTable").bootgrid("getColumnSettings");
-
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "设备信息";
-    var url = "equipment/exportExcel?eqName=" + eqName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
 
 }
 

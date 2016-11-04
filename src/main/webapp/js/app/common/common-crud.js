@@ -208,7 +208,7 @@ function exportExcel() {
     var titles = [];
     var colNames = [];
     for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
+        if (columnSettings[x] != undefined && columnSettings[x]["text"] != "" && columnSettings[x]["id"] != "" && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
             titles[x] = columnSettings[x]["text"];
             colNames[x] = columnSettings[x]["id"];
         }

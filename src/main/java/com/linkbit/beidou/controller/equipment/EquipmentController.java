@@ -12,6 +12,7 @@ import com.linkbit.beidou.domain.equipments.EqUpdateBill;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VEqRecord;
 import com.linkbit.beidou.domain.equipments.Vequipments;
+import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
@@ -443,26 +444,19 @@ public class EquipmentController extends BaseController {
         return equipmentAccountService.selectAllId();
     }
 
-
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("eqName") String eqName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        System.out.println("eqName-----------" + eqName);
-
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<Vequipments> equipmentsList = equipmentAccountService.findByEqNameContains(eqName);
-
-        System.out.println("equipmentsList-----------" + equipmentsList.size());
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, equipmentsList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<Vequipments> dataList = equipmentAccountService.findByEqNameContains(param);
+        equipmentAccountService.setDataList(dataList);
+        equipmentAccountService.exportExcel(request, response, docName, titles, colNames);
     }
 }

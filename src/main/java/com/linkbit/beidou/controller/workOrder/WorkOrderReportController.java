@@ -5,6 +5,7 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
+import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
@@ -120,21 +121,20 @@ public class WorkOrderReportController extends BaseController {
     }
 
 
+
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VworkOrderReportBill> matCostList = workOrderReportService.findByOrderDescContainsOrLocNameContainsOrEqNameContains(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<VworkOrderReportBill> dataList = workOrderReportService.findByOrderDescContainsOrLocNameContainsOrEqNameContains(param);
+        workOrderReportService.setDataList(dataList);
+        workOrderReportService.exportExcel(request, response, docName, titles, colNames);
     }
 }

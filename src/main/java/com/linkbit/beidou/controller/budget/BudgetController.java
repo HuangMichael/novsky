@@ -16,6 +16,7 @@ import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
 import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
+import com.linkbit.beidou.utils.export.tool.Exportable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -123,21 +124,19 @@ public class BudgetController extends BaseController {
 
 
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VbudgetBill> matCostList = budgeService.findByAccessoryNameContains(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<VbudgetBill> dataList = budgeService.findByAccessoryNameContains(param);
+        budgeService.exportExcel(request, response, docName, titles, colNames, dataList);
     }
+
 
 }

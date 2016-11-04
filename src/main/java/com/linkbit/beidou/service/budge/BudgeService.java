@@ -6,11 +6,17 @@ import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.domain.budget.BudgetBill;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
+import com.linkbit.beidou.utils.export.tool.Exportable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -18,7 +24,7 @@ import java.util.List;
  * 设备台账业务类
  */
 @Service
-public class BudgeService extends BaseService {
+public class BudgeService extends BaseService implements Exportable {
 
 
     @Autowired
@@ -53,8 +59,6 @@ public class BudgeService extends BaseService {
     }
 
 
-
-
     /**
      * @param accessoryName 配件名称
      * @return 按照配件名称模糊查询分页查询
@@ -62,7 +66,6 @@ public class BudgeService extends BaseService {
     public List<VbudgetBill> findByAccessoryNameContains(String accessoryName) {
         return vbudgetBillRepository.findByAccessoryNameContaining(accessoryName);
     }
-
 
 
     /**
@@ -124,5 +127,16 @@ public class BudgeService extends BaseService {
     public List<Long> findAllIds() {
         List<Long> ids = budgetBillRepository.findAllIds();
         return ids;
+    }
+
+
+    @Override
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, String docName, String[] titles, String[] colNames, List dataList) {
+        DataExport dataExport = new ExcelDataExporter();
+        try {
+            dataExport.export(new ExcelDoc(), request, response, titles, colNames, dataList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

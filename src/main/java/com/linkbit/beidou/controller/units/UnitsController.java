@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.units;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
+import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.unit.UnitService;
 import com.linkbit.beidou.utils.StringUtils;
@@ -153,25 +154,21 @@ public class UnitsController extends BaseController {
         return outsourcingUnitService.unitNoExists(unitNo);
     }
 
+
     /**
-     * @param request
-     * @param response
-     * @param param
-     * @param docName
-     * @param titles
-     * @param colNames
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<Units> unitList = outsourcingUnitService.findByDescriptionContains(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, unitList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<Units> dataList = outsourcingUnitService.findByDescriptionContains(param);
+        outsourcingUnitService.setDataList(dataList);
+        outsourcingUnitService.exportExcel(request, response, docName, titles, colNames);
     }
+
 }

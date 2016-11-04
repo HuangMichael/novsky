@@ -3,6 +3,8 @@ package com.linkbit.beidou.service.matCost;
 import com.linkbit.beidou.dao.app.resource.ResourceRepository;
 import com.linkbit.beidou.dao.macCost.MatCostRepository;
 import com.linkbit.beidou.domain.matCost.MatCost;
+import com.linkbit.beidou.service.app.BaseService;
+import com.linkbit.beidou.utils.export.tool.Exportable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +19,7 @@ import java.util.List;
  * 物料消耗查询业务类
  */
 @Service
-public class MatCostService {
+public class MatCostService extends BaseService {
 
     @Autowired
     public ResourceRepository resourceRepository;
@@ -73,4 +75,6 @@ public class MatCostService {
     public Page<MatCost> findByCondition(String ecType, String locName, String ecName, Pageable pageable) {
         return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName, pageable);
     }
+
+
 }

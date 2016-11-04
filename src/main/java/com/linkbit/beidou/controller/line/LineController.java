@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.line;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -31,7 +32,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/line")
-public class LineController extends BaseController{
+public class LineController extends BaseController {
 
     @Autowired
     LineService lineService;
@@ -40,8 +41,6 @@ public class LineController extends BaseController{
 
     @Autowired
     ResourceService resourceService;
-
-
 
 
     /**
@@ -70,9 +69,6 @@ public class LineController extends BaseController{
         myPage.setTotal(page.getTotalElements());
         return myPage;
     }
-
-
-
 
 
     @RequestMapping(value = "/lines", method = {RequestMethod.GET})
@@ -185,22 +181,19 @@ public class LineController extends BaseController{
     }
 
 
-
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<Line> lineList = lineService.findByDescriptionContains(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, lineList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<Line> dataList = lineService.findByDescriptionContains(param);
+        lineService.setDataList(dataList);
+        lineService.exportExcel(request, response, docName, titles, colNames);
     }
 }

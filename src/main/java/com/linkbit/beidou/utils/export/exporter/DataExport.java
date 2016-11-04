@@ -23,5 +23,5 @@ public interface DataExport {
      * @param docName
      * @throws Exception
      */
-    void export(DocType docType, HttpServletRequest request, HttpServletResponse response, List titles, List colNames, List dataList, String docName) throws Exception;
+    void export(DocType docType, HttpServletRequest request, HttpServletResponse response, String[] titles, String[] colNames, List dataList, String docName) throws Exception;
 }

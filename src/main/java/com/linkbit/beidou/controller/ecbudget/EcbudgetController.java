@@ -5,6 +5,7 @@ import com.linkbit.beidou.domain.EcBudget.EcBudgetBill;
 import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
@@ -125,23 +126,20 @@ public class EcbudgetController {
         return ecBudgeService.findAllIds();
     }
 
-
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VEcBudgetBill> matCostList = ecBudgeService.findByEcnameContains(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<VEcBudgetBill> dataList = ecBudgeService.findByEcnameContains(param);
+        ecBudgeService.setDataList(dataList);
+        ecBudgeService.exportExcel(request, response, docName, titles, colNames);
     }
 
 }

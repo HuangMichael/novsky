@@ -5,6 +5,7 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.workOrder.VworkOrderReportBillRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
@@ -312,21 +313,19 @@ public class WorkOrderReportCartController extends BaseController {
 
 
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("locName") String locName, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VworkOrderReportBill> reportBillList = vworkOrderReportBillRepository.findByLocNameContains(locName);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, reportBillList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<VworkOrderReportBill> dataList = workOrderReportCartService.findAll();
+        workOrderReportCartService.setDataList(dataList);
+        workOrderReportCartService.exportExcel(request, response, docName, titles, colNames);
     }
 
 

@@ -36,7 +36,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/eqUpdateBill")
-public class EqUpdateBillController  extends BaseController{
+public class EqUpdateBillController extends BaseController {
     @Autowired
     EqUpdateBillService eqUpdateBillService;
     @Autowired
@@ -155,22 +155,19 @@ public class EqUpdateBillController  extends BaseController{
     }
 
 
-
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<VEqUpdateBill> matCostList = eqUpdateBillService.findByEqNameContaining(param);
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<VEqUpdateBill> dataList = eqUpdateBillService.findByEqNameContaining(param);
+        eqUpdateBillService.setDataList(dataList);
+        eqUpdateBillService.exportExcel(request, response, docName, titles, colNames);
     }
 }

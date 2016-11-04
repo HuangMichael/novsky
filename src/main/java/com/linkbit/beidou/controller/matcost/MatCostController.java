@@ -1,8 +1,10 @@
 package com.linkbit.beidou.controller.matcost;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.service.app.ResourceService;
@@ -33,22 +35,13 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/matCost")
-public class MatCostController {
+public class MatCostController extends BaseController {
 
     @Autowired
     ResourceService resourceService;
 
     @Autowired
     MatCostService matCostService;
-
-    @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/matCost/list";
-    }
-
 
     /**
      * 分页查询
@@ -96,7 +89,7 @@ public class MatCostController {
         myPage.setCurrent(current);
         myPage.setTotal(page.getTotalElements());
 
-        return myPage ;
+        return myPage;
 
     }
 
@@ -118,25 +111,20 @@ public class MatCostController {
     }
 
 
-
-
-
     /**
-     * @param request
-     * @param response
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<String> titleList = StringUtils.removeNullValue(titles);
-        List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<MatCost> matCostList = matCostService.findAll();
-        try {
-            DataExport dataExport = new ExcelDataExporter();
-            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<MatCost> dataList = matCostService.findAll();
+        matCostService.setDataList(dataList);
+        matCostService.exportExcel(request, response, docName, titles, colNames);
     }
 
 
