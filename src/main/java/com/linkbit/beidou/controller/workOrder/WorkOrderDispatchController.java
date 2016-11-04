@@ -2,7 +2,7 @@ package com.linkbit.beidou.controller.workOrder;
 
 
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.workOrder.WorkOrderDispatchService;
@@ -51,7 +51,7 @@ public class WorkOrderDispatchController {
         //查询当前登录用户location下的未完工的报修单明细
         List<WorkOrderReportCart> workOrderReportDetailList = null;
 
-        List<OutsourcingUnit> unitList = null;
+        List<Units> unitList = null;
         if (user != null && user.getLocation() != null) {
             workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWithAndNodeState(user.getLocation(), "已报修");
             unitList = outsourcingUnitRepository.findByStatus("1");

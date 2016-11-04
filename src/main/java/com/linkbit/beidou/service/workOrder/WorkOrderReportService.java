@@ -4,15 +4,13 @@ import com.linkbit.beidou.dao.equipments.EquipmentsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.*;
-import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,8 +118,8 @@ public class WorkOrderReportService extends BaseService {
      * @param equipmentsClassification
      * @return 根据设备分类信息获取维修单位
      */
-    public OutsourcingUnit getDefaultUnitByEqClass(EquipmentsClassification equipmentsClassification) {
-        List<OutsourcingUnit> unitList = equipmentsClassification.getUnitSet();
+    public Units getDefaultUnitByEqClass(EquipmentsClassification equipmentsClassification) {
+        List<Units> unitList = equipmentsClassification.getUnitSet();
         if (!unitList.isEmpty()) {
             return unitList.get(0);
         } else {
@@ -159,7 +157,6 @@ public class WorkOrderReportService extends BaseService {
 
     /**
      * @param orderDesc
-     * @param locName
      * @param pageable
      * @return 根据维修描述和位置名称查询
      */

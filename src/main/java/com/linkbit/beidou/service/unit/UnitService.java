@@ -19,7 +19,7 @@ import java.util.List;
  * 外委单位业务类
  */
 @Service
-public class OutsoucingUnitService extends BaseService {
+public class UnitService extends BaseService {
 
 
     //根据设备分类查询对应外委单位

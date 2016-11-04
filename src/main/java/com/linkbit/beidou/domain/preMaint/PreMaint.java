@@ -2,14 +2,12 @@ package com.linkbit.beidou.domain.preMaint;
 
 
 import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.locations.Vlocations;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by huangbin on 2016年10月9日11:42:09
@@ -39,7 +37,7 @@ public class PreMaint {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    private OutsourcingUnit outUnit; //外委单位
+    private Units outUnit; //外委单位
 
 
     @Column(length = 3)

@@ -5,7 +5,7 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import lombok.*;
 
 import javax.persistence.*;
@@ -42,7 +42,7 @@ public class WorkOrderReportCart {
 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
-    OutsourcingUnit unit;
+    Units unit;
 
     @Column(length = 20)
     private String reporter; //报修人

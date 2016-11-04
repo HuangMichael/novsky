@@ -2,7 +2,6 @@ package com.linkbit.beidou.service.line;
 
 import com.linkbit.beidou.dao.line.LineRepository;
 import com.linkbit.beidou.domain.line.Line;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
 import com.linkbit.beidou.service.app.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

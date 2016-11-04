@@ -1,15 +1,10 @@
-package com.linkbit.beidou.controller.outsourcingUnit;
+package com.linkbit.beidou.controller.units;
 
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.line.Station;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitContract;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitEvaluation;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnitSafeDocs;
-import com.linkbit.beidou.service.unit.OutsoucingUnitService;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.service.unit.UnitService;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -24,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -33,14 +27,12 @@ import java.util.Set;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/unit")
-public class UnitController extends BaseController {
+public class UnitsController extends BaseController {
 
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
     @Autowired
-    OutsoucingUnitService outsourcingUnitService;
-
-
+    UnitService outsourcingUnitService;
 
 
     @RequestMapping(value = "/list")
@@ -54,8 +46,8 @@ public class UnitController extends BaseController {
      */
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public List<OutsourcingUnit> findAll() {
-        List<OutsourcingUnit> outsourcingUnitList = outsourcingUnitService.findAll();
+    public List<Units> findAll() {
+        List<Units> outsourcingUnitList = outsourcingUnitService.findAll();
         return outsourcingUnitList;
     }
 
@@ -67,18 +59,9 @@ public class UnitController extends BaseController {
      */
     @RequestMapping(value = "/detail/{unitId}", method = RequestMethod.GET)
     public String detail(@PathVariable("unitId") Long unitId, ModelMap modelMap) {
-        OutsourcingUnit unit = outsourcingUnitRepository.findById(unitId);
-
+        Units unit = outsourcingUnitRepository.findById(unitId);
         if (unit != null) {
-            List<OutsourcingUnitContract> contractList = unit.getContractList();
-            List<OutsourcingUnitSafeDocs> docsList = unit.getSafeDocsList();
-            List<OutsourcingUnitEvaluation> evaluationList = unit.getEvaluationList();
-            Set<EquipmentsClassification> equipmentsClassificationList = unit.getEqClassList();
             modelMap.put("unit", unit);
-            modelMap.put("contractList", contractList);
-            modelMap.put("docsList", docsList);
-            modelMap.put("evaluationList", evaluationList);
-            modelMap.put("equipmentsClassificationList", equipmentsClassificationList);
         }
         return "/units/detail";
     }
@@ -86,7 +69,7 @@ public class UnitController extends BaseController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public OutsourcingUnit save(OutsourcingUnit outsourcingUnit) {
+    public Units save(Units outsourcingUnit) {
         outsourcingUnit.setStatus("1");
         outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
         return outsourcingUnit;
@@ -95,14 +78,14 @@ public class UnitController extends BaseController {
 
     @RequestMapping(value = "/saveLink", method = RequestMethod.POST)
     @ResponseBody
-    public List<OutsourcingUnit> saveLink(@RequestParam("unitNo") String unitNo,
-                                          @RequestParam("description") String description,
-                                          @RequestParam("linkman") String linkman,
-                                          @RequestParam("telephone") String telephone,
-                                          @RequestParam("eqClassId") Long eqClassId,
-                                          @RequestParam("workDays") String workDays
+    public List<Units> saveLink(@RequestParam("unitNo") String unitNo,
+                                @RequestParam("description") String description,
+                                @RequestParam("linkman") String linkman,
+                                @RequestParam("telephone") String telephone,
+                                @RequestParam("eqClassId") Long eqClassId,
+                                @RequestParam("workDays") String workDays
     ) {
-        OutsourcingUnit outsourcingUnit = new OutsourcingUnit();
+        Units outsourcingUnit = new Units();
         outsourcingUnit.setUnitNo(unitNo);
         outsourcingUnit.setDescription(description);
         outsourcingUnit.setLinkman(linkman);
@@ -120,7 +103,7 @@ public class UnitController extends BaseController {
     @RequestMapping(value = "/delete/{id}")
     @ResponseBody
     public Boolean delete(@PathVariable("id") Long id) {
-        OutsourcingUnit unit = null;
+        Units unit = null;
         if (id != null) {
             unit = outsourcingUnitService.findById(id);
         }
@@ -137,7 +120,7 @@ public class UnitController extends BaseController {
 
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public OutsourcingUnit findById(@PathVariable("id") Long id) {
+    public Units findById(@PathVariable("id") Long id) {
         return outsourcingUnitRepository.findById(id);
     }
 
@@ -147,14 +130,14 @@ public class UnitController extends BaseController {
      */
     @RequestMapping(value = "/findByStatus/{status}", method = RequestMethod.GET)
     @ResponseBody
-    public List<OutsourcingUnit> findByStatus(@PathVariable("status") String status) {
+    public List<Units> findByStatus(@PathVariable("status") String status) {
         return outsourcingUnitRepository.findByStatus(status);
     }
 
 
     @RequestMapping(value = "/loadPageByUrl/{pageUrl}/{uid}", method = RequestMethod.GET)
     public String loadPageByUrl(@PathVariable("pageUrl") String pageUrl, @PathVariable("uid") Long uid, ModelMap modelMap) {
-        OutsourcingUnit unit = outsourcingUnitRepository.findById(uid);
+        Units unit = outsourcingUnitRepository.findById(uid);
         modelMap.put("unit", unit);
         return "/units/" + pageUrl;
     }
@@ -183,7 +166,7 @@ public class UnitController extends BaseController {
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
         List<String> titleList = StringUtils.removeNullValue(titles);
         List<String> colNameList = StringUtils.removeNullValue(colNames);
-        List<OutsourcingUnit> unitList = outsourcingUnitService.findByDescriptionContains(param);
+        List<Units> unitList = outsourcingUnitService.findByDescriptionContains(param);
         try {
             DataExport dataExport = new ExcelDataExporter();
             dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, unitList, docName);

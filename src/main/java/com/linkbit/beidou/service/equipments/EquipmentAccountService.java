@@ -6,7 +6,7 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
@@ -137,7 +137,7 @@ public class EquipmentAccountService extends BaseService {
     /**
      * @return 查询所有的外委单位
      */
-    public List<OutsourcingUnit> findAllUnit() {
+    public List<Units> findAllUnit() {
         return outsourcingUnitRepository.findByStatus(CommonStatusType.STATUS_YES);
     }
 

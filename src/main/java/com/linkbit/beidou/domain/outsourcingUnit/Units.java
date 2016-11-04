@@ -49,18 +49,6 @@ public class Units implements java.io.Serializable {
     private String workDays;  //工作制
 
 
-    //一对多关联合同信息
-    @JsonBackReference("contractList")
-    @OneToMany(targetEntity = OutsourcingUnitContract.class, cascade = CascadeType.ALL, mappedBy = "unit")
-    List<OutsourcingUnitContract> contractList = new ArrayList<OutsourcingUnitContract>();
-    //一对多关联年度评价
-    @JsonBackReference("evaluationList")
-    @OneToMany(targetEntity = OutsourcingUnitEvaluation.class, cascade = CascadeType.ALL, mappedBy = "unit")
-    List<OutsourcingUnitEvaluation> evaluationList = new ArrayList<OutsourcingUnitEvaluation>();
-    //一对多关联安全教育文档信息
-    @JsonBackReference("safeDocsList")
-    @OneToMany(targetEntity = OutsourcingUnitSafeDocs.class, cascade = CascadeType.ALL, mappedBy = "unit")
-    List<OutsourcingUnitSafeDocs> safeDocsList = new ArrayList<OutsourcingUnitSafeDocs>();
 
     @ManyToMany
     @JoinTable(name = "t_unit_class", joinColumns = {@JoinColumn(name = "unit_id")}, inverseJoinColumns = {@JoinColumn(name = "class_id")})

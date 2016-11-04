@@ -2,7 +2,7 @@ package com.linkbit.beidou.service.equipmentsClassification;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.service.app.BaseService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,8 +89,8 @@ public class EquipmentsClassificationService extends BaseService {
         List<Long> idList = new ArrayList<Long>();
         if (cid != null) {
             equipmentsClassification = equipmentsClassificationRepository.findById(cid);
-            List<OutsourcingUnit> unitList = equipmentsClassification.getUnitSet();
-            for (OutsourcingUnit unit : unitList) {
+            List<Units> unitList = equipmentsClassification.getUnitSet();
+            for (Units unit : unitList) {
                 idList.add(unit.getId());
             }
 

@@ -2,7 +2,7 @@ package com.linkbit.beidou.service.workOrder;
 
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
@@ -35,10 +35,8 @@ public class WorkOrderDispatchService extends BaseService {
      */
     @Transactional
     public WorkOrderReportCart updateDetailUnit(Long detailId, Long unitId) {
-
-        log.info("更新单位detailId----------" + detailId);
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(detailId);
-        OutsourcingUnit outsourcingUnit = outsourcingUnitRepository.findById(unitId);
+        Units outsourcingUnit = outsourcingUnitRepository.findById(unitId);
         if (workOrderReportCart != null && outsourcingUnit != null) {
             workOrderReportCart.setUnit(outsourcingUnit);
             workOrderReportCart.setNodeState("已派工");

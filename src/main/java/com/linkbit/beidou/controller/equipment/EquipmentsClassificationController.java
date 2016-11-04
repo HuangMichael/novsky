@@ -4,10 +4,10 @@ package com.linkbit.beidou.controller.equipment;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
-import com.linkbit.beidou.service.unit.OutsoucingUnitService;
+import com.linkbit.beidou.service.unit.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class EquipmentsClassificationController {
     @Autowired
     EquipmentsClassificationService equipmentsClassificationService;
     @Autowired
-    OutsoucingUnitService outsoucingUnitService;
+    UnitService outsoucingUnitService;
     @Autowired
     ResourceService resourceService;
 
@@ -83,7 +83,7 @@ public class EquipmentsClassificationController {
     public String detail(@PathVariable("id") Long id, ModelMap modelMap) {
         String url = "/equipmentsClassification";
         EquipmentsClassification object = null;
-        List<OutsourcingUnit> unitList = new ArrayList<OutsourcingUnit>();
+        List<Units> unitList = new ArrayList<Units>();
         if (id != 0) {
             url += "/detail";
             object = equipmentsClassificationRepository.findById(id);
@@ -220,8 +220,8 @@ public class EquipmentsClassificationController {
      */
     @RequestMapping(value = "/addUnits", method = RequestMethod.POST)
     @ResponseBody
-    public List<OutsourcingUnit> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
-        List<OutsourcingUnit> outsourcingUnitList = null;
+    public List<Units> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
+        List<Units> outsourcingUnitList = null;
         if (cid != null && ids != null) {
             outsourcingUnitList = outsoucingUnitService.addUnits(cid, ids);
         }
@@ -237,8 +237,8 @@ public class EquipmentsClassificationController {
      */
     @RequestMapping(value = "/addU2c", method = RequestMethod.POST)
     @ResponseBody
-    public List<OutsourcingUnit> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, @RequestParam("workOrderId") Long workOrderId) {
-        List<OutsourcingUnit> outsourcingUnitList = null;
+    public List<Units> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, @RequestParam("workOrderId") Long workOrderId) {
+        List<Units> outsourcingUnitList = null;
         if (cid != null && ids != null) {
             outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids, workOrderId);
         }
