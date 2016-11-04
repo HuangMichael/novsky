@@ -15,7 +15,7 @@ var formTab = $('#myTab li:eq(1) a');
 $.ajaxSettings.async = false;
 $(function () {
     //初始化从数据库获取列表数据
-    //initLoadData("/outsourcingUnit/findAll", dataTableName);
+    //initLoadData("/units/findAll", dataTableName);
 
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {

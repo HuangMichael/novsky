@@ -5,7 +5,7 @@ import com.linkbit.beidou.dao.locations.VlocationsRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.*;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;

@@ -3,7 +3,7 @@ package com.linkbit.beidou.controller.units;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.unit.UnitService;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Controller
 @EnableAutoConfiguration
-@RequestMapping("/unit")
+@RequestMapping("/units")
 public class UnitsController extends BaseController {
 
     @Autowired

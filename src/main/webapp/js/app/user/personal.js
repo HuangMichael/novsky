@@ -84,7 +84,7 @@ function selectUnit(name) {
  * @param orderId
  */
 function loadUnit(select) {
-    var url = "/outsourcingUnit/findByStatus/1";
+    var url = "/units/findByStatus/1";
     $.getJSON(url, function (data) {
         $("#" + select).empty();
         var html = "";
@@ -201,7 +201,7 @@ function createUnit() {
         eqClassId: eqClassId
     };
 
-    var url = "/outsourcingUnit/saveLink";
+    var url = "/units/saveLink";
     $.ajax({
             type: "post",
             url: url,

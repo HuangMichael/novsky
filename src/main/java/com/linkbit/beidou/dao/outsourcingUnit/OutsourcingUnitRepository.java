@@ -1,7 +1,7 @@
 package com.linkbit.beidou.dao.outsourcingUnit;
 
 
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

@@ -2,7 +2,7 @@ package com.linkbit.beidou.domain.equipments;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,12 +1,11 @@
-package com.linkbit.beidou.domain.outsourcingUnit;
+package com.linkbit.beidou.domain.units;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.annotation.Resource;
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -15,6 +14,8 @@ import java.util.Set;
  * Created by huangbin on 2016/03/14 0023.
  * 外委单位
  */
+
+@Entity
 @Table(name = "T_OUTSOURCING_UNIT")
 @Data
 @AllArgsConstructor
@@ -47,8 +48,6 @@ public class Units implements java.io.Serializable {
 
     @Column(length = 1)
     private String workDays;  //工作制
-
-
 
     @ManyToMany
     @JoinTable(name = "t_unit_class", joinColumns = {@JoinColumn(name = "unit_id")}, inverseJoinColumns = {@JoinColumn(name = "class_id")})

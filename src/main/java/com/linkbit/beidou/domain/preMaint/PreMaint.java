@@ -2,7 +2,7 @@ package com.linkbit.beidou.domain.preMaint;
 
 
 import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

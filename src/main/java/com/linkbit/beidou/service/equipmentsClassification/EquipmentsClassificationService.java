@@ -2,7 +2,7 @@ package com.linkbit.beidou.service.equipmentsClassification;
 
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.app.BaseService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

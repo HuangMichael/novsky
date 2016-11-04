@@ -2,7 +2,7 @@ package com.linkbit.beidou.controller.workOrder;
 
 
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.workOrder.WorkOrderDispatchService;

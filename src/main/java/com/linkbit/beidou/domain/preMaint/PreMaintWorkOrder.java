@@ -4,7 +4,7 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
-import com.linkbit.beidou.domain.outsourcingUnit.Units;
+import com.linkbit.beidou.domain.units.Units;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,8 +13,6 @@ import java.util.Date;
 @Entity
 @Table(name = "T_Pre_Maint_Work_Order")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 /**
