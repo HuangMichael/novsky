@@ -4,6 +4,7 @@ package com.linkbit.beidou.controller.workOrder;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumFinish;
 import com.linkbit.beidou.domain.workOrder.VworkOrderNumReport;
@@ -13,6 +14,10 @@ import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.SessionUtil;
+import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.export.docType.ExcelDoc;
+import com.linkbit.beidou.utils.export.exporter.DataExport;
+import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -24,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +41,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/workOrderReport")
-public class WorkOrderReportController extends BaseController{
+public class WorkOrderReportController extends BaseController {
 
 
     @Autowired
@@ -45,7 +52,6 @@ public class WorkOrderReportController extends BaseController{
 
     @Autowired
     ResourceService resourceService;
-
 
 
     /**
@@ -111,5 +117,24 @@ public class WorkOrderReportController extends BaseController{
     @ResponseBody
     public List<VworkOrderNumFinish> selectFinishNumIn3Months() {
         return workOrderReportService.selectFinishNumIn3Months();
+    }
+
+
+    /**
+     * @param request
+     * @param response
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<String> titleList = StringUtils.removeNullValue(titles);
+        List<String> colNameList = StringUtils.removeNullValue(colNames);
+        List<VworkOrderReportBill> matCostList = workOrderReportService.findByOrderDescContainsOrLocNameContainsOrEqNameContains(param);
+        try {
+            DataExport dataExport = new ExcelDataExporter();
+            dataExport.export(new ExcelDoc(), request, response, titleList, colNameList, matCostList, docName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

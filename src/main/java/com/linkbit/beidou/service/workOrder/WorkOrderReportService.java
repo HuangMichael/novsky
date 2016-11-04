@@ -165,6 +165,16 @@ public class WorkOrderReportService extends BaseService {
     }
 
 
+
+    /**
+     * @param orderDesc
+     * @return 根据维修描述和位置名称查询
+     */
+    public List<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc ) {
+        return vworkOrderReportBillRepository.findByOrderDescContainsOrLocNameContainsOrEqNameContains(orderDesc, orderDesc, orderDesc);
+    }
+
+
     /**
      * @param orderDesc 报修单描述
      * @param pageable  分页

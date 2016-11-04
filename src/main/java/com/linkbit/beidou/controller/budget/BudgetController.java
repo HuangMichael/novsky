@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.budget;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.BudgetBill;
@@ -34,7 +35,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/budget")
-public class BudgetController {
+public class BudgetController extends BaseController {
     @Autowired
     BudgeService budgeService;
     @Autowired

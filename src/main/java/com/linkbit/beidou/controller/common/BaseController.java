@@ -2,6 +2,7 @@ package com.linkbit.beidou.controller.common;
 
 
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.utils.StringUtils;
@@ -29,7 +30,6 @@ import java.util.List;
 @EnableAutoConfiguration
 public abstract class BaseController {
 
-
     @Autowired
     ResourceService resourceService;
 
@@ -43,10 +43,6 @@ public abstract class BaseController {
         System.out.println("url----------" + url);
         return url;
     }
-
-
-
-
 
 }
 

@@ -28,7 +28,6 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
-
                                                 <table id="fixListTable"
                                                        class="table table-bordered table-hover table-striped"
                                                        data-toggle="bootgrid" data-ajax="true"

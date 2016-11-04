@@ -1,54 +1,15 @@
 /**
- * Created by Administrator on 2016/11/2.
- */
+ * Created by huangbin on 2016/11/2.
 
+ */
+//导出必须配置的两个量
+dataTableName = "#fixListTable";
+docName = "报修单信息";
+mainObject = "workOrderReport";
 
 $(function () {
 
-    $("#fixListTable").bootgrid();
+    $(dataTableName).bootgrid();
 
 
 });
-
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var locName = $("#fixListTable").bootgrid("getSearchPhrase");
-    var columnSettings = $("#fixListTable").bootgrid("getColumnSettings");
-
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "报修单信息";
-    var url = "workOrderReportCart/exportExcel?locName=" + locName + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
-
-}
-
-
