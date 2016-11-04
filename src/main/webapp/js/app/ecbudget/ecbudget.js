@@ -8,9 +8,10 @@ var vdm = null;
 //位置信息
 var locs = [];
 var eqClasses = [];
-var dataTableName = "#ecBudgetDataTable";
-var formName = "detailForm";
-var mainObject = "ecbudget";
+dataTableName = "#ecBudgetDataTable";
+formName = "detailForm";
+mainObject = "ecbudget";
+docName = "易耗品采购申请信息";
 var ids = [];
 var pointer = 0;
 $(function () {
@@ -206,17 +207,17 @@ $(function () {
     $(formTab).on('click', function () {
 
         //首先判断是否有选中的
-        var budgetBill = null;
+        var object = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            budgetBill = findById(selectedIds[0]);
+            object = findById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
-            budgetBill = getBudgetBillById(ids[0]);
+            object = findById(ids[0]);
             //所有的都在选中列表中
             selectedIds = ids;
         }
-        vdm.$set("budgetBill", budgetBill);
+        vdm.$set(getMainObject(), object);
         vdm.$set("locs", locs);
         vdm.$set("eqClass", eqClass);
 
@@ -230,7 +231,7 @@ $(function () {
     });
 
 
-    $(formName)
+    $("#" + formName)
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
         saveMainObject();
@@ -449,45 +450,5 @@ function clearForm(formId) {
     $(formId + " select").val("");
 }
 
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var param = $(dataTableName).bootgrid("getSearchPhrase");
-    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
-
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "易耗品采购申请信息";
-    var url = "ecbudget/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
-
-}
 
 
