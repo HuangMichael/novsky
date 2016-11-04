@@ -86,7 +86,7 @@ function loadEqClassChart(reportMonth) {
             type: 'pie'
         },
         title: {
-            text: reportMonth + '报修按设备类型统计'
+            text: reportMonth + '维修数量前五名统计'
         },
         plotOptions: {
             series: {
@@ -124,57 +124,51 @@ function loadReportFinishChart(reportMonth) {
     var option0, option1;
 
     option0 = {
-        "name": "报修数量",
-        "data": get3MonthReportNum(reportMonth)
+        "name": "分配数量",
+        "data": getDataDistributed(reportMonth)
     };
     option1 = {
         "name": "完工数量",
-        "data": get3MonthFinishNum(reportMonth)
+        "data": getDataFinished(reportMonth)
     };
     seriesOptions.push(option0);
     seriesOptions.push(option1);
 
 
-    function get3MonthTitle(reportMonth) {
+    /**
+     *
+     * @returns {Array}
+     */
+    function getDataMonthByYear() {
         var title = [];
-        var date = new Date();
-        title.push((date.getMonth() - 1) + "月");
-        title.push(date.getMonth() + "月");
-        title.push((date.getMonth() + 1) + "月");
+        var year = new Date().getFullYear();
+        var url = "unitsStatistics/getDataMonthByYear/" + year;
+        $.getJSON(url, function (data) {
+
+            title = data;
+        });
         return title;
     }
 
 
-    function get3MonthReportNum(reportMonth) {
+    function getDataDistributed(reportMonth) {
         $.ajaxSettings.async = false;
-        var url = "/workOrderReport/sel3mRptNum";
-        var reportNums = [];
+        var url = "unitsStatistics/getDataDistributed/25/2016";
+        var distributedNum = [];
         $.getJSON(url, function (data) {
-            for (var x = 0; x < 3; x++) {
-                if (data[x] && data[x]["reportNum"] && !isNaN(data[x]["reportNum"])) {
-                    reportNums.push(data[x]["reportNum"]);
-                } else {
-                    reportNums.push(0);
-                }
-            }
+            distributedNum = data;
         });
-        return reportNums;
+        return distributedNum;
     }
 
-    function get3MonthFinishNum() {
+    function getDataFinished(reportMonth) {
         $.ajaxSettings.async = false;
-        var url = "/workOrderReport/sel3mFinishNum";
-        var finishNums = [];
+        var url = "unitsStatistics/getDataFinished/25/2016";
+        var finishNum = [];
         $.getJSON(url, function (data) {
-            for (var x = 0; x < 3; x++) {
-                if (data[x] && data[x]["finishNum"] && !isNaN(data[x]["finishNum"])) {
-                    finishNums.push(data[x]["finishNum"]);
-                } else {
-                    finishNums.push(0);
-                }
-            }
+            finishNum = data;
         });
-        return finishNums;
+        return finishNum;
     }
 
     var reportFinishChartConfig = {
@@ -186,18 +180,15 @@ function loadReportFinishChart(reportMonth) {
             enabled: true
         },
         title: {
-            text: '最近3个月报修完成情况统计'
+            text: '2016年度维修统计'
         },
-        /*    subtitle: {
-         text: get3MonthTitle()
-         },*/
         plotOptions: {
             column: {
                 depth: 25
             }
         },
         xAxis: {
-            categories: get3MonthTitle()
+            categories: getDataMonthByYear()
         },
         yAxis: {
             min: 0,
@@ -249,7 +240,7 @@ function loadLineChart(reportMonth) {
             type: 'column'
         },
         title: {
-            text: reportMonth + '月维修单状态按线别统计'
+            text: reportMonth + '年度外委单位维修及时率统计'
         },
         xAxis: {
             categories: lines,

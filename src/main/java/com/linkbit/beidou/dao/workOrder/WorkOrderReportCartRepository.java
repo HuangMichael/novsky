@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.OrderBy;
 import java.util.Date;
@@ -167,5 +168,34 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<WorkOrderReportCart> findByOrderLineNoContaining(String dateStr);
 
 
+    ///////////////////////////////////////////外委单位统计分析 begin///////////////////////////////////////////////////////////////
+    //按年查询有工单的年月
 
+
+    /**
+     * @param year 按照年查询有报修数据的月份
+     * @return
+     */
+    @Query(nativeQuery = true, value = " select v.report_month from v_work_order_data_month v  where  v.report_year = :year ")
+    List<String> getDataMonthByYear(@Param("year") String year);
+
+
+    /**
+     * @param year   年
+     * @param unitId 外委单位ID
+     * @return 查询该年的分配工单的统计数据
+     */
+    @Query(nativeQuery = true, value = "SELECT  c.reportNum FROM  v_work_order_units_order_distributed_count c WHERE c.unit_id = :unitId AND c.report_year = :year")
+    List<Long> getDistributedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
+
+
+    /**
+     * @param year   年
+     * @param unitId 外委单位ID
+     * @return 查询该年的完工工单的统计数据
+     */
+    @Query(nativeQuery = true, value = "SELECT  c.reportNum FROM  v_work_order_units_order_finished_count c WHERE c.unit_id = :unitId AND c.report_year = :year")
+    List<Long> getFinishedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
+
+   ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
 }
