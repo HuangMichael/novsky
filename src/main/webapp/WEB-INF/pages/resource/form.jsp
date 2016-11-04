@@ -19,6 +19,7 @@
 				<label class="col-md-1 col-sm-1 col-lg-1 control-label" for="description">资源描述</label>
 				<div class="col-md-3 col-sm-3 col-lg-3">
 					<input class="form-control" type="text" name="description" id="description" value="${resource.description}" />
+					<input class="form-control" type="hidden" name="resourceLevel" id="resourceLevel" value="${resource.resourceLevel}" />
 				</div>
 			</div>
 			<div class="form-group">

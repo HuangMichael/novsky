@@ -69,10 +69,10 @@ public class UnitsController extends BaseController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Units save(Units outsourcingUnit) {
-        outsourcingUnit.setStatus("1");
-        outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
-        return outsourcingUnit;
+    public Units save(Units units) {
+        units.setStatus("1");
+        units = outsourcingUnitRepository.save(units);
+        return units;
     }
 
 
@@ -85,15 +85,15 @@ public class UnitsController extends BaseController {
                                 @RequestParam("eqClassId") Long eqClassId,
                                 @RequestParam("workDays") String workDays
     ) {
-        Units outsourcingUnit = new Units();
-        outsourcingUnit.setUnitNo(unitNo);
-        outsourcingUnit.setDescription(description);
-        outsourcingUnit.setLinkman(linkman);
-        outsourcingUnit.setTelephone(telephone);
-        outsourcingUnit.setWorkDays(workDays);
-        outsourcingUnit.setStatus("1");
-        outsourcingUnit = outsourcingUnitRepository.save(outsourcingUnit);
-        return outsourcingUnitService.saveLink(outsourcingUnit, eqClassId);
+        Units units = new Units();
+        units.setUnitNo(unitNo);
+        units.setDescription(description);
+        units.setLinkman(linkman);
+        units.setTelephone(telephone);
+        units.setWorkDays(workDays);
+        units.setStatus("1");
+        units = outsourcingUnitRepository.save(units);
+        return outsourcingUnitService.saveLink(units, eqClassId);
     }
 
 
