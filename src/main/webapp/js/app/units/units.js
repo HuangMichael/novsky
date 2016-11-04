@@ -5,14 +5,15 @@ var allSize = 0;
 var unitDetail = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var unit = null;
-
+docName = '外委单位信息';
+mainObject = "unit";
 var pointer = 0;
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 $.ajaxSettings.async = false;
 $(function () {
     //初始化从数据库获取列表数据
-    initLoadData("/outsourcingUnit/findAll", dataTableName);
+    initLoadData(getMainObject() + "/findAll", dataTableName);
 
     $('select').select2({theme: "bootstrap"});
     // 表单ajax提交
@@ -194,7 +195,7 @@ function setAllInSelectedList(units) {
  */
 function getUnitByIdRomote(eid) {
     var unit = null;
-    var url = "/outsourcingUnit/findById/" + eid;
+    var url = getMainObject() + "/findById/" + eid;
     $.getJSON(url, function (data) {
         unit = data;
     });
@@ -270,53 +271,11 @@ function save() {
 }
 
 
-function deleteUnit() {
-    var uid = selectedIds[0];
-    var url = "/outsourcingUnit/delete/" + uid;
-    if (uid) {
-
-
-        bootbox.confirm({
-            message: "确定要删除该记录么？?",
-            buttons: {
-                confirm: {
-                    label: '是',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: '否',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function (msg) {
-                            if (msg) {
-                                showMessageBox("info", "外委单位信息删除成功!");
-                                $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
-                            }
-                        },
-                        error: function (msg) {
-                            showMessageBox("danger", "外委单位信息有关联数据，无法删除，请联系管理员");
-                        }
-                    });
-                }
-            }
-        });
-    } else {
-        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-    }
-}
-
-
 function createUnit() {
     var objStr = getFormJsonData("createForm");
     var outsourcingUnit = JSON.parse(objStr);
     console.log(JSON.stringify(outsourcingUnit));
-    var url = "/outsourcingUnit/save";
+    var url = getMainObject() + "/save";
     $.ajax({
         type: "post",
         url: url,
@@ -342,7 +301,7 @@ function saveUnit() {
     var objStr = getFormJsonData("unitDetailForm");
     var outsourcingUnit = JSON.parse(objStr);
     console.log(JSON.stringify(outsourcingUnit));
-    var url = "/outsourcingUnit/save";
+    var url = getMainObject() + "/save";
     $.ajax({
         type: "post",
         url: url,
@@ -422,7 +381,7 @@ function initLoadData(url, elementName) {
  */
 function checkUnitNo(unitCode) {
     var exists = false;
-    var url = "/outSourcingUnit/unitNoExists/" + unitCode;
+    var url = getMainObject() + "/unitNoExists/" + unitCode;
     $.getJSON(url, function (data) {
         exists = data
     });
@@ -453,46 +412,6 @@ function forwards() {
         //loadFixHistoryByEid(selectedIds[pointer]);
     }
 
-
-}
-
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var param = $(dataTableName).bootgrid("getSearchPhrase");
-    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "外委单位信息";
-    var url = "outsourcingUnit/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
 
 }
 

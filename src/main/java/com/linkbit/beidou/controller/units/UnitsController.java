@@ -32,8 +32,8 @@ import java.util.Set;
  */
 @Controller
 @EnableAutoConfiguration
-@RequestMapping("/outsourcingUnit")
-public class OutsourcingUnitController extends BaseController {
+@RequestMapping("/unit")
+public class UnitController extends BaseController {
 
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;

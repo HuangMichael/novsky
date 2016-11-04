@@ -2,7 +2,7 @@ package com.linkbit.beidou.domain.equipments;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import lombok.*;
 
 import javax.persistence.*;
@@ -51,7 +51,7 @@ public class EquipmentsClassification {
     @JsonBackReference("unitSet")
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinTable(name = "t_unit_class", joinColumns = { @JoinColumn(name = "unit_id", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "class_id", nullable = false)})
-    private List<OutsourcingUnit> unitSet;
+    private List<Units> unitSet;
 
 
     @Column(length = 1)

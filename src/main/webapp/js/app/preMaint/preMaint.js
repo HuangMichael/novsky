@@ -22,7 +22,7 @@ $(function () {
         locs = data;
     });
 
-    var unit_location = "/outsourcingUnit/findAll";
+    var unit_location = getMainObject() + "/findAll";
     $.getJSON(unit_location, function (data) {
         units = data;
     });
@@ -379,7 +379,7 @@ function createUnit() {
     var objStr = getFormJsonData("createForm");
     var outsourcingUnit = JSON.parse(objStr);
     console.log(JSON.stringify(outsourcingUnit));
-    var url = "/outsourcingUnit/save";
+    var url = getMainObject() + "/save";
     $.ajax({
         type: "post",
         url: url,

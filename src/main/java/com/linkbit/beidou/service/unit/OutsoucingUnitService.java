@@ -4,7 +4,7 @@ import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
@@ -35,14 +35,14 @@ public class OutsoucingUnitService extends BaseService {
     /**
      * @return 查询所有外委单位信息
      */
-    public List<OutsourcingUnit> findAll() {
+    public List<Units> findAll() {
         return outsourcingUnitRepository.findAll();
     }
 
     /**
      * @return 根据状态查询所有外委单位信息
      */
-    public List<OutsourcingUnit> findByStatus(String status) {
+    public List<Units> findByStatus(String status) {
         return outsourcingUnitRepository.findByStatus(status);
     }
 
@@ -71,7 +71,7 @@ public class OutsoucingUnitService extends BaseService {
      * @param uid
      * @return 根据根据ID查询外委单位信息
      */
-    public OutsourcingUnit findById(Long uid) {
+    public Units findById(Long uid) {
         return outsourcingUnitRepository.findById(uid);
     }
 
@@ -80,7 +80,7 @@ public class OutsoucingUnitService extends BaseService {
      * @param unit
      * @return 删除外委单位
      */
-    public Boolean delete(OutsourcingUnit unit) {
+    public Boolean delete(Units unit) {
         outsourcingUnitRepository.delete(unit);
         unit = outsourcingUnitRepository.findById(unit.getId());
         return unit == null;
@@ -92,10 +92,10 @@ public class OutsoucingUnitService extends BaseService {
      * @param ids 外委单位id集合字符串
      * @return 加入外委单位 返回种类本身
      */
-    public List<OutsourcingUnit> addUnits(Long cid, String ids) {
+    public List<Units> addUnits(Long cid, String ids) {
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
-        List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
-        List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
+        List<Units> originalUnits = equipmentsClassification.getUnitSet();
+        List<Units> outsourcingUnitSet = new ArrayList<Units>();
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
@@ -114,13 +114,13 @@ public class OutsoucingUnitService extends BaseService {
      * @return 加入外委单位 返回外委单位集合
      */
     @Transactional
-    public List<OutsourcingUnit> addU2c(Long cid, String ids, Long workOrderId) {
+    public List<Units> addU2c(Long cid, String ids, Long workOrderId) {
         WorkOrderReportCart workOrderReportCart = workOrderReportCartRepository.findById(workOrderId);
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
         workOrderReportCart.setEquipmentsClassification(equipmentsClassification);
         workOrderReportCartRepository.save(workOrderReportCart);
-        List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
-        List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
+        List<Units> originalUnits = equipmentsClassification.getUnitSet();
+        List<Units> outsourcingUnitSet = new ArrayList<Units>();
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
@@ -141,8 +141,8 @@ public class OutsoucingUnitService extends BaseService {
      */
     public EquipmentsClassification removeUnits(Long cid, String ids) {
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
-        List<OutsourcingUnit> originalUnits = equipmentsClassification.getUnitSet();
-        List<OutsourcingUnit> outsourcingUnitSet = new ArrayList<OutsourcingUnit>();
+        List<Units> originalUnits = equipmentsClassification.getUnitSet();
+        List<Units> outsourcingUnitSet = new ArrayList<Units>();
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
@@ -160,7 +160,7 @@ public class OutsoucingUnitService extends BaseService {
      * @return 查询维修历史信息
      */
     public Boolean unitNoExists(String unitCode) {
-        List<OutsourcingUnit> equipmentsList = new ArrayList<OutsourcingUnit>();
+        List<Units> equipmentsList = new ArrayList<Units>();
         if (unitCode != null && !unitCode.equals("")) {
             equipmentsList = outsourcingUnitRepository.findByUnitNo(unitCode);
         }
@@ -173,11 +173,11 @@ public class OutsoucingUnitService extends BaseService {
      * @param eqClassId       设备分类ID
      * @return
      */
-    public List<OutsourcingUnit> saveLink(OutsourcingUnit outsourcingUnit, Long eqClassId) {
+    public List<Units> saveLink(Units outsourcingUnit, Long eqClassId) {
         EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(eqClassId);
-        List<OutsourcingUnit> unitList = equipmentsClassification.getUnitSet();
+        List<Units> unitList = equipmentsClassification.getUnitSet();
         if (unitList.isEmpty()) {
-            unitList = new ArrayList<OutsourcingUnit>();
+            unitList = new ArrayList<Units>();
         }
         unitList.add(outsourcingUnit);
         equipmentsClassification.setUnitSet(unitList);
@@ -190,7 +190,7 @@ public class OutsoucingUnitService extends BaseService {
      * @param param 根据名称模糊查询
      * @return
      */
-    public List<OutsourcingUnit> findByDescriptionContains(String param) {
+    public List<Units> findByDescriptionContains(String param) {
         return outsourcingUnitRepository.findByDescriptionContains(param);
     }
 }

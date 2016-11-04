@@ -15,15 +15,11 @@ import java.util.Set;
  * Created by huangbin on 2016/03/14 0023.
  * 外委单位
  */
-@Resource
-@Entity
 @Table(name = "T_OUTSOURCING_UNIT")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OutsourcingUnit implements java.io.Serializable {
+public class Units implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

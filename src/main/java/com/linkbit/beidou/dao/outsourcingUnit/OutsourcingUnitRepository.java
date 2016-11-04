@@ -1,7 +1,7 @@
 package com.linkbit.beidou.dao.outsourcingUnit;
 
 
-import com.linkbit.beidou.domain.outsourcingUnit.OutsourcingUnit;
+import com.linkbit.beidou.domain.outsourcingUnit.Units;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -15,35 +15,35 @@ import java.util.List;
  * Created by huangbin on 2016/3/15 0008.
  * 外委单位信息查询接口
  */
-public interface OutsourcingUnitRepository extends CrudRepository<OutsourcingUnit, Long>, PagingAndSortingRepository<OutsourcingUnit, Long> {
+public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, PagingAndSortingRepository<Units, Long> {
     /**
      * 查询所有外委单位信息
      */
-    List<OutsourcingUnit> findAll();
+    List<Units> findAll();
 
 
     /**
      * @param unitCode
      * @return 根据单位编号查询
      */
-    List<OutsourcingUnit> findByUnitNo(String unitCode);
+    List<Units> findByUnitNo(String unitCode);
 
 
     /**
      * @return 根据单位编号查询
      */
-    OutsourcingUnit save(OutsourcingUnit outsourcingUnit);
+    Units save(Units outsourcingUnit);
 
 
     /**
      * 根据状态查询外委单位
      */
-    List<OutsourcingUnit> findByStatus(String status);
+    List<Units> findByStatus(String status);
 
     /**
      * 根据id查询
      */
-    OutsourcingUnit findById(long id);
+    Units findById(long id);
 
     /**
      * @param eqClassId 设备分类ID
@@ -65,7 +65,7 @@ public interface OutsourcingUnitRepository extends CrudRepository<OutsourcingUni
      * @param unitName
      * @return 单位集合
      */
-    List<OutsourcingUnit> findByDescriptionContains(String unitName);
+    List<Units> findByDescriptionContains(String unitName);
 
 
     /**
@@ -73,5 +73,5 @@ public interface OutsourcingUnitRepository extends CrudRepository<OutsourcingUni
      * @param pageable 分页
      * @return 单位集合
      */
-    Page<OutsourcingUnit> findByDescriptionContains(String unitName, Pageable pageable);
+    Page<Units> findByDescriptionContains(String unitName, Pageable pageable);
 }
