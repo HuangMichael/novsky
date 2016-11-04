@@ -61,6 +61,30 @@ function getFormJsonData(formId) {
     objStr += "}";
     return objStr
 }
+
+/**
+ *
+ * @param formId formId 已经包含#
+ * @returns {string}
+ */
+function getFormDataAsJSON(formId) {
+    var array = $(formId).serializeArray();
+    var objStr = "{";
+    for (var x in array) {
+        var name = array[x]["name"];
+        var value = array[x]["value"];
+        if (name && value) {
+            objStr += '"' + name + '"';
+            objStr += ":";
+            objStr += '"' + value + '",'
+        }
+    }
+    objStr = objStr.substring(0, objStr.length - 1);
+    objStr += "}";
+    return objStr
+}
+
+
 function fillForm(data, formId) {
     var formArray = $(formId).serializeArray();
     var attrName;

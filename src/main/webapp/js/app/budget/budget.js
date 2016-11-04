@@ -319,59 +319,6 @@ function edit() {
 }
 
 /**
- * 删除选中的对象
- */
-function del() {
-    //删除时判断当前form的状态
-    var status = formTab.data("status");
-    if (status == "add") {
-        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
-        return;
-    }
-
-
-    //判断选中的tab
-    var bid = selectedIds[0];
-    if (!bid) {
-        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
-    }
-    var url = "/budget/delete/" + bid;
-    if (bid) {
-        bootbox.confirm({
-            message: "确定要删除该记录么？?",
-            buttons: {
-                confirm: {
-                    label: '是',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: '否',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function (msg) {
-                            if (msg) {
-                                showMessageBox("info", "采购信息删除成功!");
-                                $(dataTableName).bootgrid("reload");
-                            }
-                        },
-                        error: function (msg) {
-                            showMessageBox("danger", "采购信息有关联数据，无法删除，请联系管理员");
-                        }
-                    });
-                }
-            }
-        });
-    }
-}
-
-/**
  *查询我的位置
  * */
 function findMyLoc() {
