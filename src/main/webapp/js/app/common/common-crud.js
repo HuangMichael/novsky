@@ -134,7 +134,7 @@ function del() {
                         success: function (msg) {
                             if (msg) {
                                 showMessageBox("info", "信息删除成功!");
-                                $(dataTableName).bootgrid("loadRows");
+                                $(dataTableName).bootgrid("reload");
                             }
                         },
                         error: function (msg) {
