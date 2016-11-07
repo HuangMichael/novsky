@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.statistics;/**
  */
 
 import com.linkbit.beidou.controller.common.BaseController;
+import com.linkbit.beidou.domain.workOrder.VWorkOrderUnitsFixedRank;
 import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
 import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
 import com.linkbit.beidou.service.unitsStatistics.UnitsStatisticsService;
@@ -72,5 +73,16 @@ public class UnitsStatisticsController extends BaseController {
     public List<StatisticsFinishedObject> getOrderFinishedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
         return unitsStatisticsService.getFinishedOrderCountByYearAndUnit(year, unitId);
 
+    }
+
+
+    /**
+     * @param reportYear
+     * @return 按照报修年份查询外委单位维修数量排名
+     */
+    @RequestMapping(value = "/findByReportYear/{reportYear}")
+    @ResponseBody
+    public List<VWorkOrderUnitsFixedRank> findByReportYear(@PathVariable("reportYear") String reportYear) {
+        return unitsStatisticsService.findByReportYear(reportYear);
     }
 }

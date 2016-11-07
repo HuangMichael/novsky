@@ -10,8 +10,6 @@ import java.util.Date;
 @Entity
 @Table(name = "v_work_order_fix_bill")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 /**

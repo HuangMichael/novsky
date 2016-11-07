@@ -1,6 +1,8 @@
 package com.linkbit.beidou.service.unitsStatistics;
 
+import com.linkbit.beidou.dao.workOrder.VWorkOrderUnitsFixedRankRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.domain.workOrder.VWorkOrderUnitsFixedRank;
 import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
 import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ public class UnitsStatisticsService {
 
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
+
+
+    @Autowired
+    VWorkOrderUnitsFixedRankRepository workOrderUnitsFixedRankRepository;
 
 
     //按照年查询当年有数据的月份
@@ -51,5 +57,16 @@ public class UnitsStatisticsService {
 
         return workOrderReportCartRepository.getFinishedOrderCountByYearAndUnit(year, unitId);
     }
+
+
+    /**
+     * @param reportYear 报修年份
+     * @return 按照报修年份查询
+     */
+    public List<VWorkOrderUnitsFixedRank> findByReportYear(String reportYear) {
+
+        return workOrderUnitsFixedRankRepository.findByReportYear(reportYear);
+    }
+
 
 }

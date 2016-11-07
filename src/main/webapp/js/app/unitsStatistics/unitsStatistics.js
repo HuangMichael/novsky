@@ -42,16 +42,16 @@ var dataMonth = [];
 function loadChartData(reportMonth) {
 
 
-    // loadEqClassChart(reportMonth);
-    loadReportFinishChart(reportMonth);
-    // loadLineChart(reportMonth);
+    loadUnitsRankChart(2016);
+    loadReportFinishChart(2016, 28);
+    loadLineChart(reportMonth);
 }
 
 /**
  *加载设备分类统计
  * @param reportMonth
  */
-function loadEqClassChart(reportMonth) {
+function loadUnitsRankChart(reportYear) {
     /**
      *
      * @param chart2Data
@@ -64,16 +64,16 @@ function loadEqClassChart(reportMonth) {
         chart2Data.forEach(function (e, i) {
             var obj = null;
             if (i < 5) {
-                obj = {name: e[1], y: e[2]}
+                obj = {name: e["unitName"], y: e["fixNum"]};
                 newData.push(obj);
             } else {
-                sumOther += e[2];
+                sumOther += e["fixNum"];
             }
 
         });
         if (sumOther) {
             newData.push({
-                name: "其他分类",
+                name: "其他单位",
                 y: sumOther
             })
             return newData;
@@ -82,15 +82,15 @@ function loadEqClassChart(reportMonth) {
 
     //ajax 请求当月设备分类前5
     var chart2Data = [];
-    $.getJSON("/portal/findTopEqClass/" + reportMonth, function (data) {
+    $.getJSON("/unitsStatistics/findByReportYear/" + reportYear, function (data) {
         chart2Data = assembleData(data);
     });
-    var eqClassChartConfig = {
+    var unitsRankChartConfig = {
         chart: {
             type: 'pie'
         },
         title: {
-            text: reportMonth + '维修数量前五名统计'
+            text: reportYear + '年度维修数量前五名统计'
         },
         plotOptions: {
             series: {
@@ -108,12 +108,12 @@ function loadEqClassChart(reportMonth) {
             pointFormat: '<span style="color:{point.color}">{point.name}</span>报修: <b>{point.y}</b>单/共<b>{point.total}</b>单<b>/占比:{point.percentage:.1f}%</b>'
         },
         series: [{
-            name: '报修数量',
+            name: '维修数量',
             colorByPoint: true,
             data: newData
         }]
     }
-    $('#highCharts0').highcharts(eqClassChartConfig);
+    $('#highCharts0').highcharts(unitsRankChartConfig);
 
 
 }
@@ -136,25 +136,19 @@ function getDataMonthByYear(year) {
  *加载设备分类统计
  * @param reportMonth
  */
-function loadReportFinishChart() {
+function loadReportFinishChart(year, unitId) {
 
-
-    dataMonth = getDataMonthByYear(2016);
-
-
-    console.log("dataMonth-----------" + dataMonth);
-
-
+    dataMonth = getDataMonthByYear(year);
     var seriesOptions = [];
     var option0, option1;
 
     option0 = {
         "name": "分配数量",
-        "data": getDataDistributed(24, 2016)
+        "data": getDataDistributed(unitId, year)
     };
     option1 = {
         "name": "完工数量",
-        "data": getDataFinished(24, 2016)
+        "data": getDataFinished(unitId, year)
     };
     seriesOptions.push(option0);
     seriesOptions.push(option1);
@@ -190,7 +184,6 @@ function loadReportFinishChart() {
         var distributedNum = [];
         dataMonth = getDataMonthByYear(year).sort();
         $.getJSON(url, function (data) {
-            console.log("data------" + JSON.stringify(data));
             dataMonth.forEach(function (m, i) {
                 if (data[i]) {
                     distributedNum [i] = data[i]["reportNum"];
@@ -209,7 +202,6 @@ function loadReportFinishChart() {
         var finishNum = [];
         dataMonth = getDataMonthByYear(year).sort();
         $.getJSON(url, function (data) {
-            console.log("data------" + JSON.stringify(data));
             dataMonth.forEach(function (m, i) {
                 if (data[i]) {
                     finishNum [i] = data[i]["reportNum"];
@@ -238,7 +230,7 @@ function loadReportFinishChart() {
             }
         },
         xAxis: {
-            categories: getDataMonthByYear(2016)
+            categories: getDataMonthByYear(year)
         },
         yAxis: {
             min: 0,
