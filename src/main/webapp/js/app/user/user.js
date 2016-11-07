@@ -1,4 +1,3 @@
-
 var users = [];
 var selectedIds = []; //获取被选择记录集合
 var activePerson = []; //激活状态人员
@@ -8,9 +7,9 @@ var vdm = null; //明细页面的模型
 var vm = null; //明细页面的模型
 var formLocked = true;
 var activeTab = "list";
-dataTableName="#userDataTable";
+dataTableName = "#userDataTable";
 mainObject = "user";
-docName = "user";
+docName = "用户信息";
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
@@ -37,9 +36,6 @@ var validateOptions = {
     }
 };
 $(function () {
-
-
-
     //初始化从数据库获取列表数据
     initLoadData("/user/findAll", dataTableName);
     $('#detailForm')

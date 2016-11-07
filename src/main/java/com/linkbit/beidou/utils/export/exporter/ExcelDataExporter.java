@@ -105,6 +105,11 @@ public class ExcelDataExporter implements DataExport {
 
 
         for (int i = 0; i < titles.size(); i++) {
+
+            if (titles.get(i).equals("")) {
+
+                continue;
+            }
             if (titles.get(i) != null) {
                 HSSFCell cell = row.createCell(i);
                 cell.setCellValue(titles.get(i).toString());
@@ -118,6 +123,13 @@ public class ExcelDataExporter implements DataExport {
             row1.setRowStyle(this.getHssfCellStyle());
             Object object = list.get(i);
             for (int j = 0; j < colNames.size(); j++) {
+
+                if (colNames.get(j).equals("")) {
+
+                    continue;
+                }
+
+
                 if (j > 0 && colNames.get(j) != null) {
                     try {
                         method = object.getClass().getMethod("get" + StringUtils.upperCaseCamel(colNames.get(j).toString()));
