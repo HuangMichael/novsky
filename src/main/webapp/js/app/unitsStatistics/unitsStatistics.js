@@ -33,14 +33,18 @@ $(document).ready(function () {
 });
 
 
+var dataMonth = [];
+
 /**
  *
  * @param reportMonth
  */
 function loadChartData(reportMonth) {
-    loadEqClassChart(reportMonth);
+
+
+    // loadEqClassChart(reportMonth);
     loadReportFinishChart(reportMonth);
-    loadLineChart(reportMonth);
+    // loadLineChart(reportMonth);
 }
 
 /**
@@ -116,20 +120,41 @@ function loadEqClassChart(reportMonth) {
 
 
 /**
+ *
+ * @param year 根据年份获得有数据的月
+ */
+function getDataMonthByYear(year) {
+    var url = "unitsStatistics/getDataMonthByYear/" + year;
+    var months = [];
+    $.getJSON(url, function (data) {
+        months = data;
+    });
+    return months;
+}
+
+/**
  *加载设备分类统计
  * @param reportMonth
  */
-function loadReportFinishChart(reportMonth) {
+function loadReportFinishChart() {
+
+
+    dataMonth = getDataMonthByYear(2016);
+
+
+    console.log("dataMonth-----------" + dataMonth);
+
+
     var seriesOptions = [];
     var option0, option1;
 
     option0 = {
         "name": "分配数量",
-        "data": getDataDistributed(reportMonth)
+        "data": getDataDistributed(24, 2016)
     };
     option1 = {
         "name": "完工数量",
-        "data": getDataFinished(reportMonth)
+        "data": getDataFinished(24, 2016)
     };
     seriesOptions.push(option0);
     seriesOptions.push(option1);
@@ -139,9 +164,11 @@ function loadReportFinishChart(reportMonth) {
      *
      * @returns {Array}
      */
-    function getDataMonthByYear() {
+    function getDataMonthByYear(year) {
         var title = [];
-        var year = new Date().getFullYear();
+        if (!year) {
+            year = new Date().getFullYear();
+        }
         var url = "unitsStatistics/getDataMonthByYear/" + year;
         $.getJSON(url, function (data) {
 
@@ -151,22 +178,45 @@ function loadReportFinishChart(reportMonth) {
     }
 
 
-    function getDataDistributed(reportMonth) {
+    /**
+     *
+     * @returns {Array} 获取已分配的数据
+     * @param unitId 外委单位ID
+     * @param year 年份
+     */
+    function getDataDistributed(unitId, year) {
         $.ajaxSettings.async = false;
-        var url = "unitsStatistics/getDataDistributed/25/2016";
+        var url = "unitsStatistics/getDataDistributed/" + unitId + "/" + year;
         var distributedNum = [];
+        dataMonth = getDataMonthByYear(year).sort();
         $.getJSON(url, function (data) {
-            distributedNum = data;
+            console.log("data------" + JSON.stringify(data));
+            dataMonth.forEach(function (m, i) {
+                if (data[i]) {
+                    distributedNum [i] = data[i]["reportNum"];
+                } else {
+                    distributedNum [i] = 0;
+                }
+            });
         });
         return distributedNum;
     }
 
-    function getDataFinished(reportMonth) {
+
+    function getDataFinished(unitId, year) {
         $.ajaxSettings.async = false;
-        var url = "unitsStatistics/getDataFinished/25/2016";
+        var url = "unitsStatistics/getDataFinished/" + unitId + "/" + year;
         var finishNum = [];
+        dataMonth = getDataMonthByYear(year).sort();
         $.getJSON(url, function (data) {
-            finishNum = data;
+            console.log("data------" + JSON.stringify(data));
+            dataMonth.forEach(function (m, i) {
+                if (data[i]) {
+                    finishNum [i] = data[i]["reportNum"];
+                } else {
+                    finishNum [i] = 0;
+                }
+            });
         });
         return finishNum;
     }
@@ -188,7 +238,7 @@ function loadReportFinishChart(reportMonth) {
             }
         },
         xAxis: {
-            categories: getDataMonthByYear()
+            categories: getDataMonthByYear(2016)
         },
         yAxis: {
             min: 0,

@@ -1,17 +1,15 @@
 package com.linkbit.beidou.dao.workOrder;
 
 import com.linkbit.beidou.domain.equipments.Equipments;
-import com.linkbit.beidou.domain.locations.Locations;
-import com.linkbit.beidou.domain.workOrder.MonthEqClassRank;
-import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
+import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
+import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.persistence.OrderBy;
 import java.util.Date;
@@ -185,8 +183,8 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param unitId 外委单位ID
      * @return 查询该年的分配工单的统计数据
      */
-    @Query(nativeQuery = true, value = "SELECT  c.reportNum FROM  v_work_order_units_order_distributed_count c WHERE c.unit_id = :unitId AND c.report_year = :year")
-    List<Long> getDistributedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
+    @Query(value = "SELECT c FROM  StatisticsDistributedObject c WHERE c.unitId = :unitId AND c.reportYear = :year order by c.reportMonth")
+    List<StatisticsDistributedObject> getDistributedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
 
 
     /**
@@ -194,8 +192,8 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param unitId 外委单位ID
      * @return 查询该年的完工工单的统计数据
      */
-    @Query(nativeQuery = true, value = "SELECT  c.reportNum FROM  v_work_order_units_order_finished_count c WHERE c.unit_id = :unitId AND c.report_year = :year")
-    List<Long> getFinishedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
+    @Query(value = "SELECT  c FROM  StatisticsFinishedObject c WHERE c.unitId = :unitId AND c.reportYear = :year order by c.reportMonth ")
+    List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
 
-   ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
 }

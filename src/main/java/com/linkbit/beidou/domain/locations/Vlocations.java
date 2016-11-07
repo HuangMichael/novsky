@@ -12,8 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "V_LOCATIONS")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vlocations implements java.io.Serializable {

@@ -12,8 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "T_ORG")
 @Data
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Org {

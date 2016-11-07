@@ -3,9 +3,9 @@ package com.linkbit.beidou.controller.statistics;/**
  */
 
 import com.linkbit.beidou.controller.common.BaseController;
-import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
+import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
 import com.linkbit.beidou.service.unitsStatistics.UnitsStatisticsService;
-import com.linkbit.beidou.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class UnitsStatisticsController extends BaseController {
      */
     @RequestMapping(value = "/getDataDistributed/{unitId}/{year}")
     @ResponseBody
-    public List<Long> getOrderDistributedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
+    public List<StatisticsDistributedObject> getOrderDistributedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
         return unitsStatisticsService.getDistributedOrderCountByYearAndUnit(year, unitId);
 
     }
@@ -69,7 +69,7 @@ public class UnitsStatisticsController extends BaseController {
      */
     @RequestMapping(value = "/getDataFinished/{unitId}/{year}")
     @ResponseBody
-    public List<Long> getOrderFinishedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
+    public List<StatisticsFinishedObject> getOrderFinishedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
         return unitsStatisticsService.getFinishedOrderCountByYearAndUnit(year, unitId);
 
     }

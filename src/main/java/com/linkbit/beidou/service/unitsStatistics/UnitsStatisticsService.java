@@ -1,6 +1,8 @@
 package com.linkbit.beidou.service.unitsStatistics;
 
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
+import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class UnitsStatisticsService {
      * @param unitId 外委单位ID
      * @return 按照年度和外委单位查询分配工单的数量
      */
-    public List<Long> getDistributedOrderCountByYearAndUnit(String year, Long unitId) {
+    public List<StatisticsDistributedObject> getDistributedOrderCountByYearAndUnit(String year, Long unitId) {
 
         return workOrderReportCartRepository.getDistributedOrderCountByYearAndUnit(year, unitId);
     }
@@ -45,7 +47,7 @@ public class UnitsStatisticsService {
      * @param unitId 外委单位ID
      * @return 按照年度和外委单位查询完工工单的数量
      */
-    public List<Long> getFinishedOrderCountByYearAndUnit(String year, Long unitId) {
+    public List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(String year, Long unitId) {
 
         return workOrderReportCartRepository.getFinishedOrderCountByYearAndUnit(year, unitId);
     }
