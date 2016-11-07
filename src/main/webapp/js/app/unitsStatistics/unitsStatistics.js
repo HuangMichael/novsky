@@ -8,7 +8,7 @@ $(document).ready(function () {
         },
     });
 
-    loadChartData(addMonth(0));
+    loadChartData(2016);
     //默认加载当月数据
 
 
@@ -39,12 +39,12 @@ var dataMonth = [];
  *
  * @param reportMonth
  */
-function loadChartData(reportMonth) {
+function loadChartData(reportYear) {
 
 
-    loadUnitsRankChart(2016);
-    loadReportFinishChart(2016, 28);
-    loadLineChart(reportMonth);
+    loadUnitsRankChart(reportYear);
+    loadReportFinishChart(reportYear, 28);
+    loadEfficiencyChart(reportYear);
 }
 
 /**
@@ -345,4 +345,97 @@ function loadLineChart(reportMonth) {
             }
         ]
     });
+
+
+}
+
+
+/**
+ *加载设备分类统计
+ * @param reportMonth
+ */
+function loadEfficiencyChart(year) {
+
+
+    var seriesOptions = [];
+    var option0;
+
+    option0 = {
+        "name": "维修及时率排名",
+        "data": getDataPercent(year)
+    };
+    seriesOptions.push(option0);
+
+
+    /**
+     *
+     * @returns {Array}
+     */
+    function getTop5Units(year) {
+        var units = [];
+        if (!year) {
+            year = new Date().getFullYear();
+        }
+        var url = "unitsStatistics/findEffRankByReportYear/" + year;
+        $.getJSON(url, function (data) {
+            data.forEach(function (e, i) {
+                units[i] = e["unitName"];
+            })
+        });
+        return units;
+    }
+
+
+    /**
+     *
+     * @returns {Array} 获取已分配的数据
+     * @param unitId 外委单位ID
+     * @param year 年份
+     */
+    function getDataPercent(year) {
+        $.ajaxSettings.async = false;
+        var url = "unitsStatistics/findEffRankByReportYear/" + year;
+        var distributedNum = [];
+
+        $.getJSON(url, function (data) {
+            data.forEach(function (m, i) {
+
+                distributedNum[i] = m["percent"];
+            })
+
+        });
+        return distributedNum;
+    }
+
+
+    var reportFinishChartConfig = {
+        chart: {
+            type: 'column'
+        },
+
+        exporting: {
+            enabled: true
+        },
+        title: {
+            text: '2016年度外委单位维修及时率统计'
+        },
+        plotOptions: {
+            column: {
+                depth: 25
+            }
+        },
+        xAxis: {
+            categories: getTop5Units(year)
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '维修及时率百分比(单位：%)'
+            }
+        },
+        series: seriesOptions
+    }
+    $('#highCharts2').highcharts(reportFinishChartConfig);
+
+
 }

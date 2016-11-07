@@ -1,7 +1,9 @@
 package com.linkbit.beidou.service.unitsStatistics;
 
+import com.linkbit.beidou.dao.workOrder.VWorkOrderUnitsEfficiencyRankRepository;
 import com.linkbit.beidou.dao.workOrder.VWorkOrderUnitsFixedRankRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.domain.workOrder.VWorkOrderUnitsEfficiencyRank;
 import com.linkbit.beidou.domain.workOrder.VWorkOrderUnitsFixedRank;
 import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
 import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
@@ -23,6 +25,9 @@ public class UnitsStatisticsService {
 
     @Autowired
     VWorkOrderUnitsFixedRankRepository workOrderUnitsFixedRankRepository;
+
+    @Autowired
+    VWorkOrderUnitsEfficiencyRankRepository vWorkOrderUnitsEfficiencyRankRepository;
 
 
     //按照年查询当年有数据的月份
@@ -68,5 +73,14 @@ public class UnitsStatisticsService {
         return workOrderUnitsFixedRankRepository.findByReportYear(reportYear);
     }
 
+
+    /**
+     * @param reportYear
+     * @return 按照报修年份查询时效排名
+     */
+    public List<VWorkOrderUnitsEfficiencyRank> findEffRankByReportYear(String reportYear) {
+
+        return vWorkOrderUnitsEfficiencyRankRepository.findByReportYear(reportYear);
+    }
 
 }

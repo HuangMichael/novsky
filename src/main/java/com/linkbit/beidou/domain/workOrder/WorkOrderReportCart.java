@@ -77,4 +77,6 @@ public class WorkOrderReportCart {
     @JsonBackReference("workOrderHistoryList")
     @OneToMany(targetEntity = WorkOrderHistory.class, cascade = CascadeType.ALL, mappedBy = "workOrderReportCart")
     List<WorkOrderHistory> workOrderHistoryList = new ArrayList<WorkOrderHistory>();
+    @Column(length = 1, columnDefinition = "default 0")
+    private boolean expired;
 }

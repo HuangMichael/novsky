@@ -236,7 +236,7 @@ formTab.on('click', function () {
 });
 
 
-function addNew() {
+function add() {
 
     unitDetail.$set("unit", null);
     //设置设备状态和运行状态默认值
@@ -297,7 +297,7 @@ function createUnit() {
         }
     });
 }
-function saveUnit() {
+function save() {
     var objStr = getFormJsonData("unitDetailForm");
     var outsourcingUnit = JSON.parse(objStr);
     console.log(JSON.stringify(outsourcingUnit));

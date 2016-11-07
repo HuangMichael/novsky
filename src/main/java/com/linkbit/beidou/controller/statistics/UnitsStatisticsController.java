@@ -3,6 +3,7 @@ package com.linkbit.beidou.controller.statistics;/**
  */
 
 import com.linkbit.beidou.controller.common.BaseController;
+import com.linkbit.beidou.domain.workOrder.VWorkOrderUnitsEfficiencyRank;
 import com.linkbit.beidou.domain.workOrder.VWorkOrderUnitsFixedRank;
 import com.linkbit.beidou.object.statistics.StatisticsDistributedObject;
 import com.linkbit.beidou.object.statistics.StatisticsFinishedObject;
@@ -84,5 +85,16 @@ public class UnitsStatisticsController extends BaseController {
     @ResponseBody
     public List<VWorkOrderUnitsFixedRank> findByReportYear(@PathVariable("reportYear") String reportYear) {
         return unitsStatisticsService.findByReportYear(reportYear);
+    }
+
+
+    /**
+     * @param reportYear
+     * @return 按照报修年份查询外委单位维修数量排名
+     */
+    @RequestMapping(value = "/findEffRankByReportYear/{reportYear}")
+    @ResponseBody
+    public List<VWorkOrderUnitsEfficiencyRank> findEffRankByReportYear(@PathVariable("reportYear") String reportYear) {
+        return unitsStatisticsService.findEffRankByReportYear(reportYear);
     }
 }
