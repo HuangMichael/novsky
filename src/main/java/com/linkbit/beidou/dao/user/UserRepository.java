@@ -73,4 +73,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
      */
     Page<User> findByUserNameContains(String userName, Pageable pageable);
 
+
+    /**
+     * @param userName 用户名
+     * @return 用户名模糊查询
+     */
+    List<User> findByUserNameContains(String userName);
+
 }

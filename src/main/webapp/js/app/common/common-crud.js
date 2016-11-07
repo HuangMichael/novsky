@@ -214,7 +214,7 @@ function exportExcel() {
         }
 
     }
-    docName = (docName) ? docName : "导出数据";
+    docName = (docName) ? docName : encode("导出数据", "utf-8");
     var url = getMainObject() + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
     bootbox.confirm({
         message: "确定导出查询结果记录么?",

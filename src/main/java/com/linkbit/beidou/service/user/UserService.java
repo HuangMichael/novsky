@@ -79,6 +79,16 @@ public class UserService extends BaseService {
 
 
     /**
+     * @param userName 用户名
+     * @return 用户名模糊查询
+     */
+    public List<User> findByUserNameContrains(String userName) {
+        return userRepository.findByUserNameContains(userName);
+    }
+
+
+
+    /**
      * 对用户进行加密
      */
     public User createUser(User user) {

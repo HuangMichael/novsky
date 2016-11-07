@@ -10,7 +10,7 @@ var formLocked = true;
 var activeTab = "list";
 dataTableName="#userDataTable";
 mainObject = "user";
-docName = "用户信息";
+docName = "user";
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
