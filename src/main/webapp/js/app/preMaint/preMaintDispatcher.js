@@ -1,5 +1,10 @@
 $(document).ready(function () {
-    $('#pmOrderList0').bootgrid({
+
+
+    docName = "预防性维修工单信息";
+    mainObject = "preMaintDispatcher";
+    dataTableName = "#pmOrderList0";
+    $(dataTableName).bootgrid({
         columnSelection: 1,
         rowCount: [10, 20, 25, -1],
         formatters: {
@@ -52,7 +57,6 @@ $(document).ready(function () {
 
 
 });
-
 
 
 function updateOrderStatus(orderId, operationType, operationDesc, fixDesc) {

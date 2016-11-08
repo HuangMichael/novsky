@@ -195,4 +195,10 @@ public class PreMaintService extends BaseService {
         }
         return saved;
     }
+
+
+    public List<PreMaintWorkOrder> findByOrderDescContains(String orderDesc) {
+
+        return preMaintWorkOrderRepository.findByOrderDesc(orderDesc);
+    }
 }

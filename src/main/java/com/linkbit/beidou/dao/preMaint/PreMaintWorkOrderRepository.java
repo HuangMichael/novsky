@@ -19,6 +19,14 @@ public interface PreMaintWorkOrderRepository extends CrudRepository<PreMaintWork
     List<PreMaintWorkOrder> findAll();
 
 
+    /**
+     * @param orderDesc
+     * @return 根据工单描述
+     */
+    List<PreMaintWorkOrder> findByOrderDesc(String orderDesc);
+
+
+
     List<PreMaintWorkOrder> findByStatus(String status);
 
     /**

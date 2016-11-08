@@ -5,6 +5,7 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.preMaint.PreMaintWorkOrderRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.PreMaintWorkOrder;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -180,5 +183,22 @@ public class PreMaintDispatcherController extends BaseController {
         PreMaintWorkOrder preMaintWorkOrder = preMaintWorkOrderRepository.findById(fixId);
         preMaintWorkOrder = preMaintService.handleWorkOrder(preMaintWorkOrder, fixDesc, "已取消");
         return commonDataService.getReturnType(preMaintWorkOrder != null, "预防性维修单取消成功!", "预防性维修单取消失败!");
+    }
+
+
+    /**
+     * @param request  请求
+     * @param response 响应
+     * @param param    查询关键字
+     * @param docName  文档名称
+     * @param titles   标题集合
+     * @param colNames 列名称
+     */
+    @ResponseBody
+    @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        List<PreMaintWorkOrder> dataList = preMaintService.findByOrderDescContains(param);
+        preMaintService.setDataList(dataList);
+        preMaintService.exportExcel(request, response, docName, titles, colNames);
     }
 }
