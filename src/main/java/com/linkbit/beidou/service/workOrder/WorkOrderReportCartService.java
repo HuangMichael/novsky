@@ -417,5 +417,37 @@ public class WorkOrderReportCartService extends BaseService {
     }
 
 
+    /**
+     * @return 查询 将要过期的
+     */
+    public List<WorkOrderReportCart> findBeingExpired() {
+
+        //查询expired=0 的记录
+        return workOrderReportCartRepository.findByExpiredAndStatusAndNodeStatus(false, CommonStatusType.STATUS_YES, "已派工");
+
+
+    }
+
+
+    /**
+     * @param workOrderReportCartList 未过期工单集合
+     */
+    public int handleExpiredOrders(List<WorkOrderReportCart> workOrderReportCartList) {
+
+        Date now = new Date();
+        int dealNum = 0;
+        //对其时间进行处理  并与当前时间比较
+        for (WorkOrderReportCart workOrder : workOrderReportCartList) {
+            if ((workOrder.getDeadLine() != null) && workOrder.getDeadLine().before(now)) {
+                workOrder.setExpired(true);
+                workOrderReportCartRepository.save(workOrder);
+                dealNum++;
+            } else {
+                log.info("do nothing with this workOrder");
+            }
+        }
+
+        return dealNum;
+    }
 }
 

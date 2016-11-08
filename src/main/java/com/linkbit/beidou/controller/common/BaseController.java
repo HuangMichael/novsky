@@ -36,8 +36,6 @@ public abstract class BaseController {
     @Autowired
     ResourceService resourceService;
 
-    @Autowired
-    BaseService service;
 
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {

@@ -25,14 +25,19 @@ import java.util.List;
 @Data
 public class BaseService {
 
-    @Autowired
-    Repository repository;
 
 
     protected Log log = LogFactory.getLog(this.getClass());
 
     protected List dataList;
 
+    /**
+     * @param request
+     * @param response
+     * @param docName
+     * @param titles
+     * @param colNames
+     */
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, String docName, String[] titles, String[] colNames) {
         DataExport dataExport = new ExcelDataExporter();
         try {

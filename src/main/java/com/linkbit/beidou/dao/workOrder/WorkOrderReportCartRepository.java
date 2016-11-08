@@ -203,4 +203,18 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(@Param("year") Long year, @Param("unitId") Long unitId);
 
     ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
+
+
+    ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
+
+    /**
+     * @param expired 0为未过期 1为过期
+     * @param status  1为正式工单  0 为报修车中的工单
+     * @param nodeStatus
+     * @return
+     */
+    List<WorkOrderReportCart> findByExpiredAndStatusAndNodeStatus(boolean expired, String status,String nodeStatus);
+
+
+    ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
 }
