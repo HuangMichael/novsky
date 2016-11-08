@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<table id="unitsDataTable" class=" table table-striped table-bordered table-hover">
+<table id="unitsDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"  data-ajax="true" data-url="/units/data">
     <thead>
     <tr>
         <th data-column-id="index" style="width:5%">序号</th>
@@ -12,27 +12,4 @@
         <th data-column-id="workDays" width="10%">工作制</th>
     </tr>
     </thead>
-    <tbody>
-    <tr class="gradeX" v-for="unit in units">
-        <td width="5%">{{$index+1}}</td>
-        <td>
-            {{unit.id}}
-        </td>
-        <td width="10%">
-            {{unit.unitNo}}
-        </td>
-        <td width="20%">
-            {{unit.description}}
-        </td>
-        <td width="10%">
-            {{unit.linkman}}
-        </td>
-        <td width="10%">
-            {{unit.telephone}}
-        </td>
-        <td width="10%">
-            {{unit.workDays}}
-        </td>
-    </tr>
-    </tbody>
 </table>

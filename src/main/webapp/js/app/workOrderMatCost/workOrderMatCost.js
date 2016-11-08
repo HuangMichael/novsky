@@ -39,14 +39,6 @@ $(function () {
             showMessageBox("danger", "工单物资数据导入失败!");
         }
     });
-
-
-    $('#import_modal').on('hide.bs.modal', function () {
-        // 执行一些动作...
-
-        console.log("刷新数据--------------");
-    })
-
 });
 
 

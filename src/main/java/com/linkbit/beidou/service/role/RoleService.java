@@ -54,6 +54,15 @@ public class RoleService extends BaseService {
         return roleRepository.findByRoleDescContains(roleDesc,pageable);
     }
 
+    /**
+     *
+     * @param roleDesc 角色描述
+     * @return 根据角色描述关键字进行查询
+     */
+    public List<Role> findByRoleDescContains(String roleDesc) {
+        return roleRepository.findByRoleDescContains(roleDesc);
+    }
+
 
     /**
      * @param role

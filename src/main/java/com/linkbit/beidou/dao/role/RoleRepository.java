@@ -37,6 +37,13 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 
 
     /**
+     * @param roleDesc 角色描述
+     * @return 根据角色描述模糊查询
+     */
+    List<Role> findByRoleDescContains(String roleDesc);
+
+
+    /**
      * 保存角色信息;
      */
     Role save(Role role);

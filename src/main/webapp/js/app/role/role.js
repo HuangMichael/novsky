@@ -183,6 +183,13 @@ function setFormReadStatus(formId, formLocked, except) {
 }
 
 $(function () {
+
+
+    docName = "角色信息";
+    mainObject = "role";
+
+
+
     initLoadData("/role/findActiveRole", dataTableName);
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {

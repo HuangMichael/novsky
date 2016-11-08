@@ -9,6 +9,8 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,7 @@ public class UnitService extends BaseService {
 
     //根据设备分类查询对应外委单位
     @Autowired
-    OutsourcingUnitRepository outsourcingUnitRepository;
+    OutsourcingUnitRepository unitsRepository;
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
     @Autowired
@@ -37,14 +39,14 @@ public class UnitService extends BaseService {
      * @return 查询所有外委单位信息
      */
     public List<Units> findAll() {
-        return outsourcingUnitRepository.findAll();
+        return unitsRepository.findAll();
     }
 
     /**
      * @return 根据状态查询所有外委单位信息
      */
     public List<Units> findByStatus(String status) {
-        return outsourcingUnitRepository.findByStatus(status);
+        return unitsRepository.findByStatus(status);
     }
 
 
@@ -54,7 +56,7 @@ public class UnitService extends BaseService {
      */
     public List<Object> findUnitListByEqClassIdEq(Long eqClassId) {
 
-        return outsourcingUnitRepository.findUnitListByEqClassIdEq(eqClassId);
+        return unitsRepository.findUnitListByEqClassIdEq(eqClassId);
     }
 
     /**
@@ -64,7 +66,7 @@ public class UnitService extends BaseService {
     public List<Object> findUnitListByEqClassIdNotEq(Long eqClassId) {
 
         List<Long> longList = equipmentsClassificationService.getUnitsByEqClassId(eqClassId);
-        return outsourcingUnitRepository.findUnitListByEqClassIdNotEq(longList);
+        return unitsRepository.findUnitListByEqClassIdNotEq(longList);
     }
 
 
@@ -73,7 +75,7 @@ public class UnitService extends BaseService {
      * @return 根据根据ID查询外委单位信息
      */
     public Units findById(Long uid) {
-        return outsourcingUnitRepository.findById(uid);
+        return unitsRepository.findById(uid);
     }
 
 
@@ -82,8 +84,8 @@ public class UnitService extends BaseService {
      * @return 删除外委单位
      */
     public Boolean delete(Units unit) {
-        outsourcingUnitRepository.delete(unit);
-        unit = outsourcingUnitRepository.findById(unit.getId());
+        unitsRepository.delete(unit);
+        unit = unitsRepository.findById(unit.getId());
         return unit == null;
     }
 
@@ -100,7 +102,7 @@ public class UnitService extends BaseService {
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
-                outsourcingUnitSet.add(outsourcingUnitRepository.findById(Long.parseLong(id)));
+                outsourcingUnitSet.add(unitsRepository.findById(Long.parseLong(id)));
             }
             outsourcingUnitSet.addAll(originalUnits);
             equipmentsClassification.setUnitSet(outsourcingUnitSet);
@@ -125,7 +127,7 @@ public class UnitService extends BaseService {
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
-                outsourcingUnitSet.add(outsourcingUnitRepository.findById(Long.parseLong(id)));
+                outsourcingUnitSet.add(unitsRepository.findById(Long.parseLong(id)));
             }
             outsourcingUnitSet.addAll(originalUnits);
             equipmentsClassification.setUnitSet(outsourcingUnitSet);
@@ -147,7 +149,7 @@ public class UnitService extends BaseService {
         if (equipmentsClassification != null && ids != null) {
             String idArray[] = ids.split(",");
             for (String id : idArray) {
-                outsourcingUnitSet.add(outsourcingUnitRepository.findById(Long.parseLong(id)));
+                outsourcingUnitSet.add(unitsRepository.findById(Long.parseLong(id)));
             }
             originalUnits.removeAll(outsourcingUnitSet);
             equipmentsClassification.setUnitSet(originalUnits);
@@ -163,7 +165,7 @@ public class UnitService extends BaseService {
     public Boolean unitNoExists(String unitCode) {
         List<Units> equipmentsList = new ArrayList<Units>();
         if (unitCode != null && !unitCode.equals("")) {
-            equipmentsList = outsourcingUnitRepository.findByUnitNo(unitCode);
+            equipmentsList = unitsRepository.findByUnitNo(unitCode);
         }
         return !equipmentsList.isEmpty();
     }
@@ -192,9 +194,17 @@ public class UnitService extends BaseService {
      * @return
      */
     public List<Units> findByDescriptionContains(String param) {
-        return outsourcingUnitRepository.findByDescriptionContains(param);
+        return unitsRepository.findByDescriptionContains(param);
     }
 
+
+    /**
+     * @param param 根据名称模糊查询
+     * @return
+     */
+    public Page<Units> findByDescriptionContains(String param, Pageable pageable) {
+        return unitsRepository.findByDescriptionContains(param, pageable);
+    }
 
 
 }
