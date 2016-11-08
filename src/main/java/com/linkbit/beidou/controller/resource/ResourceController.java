@@ -77,6 +77,8 @@ public class ResourceController {
         Resource parent = resourceService.findById(id);
         Resource newObj = new Resource();
         newObj.setParent(parent);
+        Long level = (parent.getResourceLevel() != null)?parent.getResourceLevel()+1:0l;
+        newObj.setResourceLevel(level);
         //加载上级列表
         List<Resource> resourceList = resourceService.findAll();
         modelMap.put("resourceList", resourceList);
