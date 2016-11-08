@@ -24,21 +24,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-2">
-                                    <select id="selectYear" type="text" name="selectYear" class="form-control"
-                                            style="margin-left: 0px">
-                                        <option selected>2016</option>
-                                        <option>2017</option>
-                                        <option>2018</option>
+                                    <select id="selectYear" type="text" name="selectYear" class="form-control">
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <select id="selectUnits" type="text" name="selectUnits" class="form-control"
-                                            style="margin-left: 0px" v-model="units">
-                                        <template v-for="option in units">
-                                            <option :value="option.key" v-else>
-                                                {{ option.value }}
-                                            </option>
-                                        </template>
+                                    <select id="selectUnits" type="text" name="selectUnits" class="form-control">
                                     </select>
                                 </div>
                             </div>
@@ -47,11 +37,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-2">
-                                    <select id="selectYear1" type="text" name="selectYear1" class="form-control"
-                                            style="margin-left: 0px">
-                                        <option selected>2016</option>
-                                        <option>2017</option>
-                                        <option>2018</option>
+                                    <select id="selectYear1" type="text" name="selectYear" class="form-control">
                                     </select>
                                 </div>
                             </div>
@@ -69,10 +55,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-2">
-                                    <select id="selectYear2" type="text" name="selectYear2" class="form-control">
-                                        <option selected>2016</option>
-                                        <option>2017</option>
-                                        <option>2018</option>
+                                    <select id="selectYear2" type="text" name="selectYear" class="form-control">
+
                                     </select>
                                 </div>
                             </div>

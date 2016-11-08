@@ -175,7 +175,14 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @return
      */
     @Query(nativeQuery = true, value = " select v.report_month from v_work_order_data_month v  where  v.report_year = :year ")
-    List<String> getDataMonthByYear(@Param("year") String year);
+    List<String> getDataMonthByYear(@Param("year") Long year);
+
+
+    /**
+     * @return 查询有数据的年份
+     */
+    @Query(nativeQuery = true, value = " select v.report_year from v_work_order_data_year v ")
+    List<String> getDataYear();
 
 
     /**
@@ -183,8 +190,8 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param unitId 外委单位ID
      * @return 查询该年的分配工单的统计数据
      */
-    @Query(value = "SELECT c FROM  StatisticsDistributedObject c WHERE c.unitId = :unitId AND c.reportYear = :year order by c.reportMonth")
-    List<StatisticsDistributedObject> getDistributedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
+    @Query(value = "SELECT c FROM  StatisticsDistributedObject c WHERE c.unitId = :unitId AND c.reportYear = :year order by c.reportMonth asc")
+    List<StatisticsDistributedObject> getDistributedOrderCountByYearAndUnit(@Param("year") Long year, @Param("unitId") Long unitId);
 
 
     /**
@@ -192,8 +199,8 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
      * @param unitId 外委单位ID
      * @return 查询该年的完工工单的统计数据
      */
-    @Query(value = "SELECT  c FROM  StatisticsFinishedObject c WHERE c.unitId = :unitId AND c.reportYear = :year order by c.reportMonth ")
-    List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(@Param("year") String year, @Param("unitId") Long unitId);
+    @Query(value = "SELECT  c FROM  StatisticsFinishedObject c WHERE c.unitId = :unitId AND c.reportYear = :year order by c.reportMonth asc ")
+    List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(@Param("year") Long year, @Param("unitId") Long unitId);
 
     ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////
 }

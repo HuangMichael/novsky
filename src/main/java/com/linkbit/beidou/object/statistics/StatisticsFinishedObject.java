@@ -15,7 +15,7 @@ import javax.persistence.*;
  * @create 2016-11-07 10:20
  **/
 @Entity
-@Table(name = "v_work_order_units_order_distributed_count")
+@Table(name = "v_work_order_units_order_finished_count")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class StatisticsFinishedObject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long unitId;
-    private String reportYear;
-    private String reportMonth;
+    private Long reportYear;
+    private Long reportMonth;
     private Long reportNum;
 }

@@ -8,20 +8,13 @@ $(document).ready(function () {
         },
     });
 
-
-    //建立数据加载 模型
-
-
-    var units = loadAllUnits();
-
-
     //初始化加载
 
     //加载有数据的年份
-
+    getDataYear();
 
     //加载所有的外委单位信息
-
+    loadAllUnits();
 
     $("#selectUnits").on("change", function () {
         loadReportFinishChart();
@@ -45,40 +38,19 @@ $(document).ready(function () {
     $("select").select2({
         theme: "bootstrap"
     });
-    loadChartData(2016);
+
+    loadChartData();
     //默认加载当月数据
-
-
-    $("#currentMonth").on("click", function () {
-        var reportMonth = addMonth(0);
-        loadChartData(reportMonth);
-        $("#setupDate").val(reportMonth);
-    });
-    $("#lastMonth").on("click", function () {
-        var reportMonth = addMonth(-1);
-        loadChartData(reportMonth);
-        $("#setupDate").val(reportMonth);
-    })
-
-
-    $("#displayBtn").on("click", function () {
-        var reportMonth = $("#setupDate").val();
-        reportMonth = (!reportMonth) ? addMonth(0) : reportMonth;
-        loadChartData(reportMonth);
-
-    })
 });
 
 
 var dataMonth = [];
 
+
 /**
- *
- * @param reportMonth
+ * 默认加载数据
  */
-function loadChartData(reportYear) {
-
-
+function loadChartData() {
     loadUnitsRankChart();
     loadReportFinishChart();
     loadEfficiencyChart();
@@ -89,8 +61,6 @@ function loadChartData(reportYear) {
  * @param reportMonth
  */
 function loadUnitsRankChart() {
-
-
     var reportYear = $("#selectYear1").val();
     /**
      *
@@ -163,20 +133,35 @@ function loadUnitsRankChart() {
  *
  * @param year 根据年份获得有数据的月
  */
-function getDataMonthByYear(year) {
-    var url = "unitsStatistics/getDataMonthByYear/" + year;
-    var months = [];
+function getDataYear() {
+    var url = "unitsStatistics/getDataYear";
+    var year = [];
     $.getJSON(url, function (data) {
-        months = data;
+        year = data;
+
+        data.forEach(function (e, i) {
+
+            if (i == 0) {
+                $("select[name='selectYear']").append("<option value='" + e + "' selected>" + e + '年' + "</option>");
+            } else {
+                $("select[name='selectYear']").append("<option value='" + e + "'>" + e + '年' + "</option>");
+            }
+
+        })
+
+
     });
-    return months;
+    return year;
 }
+
 
 /**
  *加载设备分类统计
  * @param reportMonth
  */
 function loadReportFinishChart() {
+
+
     var year = $("#selectYear").val();
     var unitId = $("#selectUnits").val();
     var unitName = $("#selectUnits").find("option:selected").text();
@@ -222,11 +207,13 @@ function loadReportFinishChart() {
      * @param year 年份
      */
     function getDataDistributed(unitId, year) {
+        console.log("unitId----------------" + JSON.stringify(unitId));
         $.ajaxSettings.async = false;
         var url = "unitsStatistics/getDataDistributed/" + unitId + "/" + year;
         var distributedNum = [];
-        dataMonth = getDataMonthByYear(year).sort();
+        console.log("dataMonth----------------" + JSON.stringify(dataMonth));
         $.getJSON(url, function (data) {
+            console.log("data----------------" + JSON.stringify(data));
             dataMonth.forEach(function (m, i) {
                 if (data[i]) {
                     distributedNum [i] = data[i]["reportNum"];
@@ -235,6 +222,8 @@ function loadReportFinishChart() {
                 }
             });
         });
+
+        console.log("distributedNum----------------" + JSON.stringify(distributedNum));
         return distributedNum;
     }
 
@@ -243,7 +232,6 @@ function loadReportFinishChart() {
         $.ajaxSettings.async = false;
         var url = "unitsStatistics/getDataFinished/" + unitId + "/" + year;
         var finishNum = [];
-        dataMonth = getDataMonthByYear(year).sort();
         $.getJSON(url, function (data) {
             dataMonth.forEach(function (m, i) {
                 if (data[i]) {
@@ -253,6 +241,7 @@ function loadReportFinishChart() {
                 }
             });
         });
+        console.log("finishNum----------------" + JSON.stringify(finishNum));
         return finishNum;
     }
 
@@ -273,7 +262,7 @@ function loadReportFinishChart() {
             }
         },
         xAxis: {
-            categories: getDataMonthByYear(year)
+            categories: dataMonth
         },
         yAxis: {
             min: 0,

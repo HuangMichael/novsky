@@ -37,8 +37,15 @@ public class UnitsStatisticsService {
      * @param year 按照年查询有报修数据的月份
      * @return yyyy
      */
-    public List<String> getDataMonthByYear(String year) {
+    public List<String> getDataMonthByYear(Long year) {
         return workOrderReportCartRepository.getDataMonthByYear(year);
+    }
+
+    /**
+     * @return yyyy
+     */
+    public List<String> getDataYear() {
+        return workOrderReportCartRepository.getDataYear();
     }
 
 
@@ -47,7 +54,7 @@ public class UnitsStatisticsService {
      * @param unitId 外委单位ID
      * @return 按照年度和外委单位查询分配工单的数量
      */
-    public List<StatisticsDistributedObject> getDistributedOrderCountByYearAndUnit(String year, Long unitId) {
+    public List<StatisticsDistributedObject> getDistributedOrderCountByYearAndUnit(Long year, Long unitId) {
 
         return workOrderReportCartRepository.getDistributedOrderCountByYearAndUnit(year, unitId);
     }
@@ -58,7 +65,7 @@ public class UnitsStatisticsService {
      * @param unitId 外委单位ID
      * @return 按照年度和外委单位查询完工工单的数量
      */
-    public List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(String year, Long unitId) {
+    public List<StatisticsFinishedObject> getFinishedOrderCountByYearAndUnit(Long year, Long unitId) {
 
         return workOrderReportCartRepository.getFinishedOrderCountByYearAndUnit(year, unitId);
     }

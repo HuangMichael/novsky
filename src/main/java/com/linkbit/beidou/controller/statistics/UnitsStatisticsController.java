@@ -41,13 +41,26 @@ public class UnitsStatisticsController extends BaseController {
     }
 
 
+
+    /**
+     * @return 按照年查询有报修数据的月份
+     */
+    @RequestMapping(value = "/getDataYear")
+    @ResponseBody
+    public List<String> getDataYear() {
+        return unitsStatisticsService.getDataYear();
+
+    }
+
+
+
     /**
      * @param year 年份
      * @return 按照年查询有报修数据的月份
      */
     @RequestMapping(value = "/getDataMonthByYear/{year}")
     @ResponseBody
-    public List<String> getDataMonthByYear(@PathVariable("year") String year) {
+    public List<String> getDataMonthByYear(@PathVariable("year") Long year) {
         return unitsStatisticsService.getDataMonthByYear(year);
 
     }
@@ -59,7 +72,7 @@ public class UnitsStatisticsController extends BaseController {
      */
     @RequestMapping(value = "/getDataDistributed/{unitId}/{year}")
     @ResponseBody
-    public List<StatisticsDistributedObject> getOrderDistributedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
+    public List<StatisticsDistributedObject> getOrderDistributedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") Long year) {
         return unitsStatisticsService.getDistributedOrderCountByYearAndUnit(year, unitId);
 
     }
@@ -71,7 +84,7 @@ public class UnitsStatisticsController extends BaseController {
      */
     @RequestMapping(value = "/getDataFinished/{unitId}/{year}")
     @ResponseBody
-    public List<StatisticsFinishedObject> getOrderFinishedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") String year) {
+    public List<StatisticsFinishedObject> getOrderFinishedDataYearAndUnit(@PathVariable("unitId") Long unitId, @PathVariable("year") Long year) {
         return unitsStatisticsService.getFinishedOrderCountByYearAndUnit(year, unitId);
 
     }
