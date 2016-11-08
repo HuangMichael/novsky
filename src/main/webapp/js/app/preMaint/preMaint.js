@@ -14,6 +14,10 @@ var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 $.ajaxSettings.async = false;
 $(function () {
+
+
+    docName = "预防性维修信息";
+    mainObject = "preMaint";
     //初始化从数据库获取列表数据
     //initLoadData("/units/findAll", dataTableName);
 

@@ -66,6 +66,13 @@ public class PreMaintService extends BaseService {
     }
 
 
+
+    public List<VpreMaint> findByPmDescContains(String desc) {
+
+        return vpreMaintRepository.findByPmDescContaining(desc);
+    }
+
+
     /**
      * @param id 根据id查询
      * @return

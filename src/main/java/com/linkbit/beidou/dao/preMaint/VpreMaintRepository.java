@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 
 /**
  * 预防性维修视图查询接口
@@ -26,4 +28,11 @@ public interface VpreMaintRepository extends PagingAndSortingRepository<VpreMain
      * @return 分页
      */
     Page<VpreMaint> findByPmDescContaining(String desc, Pageable pageable);
+
+
+    /**
+     * @param desc
+     * @return 分页
+     */
+    List<VpreMaint> findByPmDescContaining(String desc);
 }
