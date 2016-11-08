@@ -8,6 +8,43 @@ $(document).ready(function () {
         },
     });
 
+
+    //建立数据加载 模型
+
+
+    var units = loadAllUnits();
+
+
+    //初始化加载
+
+    //加载有数据的年份
+
+
+    //加载所有的外委单位信息
+
+
+    $("#selectUnits").on("change", function () {
+        loadReportFinishChart();
+    })
+
+
+    $("#selectYear").on("change", function () {
+        loadReportFinishChart();
+    })
+
+
+    $("#selectYear1").on("change", function () {
+        loadUnitsRankChart();
+    })
+
+    $("#selectYear2").on("change", function () {
+        loadEfficiencyChart();
+    })
+
+
+    $("select").select2({
+        theme: "bootstrap"
+    });
     loadChartData(2016);
     //默认加载当月数据
 
@@ -42,16 +79,19 @@ var dataMonth = [];
 function loadChartData(reportYear) {
 
 
-    loadUnitsRankChart(reportYear);
-    loadReportFinishChart(reportYear, 28);
-    loadEfficiencyChart(reportYear);
+    loadUnitsRankChart();
+    loadReportFinishChart();
+    loadEfficiencyChart();
 }
 
 /**
  *加载设备分类统计
  * @param reportMonth
  */
-function loadUnitsRankChart(reportYear) {
+function loadUnitsRankChart() {
+
+
+    var reportYear = $("#selectYear1").val();
     /**
      *
      * @param chart2Data
@@ -136,7 +176,10 @@ function getDataMonthByYear(year) {
  *加载设备分类统计
  * @param reportMonth
  */
-function loadReportFinishChart(year, unitId) {
+function loadReportFinishChart() {
+    var year = $("#selectYear").val();
+    var unitId = $("#selectUnits").val();
+    var unitName = $("#selectUnits").find("option:selected").text();
 
     dataMonth = getDataMonthByYear(year);
     var seriesOptions = [];
@@ -222,7 +265,7 @@ function loadReportFinishChart(year, unitId) {
             enabled: true
         },
         title: {
-            text: '2016年度维修统计'
+            text: unitName + year + '年度维修统计'
         },
         plotOptions: {
             column: {
@@ -247,121 +290,17 @@ function loadReportFinishChart(year, unitId) {
 
 
 /**
- * 根据线路统计各状态的订单数量
- * @param reportMonth
- */
-function loadLineChart(reportMonth) {
-    function loadByStatus(status) {
-        var url = "/portal/getLineReportNum/" + reportMonth + "/" + status;
-        var dataList = [];
-        $.ajaxSettings.async = false;
-        $.getJSON(url, function (data) {
-            for (var x in data) {
-                if (data[x]['num']) {
-                    dataList[x] = data[x]['num'];
-                }
-            }
-        });
-        return dataList;
-    }
-
-
-    var orderStatus = ["待分配", "维修中", "完工", "暂停", "取消"];
-    var url = "/line/findAllLines";
-    var lines = [];
-    $.ajaxSettings.async = false;
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            if (data[x]['description']) {
-                lines[x] = data[x]['description'];
-            }
-        }
-    });
-    $('#highCharts2').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: reportMonth + '年度外委单位维修及时率统计'
-        },
-        xAxis: {
-            categories: lines,
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '工单数量(单位:个)'
-            }
-        },
-        lang: {
-            noData: "当前无显示数据"
-        },
-        noData: {
-            style: {
-                fontWeight: 'bold',
-                fontSize: '15px',
-                color: '#303030'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [
-            {
-                name: orderStatus[0],
-                data: loadByStatus(0)
-
-            }, {
-                name: orderStatus[1],
-                data: loadByStatus(1)
-
-            },
-
-            {
-                name: orderStatus[2],
-                data: loadByStatus(2)
-            },
-            {
-                name: orderStatus[3],
-                data: loadByStatus(3)
-
-            },
-            {
-                name: orderStatus[4],
-                data: loadByStatus(4)
-
-            }
-        ]
-    });
-
-
-}
-
-
-/**
  *加载设备分类统计
  * @param reportMonth
  */
-function loadEfficiencyChart(year) {
+function loadEfficiencyChart() {
 
-
+    var year = $("#selectYear2").val();
     var seriesOptions = [];
     var option0;
 
     option0 = {
-        "name": "维修及时率排名",
+        "name": "维修及时率",
         "data": getDataPercent(year)
     };
     seriesOptions.push(option0);
@@ -417,7 +356,7 @@ function loadEfficiencyChart(year) {
             enabled: true
         },
         title: {
-            text: '2016年度外委单位维修及时率统计'
+            text: year + '年度外委单位维修及时率统计'
         },
         plotOptions: {
             column: {
@@ -438,4 +377,22 @@ function loadEfficiencyChart(year) {
     $('#highCharts2').highcharts(reportFinishChartConfig);
 
 
+}
+
+
+/**
+ * 加载所有的单位信息
+ */
+function loadAllUnits() {
+    var units = null;
+    var url = "units/findByStatus/1";
+    $.getJSON(url, function (data) {
+        units = data;
+        data.forEach(function (e, i) {
+            $("#selectUnits").append("<option value='" + e["id"] + "'>" + e["description"] + "</option>");
+        })
+    });
+
+    return units;
+    //加载完毕后建立模型为其赋值
 }

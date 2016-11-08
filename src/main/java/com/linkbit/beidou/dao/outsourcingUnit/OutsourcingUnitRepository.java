@@ -10,6 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2016/3/15 0008.
@@ -74,4 +75,5 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
      * @return 单位集合
      */
     Page<Units> findByDescriptionContains(String unitName, Pageable pageable);
+
 }

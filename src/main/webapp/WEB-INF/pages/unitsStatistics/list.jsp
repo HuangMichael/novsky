@@ -19,26 +19,44 @@
                 <div id="content" class="col-lg-12">
                     <!-- PAGE HEADER-->
                     <%@include file="../common/common-breadcrumb.jsp" %>
-                    <div class="clearfix">
-                        <span class="date-range pull-right">
-											<div class="btn-group">
-												<a class="js_update btn btn-default" id="currentMonth"
-                                                   onclick="loadChartData(addMonth(0))">当月</a>
-												<a class="js_update btn btn-default" id="lastMonth"
-                                                   onclick="loadChartData(addMonth(-1))">上月</a>
-												 <a class="js_update btn btn-default"><input class="Wdate form-control"
-                                                                                             type="text"
-                                                                                             onClick="WdatePicker({maxDate:'%y-%M-%d',dateFmt: 'yyyy-MM', isShowToday: false, isShowClear: false})"
-                                                                                             id="setupDate"
-                                                                                             style="width:80%"
-                                                                                             name="setupDate"
-                                                 /></a>
-                                                <a class="js_update btn btn-default" id="displayBtn">显示</a>
-											</div>
-										</span>
-                        <!-- /DATE RANGE PICKER -->
-                    </div>
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <select id="selectYear" type="text" name="selectYear" class="form-control"
+                                            style="margin-left: 0px">
+                                        <option selected>2016</option>
+                                        <option>2017</option>
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <select id="selectUnits" type="text" name="selectUnits" class="form-control"
+                                            style="margin-left: 0px" v-model="units">
+                                        <template v-for="option in units">
+                                            <option :value="option.key" v-else>
+                                                {{ option.value }}
+                                            </option>
+                                        </template>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <select id="selectYear1" type="text" name="selectYear1" class="form-control"
+                                            style="margin-left: 0px">
+                                        <option selected>2016</option>
+                                        <option>2017</option>
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div id="highCharts1"></div>
@@ -46,11 +64,24 @@
                         <div class="col-md-6">
                             <div id="highCharts0"></div>
                         </div>
-
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <select id="selectYear2" type="text" name="selectYear2" class="form-control">
+                                        <option selected>2016</option>
+                                        <option>2017</option>
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <div id="highCharts2"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
