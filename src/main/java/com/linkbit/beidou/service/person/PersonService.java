@@ -83,4 +83,13 @@ public class PersonService extends BaseService {
         return personRepository.findByPersonNameContains(personName, pageable);
     }
 
+
+    /**
+     * @param personName
+     * @return 根据人员姓名模糊查询
+     */
+    public List<Person> findByPersonNameContains(String personName) {
+        return personRepository.findByPersonNameContains(personName);
+    }
+
 }

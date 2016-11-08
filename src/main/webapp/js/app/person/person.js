@@ -75,6 +75,8 @@ var validationSettings = {
 
 
 $(function () {
+    docName = "人员信息";
+    mainObject = "person";
     //ajax 请求personList集合
 
     vdm = new Vue({
