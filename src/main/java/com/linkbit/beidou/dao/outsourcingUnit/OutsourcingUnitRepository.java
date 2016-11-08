@@ -76,4 +76,11 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
      */
     Page<Units> findByDescriptionContains(String unitName, Pageable pageable);
 
+
+    /**
+     * @return 查询所有的id
+     */
+    @Query("select u.id from Units u")
+    List<Long> findAllIds();
+
 }

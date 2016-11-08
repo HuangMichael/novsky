@@ -201,4 +201,15 @@ public class UnitsController extends BaseController {
     }
 
 
+
+    /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return unitService.findAllIds();
+    }
+
+
 }

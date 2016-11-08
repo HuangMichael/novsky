@@ -207,4 +207,13 @@ public class UnitService extends BaseService {
     }
 
 
+    /**
+     * @return 查询所有的id
+     */
+    public List<Long> findAllIds() {
+        List<Long> ids = unitsRepository.findAllIds();
+        return ids;
+    }
+
+
 }

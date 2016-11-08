@@ -61,7 +61,7 @@ function findById(id) {
 /**
  *  上一条 记录
  */
-function preRecord() {
+function backwards() {
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
     } else {
@@ -74,7 +74,7 @@ function preRecord() {
 /**
  *  下一条记录
  */
-function nextRecord() {
+function forwards() {
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
