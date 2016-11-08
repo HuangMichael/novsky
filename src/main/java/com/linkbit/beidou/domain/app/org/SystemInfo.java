@@ -10,11 +10,11 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "T_ORG")
+@Table(name = "T_SYS_INFO")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Org {
+public class SystemInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

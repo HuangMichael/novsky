@@ -2,12 +2,8 @@ package com.linkbit.beidou.controller.app;
 
 import com.linkbit.beidou.dao.app.org.OrgRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
-import com.linkbit.beidou.domain.app.org.Org;
-import com.linkbit.beidou.domain.app.resoure.Resource;
+import com.linkbit.beidou.domain.app.org.SystemInfo;
 import com.linkbit.beidou.domain.equipments.VeqClass;
-import com.linkbit.beidou.domain.line.Line;
-import com.linkbit.beidou.domain.line.Station;
-import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
@@ -28,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -68,7 +63,7 @@ public class LoginController {
     @RequestMapping("/")
     public String logout(HttpServletRequest request, ModelMap modelMap) {
         HttpSession session = request.getSession();
-        Org org = orgRepository.findByStatus("1").get(0);
+        SystemInfo org = orgRepository.findByStatus("1").get(0);
 
         if (session.getId() != null) {
             request.removeAttribute("currentUser");
@@ -118,7 +113,7 @@ public class LoginController {
             List<VeqClass> veqClassList = veqClassRepository.findAll();
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());
-            Org org = orgRepository.findByStatus("1").get(0);
+            SystemInfo org = orgRepository.findByStatus("1").get(0);
             session.setAttribute("org", org);
             session.setAttribute("locationsList", locationsList);
             session.setAttribute("veqClassList", veqClassList);

@@ -270,13 +270,6 @@ $(function () {
 
     $('select').select2({theme: "bootstrap"});
     // 表单ajax提交
-
-
-    $(dataTableName).bootgrid().on("load.rs.jquery.bootgrid", function (e) {
-
-
-        console.log("数据loading------------------");
-    });
 });
 
 
