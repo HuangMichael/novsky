@@ -207,13 +207,10 @@ function loadReportFinishChart() {
      * @param year 年份
      */
     function getDataDistributed(unitId, year) {
-        console.log("unitId----------------" + JSON.stringify(unitId));
         $.ajaxSettings.async = false;
         var url = "unitsStatistics/getDataDistributed/" + unitId + "/" + year;
         var distributedNum = [];
-        console.log("dataMonth----------------" + JSON.stringify(dataMonth));
         $.getJSON(url, function (data) {
-            console.log("data----------------" + JSON.stringify(data));
             dataMonth.forEach(function (m, i) {
                 if (data[i]) {
                     distributedNum [i] = data[i]["reportNum"];
@@ -222,8 +219,6 @@ function loadReportFinishChart() {
                 }
             });
         });
-
-        console.log("distributedNum----------------" + JSON.stringify(distributedNum));
         return distributedNum;
     }
 
@@ -241,7 +236,6 @@ function loadReportFinishChart() {
                 }
             });
         });
-        console.log("finishNum----------------" + JSON.stringify(finishNum));
         return finishNum;
     }
 
