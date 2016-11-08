@@ -7,6 +7,8 @@ import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.units.Units;
+import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.unit.UnitService;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -39,6 +41,8 @@ public class UnitsController extends BaseController {
     OutsourcingUnitRepository outsourcingUnitRepository;
     @Autowired
     UnitService unitService;
+    @Autowired
+    CommonDataService commonDataService;
 
 
     @RequestMapping(value = "/list")
@@ -46,7 +50,6 @@ public class UnitsController extends BaseController {
         super.list(httpSession, modelMap);
         return "/units/list";
     }
-
 
 
     /**
@@ -68,7 +71,6 @@ public class UnitsController extends BaseController {
         myPage.setTotal(page.getTotalElements());
         return myPage;
     }
-
 
 
     /**
@@ -99,10 +101,10 @@ public class UnitsController extends BaseController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Units save(Units units) {
+    public ReturnObject save(Units units) {
         units.setStatus("1");
         units = outsourcingUnitRepository.save(units);
-        return units;
+        return commonDataService.getReturnType(units != null, "单位信息保存成功", "单位信息保存失败");
     }
 
 
@@ -199,7 +201,6 @@ public class UnitsController extends BaseController {
         unitService.setDataList(dataList);
         unitService.exportExcel(request, response, docName, titles, colNames);
     }
-
 
 
     /**

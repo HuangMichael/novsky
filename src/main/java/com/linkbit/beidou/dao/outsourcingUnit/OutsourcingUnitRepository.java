@@ -1,6 +1,7 @@
 package com.linkbit.beidou.dao.outsourcingUnit;
 
 
+import com.linkbit.beidou.dao.app.common.BaseRepository;
 import com.linkbit.beidou.domain.units.Units;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ import java.util.Map;
  * Created by huangbin on 2016/3/15 0008.
  * 外委单位信息查询接口
  */
-public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, PagingAndSortingRepository<Units, Long> {
+public interface OutsourcingUnitRepository extends BaseRepository {
     /**
      * 查询所有外委单位信息
      */

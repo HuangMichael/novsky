@@ -49,10 +49,11 @@ $(function () {
     dataTableName = "#unitsDataTable";
     mainObject = "units";
     formName = "#unitDetailForm";
+    docName = "外委单位信息";
     $(formName)
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        saveMainObject();
+        saveMainObject(formName);
     });
 
 
@@ -70,7 +71,6 @@ $(function () {
     });
 
 
-
     console.log(ids);
 
     formTab.on('click', function () {
@@ -78,7 +78,7 @@ $(function () {
         var object = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            object = findById(selectedIds[0]?selectedIds[0]:ids[0]);
+            object = findById(selectedIds[0] ? selectedIds[0] : ids[0]);
         } else {
             object = findById(ids[0]);
             selectedIds = (ids);

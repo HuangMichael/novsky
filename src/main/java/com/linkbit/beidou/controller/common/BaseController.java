@@ -4,11 +4,13 @@ package com.linkbit.beidou.controller.common;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
+import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
 import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -27,11 +29,15 @@ import java.util.List;
  * 基础控制器
  */
 @Controller
+@Data
 @EnableAutoConfiguration
 public abstract class BaseController {
 
     @Autowired
     ResourceService resourceService;
+
+    @Autowired
+    BaseService service;
 
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
@@ -43,6 +49,5 @@ public abstract class BaseController {
         System.out.println("url----------" + url);
         return url;
     }
-
 }
 
