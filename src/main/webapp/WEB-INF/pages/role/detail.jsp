@@ -22,7 +22,7 @@
 
 </form>
 
-<table id="myUsers" class="table table-striped table-bordered table-hover">
+<table id="myUsers" class="table table-striped table-bordered table-hover table-condensed">
 	<thead>
 		<tr>
 			<th data-column-id="id">序号</th>
