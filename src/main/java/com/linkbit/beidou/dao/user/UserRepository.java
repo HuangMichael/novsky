@@ -80,4 +80,10 @@ public interface UserRepository extends CrudRepository<User, Long> {
      */
     List<User> findByUserNameContains(String userName);
 
+
+
+
+    @Query("select e.id from User e order by e.id asc")
+    List<Long> findAllId();
+
 }

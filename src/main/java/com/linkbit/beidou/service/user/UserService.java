@@ -157,4 +157,11 @@ public class UserService extends BaseService {
         }
     }
 
+
+    public List<Long> selectAllId() {
+
+        return userRepository.findAllId();
+    }
+
+
 }

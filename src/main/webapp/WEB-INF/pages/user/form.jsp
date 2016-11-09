@@ -5,7 +5,7 @@
         <label class="col-md-2 col-sm-2 col-lg-2" for="userName">用户名</label>
         <div class="col-md-4 col-sm-4 col-lg-4">
             <input type="text" class="form-control" id="userName" name="userName" v-model="user.userName" readonly>
-            <input type="hidden" class="form-control" id="userId" name="userId" v-model="user.id" readonly>
+            <input type="hidden" class="form-control" id="id" name="id" v-model="user.id" readonly>
         </div>
         <div class="col-md-2 col-sm-2 col-lg-2">
             <label for="person_id">人员</label>

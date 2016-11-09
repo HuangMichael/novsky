@@ -95,6 +95,8 @@ public class PreMaintDispatcherController extends BaseController {
     @RequestMapping(value = "/findById/{id}")
     @ResponseBody
     public PreMaint findById(@PathVariable("id") Long id) {
+
+
         return preMaintService.findById(id);
     }
 
@@ -105,7 +107,8 @@ public class PreMaintDispatcherController extends BaseController {
     @RequestMapping(value = "/selectAllId")
     @ResponseBody
     public List<Long> selectAllId() {
-        return preMaintService.selectAllId();
+        String location = this.getUserLocation();
+        return preMaintService.selectAllId(location);
     }
 
 

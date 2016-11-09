@@ -8,7 +8,7 @@
         <label class="col-md-1 control-label" for="pmCode">编号</label>
         <div class="col-md-3">
             <input class="form-control" id="pmCode" type="text" name="pmCode" v-model="preMaint.pmCode" required/>
-            <input class="form-control" id="id" type="hidden" name="id" v-model="preMain.tid"/>
+            <input class="form-control" id="id" type="hidden" name="id" v-model="preMaint.id"/>
         </div>
 
         <label for="description" class="col-md-1 control-label">描述</label>

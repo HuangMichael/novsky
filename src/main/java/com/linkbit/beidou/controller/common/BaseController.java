@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -37,6 +38,9 @@ public abstract class BaseController {
     ResourceService resourceService;
 
 
+    String userLocation;
+
+
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
         //加载查询菜单
@@ -46,6 +50,16 @@ public abstract class BaseController {
         String url = "/" + StringUtils.lowerCaseCamel(controllerName) + "/list";
         System.out.println("url----------" + url);
         return url;
+    }
+
+
+    /**
+     * @param httpSession session回话
+     * @return 获取当前用户所在位置
+     */
+    public String getUserLocation(HttpSession httpSession) {
+        userLocation = SessionUtil.getCurrentUserLocationBySession(httpSession);
+        return userLocation;
     }
 }
 

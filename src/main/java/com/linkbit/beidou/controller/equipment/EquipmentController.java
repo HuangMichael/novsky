@@ -21,6 +21,7 @@ import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.LocationSeparatable;
 import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -50,7 +51,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/equipment")
-public class EquipmentController extends BaseController {
+public class EquipmentController extends BaseController implements LocationSeparatable {
 
 
     Log log = LogFactory.getLog(this.getClass());
@@ -104,7 +105,7 @@ public class EquipmentController extends BaseController {
         myPage.setTotal(page.getTotalElements());
         return myPage;
     }
-    
+
 
     /**
      * @param session 当前会话

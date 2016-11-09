@@ -18,7 +18,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VpreMaint {
+public class VpreMaint  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;  //id
@@ -32,4 +32,5 @@ public class VpreMaint {
     private String outUnit; //外委单位
     private String createBy; //创建人
     private Date createTime; //创建时间
+    private String location; //位置编号
 }

@@ -13,6 +13,8 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.LocationSeparatable;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +30,8 @@ import java.util.List;
  * 预防性维修业务类
  */
 @Service
-public class PreMaintService extends BaseService {
+@Data
+public class PreMaintService extends BaseService implements LocationSeparatable {
 
     @Autowired
     VpreMaintRepository vpreMaintRepository;
@@ -60,11 +63,16 @@ public class PreMaintService extends BaseService {
     }
 
 
-    public Page<VpreMaint> findByPmDescContains(String desc, Pageable pageable) {
+    /**
+     * @param desc     预防性维修描述
+     * @param location 位置编号
+     * @param pageable 可分页
+     * @return
+     */
+    public Page<VpreMaint> findByPmDescContainingAndLocationStartingWith(String desc, String location, Pageable pageable) {
 
-        return vpreMaintRepository.findByPmDescContaining(desc, pageable);
+        return vpreMaintRepository.findByPmDescContainingAndLocationStartingWith(desc, location, pageable);
     }
-
 
 
     public List<VpreMaint> findByPmDescContains(String desc) {
@@ -85,9 +93,13 @@ public class PreMaintService extends BaseService {
     /**
      * @return
      */
-    public List<Long> selectAllId() {
-
-        return preMaintRepository.selectAllId();
+    public List<Long> selectAllId(String location) {
+        if (separatable) {
+            location = location + "%";
+        } else {
+            location = "";
+        }
+        return preMaintRepository.selectAllId(location);
     }
 
     /**
@@ -110,8 +122,8 @@ public class PreMaintService extends BaseService {
 
 
     /**
-     * @param id       根据id删除
-     * @param deadLine
+     * @param id       预防性计划id
+     * @param deadLine 结束时间
      * @return
      */
     @Transactional
@@ -170,7 +182,7 @@ public class PreMaintService extends BaseService {
     /**
      * @param nodeState 节点状态
      * @param orderDesc 维修描述
-     * @param pageable
+     * @param pageable  可分页
      * @return
      */
     public Page<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc, Pageable pageable) {
@@ -178,7 +190,7 @@ public class PreMaintService extends BaseService {
     }
 
     /**
-     * @param preMaintWorkOrder
+     * @param preMaintWorkOrder 预防性维修工单
      * @param fixDesc           维修描述
      * @param status            工单状态
      * @return
@@ -197,8 +209,11 @@ public class PreMaintService extends BaseService {
     }
 
 
+    /**
+     * @param orderDesc
+     * @return 根据工单描述模糊查询
+     */
     public List<PreMaintWorkOrder> findByOrderDescContains(String orderDesc) {
-
         return preMaintWorkOrderRepository.findByOrderDesc(orderDesc);
     }
 }

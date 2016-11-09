@@ -224,6 +224,22 @@ public class UserController extends BaseController {
 
 
     /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    List<Long> findAllIds() {
+        return userService.selectAllId();
+    }
+
+
+
+
+
+
+
+
+    /**
      * @param request  请求
      * @param response 响应
      * @param param    查询关键字

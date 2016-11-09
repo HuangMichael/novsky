@@ -145,7 +145,7 @@ public interface EquipmentsRepository extends CrudRepository<Equipments, Long> {
     @Query("select ve from Vequipments ve where ve.id in ( select e.id from Equipments e where e.locations.id =:lid and e.equipmentsClassification.id =:cid)")
     List<Vequipments> findEqByLocIdAndEqcId(@Param("lid") Long lid, @Param("cid") Long cid);
 
-    @Query("select e.id from Vequipments e order by e.id")
+    @Query("select e.id from Vequipments e order by e.id asc")
     List<Long> findAllId();
 
 }

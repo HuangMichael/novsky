@@ -52,11 +52,14 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab_1_0">
                                         <table id="userDataTable"
-                                               class=" table table-striped table-bordered table-hover"  data-toggle="bootgrid" data-ajax="true" data-url="/user/data">
+                                               class=" table table-striped table-bordered table-hover"
+                                               data-toggle="bootgrid" data-ajax="true" data-url="/user/data">
                                             <thead>
                                             <tr>
                                                 <th data-column-id="id">序号</th>
-                                                <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
+                                                <th data-column-id="id" data-type="numeric" data-identifier="true"
+                                                    data-visible="false">ID
+                                                </th>
                                                 <th data-column-id="userName">用户名</th>
                                                 <th data-column-id="location">位置</th>
                                             </tr>
@@ -65,7 +68,7 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                        <%@include file="detail.jsp" %>
+                                        <%@include file="form.jsp" %>
                                     </div>
                                 </div>
                             </div>
@@ -82,11 +85,6 @@
     </div>
 </div>
 <%@include file="../common/common-foot.jsp" %>
-
-
-
-
-
 <script type="text/javascript" src="/js/app/user/user.js"></script>
 
 

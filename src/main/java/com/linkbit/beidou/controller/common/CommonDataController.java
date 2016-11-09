@@ -6,7 +6,6 @@ import com.linkbit.beidou.domain.equipments.VeqClass;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
-import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ListObject;
@@ -20,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 /**

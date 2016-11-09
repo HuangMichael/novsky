@@ -27,7 +27,7 @@ function getMainObject() {
  *
  * @param validationConfig
  */
-function valiform(validationConfig) {
+function validateForm(validationConfig) {
     $(formName)
         .bootstrapValidator(validationConfig)
         .on('success.form.bv', function (e) {
@@ -123,6 +123,14 @@ function edit() {
 
 
 /**
+ * 保存设备信息
+ */
+function save() {
+    $("#saveBtn").trigger("click");
+}
+
+
+/**
  * 删除记录
  */
 function del() {
@@ -178,6 +186,8 @@ function del() {
  * 显示明细信息
  */
 function showDetail() {
+
+    console.log("mainObject------------" + mainObject);
     var object = null;
     if (selectedIds.length > 0) {
         //切换tab时默认给detail中第一个数据

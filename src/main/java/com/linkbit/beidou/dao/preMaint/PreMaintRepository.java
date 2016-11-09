@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -31,6 +32,6 @@ public interface PreMaintRepository extends CrudRepository<PreMaint, Long>, Pagi
      */
     Page<PreMaint> findByDescriptionContains(String desc, Pageable pageable);
 
-    @Query("select v.id from PreMaint v")
-    List<Long> selectAllId();
+    @Query("select v.id from PreMaint v where v.location like :location")
+    List<Long> selectAllId(@Param("location") String location);
 }
