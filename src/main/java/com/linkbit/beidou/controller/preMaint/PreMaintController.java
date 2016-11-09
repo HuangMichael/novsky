@@ -92,7 +92,7 @@ public class PreMaintController extends BaseController {
     /**
      * 根据id查询
      */
-    @RequestMapping(value = "/selectAllId")
+    @RequestMapping(value = "/findAllIds")
     @ResponseBody
     public List<Long> selectAllId() {
         return preMaintService.selectAllId();
@@ -151,4 +151,5 @@ public class PreMaintController extends BaseController {
         preMaintService.setDataList(dataList);
         preMaintService.exportExcel(request, response, docName, titles, colNames);
     }
+
 }

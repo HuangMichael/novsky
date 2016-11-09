@@ -25,7 +25,6 @@ public class SetWorkOrderExpiredTask {
     private static final Logger log = LoggerFactory.getLogger(SetWorkOrderExpiredTask.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-
     @Autowired
     WorkOrderReportCartService workOrderReportCartService;
 

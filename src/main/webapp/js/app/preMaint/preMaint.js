@@ -12,12 +12,93 @@ var f_units = [];
 var pointer = 0;
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
+var object = null;
+formName = "#detailForm";
 $.ajaxSettings.async = false;
+var validationConfig = {
+    message: '该值无效 ',
+    fields: {
+
+        pmCode: {
+            message: '预防性维修计划编号无效',
+            validators: {
+                notEmpty: {
+                    message: '预防性维修计划编号不能为空!'
+                },
+                stringLength: {
+                    min: 3,
+                    max: 20,
+                    message: '预防性维修计划编号长度为3到20个字符'
+                }
+            }
+        },
+
+
+        description: {
+            message: '预防性维修计划描述无效',
+            validators: {
+                notEmpty: {
+                    message: '预防性维修计划描述不能为空!'
+                },
+                stringLength: {
+                    min: 3,
+                    max: 20,
+                    message: '预防性维修计划描述长度为3到20个字符'
+                }
+            }
+        },
+        "locations.id": {
+            message: '设备位置无效',
+            validators: {
+                notEmpty: {
+                    message: '设备位置不能为空!'
+                }
+            }
+        },
+
+        "equipment.id": {
+            message: '设备无效',
+            validators: {
+                notEmpty: {
+                    message: '设备不能为空!'
+                }
+            }
+        },
+        "frequency": {
+            message: '频率设置无效',
+            validators: {
+                notEmpty: {
+                    message: '频率不能为空!'
+                },
+                min: {
+                    message: '频率必须大于0'
+                }
+            }
+        },
+        "unit": {
+            message: '计划执行频率单位无效',
+            validators: {
+                notEmpty: {
+                    message: '计划执行频率单位不能为空!'
+                }
+            }
+        },
+        "outUnit.id": {
+            message: '维修单位无效',
+            validators: {
+                notEmpty: {
+                    message: '维修单位不能为空!'
+                }
+            }
+        }
+    }
+};
 $(function () {
 
 
     docName = "预防性维修信息";
     mainObject = "preMaint";
+
     //初始化从数据库获取列表数据
     //initLoadData("/units/findAll", dataTableName);
 
@@ -26,7 +107,7 @@ $(function () {
         locs = data;
     });
 
-    var unit_location = getMainObject() + "/findAll";
+    var unit_location = "/units" + "/findAll";
     $.getJSON(unit_location, function (data) {
         units = data;
     });
@@ -49,171 +130,13 @@ $(function () {
         text: "年"
     }];
 
-    // selectedIds = getAllId();
-
-    $(dataTableName).bootgrid({
-            selection: true,
-            multiSelect: true,
-            rowSelect: false,
-            keepSelection: true,
-            formatters: {
-                "generateOrder": function (column, row) {
-                    return '<a class="btn btn-default btn-xs"  onclick="popGen(' + row.id + ')" title="生成工单" ><i class="glyphicon glyphicon-wrench"></i></a>'
-                }
-            }
-        }
-    ).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        //如果默认全部选中
-        if (selectedIds.length === pms.length) {
-            selectedIds.clear();
-        }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
-    });
-
-    $('select').select2({theme: "bootstrap"});
-    // 表单ajax提交
-    $('#detailForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-
-                pmCode: {
-                    message: '预防性维修计划编号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '预防性维修计划编号不能为空!'
-                        },
-                        stringLength: {
-                            min: 3,
-                            max: 20,
-                            message: '预防性维修计划编号长度为3到20个字符'
-                        }
-                    }
-                },
+    initBootGrid(dataTableName);
+    initSelect();
+    selectedIds = findAllRecordId();
+    valiform(validationConfig);
 
 
-                description: {
-                    message: '预防性维修计划描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '预防性维修计划描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 3,
-                            max: 20,
-                            message: '预防性维修计划描述长度为3到20个字符'
-                        }
-                    }
-                },
-                "locations.id": {
-                    message: '设备位置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备位置不能为空!'
-                        }
-                    }
-                },
-
-                "equipment.id": {
-                    message: '设备无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备不能为空!'
-                        }
-                    }
-                },
-                "frequency": {
-                    message: '频率设置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '频率不能为空!'
-                        },
-                        min: {
-                            message: '频率必须大于0'
-                        }
-                    }
-                },
-                "unit": {
-                    message: '计划执行频率单位无效',
-                    validators: {
-                        notEmpty: {
-                            message: '计划执行频率单位不能为空!'
-                        }
-                    }
-                },
-                "outUnit.id": {
-                    message: '维修单位无效',
-                    validators: {
-                        notEmpty: {
-                            message: '维修单位不能为空!'
-                        }
-                    }
-                }
-            }
-        })
-        .on('success.form.bv', function (e) {
-            // Prevent form submission
-            e.preventDefault();
-            save();
-        });
-
-
-    $('#createForm')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                unitNo: {
-                    message: '单位编号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '单位编号不能为空!'
-                        },
-                        stringLength: {
-                            min: 3,
-                            max: 20,
-                            message: '单位编号长度为3到20个字符'
-                        }
-                    }
-                },
-                description: {
-                    message: '单位名称无效',
-                    validators: {
-                        notEmpty: {
-                            message: '单位名称不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '单位名称长度为2到20个字符'
-                        }
-                    }
-                },
-                "status": {
-                    message: '单位状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '单位状态不能为空!'
-                        }
-                    }
-                }
-            }
-        })
-        .on('success.form.bv', function (e) {
-            // Prevent form submission
-            e.preventDefault();
-            createUnit();
-        });
-
-
-    pmDetail = new Vue({
+    vdm = new Vue({
         el: "#detailForm",
         data: {
             pm: pms[0],
@@ -221,97 +144,47 @@ $(function () {
             units: units,
             eqs: eqs,
             f_units: f_units
-        },
-        methods: {
-            previous: function (event) {
-                if (pointer <= 0) {
-                    showMessageBoxCenter("danger", "center", "当前记录是第一条");
-                } else {
-                    pointer = pointer - 1;
-                    //判断当前指针位置
-                    pm = getUnitByIdRomote(selectedIds[pointer]);
-                    this.$set("pm", pm);
-                }
-            },
-            next: function (event) {
-                if (pointer >= selectedIds.length - 1) {
-                    showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-                } else {
-                    pointer = pointer + 1;
-                    pm = getUnitByIdRomote(selectedIds[pointer]);
-                    this.$set("pm", pm);
-                }
-            }
         }
     });
 
 
     formTab.on('click', function () {
         //首先判断是否有选中的
-        var pm = null;
+        var object = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            pm = getPmByIdRomote(selectedIds[0]);
+            object = findById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
             selectedIds = getAllId();
-            pm = getPmByIdRomote(selectedIds[0]);
+            object = findById(selectedIds[0]);
         }
-        pmDetail.$set("pm", pm);
-        setFormReadStatus("#detailForm", true);
+        pmDetail.$set(mainObject, object);
+        setFormReadStatus(formName, true);
 
     });
+
+
 });
-
-
-/*
- * @param eqs 所有的记录
- * @returns {Array}将所有的放入选中集合
- */
-function setAllInSelectedList(pms) {
-    var selecteds = [];
-    for (var x in pms) {
-        if (!isNaN(pms[x]["id"])) {
-            selecteds.push(pms[x]["id"]);
-        }
-    }
-    return selecteds;
-
-}
-
-
-/**
- * 根据ID获取设备信息
- * @param uid
- * @return {*}
- */
-function getPmByIdRomote(pid) {
-    var pm = null;
-    var url = "/preMaint/findById/" + pid;
-    $.getJSON(url, function (data) {
-        pm = data;
-    });
-    return pm;
-}
 
 
 /**
  * 新增预防性维修计划
  */
-function add() {
-    setFormReadStatus("#detailForm", false);
-    pmDetail.$set("pm", null);
-    //设置设备状态和运行状态默认值;
-    formTab.tab('show');
+/*function add() {
+ setFormReadStatus(formName, false);
+ vdm.$set(mainObject, null);
+ //设置设备状态和运行状态默认值;
+ formTab.tab('show');
 
-}
+ }*/
 
 
 /**
  * 编辑设备信息
  */
 function edit() {
-    setFormReadStatus("#detailForm", false);
+    setFormReadStatus(formName, false);
     formTab.tab('show');
 }
 
@@ -404,52 +277,6 @@ function createUnit() {
             }
         }
     });
-}
-/**
- * 保存信息
- */
-function save() {
-    var objStr = getFormJsonData("detailForm");
-    var pm = JSON.parse(objStr);
-    console.log(JSON.stringify(pm));
-    var url = "/preMaint/save";
-    $.post(url, pm, function (data) {
-        if (data.result) {
-            showMessageBox("info", data["resultDesc"]);
-        } else {
-            showMessageBox("dander", data["resultDesc"]);
-        }
-    });
-}
-
-
-/**
- * 上一条
- */
-function backwards() {
-    if (pointer <= 0) {
-        showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
-    } else {
-        pointer = pointer - 1;
-        //判断当前指针位置
-        var pm = getPmByIdRomote(selectedIds[pointer]);
-        pmDetail.$set("pm", pm);
-
-    }
-
-}
-/**
- * 下一条
- */
-function forwards() {
-    if (pointer >= selectedIds.length - 1) {
-        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-    } else {
-        pointer = pointer + 1;
-        var pm = getPmByIdRomote(selectedIds[pointer]);
-        pmDetail.$set("pm", pm);
-    }
 }
 
 

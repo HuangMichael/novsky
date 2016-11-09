@@ -24,9 +24,24 @@ function getMainObject() {
 
 
 /**
+ *
+ * @param validationConfig
+ */
+function valiform(validationConfig) {
+    $(formName)
+        .bootstrapValidator(validationConfig)
+        .on('success.form.bv', function (e) {
+            e.preventDefault();
+            saveMainObject(formName);
+        });
+}
+
+/**
  *保存或者更新 后刷新数据列表
  * */
 function saveMainObject(formName) {
+
+    console.log(formName);
     var objStr = getFormDataAsJSON(formName);
     var object = JSON.parse(objStr);
     console.log("save" + JSON.stringify(object));
@@ -84,6 +99,18 @@ function forwards() {
         var object = findById(selectedIds[pointer]);
         vdm.$set(getMainObject(), object);
     }
+}
+
+
+/**
+ * 新增预防性维修计划
+ */
+function add() {
+    setFormReadStatus(formName, false);
+    vdm.$set(mainObject, null);
+    //设置设备状态和运行状态默认值;
+    formTab.tab('show');
+
 }
 
 

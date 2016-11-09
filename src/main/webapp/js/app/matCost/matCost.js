@@ -28,9 +28,7 @@ var mcList = [];
 $(function () {
 
 
-    $("select").select2({
-        theme: "bootstrap"
-    });
+    initSelect();
 
 
     locs = getMyLocs();
