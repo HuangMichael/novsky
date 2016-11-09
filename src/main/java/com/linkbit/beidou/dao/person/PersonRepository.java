@@ -42,4 +42,22 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
      */
     List<Person> findByPersonNameContains(String personName);
 
+
+
+    /**
+     * @param personNo
+     * @param personName 人员姓名
+     * @param pageable   分页
+     * @return 根据人员姓名模糊查询
+     */
+    Page<Person> findByPersonNoContainsAndPersonNameContains(String personNo, String personName,Pageable pageable);
+
+
+    /**
+     * @param personNo
+     * @param personName 人员姓名
+     * @return 根据人员姓名模糊查询
+     */
+    List<Person> findByPersonNoContainsAndPersonNameContains(String personNo,String personName);
+
 }

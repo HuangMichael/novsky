@@ -29,8 +29,6 @@ function getMainObject() {
 function saveMainObject(formName) {
     var objStr = getFormDataAsJSON(formName);
     var object = JSON.parse(objStr);
-
-
     console.log("save" + JSON.stringify(object));
     var url = getMainObject() + "/save";
     $.post(url, object, function (data) {
@@ -189,8 +187,6 @@ function setFormReadStatus(formId, formLocked) {
  *查询所有的id
  * */
 function findAllRecordId() {
-
-
     var url = getMainObject() + "/findAllIds";
     $.getJSON(url, function (data) {
         ids = data;

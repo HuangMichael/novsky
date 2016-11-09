@@ -87,27 +87,9 @@ $(function () {
         }
     });
 
-    $(dataTableName).bootgrid({
-        selection: true,
-        multiSelect: true,
-        rowSelect: false,
-        keepSelection: true
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        //如果默认全部选中
-        if (selectedIds.length === personList.length) {
-            selectedIds.clear();
-        }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
-    });
-    $('select').select2({theme: "bootstrap"});
+
+    initBootGrid(dataTableName);
+    initSelect();
 
 
     //初始化人员信息
