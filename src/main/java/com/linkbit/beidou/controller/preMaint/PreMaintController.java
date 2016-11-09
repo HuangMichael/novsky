@@ -91,6 +91,7 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/save")
     @ResponseBody
     public ReturnObject save(PreMaint preMaint) {
+        preMaint.setLocation(getUserLocation());
         preMaint = preMaintService.save(preMaint);
         return commonDataService.getReturnType(preMaint != null, "预防性维修信息保存成功", "预防性维修信息保存失败");
     }
