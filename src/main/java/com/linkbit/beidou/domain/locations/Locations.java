@@ -27,12 +27,12 @@ public class Locations implements java.io.Serializable {
     private String location;//位置
     @Column(length = 100)
     private String description;//描述
-    @JsonBackReference
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "line_id", referencedColumnName = "id")
     Line line; //线路
-    @JsonBackReference
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", referencedColumnName = "id")
     Station station; //车站
 

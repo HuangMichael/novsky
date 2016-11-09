@@ -8,17 +8,96 @@ var setting = {
     data: {simpleData: {enable: true, idKey: "id", pIdKey: "pId", rootPId: ""}},
     callback: {
         onClick: function (event, treeId, treeNode, clickFlag) {
-            fillForm1(treeNode);
-            var url = "/location/detail/" + treeNode.id;
-            $("#contentDiv").load(url, function (data) {
-                //fillForm1(treeNode, data);
-                saveIndex = 0;
-            });
+
+            console.log("treeNode.id-------------" + treeNode.id);
+
+            fillForm(treeNode.id);
+
+            /*fillForm1(treeNode);
+             var url = "/location/detail/" + treeNode.id;
+             $("#contentDiv").load(url, function (data) {
+             //fillForm1(treeNode, data);
+             saveIndex = 0;
+             });*/
+
+
             return true
         }
     }
 };
 var zNodes = [];
+var validationConfig = {
+    message: '该值无效 ',
+    fields: {
+        "description": {
+            message: '位置描述无效',
+            validators: {
+                notEmpty: {
+                    message: '位置描述不能为空!'
+                }
+                ,
+                stringLength: {
+                    min: 2,
+                    max: 20,
+                    message: '位置描述长度为2到20个字符'
+                }
+            }
+        }
+        ,
+        description: {
+            message: '设备描述无效',
+            validators: {
+                notEmpty: {
+                    message: '设备描述不能为空!'
+                }
+                ,
+                stringLength: {
+                    min: 2,
+                    max: 20,
+                    message: '设备描述长度为2到20个字符'
+                }
+            }
+        }
+        ,
+        "locations.id": {
+            message: '设备位置无效',
+            validators: {
+                notEmpty: {
+                    message: '设备位置不能为空!'
+                }
+            }
+        }
+        ,
+        "equipmentsClassification.id": {
+            message: '设备分类无效',
+            validators: {
+                notEmpty: {
+                    message: '设备分类不能为空!'
+                }
+            }
+        }
+        ,
+        "status": {
+            message: '设备状态无效',
+            validators: {
+                notEmpty: {
+                    message: '设备状态不能为空!'
+                }
+            }
+        }
+        ,
+        "running": {
+            message: '运行状态无效',
+            validators: {
+                notEmpty: {
+                    message: '运行状态不能为空!'
+                }
+            }
+        }
+    }
+};
+
+
 $(document).ready(function () {
     var url = "/location/findTree";
     var pid = 0;
@@ -53,7 +132,34 @@ $(document).ready(function () {
     }
 
 
-    $('select').select2({theme: "bootstrap"});
+    initSelect();
+
+
+    formName = "#detailForm";
+    mainObject = "location";
+
+    lines = getAllLines();
+    stations = getAllStations();
+
+
+    vdm = new Vue({
+        el: formName,
+        data: {
+            location: location,
+            lines: lines,
+            stations: stations
+        }
+    });
+
+
+    $(formName)
+        .bootstrapValidator(validationConfig).on('success.form.bv', function (e) {
+        // Prevent form submission
+        e.preventDefault();
+        saveTree(formName);
+    });
+
+
 });
 var flag = false;
 function loadCreateForm() {
@@ -71,77 +177,7 @@ function loadCreateForm() {
         flag = true
     });
 
-//
-    $('#form')
-        .bootstrapValidator({
-            message: '该值无效 ',
-            fields: {
-                "description": {
-                    message: '位置描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '位置描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '位置描述长度为2到20个字符'
-                        }
-                    }
-                },
-                description: {
-                    message: '设备描述无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备描述不能为空!'
-                        },
-                        stringLength: {
-                            min: 2,
-                            max: 20,
-                            message: '设备描述长度为2到20个字符'
-                        }
-                    }
-                },
-                "locations.id": {
-                    message: '设备位置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备位置不能为空!'
-                        }
-                    }
-                },
-                "equipmentsClassification.id": {
-                    message: '设备分类无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备分类不能为空!'
-                        }
-                    }
-                },
-                "status": {
-                    message: '设备状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备状态不能为空!'
-                        }
-                    }
-                }
-                ,
-                "running": {
-                    message: '运行状态无效',
-                    validators: {
-                        notEmpty: {
-                            message: '运行状态不能为空!'
-                        }
-                    }
-                }
-            }
-        }).on('success.form.bv', function (e) {
-        // Prevent form submission
-        e.preventDefault();
-        // Get the form instance
-        save();
-    });
+
 }
 /**
  * 保存位置信息
@@ -149,8 +185,6 @@ function loadCreateForm() {
 function save() {
     var objStr = getFormJsonData("form");
     var locations = JSON.parse(objStr);
-
-    console.log("locations------------" + JSON.stringify(locations));
     var url = "/location/save";
     if (!locations.description) {
         showMessageBox("danger", "位置描述不能为空!");
@@ -393,3 +427,11 @@ function firstLoad(data) {
 
     }
 }
+
+
+function fillForm(id) {
+    var location = findById(id);
+    console.log("location---------------" + JSON.stringify(location));
+    vdm.$set(mainObject, location);
+}
+

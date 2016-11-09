@@ -261,7 +261,6 @@ $(function () {
         activeTab = "updateHistory";
         //首先判断是否有选中的
         var equipments = getEquipmentById(selectedIds[pointer]);
-        console.log("equipments--------------" + JSON.stringify(equipments));
         var records = loadRecordsByEid(equipments.id);
         uhm.$set("records", records);
         uhmd.$set("e", equipments);
@@ -273,7 +272,7 @@ $(function () {
 });
 
 
-function addNew() {
+function add() {
     setFormReadStatus("#detailForm", false);
     formstatus = formStatusArray["CREATE"];
     var status = [

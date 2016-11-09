@@ -180,7 +180,7 @@ public class StationController extends BaseController {
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public boolean delete(@RequestParam("id") Long id) {
+    public boolean delete(@PathVariable("id") Long id) {
         return stationService.delete(id);
     }
 

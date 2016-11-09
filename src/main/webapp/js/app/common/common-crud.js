@@ -13,6 +13,10 @@ var ids = [];//所有的ID的集合
 var docName = "";
 var formTab = null;
 
+
+var locs = [];
+var stations = [];
+
 /**
  *
  * @returns {string}
@@ -57,6 +61,32 @@ function saveMainObject(formName) {
             setFormReadStatus(formName, false);
         }
     });
+}
+
+
+function saveTree(formName, childZNode) {
+    var objStr = getFormJsonData(formName);
+    var object = JSON.parse(objStr);
+    var url = mainObject + "/save";
+
+    $.ajax({
+        type: "POST", url: url, data: object, dataType: "JSON", success: function (obj) {
+
+            if (object.id) {
+                updateNode(null, childZNode);
+                showMessageBox("info", "信息更新成功");
+            } else {
+                addNodeAfterChangeOperation(null, childZNode, parent);
+                showMessageBox("info", "信息添加成功")
+            }
+        }, error: function (msg) {
+            if (object.id) {
+                showMessageBox("danger", "信息更新失败")
+            } else {
+                showMessageBox("danger", "信息添加失败")
+            }
+        }
+    })
 }
 
 
@@ -313,4 +343,42 @@ function initBootGrid(dataTableName) {
             selectedIds.remove(rows[x]["id"]);
         }
     });
+}
+
+
+/**
+ * 查询我的位置
+ */
+function getMyLocs() {
+    var url = "/commonData/findMyLoc";
+    $.getJSON(url, function (data) {
+        locs = data;
+    });
+    return locs;
+}
+
+
+/**
+ * 查询所有线路
+ */
+function getAllLines() {
+
+    var url = "/line/findAllLines";
+    $.getJSON(url, function (data) {
+        lines = data;
+    });
+    return lines;
+}
+
+
+/**
+ * 查询我的位置
+ */
+function getAllStations() {
+//初始化为第一条线路id
+    var url = "/station/findByStatus";
+    $.getJSON(url, function (data) {
+        stations = data;
+    });
+    return stations;
 }
