@@ -38,10 +38,10 @@
                     <select id="station_id" name="station.id" class="form-control" v-model="location.station.id">
                         <template v-for="option in stations">
                             <option :value="option.id" v-if="option.id == location.station.id" selected>
-                                {{option.description }}
+                                {{option.line.description }}{{option.description }}
                             </option>
                             <option :value="option.id" v-else>
-                                {{option.description }}
+                                {{option.line.description }}{{option.description }}
                             </option>
                         </template>
                     </select>
@@ -50,10 +50,14 @@
             <div class="form-group">
                 <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="superior">负责人员</label>
                 <div class="col-md-4 col-sm-4 col-lg-4">
-                    <input class="form-control" id="superior" type="text" name="superior" value="${location.superior}"  v-model="location.superior"/>
-                    <input class="form-control" id="lid" type="hidden" name="id" value="${location.id}" v-model="location.superior" readonly/>
-                    <input class="form-control" id="parent_id" type="hidden" name="parent.id" value="${location.parent}" v-model="location.parent.id" />
-                    <input class="form-control" id="status" type="hidden" name="status" value="1" v-model="location.status"/>
+                    <input class="form-control" id="superior" type="text" name="superior" value="${location.superior}"
+                           v-model="location.superior"/>
+                    <input class="form-control" id="lid" type="hidden" name="id" value="${location.id}"
+                           v-model="location.superior" readonly/>
+                    <input class="form-control" id="parent_id" type="hidden" name="parent.id" value="${location.parent}"
+                           v-model="location.parent.id"/>
+                    <input class="form-control" id="status" type="hidden" name="status" value="1"
+                           v-model="location.status"/>
                 </div>
             </div>
         </div>

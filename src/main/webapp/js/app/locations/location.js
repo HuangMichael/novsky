@@ -156,7 +156,7 @@ $(document).ready(function () {
         .bootstrapValidator(validationConfig).on('success.form.bv', function (e) {
         // Prevent form submission
         e.preventDefault();
-        saveTree(formName);
+        saveMainObject(formName);
     });
 
 
@@ -178,45 +178,6 @@ function loadCreateForm() {
     });
 
 
-}
-/**
- * 保存位置信息
- */
-function save() {
-    var objStr = getFormJsonData("form");
-    var locations = JSON.parse(objStr);
-    var url = "/location/save";
-    if (!locations.description) {
-        showMessageBox("danger", "位置描述不能为空!");
-        return;
-    }
-    $.ajax({
-        type: "POST", url: url, data: locations, dataType: "JSON", success: function (obj) {
-            var parent = $("#parent_id").val();
-            //构造一个子节点
-            var childZNode = {
-                id: obj.id,
-                pId: parent,//如果重新选择了上级  以选择后的位置为准
-                name: obj.description,
-                location: obj.location,
-                superior: obj.superior,
-                isParent: obj["hasChild"]
-            };
-            if (locations.id) {
-                updateNode(null, childZNode);
-                showMessageBox("info", "位置信息更新成功")
-            } else {
-                addNodeAfterChangeOperation(null, childZNode, parent);
-                showMessageBox("info", "位置信息添加成功")
-            }
-        }, error: function (msg) {
-            if (locations.id) {
-                showMessageBox("danger", "位置信息更新失败")
-            } else {
-                showMessageBox("danger", "位置信息添加失败")
-            }
-        }
-    })
 }
 
 
@@ -390,7 +351,7 @@ function add2LocCart() {
         showMessageBox("danger", "请输入报修故障描述!");
         $("#orderDesc").focus();
         $("#orderDesc").css("border", "dashed 1px red");
-        return
+        return;
     }
     if (!reporter) {
         showMessageBox("danger", "报修人不能为空!");
@@ -408,7 +369,7 @@ function add2LocCart() {
             size = 0
         }
         $("#reportOrderSize").html(parseInt(size) + 1);
-        showMessageBox("info", "已将位置报修加入到维修车!")
+        showMessageBox("info", "已将位置报修加入到报修车!")
     });
 
 }
@@ -433,5 +394,6 @@ function fillForm(id) {
     var location = findById(id);
     console.log("location---------------" + JSON.stringify(location));
     vdm.$set(mainObject, location);
+    setFormReadStatus(formName, true);
 }
 
