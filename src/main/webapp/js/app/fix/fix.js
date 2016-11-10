@@ -11,12 +11,6 @@ $(document).ready(function () {
                     '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
                     '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
                 // '<a class="btn btn-default btn-xs"  onclick="adjust(' + row.id + ')" title="调整" ><i class="glyphicon glyphicon glyphicon-time"></i></a>'
-            },
-            "expireTime": function (column, row) {
-
-                if (row.expired) {
-                    return "<div style='font-color:red'>已超期</div>";
-                }
             }
         }
     });
@@ -64,9 +58,6 @@ $(document).ready(function () {
 });
 
 
-var orderId = null;
-var operationType = null;
-var operationDesc = null;
 function dealResult(orderId, operationType, operationDesc) {
     $("#orderId").val(orderId);
     $("#operationType").val(operationType);
@@ -120,9 +111,9 @@ function confirmAdjust() {
     };
     $.post(url, data, function (data) {
         if (data.result) {
-            showMessageBox("info", data.resultDesc);
+            showMessageBox("info", data['resultDesc']);
         } else {
-            showMessageBox("danger", data.resultDesc);
+            showMessageBox("danger", data['resultDesc']);
         }
         $("#fix_adjust_modal").modal("hide");
         $('#fixListTable').bootgrid();
@@ -137,7 +128,7 @@ function updateOrderStatus(orderId, operationType, operationDesc, fixDesc) {
         $("#fix_desc_modal").modal("hide");
         $("#tr-" + orderId).html(operationDesc);
         $("#tr-" + orderId).html(fixDesc);
-        (data.result) ? showMessageBox("info", data.resultDesc) : showMessageBox("danger", data.resultDesc);
+        (data.result) ? showMessageBox("info", data['resultDesc']) : showMessageBox("danger", data['resultDesc']);
     });
 }
 /**
@@ -159,12 +150,6 @@ function abort(id) {
     var operationType = "abortDetail";
     var operationDesc = "取消";
     dealResult(orderId, operationType, operationDesc);
-}
-
-
-function fillColor(id) {
-
-    $("tr[data-row-id=0]").css("background-color", "red");
 }
 
 
