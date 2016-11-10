@@ -24,6 +24,7 @@ public class VworkOrderFixBill {
     private String eqName;
     private String locName;
     private String eqClass;
+    private String unitName;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date nodeTime;

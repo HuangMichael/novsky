@@ -51,7 +51,8 @@
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
-															<th data-column-id="status" data-width="5%">设备状态</th>
+															<th data-column-id="unitName" data-width="10%"  data-visible="false">维修单位</th>
+															<th data-column-id="status" data-width="5%">维修状态</th>
 															<th data-column-id="nodeTime" data-width="8%" data-order="desc">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 															<th data-column-id="expireTime" data-width="5%" data-formatter="expireTime" data-sortable="false" align="center" >是否超期</th>
@@ -71,6 +72,7 @@
 																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
 																<td>${d.eqClass}</td>
+																<td>${d.unitName}</td>
 																<td>
 																	${d.nodeState}
 																</td>
@@ -99,7 +101,8 @@
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
-															<th data-column-id="status" data-width="5%">设备状态</th>
+															<th data-column-id="unitName" data-width="10%"  data-visible="false">维修单位</th>
+															<th data-column-id="status" data-width="5%">维修状态</th>
 															<th data-column-id="nodeTime" data-width="8%" data-order="desc">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 														</tr>
@@ -114,6 +117,7 @@
 																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
 																<td>${d.eqClass}</td>
+																<td>${d.unitName}</td>
 																<td>
 																	${d.nodeState}
 																</td>
@@ -139,7 +143,8 @@
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
-															<th data-column-id="status" data-width="5%">设备状态</th>
+															<th data-column-id="unitName" data-width="10%"  data-visible="false">维修单位</th>
+															<th data-column-id="status" data-width="5%">维修状态</th>
 															<th data-column-id="nodeTime" data-width="8%" data-order="desc">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 
@@ -155,6 +160,7 @@
 																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
 																<td>${d.eqClass}</td>
+																<td>${d.unitName}</td>
 																<td>
 																	${d.nodeState}
 																</td>
@@ -180,7 +186,8 @@
 															<th data-column-id="location" data-width="8%">设备位置</th>
 															<th data-column-id="eqDesc" data-width="15%">故障描述</th>
 															<th data-column-id="eqClass" data-width="5%">设备分类</th>
-															<th data-column-id="status" data-width="5%">设备状态</th>
+															<th data-column-id="unitName" data-width="10%"  data-visible="false">维修单位</th>
+															<th data-column-id="status" data-width="5%">维修状态</th>
 															<th data-column-id="nodeTime" data-width="8%" data-order="desc">处理时间</th>
 															<th data-column-id="deadLine" data-width="8%">截止日期</th>
 
@@ -194,6 +201,7 @@
 																<td>${d.locName}</td>
 																<td>${d.orderDesc}</td>
 																<td>${d.eqClass}</td>
+																<td>${d.unitName}</td>
 																<td>
 																	${d.nodeState}
 																</td>
