@@ -7,20 +7,9 @@ var setting = {
     view: {dblClickExpand: false, showLine: true, selectedMulti: false},
     data: {simpleData: {enable: true, idKey: "id", pIdKey: "pId", rootPId: ""}},
     callback: {
-        onClick: function (event, treeId, treeNode, clickFlag) {
-
-            console.log("treeNode.id-------------" + treeNode.id);
-
+        onClick: function (event, treeId, treeNode) {
             fillForm(treeNode.id);
-
-            /*fillForm1(treeNode);
-             var url = "/location/detail/" + treeNode.id;
-             $("#contentDiv").load(url, function (data) {
-             //fillForm1(treeNode, data);
-             saveIndex = 0;
-             });*/
-
-
+            loadEqList(treeNode.id);
             return true
         }
     }
@@ -135,8 +124,11 @@ $(document).ready(function () {
     initSelect();
 
 
+    dataTableName = "#eqDataTable";
     formName = "#detailForm";
     mainObject = "location";
+    docName = "设备信息";
+    exportObject = "equipment";
 
     lines = getAllLines();
     stations = getAllStations();
@@ -158,6 +150,9 @@ $(document).ready(function () {
         e.preventDefault();
         saveMainObject(formName);
     });
+
+
+    afterClick(1);
 
 
 });
@@ -196,7 +191,7 @@ function report(id) {
             reportId = id;
         })
     } else {
-        equipReport(id)
+        equipReport(id);
     }
 }
 
@@ -258,32 +253,7 @@ function deleteObject() {
         });
     }
 }
-function fillForm1(treeNode) {
-    $("#parent_id").attr("readonly", "readonly");
-    $("#lid").val(treeNode.id);
-    $("#location").val(treeNode.location);
-    $("#description").val(treeNode.name);
-    $("#superior").val(treeNode.superior);
-    $("#parent_id").val(treeNode.pId);
 
-}
-function changeLine(stationId) {
-    var lineId = $("#line_id").val();
-    $("#station_id").html("");
-    var url = "/station/findStationByLine/" + lineId;
-    $.getJSON(url, function (data) {
-        for (var x in data) {
-            var s = data[x]["description"];
-            var sid = data[x]["id"];
-            if (s && sid != stationId) {
-                $("#station_id").append("<option value='" + data[x].id + "'>" + s + "</option>")
-            }
-            if (s && sid == stationId) {
-                $("#station_id").append("<option value='" + data[x].id + "' selected>" + s + "</option>")
-            }
-        }
-    })
-}
 /**
  * 位置保修
  */
@@ -390,10 +360,42 @@ function firstLoad(data) {
 }
 
 
+/**
+ *
+ * @param id 点击树节点触发
+ */
+function afterClick(id) {
+    fillForm(id);
+    loadEqList(id);
+}
+
+/**
+ *
+ * @param id 同步选中数据
+ */
 function fillForm(id) {
     var location = findById(id);
-    console.log("location---------------" + JSON.stringify(location));
     vdm.$set(mainObject, location);
     setFormReadStatus(formName, true);
 }
 
+
+/**
+ *
+ * @param locationId
+ */
+function loadEqList(locationId) {
+    //载入页面并刷新
+    var url = "location/detail/" + locationId;
+    $("#tab_1_1").load(url, function (data) {
+
+    });
+    $("#eqDataTable").bootgrid({
+        rowCount: [8],
+        formatters: {
+            "report": function (column, row) {
+                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>';
+            }
+        }
+    });
+}

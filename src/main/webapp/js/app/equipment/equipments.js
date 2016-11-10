@@ -21,6 +21,8 @@ var formstatus = formStatusArray["READ"];
 
 var activeTab = "list";
 
+
+
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表

@@ -29,4 +29,12 @@ public interface VequipmentsRepository extends CrudRepository<Vequipments, Long>
      */
     List<Vequipments> findByLocationStartingWithOrderByIdDesc(String location);
 
+
+
+    /**
+     * @param locationId
+     * @return 按照位置模糊查询资产信息
+     */
+    List<Vequipments> findByLocationId(Long locationId);
+
 }

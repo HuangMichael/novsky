@@ -2,6 +2,7 @@ package com.linkbit.beidou.dao.equipments;
 
 
 import com.linkbit.beidou.domain.equipments.Vequipments;
+import com.linkbit.beidou.domain.locations.Locations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -44,7 +45,15 @@ public interface VEqRepository extends PagingAndSortingRepository<Vequipments, L
      * @param pageable 分页属性
      * @return
      */
-    @Query
     Page<Vequipments> findByEqNameContainsAndLocNameContainsAndEqClassContains(String eqName, String locName, String eqClass, Pageable pageable);
+
+
+    /**
+     * @param eqName
+     * @param locations
+     * @param pageable
+     * @return 根据设备名称和设备位置过滤
+     */
+    Page<Vequipments> findByEqNameContainsAndLocation(String eqName, Locations locations, Pageable pageable);
 
 }

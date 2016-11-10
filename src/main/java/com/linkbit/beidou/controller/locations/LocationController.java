@@ -1,11 +1,8 @@
 package com.linkbit.beidou.controller.locations;
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
-import com.linkbit.beidou.domain.app.MyPage;
-import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.Vequipments;
-import com.linkbit.beidou.domain.line.Line;
-import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
@@ -15,11 +12,12 @@ import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +30,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/location")
-public class LocationController {
+public class LocationController extends BaseController {
 
     @Autowired
     LocationsService locationsService;
@@ -53,20 +51,16 @@ public class LocationController {
     @RequestMapping(value = "/detail/{id}")
     public String detail(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
         String url = "/location";
-        Locations object = null;
+        Locations object = locationsService.findById(id);
 
         if (id != 0) {
-            url += "/detail";
-            object = locationsService.findById(id);
-            commonDataService.findLines(session);
-            commonDataService.findStations(session);
+            url += "/locEqList";
+
         }
-        modelMap.put("locations", object);
         List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(object.getLocation());
         modelMap.put("equipmentsList", equipmentsList);
         return url;
     }
-
 
 
     /**

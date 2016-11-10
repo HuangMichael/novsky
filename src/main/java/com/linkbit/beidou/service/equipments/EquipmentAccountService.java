@@ -13,6 +13,7 @@ import com.linkbit.beidou.utils.CommonStatusType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.parsing.Location;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -234,13 +235,26 @@ public class EquipmentAccountService extends BaseService {
 
 
     /**
+     * @param eqName   设备名称
+     * @param pageable
+     * @return 分页查询 根据易耗品名称去查询
+     */
+    public Page<Vequipments> findByEqNameContainsAndLocationId(String eqName, Long locationId, Pageable pageable) {
+
+        Locations locations = locationsService.findById(locationId);
+
+        return vEqRepository.findByEqNameContainsAndLocation(eqName,locations, pageable);
+    }
+
+
+    /**
      * @param searchPhrase 查询字符串数组
      * @param pageable
      * @return 分页查询 根据易耗品名称去查询
      */
     public Page<Vequipments> findByComplex(String searchPhrase, Pageable pageable) {
         String eqName = "", eqClass = "", locName = "";
-        if(searchPhrase!=null && !searchPhrase.equals("")){
+        if (searchPhrase != null && !searchPhrase.equals("")) {
             String searchParams[] = searchPhrase.split(",");
             eqName = searchParams[0];
             eqClass = searchParams[1];

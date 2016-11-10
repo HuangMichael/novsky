@@ -4,6 +4,7 @@
 
 
 var mainObject = "";
+var exportObject = mainObject;
 var vdm = null; //定义form数据模型
 var formName = "";
 var selectedIds = [];
@@ -12,8 +13,6 @@ var dataTableName = "";
 var ids = [];//所有的ID的集合
 var docName = "";
 var formTab = null;
-
-
 var locs = [];
 var stations = [];
 
@@ -279,7 +278,7 @@ function exportExcel() {
 
     }
     docName = (docName) ? (docName) : ("导出数据");
-    var url = mainObject + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
+    var url = exportObject + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
     bootbox.confirm({
         message: "确定导出查询结果记录么?",
         buttons: {

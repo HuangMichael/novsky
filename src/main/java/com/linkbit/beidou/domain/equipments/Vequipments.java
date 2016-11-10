@@ -26,6 +26,7 @@ public class Vequipments {
     private String eqName; //设备描述
     @Column(length = 50)
     private String locName; //设备描述
+    private Long locationId; //位置ID
     @Column(length = 20)
     private String eqClass; //设备分类
     @Column(length = 20)
@@ -34,7 +35,6 @@ public class Vequipments {
     private String running; //运行状态
     @Column(length = 20)
     private String location; //设备位置编码
-
 
 
 }

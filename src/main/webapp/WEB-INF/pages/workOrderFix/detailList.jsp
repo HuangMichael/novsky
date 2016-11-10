@@ -4,8 +4,7 @@
 <table id="detailList" class=" table table-striped table-bordered table-hover">
     <thead>
     <tr>
-
-        <th data-column-id="index">序号</th>
+        <th data-column-id="id">序号</th>
         <th data-column-id="id" data-visible="false">序号</th>
         <th data-column-id="eqName">设备名称</th>
         <th data-column-id="location">设备位置</th>

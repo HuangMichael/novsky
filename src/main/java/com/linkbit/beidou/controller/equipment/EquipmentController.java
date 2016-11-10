@@ -13,6 +13,7 @@ import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.VEqRecord;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Station;
+import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
@@ -77,6 +78,21 @@ public class EquipmentController extends BaseController implements LocationSepar
 
     @Autowired
     EqUpdateBillService eqUpdateBillService;
+
+
+    /**
+     * 分页查询
+     *
+     * @param locationId
+     * @return
+     */
+    @RequestMapping(value = "/loadByLocation/{locationId}", method = RequestMethod.GET)
+    public String loadByLocationId(@PathVariable("locationId") Long locationId, ModelMap modelMap) {
+        Locations locations = locationsService.findById(locationId);
+        List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWith(locations.getLocation());
+        modelMap.put("equipmentsList", equipmentsList);
+        return "/location/locEqList";
+    }
 
 
     /**
@@ -285,24 +301,6 @@ public class EquipmentController extends BaseController implements LocationSepar
 
     }
 
-    /**
-     * @param location 位置编号
-     * @returnzz
-     */
-    @RequestMapping(value = "/findEqByLocLike/{location}")
-    @ResponseBody
-    public PageObject findEquipmentsByLocationLike(@PathVariable("location") String location) {
-
-        List<Equipments> equipmentsList = equipmentsRepository.findByLocationStartingWith(location);
-        PageObject po = new PageObject();
-        po.setCurrent(1l);
-        po.setRowCount(10l);
-        po.setRows(equipmentsList);
-        po.setTotal(equipmentsList.size() + 0l);
-        return po;
-
-    }
-
 
     /**
      * @param eid
@@ -310,7 +308,6 @@ public class EquipmentController extends BaseController implements LocationSepar
     @RequestMapping(value = "/findFixingStep/{eid}")
     @ResponseBody
     public List<Object> findFixingStep(@PathVariable("eid") Long eid) {
-
         return equipmentAccountService.findFixingStepByEid(eid);
 
     }

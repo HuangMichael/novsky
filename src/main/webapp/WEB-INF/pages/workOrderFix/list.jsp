@@ -311,4 +311,4 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="js/app/fix/fix.js"></script>
+<script type="text/javascript" src="/js/app/fix/fix.js"></script>

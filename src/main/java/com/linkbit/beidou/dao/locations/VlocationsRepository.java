@@ -21,4 +21,6 @@ public interface VlocationsRepository extends CrudRepository<Vlocations, Long> {
      */
     Vlocations findById(Long id);
 
+
+
 }
