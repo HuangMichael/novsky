@@ -165,8 +165,7 @@ function loadReportFinishChart() {
     var year = $("#selectYear").val();
     var unitId = $("#selectUnits").val();
     var unitName = $("#selectUnits").find("option:selected").text();
-
-    dataMonth = getDataMonthByYear(year);
+    dataMonth = [];
     var seriesOptions = [];
     var option0, option1;
 
@@ -211,12 +210,9 @@ function loadReportFinishChart() {
         var url = "unitsStatistics/getDataDistributed/" + unitId + "/" + year;
         var distributedNum = [];
         $.getJSON(url, function (data) {
-            dataMonth.forEach(function (m, i) {
-                if (data[i]) {
-                    distributedNum [i] = data[i]["reportNum"];
-                } else {
-                    distributedNum [i] = 0;
-                }
+            data.forEach(function (d) {
+                dataMonth.push(d["reportMonth"]);
+                distributedNum.push(d["reportNum"]);
             });
         });
         return distributedNum;
@@ -228,12 +224,9 @@ function loadReportFinishChart() {
         var url = "unitsStatistics/getDataFinished/" + unitId + "/" + year;
         var finishNum = [];
         $.getJSON(url, function (data) {
-            dataMonth.forEach(function (m, i) {
-                if (data[i]) {
-                    finishNum [i] = data[i]["reportNum"];
-                } else {
-                    finishNum [i] = 0;
-                }
+            data.forEach(function (d) {
+                dataMonth.push(d["reportMonth"]);
+                finishNum.push(d["reportNum"]);
             });
         });
         return finishNum;
