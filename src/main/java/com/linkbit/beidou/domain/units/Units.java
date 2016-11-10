@@ -56,4 +56,7 @@ public class Units implements java.io.Serializable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "unitSet")
     private List<EquipmentsClassification> classificationSet;
 
+    @Column(length = 1, columnDefinition = "default 1")
+    private String outFlag; //外部标识 默认为外部
+
 }

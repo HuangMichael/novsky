@@ -42,6 +42,16 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
     List<Units> findByStatus(String status);
 
     /**
+     * 根据状态查询外委单位
+     *
+     * @param status
+     * @param outFlag 外委单位标识 排除本单位
+     * @return
+     */
+    List<Units> findByStatusAndOutFlag(String status, String outFlag);
+
+
+    /**
      * 根据id查询
      */
     Units findById(long id);

@@ -167,6 +167,17 @@ public class UnitsController extends BaseController {
     }
 
 
+    /**
+     * @param status 状态
+     * @return 根据状态查询外委单位信息
+     */
+    @RequestMapping(value = "/findOutUnits/{status}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Units> findByStatusAndOutFlag(@PathVariable("status") String status) {
+        return outsourcingUnitRepository.findByStatusAndOutFlag(status,"1");
+    }
+
+
     @RequestMapping(value = "/loadPageByUrl/{pageUrl}/{uid}", method = RequestMethod.GET)
     public String loadPageByUrl(@PathVariable("pageUrl") String pageUrl, @PathVariable("uid") Long uid, ModelMap modelMap) {
         Units unit = outsourcingUnitRepository.findById(uid);

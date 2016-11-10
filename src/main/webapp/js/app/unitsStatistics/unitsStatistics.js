@@ -361,7 +361,7 @@ function loadEfficiencyChart() {
  */
 function loadAllUnits() {
     var units = null;
-    var url = "units/findByStatus/1";
+    var url = "units/findOutUnits/1";
     $.getJSON(url, function (data) {
         units = data;
         data.forEach(function (e, i) {
