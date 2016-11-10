@@ -43,22 +43,6 @@ public class LocationController {
     @Autowired
     CommonDataService commonDataService;
 
-    /**
-     * @param modelMap
-     * @param httpSession
-     * @return 初始化载入界面
-     */
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession httpSession) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        User user = (User) httpSession.getAttribute("currentUser");
-        List<Vequipments> equipmentsList = vequipmentsRepository.findByLocationStartingWithOrderByIdDesc(user.getLocation());
-        modelMap.put("equipmentsList", equipmentsList);
-        return "/location/list";
-
-    }
 
     /**
      * @param id
