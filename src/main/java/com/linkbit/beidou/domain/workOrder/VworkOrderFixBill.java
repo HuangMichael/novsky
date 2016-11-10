@@ -33,4 +33,5 @@ public class VworkOrderFixBill {
     private Date deadLine;
     private String nodeState;
     private String location;
+    private String expired;
 }

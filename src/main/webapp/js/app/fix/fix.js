@@ -13,9 +13,8 @@ $(document).ready(function () {
                 // '<a class="btn btn-default btn-xs"  onclick="adjust(' + row.id + ')" title="调整" ><i class="glyphicon glyphicon glyphicon-time"></i></a>'
             },
             "expireTime": function (column, row) {
-                var t1 = Date.parse(new Date($.trim(row.deadLine)));
-                var t2 = Date.parse(new Date());
-                if (t1 < t2) {
+
+                if (row.expired) {
                     return "<div style='font-color:red'>已超期</div>";
                 }
             }
@@ -165,7 +164,7 @@ function abort(id) {
 
 function fillColor(id) {
 
-   $("tr[data-row-id=0]").css("background-color","red");
+    $("tr[data-row-id=0]").css("background-color", "red");
 }
 
 
