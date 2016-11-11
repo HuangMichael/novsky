@@ -26,6 +26,13 @@ function getMainObject() {
 }
 
 
+function getDataTableName() {
+
+
+    return dataTableName;
+}
+
+
 /**
  *
  * @param validationConfig
@@ -278,7 +285,7 @@ function exportExcel() {
 
     }
     docName = (docName) ? (docName) : ("导出数据");
-    var url = exportObject + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
+    var url = getMainObject() + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
     bootbox.confirm({
         message: "确定导出查询结果记录么?",
         buttons: {

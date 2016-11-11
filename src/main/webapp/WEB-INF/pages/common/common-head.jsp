@@ -7,7 +7,6 @@
 <html lang="en">
 <head>
     <base href="<%=basePath%>">
-    <%-- <meta http-equiv="content-type" content="text/html; charset=UTF-8">--%>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta charset="utf-8">
     <title>设备维修系统</title>
@@ -24,7 +23,6 @@
     <link rel="stylesheet" type="text/css" href="/css/animatecss/animate.min.css"/>
     <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/js/uniform/css/uniform.default.min.css">
-    <link rel="stylesheet" type="text/css" href="/js/terebentina-sco/css/scojs.css">
     <link rel="stylesheet" type="text/css" href="/js/terebentina-sco/css/scojs.css">
     <link rel="stylesheet" type="text/css" href="/js/jquery.bootgrid-1.3.1/jquery.bootgrid.min.css">
     <link rel="stylesheet" type="text/css" href="/js/zTree_v3-master/css/metroStyle/metroStyle.css">

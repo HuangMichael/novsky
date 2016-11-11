@@ -153,9 +153,6 @@
         function containsPhrase(row) {
             var column,
                 searchPattern = new RegExp(that.searchPhrase, (that.options.caseSensitive) ? "g" : "gi");
-
-            console.log("row---------------------" + JSON.stringify(row));
-
             for (var i = 0; i < that.columns.length; i++) {
                 column = that.columns[i];
                 if (column.searchable && column.visible &&
