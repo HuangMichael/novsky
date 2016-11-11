@@ -9,6 +9,7 @@
                 <div class="col-md-4 col-sm-4 col-lg-4 ">
                     <input class="form-control" id="location" type="text" name="location" value="${location.location}"
                            v-model="location.location" readonly/>
+
                 </div>
 
                 <label for="description" class="col-md-2 col-sm-2 col-lg-2 control-label">位置名称</label>
@@ -53,8 +54,7 @@
                     <input class="form-control" id="superior" type="text" name="superior" value="${location.superior}"
                            v-model="location.superior"/>
                     <input class="form-control" id="lid" type="hidden" name="id" v-model="location.id" readonly/>
-                    <input class="form-control" id="parent_id" type="hidden" name="parent.id" value="${location.parent}"
-                           v-model="location.parent.id"/>
+                    <input class="form-control" id="parent_id" type="hidden" name="parent" v-model="location.parent"/>
                     <input class="form-control" id="status" type="hidden" name="status" value="1"
                            v-model="location.status"/>
                 </div>

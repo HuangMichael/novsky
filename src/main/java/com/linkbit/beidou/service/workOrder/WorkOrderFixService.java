@@ -170,7 +170,7 @@ public class WorkOrderFixService extends BaseService {
     public Page<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContaining(String nodeState, String location, String orderDesc, Pageable pageable) {
 
 
-        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeStateAndOrderDescContaining(location, nodeState, orderDesc, pageable);
+        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeStateAndOrderDescContainingOrderByNodeTimeDesc(location, nodeState, orderDesc, pageable);
 
     }
 
