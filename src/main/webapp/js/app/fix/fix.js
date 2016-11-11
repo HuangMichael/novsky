@@ -80,7 +80,7 @@ $(document).ready(function () {
         var tableName = "#" + $(this).attr("name");
         var nodeState = ["已派工", "已完工", "已暂停", "已取消"];
         var state = nodeState[tableName.charAt(tableName.length - 1)];
-        exportExcelByName(tableName, state);
+        exportExcelByName(tableName, state, state + docName);
 
     })
 });

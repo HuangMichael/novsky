@@ -312,7 +312,7 @@ function exportExcel() {
 /**
  *导出excel
  */
-function exportExcelByName(dataTableName, nodeState) {
+function exportExcelByName(dataTableName, nodeState,docName) {
     var param = $(dataTableName).bootgrid("getSearchPhrase");
     var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
 
@@ -325,7 +325,6 @@ function exportExcelByName(dataTableName, nodeState) {
         }
 
     }
-    docName = (docName + nodeState) ? (docName + nodeState) : ("导出数据");
     var url = getMainObject() + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames + "&nodeState=" + nodeState;
     url = url.trim();
     bootbox.confirm({
