@@ -325,7 +325,7 @@ function exportExcelByName(dataTableName, nodeState) {
         }
 
     }
-    docName = (docName) ? (docName) : ("导出数据");
+    docName = (docName + nodeState) ? (docName + nodeState) : ("导出数据");
     var url = getMainObject() + "/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames + "&nodeState=" + nodeState;
     url = url.trim();
     bootbox.confirm({
