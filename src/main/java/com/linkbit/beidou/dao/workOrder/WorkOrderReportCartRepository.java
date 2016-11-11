@@ -210,10 +210,10 @@ public interface WorkOrderReportCartRepository extends CrudRepository<WorkOrderR
     /**
      * @param expired 0为未过期 1为过期
      * @param status  1为正式工单  0 为报修车中的工单
-     * @param nodeStatus
+     * @param nodeState
      * @return
      */
-    List<WorkOrderReportCart> findByExpiredAndStatusAndNodeStatus(boolean expired, String status,String nodeStatus);
+    List<WorkOrderReportCart> findByExpiredAndStatusAndNodeState(boolean expired, String status,String nodeState);
 
 
     ///////////////////////////////////////////外委单位统计分析 end///////////////////////////////////////////////////////////////

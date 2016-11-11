@@ -33,6 +33,6 @@ public class SetWorkOrderExpiredTask {
     public void updateFixTaskStatus() {
         List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartService.findBeingExpired();
         int num = workOrderReportCartService.handleExpiredOrders(workOrderReportCartList);
-        log.info("定时更新工单过期状态---- {}" + num + "条", dateFormat.format(new Date()));
+        log.info("定时更新工单过期状态---- {}----------" + num + "条", dateFormat.format(new Date()));
     }
 }

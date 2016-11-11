@@ -423,7 +423,7 @@ public class WorkOrderReportCartService extends BaseService {
     public List<WorkOrderReportCart> findBeingExpired() {
 
         //查询expired=0 的记录
-        return workOrderReportCartRepository.findByExpiredAndStatusAndNodeStatus(false, CommonStatusType.STATUS_YES, "已派工");
+        return workOrderReportCartRepository.findByExpiredAndStatusAndNodeState(false, CommonStatusType.STATUS_YES, "已派工");
 
 
     }
