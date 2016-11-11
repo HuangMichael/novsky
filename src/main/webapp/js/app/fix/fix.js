@@ -15,15 +15,16 @@ $(document).ready(function () {
         }
     });
 
+    //fillColor(709);
 
     $('#fixListTable1').bootgrid();
 
     $('#fixListTable2').bootgrid({
         formatters: {
 
-            "fixDesc": function (column, row) {
-                return '<input id="fixDesc' + row.id + '" type="text" style="height: 25px">'
-            },
+            /*     "fixDesc": function (column, row) {
+             return '<input id="fixDesc' + row.id + '" type="text" style="height: 25px">'
+             },*/
             "opMenus": function (column, row) {
                 return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="恢复" ><i class="glyphicon glyphicon-pause"></i></a>' +
                     '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
