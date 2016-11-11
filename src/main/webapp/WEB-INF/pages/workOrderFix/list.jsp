@@ -41,7 +41,7 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
-                                                <table id="fixListTable"
+                                                <table id="fixListTable0"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
                                                        data-toggle="bootgrid" data-ajax="true"
                                                        data-url="/workOrderFix/data/已派工">

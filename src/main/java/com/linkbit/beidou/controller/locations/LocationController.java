@@ -133,8 +133,9 @@ public class LocationController extends BaseController {
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Locations save(Locations locations) {
-        return locationsService.save(locations);
+    public ReturnObject save(Locations locations) {
+        locations = locationsService.save(locations);
+        return commonDataService.getReturnType(locations != null, "位置信息保存成功!", "位置信息保存失败!");
 
     }
 

@@ -2,7 +2,16 @@
  * Created by Administrator on 2016/7/22.
  */
 $(document).ready(function () {
-    $('#fixListTable').bootgrid({
+
+
+    var tableName0 = "#fixListTable0";
+    var tableName1 = "#fixListTable1";
+    var tableName2 = "#fixListTable2";
+    var tableName3 = "#fixListTable3";
+
+    docName = "维修单信息";
+    mainObject = "workOrderFix";
+    $('#fixListTable0').bootgrid({
         columnSelection: 1,
         rowCount: [10, 20, 25, -1],
         formatters: {
@@ -10,16 +19,27 @@ $(document).ready(function () {
                 return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
                     '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
                     '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
-                // '<a class="btn btn-default btn-xs"  onclick="adjust(' + row.id + ')" title="调整" ><i class="glyphicon glyphicon glyphicon-time"></i></a>'
             }
+        },
+        templates: {
+            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据'  name='fixListTable0'  onclick='exportExcelByName(" + tableName0 + ")'>导出</button>"
         }
     });
 
     //fillColor(709);
 
-    $('#fixListTable1').bootgrid();
+    $('#fixListTable1').bootgrid({
+        templates: {
+            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据' name='fixListTable1' onclick='exportExcelByName(" + tableName1 + ")'>导出</button>"
+        }
+    });
 
     $('#fixListTable2').bootgrid({
+
+        templates: {
+            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据' name='fixListTable2' onclick='exportExcelByName(" + tableName2 + ")'>导出</button>"
+        }
+        ,
         formatters: {
             "opMenus": function (column, row) {
                 return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="恢复" ><i class="glyphicon glyphicon-pause"></i></a>' +
@@ -29,7 +49,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#fixListTable3').bootgrid();
+    $('#fixListTable3').bootgrid({
+        templates: {
+            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据' name='fixListTable3' onclick='exportExcelByName(" + tableName3 + ")'>导出</button>"
+        }
+    });
 
 
     $("#saveFixDesc").on("click", function () {
@@ -48,8 +72,16 @@ $(document).ready(function () {
     });
     $("#myTab a").on("click", function (e) {
         e.preventDefault();
-        preview(1);
         $(this).tab('show');
+    });
+
+
+    $("button[title='导出数据']").on("click", function () {
+        var tableName = "#" + $(this).attr("name");
+
+        console.log("tableName--------------" + tableName);
+        exportExcelByName(tableName);
+
     })
 });
 
@@ -148,8 +180,4 @@ function abort(id) {
     dealResult(orderId, operationType, operationDesc);
 }
 
-
-function exportExcel() {
-    console.log("-------------------------");
-}
 

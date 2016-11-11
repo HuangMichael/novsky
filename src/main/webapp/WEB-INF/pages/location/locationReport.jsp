@@ -56,7 +56,7 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消
         </button>
-        <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger" onclick="add2LocCart()">报修
+        <button type="button" id="reportBtn" name="reportBtn" class="btn btn-primary btn-danger" onclick="add2LocCart()">报修
         </button>
     </div>
 </form>

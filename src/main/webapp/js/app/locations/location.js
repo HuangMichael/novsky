@@ -18,6 +18,21 @@ var zNodes = [];
 var validationConfig = {
     message: '该值无效 ',
     fields: {
+        "location": {
+            message: '位置编号无效',
+            validators: {
+                notEmpty: {
+                    message: '位置编号不能为空!'
+                }
+                ,
+                stringLength: {
+                    min: 2,
+                    max: 20,
+                    message: '位置编号长度为2到20个字符'
+                }
+            }
+        }
+        ,
         "description": {
             message: '位置描述无效',
             validators: {
@@ -29,57 +44,6 @@ var validationConfig = {
                     min: 2,
                     max: 20,
                     message: '位置描述长度为2到20个字符'
-                }
-            }
-        }
-        ,
-        description: {
-            message: '设备描述无效',
-            validators: {
-                notEmpty: {
-                    message: '设备描述不能为空!'
-                }
-                ,
-                stringLength: {
-                    min: 2,
-                    max: 20,
-                    message: '设备描述长度为2到20个字符'
-                }
-            }
-        }
-        ,
-        "locations.id": {
-            message: '设备位置无效',
-            validators: {
-                notEmpty: {
-                    message: '设备位置不能为空!'
-                }
-            }
-        }
-        ,
-        "equipmentsClassification.id": {
-            message: '设备分类无效',
-            validators: {
-                notEmpty: {
-                    message: '设备分类不能为空!'
-                }
-            }
-        }
-        ,
-        "status": {
-            message: '设备状态无效',
-            validators: {
-                notEmpty: {
-                    message: '设备状态不能为空!'
-                }
-            }
-        }
-        ,
-        "running": {
-            message: '运行状态无效',
-            validators: {
-                notEmpty: {
-                    message: '运行状态不能为空!'
                 }
             }
         }
@@ -157,7 +121,7 @@ $(document).ready(function () {
 
 });
 var flag = false;
-function loadCreateForm() {
+function add() {
     var tree = $.fn.zTree.getZTreeObj("tree");
     var selectedNode = zTree.getSelectedNodes()[0];
     var id = selectedNode.id;
@@ -211,7 +175,7 @@ function equipReport(id) {
 /**
  *  删除位置信息
  */
-function deleteObject() {
+function del() {
     var zTree = $.fn.zTree.getZTreeObj("tree");
     var selectedNode = zTree.getSelectedNodes()[0];
     var id = selectedNode.id;
@@ -304,6 +268,9 @@ function continueLocReport() {
     $("#loc_modal").modal("show");
 }
 
+/**
+ * 加入位置报修
+ */
 function add2LocCart() {
     var nodeId = getSelectedNodeId();
     var url = "/workOrderReportCart/add2LocCart";
