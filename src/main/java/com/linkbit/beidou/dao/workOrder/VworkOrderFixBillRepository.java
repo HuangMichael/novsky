@@ -36,4 +36,13 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
     Page<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContainingOrderByNodeTimeDesc(String location, String nodeState, String orderDesc, Pageable pageable);
 
 
+    /**
+     * @param location  位置编号
+     * @param nodeState 节点状态
+     * @param orderDesc 不分页
+     * @return
+     */
+    List<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContainingOrderByNodeTimeDesc(String location, String nodeState, String orderDesc);
+
+
 }

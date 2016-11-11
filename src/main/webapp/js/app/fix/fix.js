@@ -78,9 +78,9 @@ $(document).ready(function () {
 
     $("button[title='导出数据']").on("click", function () {
         var tableName = "#" + $(this).attr("name");
-
-        console.log("tableName--------------" + tableName);
-        exportExcelByName(tableName);
+        var nodeState = ["已派工", "已完工", "已暂停", "已取消"];
+        var state = nodeState[tableName.charAt(tableName.length - 1)];
+        exportExcelByName(tableName, state);
 
     })
 });

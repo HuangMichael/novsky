@@ -17,6 +17,7 @@ import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.SessionUtil;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/workOrderFix")
+@Data
 public class WorkOrderFixController extends BaseController {
     @Autowired
     CommonDataService commonDataService;
@@ -54,6 +56,9 @@ public class WorkOrderFixController extends BaseController {
     WorkOrderReportCartRepository workOrderReportCartRepository;
     @Autowired
     WorkOrderReportCartService workOrderReportCartService;
+
+
+    private String location;
 
     /**
      * @param modelMap
@@ -107,7 +112,7 @@ public class WorkOrderFixController extends BaseController {
                        @RequestParam(value = "searchPhrase", required = false) String searchPhrase,
                        @PathVariable("status") String status) {
         //过滤显示当前用户location数据 找出不完工的单子
-        String location = SessionUtil.getCurrentUserLocationBySession(session);
+        location = SessionUtil.getCurrentUserLocationBySession(session);
         Page<VworkOrderFixBill> page = null;
         page = workOrderFixService.findByLocationStartingWithAndNodeStateAndOrderDescContaining(status, location, searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
@@ -201,10 +206,15 @@ public class WorkOrderFixController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-       /* List<VworkOrderFixBill> dataList = workOrderFixService.findByLocationStartingWithAndNodeStateAndOrderDescContaining(param);
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response,
+                            @RequestParam("param") String param,
+                            @RequestParam("docName") String docName,
+                            @RequestParam("titles") String titles[],
+                            @RequestParam("colNames") String[] colNames,
+                            @RequestParam("nodeState") String nodeState) {
+        List<VworkOrderFixBill> dataList = workOrderFixService.findByLocationStartingWithAndNodeStateAndOrderDescContaining(location, nodeState, param);
         workOrderFixService.setDataList(dataList);
-        workOrderFixService.exportExcel(request, response, docName, titles, colNames);*/
+        workOrderFixService.exportExcel(request, response, docName, titles, colNames);
     }
 
 }

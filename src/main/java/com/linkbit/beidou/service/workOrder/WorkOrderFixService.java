@@ -176,6 +176,20 @@ public class WorkOrderFixService extends BaseService {
 
 
     /**
+     * @param nodeState 节点状态
+     * @param location  位置编号
+     * @param orderDesc 维修单描述
+     * @return 查询已派工的维修单
+     */
+    public List<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContaining(String location, String nodeState, String orderDesc) {
+
+
+        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeStateAndOrderDescContainingOrderByNodeTimeDesc(location, nodeState, orderDesc);
+
+    }
+
+
+    /**
      * @param workOrderReportCart 工单信息
      * @param fixDesc             维修描述
      * @param status              工单状态
