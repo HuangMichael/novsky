@@ -4,6 +4,8 @@ package com.linkbit.beidou.controller.workOrder;
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.workOrder.WorkOrderHistoryRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
+import com.linkbit.beidou.domain.app.MyPage;
+import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.VworkOrderFixBill;
 import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
@@ -17,6 +19,8 @@ import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -62,10 +66,10 @@ public class WorkOrderFixController extends BaseController {
     }
 
 
-    /**
+   /* *//**
      * @param modelMap
      * @return 显示维修工单列表
-     */
+     *//*
     @Override
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list( HttpSession session,ModelMap modelMap) {
@@ -82,6 +86,34 @@ public class WorkOrderFixController extends BaseController {
         modelMap.put("workOrderFixDetailListList3", workOrderFixDetailListList3);
         //查询出已派工的维修单
         return "/workOrderFix/list";
+    }*/
+
+
+    /**
+     * @param session
+     * @param current
+     * @param rowCount
+     * @param searchPhrase
+     * @return 显示维修工单列表
+     */
+
+    @RequestMapping(value = "/data/{status}", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage data(HttpSession session,
+                       @RequestParam(value = "current", defaultValue = "0") int current,
+                       @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount,
+                       @RequestParam(value = "searchPhrase", required = false) String searchPhrase,
+                       @PathVariable("status") String status) {
+        //过滤显示当前用户location数据 找出不完工的单子
+        String location = SessionUtil.getCurrentUserLocationBySession(session);
+        Page<VworkOrderFixBill> page = null;
+        page = workOrderFixService.findByLocationStartingWithAndNodeStateAndOrderDescContaining(status, location, searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+        return myPage;
     }
 
 

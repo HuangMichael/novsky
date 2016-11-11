@@ -16,6 +16,8 @@ import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -154,6 +156,21 @@ public class WorkOrderFixService extends BaseService {
     public List<VworkOrderFixBill> findByNodeStateAndLocation(String nodeState, String location) {
 
         return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeState(location, nodeState);
+
+    }
+
+
+    /**
+     * @param nodeState 节点状态
+     * @param location  位置编号
+     * @param orderDesc 维修单描述
+     * @param pageable  可分页
+     * @return 查询已派工的维修单
+     */
+    public Page<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContaining(String nodeState, String location, String orderDesc, Pageable pageable) {
+
+
+        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeStateAndOrderDescContaining(location, nodeState, orderDesc, pageable);
 
     }
 

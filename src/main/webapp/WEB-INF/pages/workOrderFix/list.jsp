@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="js/jquery-treegrid/css/jquery.treegrid.css">
 <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
-
 <div class="container">
     <div class="row">
         <div id="content" class="col-lg-12">
@@ -43,7 +42,9 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
                                                 <table id="fixListTable"
-                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                       class="table table-striped table-bordered table-hover  table-responsive"
+                                                       data-toggle="bootgrid" data-ajax="true"
+                                                       data-url="/workOrderFix/data/已派工">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
@@ -51,13 +52,13 @@
                                                             data-identifier="true" data-visible="false">ID
                                                         </th>
                                                         <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="location" data-width="8%">设备位置</th>
-                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
+                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
                                                         <th data-column-id="eqClass" data-width="5%">设备分类</th>
                                                         <th data-column-id="unitName" data-width="10%"
                                                             data-visible="false">维修单位
                                                         </th>
-                                                        <th data-column-id="status" data-width="5%">维修状态</th>
+                                                        <th data-column-id="nodeState" data-width="5%">维修状态</th>
                                                         <th data-column-id="nodeTime" data-width="8%" data-order="desc">
                                                             处理时间
                                                         </th>
@@ -71,99 +72,44 @@
                                                         </th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
-
-                                                    <c:forEach items="${workOrderFixDetailListList0}" var="d"
-                                                               varStatus="ds">
-                                                        <tr id="tr-${d.id}">
-
-                                                            <td>${d.orderLineNo}</td>
-                                                            <td>${d.id}</td>
-                                                            <td>${d.eqName}</td>
-                                                            <td>${d.locName}</td>
-                                                            <td>${d.orderDesc}</td>
-                                                            <td>${d.eqClass}</td>
-                                                            <td>${d.unitName}</td>
-                                                            <td>
-                                                                    ${d.nodeState}
-                                                            </td>
-
-                                                            <td>
-                                                                <fmt:formatDate value="${d.nodeTime}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-
-                                                            <td>
-                                                                <fmt:formatDate value="${d.deadLine}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-
-                                                            <td>${d.expired}</td>
-
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
                                                 </table>
                                             </div>
-                                            <div class="tab-pane fade in " id="tab_1_1">
+                                            <div class="tab-pane fade in" id="tab_1_1">
                                                 <table id="fixListTable1"
-                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                       class="table table-striped table-bordered table-hover  table-responsive"
+                                                       data-toggle="bootgrid" data-ajax="true"
+                                                       data-url="/workOrderFix/data/已完工">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
                                                         <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="location" data-width="8%">设备位置</th>
-                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
+                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
                                                         <th data-column-id="eqClass" data-width="5%">设备分类</th>
                                                         <th data-column-id="unitName" data-width="10%"
                                                             data-visible="false">维修单位
                                                         </th>
-                                                        <th data-column-id="status" data-width="5%">维修状态</th>
+                                                        <th data-column-id="nodeState" data-width="5%">维修状态</th>
                                                         <th data-column-id="nodeTime" data-width="8%" data-order="desc">
                                                             处理时间
                                                         </th>
                                                         <th data-column-id="deadLine" data-width="8%">截止日期</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
 
-                                                    <c:forEach items="${workOrderFixDetailListList1}" var="d"
-                                                               varStatus="ds">
-                                                        <tr style="display: none;" id="tr-${d.id}">
-
-                                                            <td>${d.orderLineNo}</td>
-                                                            <td>${d.eqName}</td>
-                                                            <td>${d.locName}</td>
-                                                            <td>${d.orderDesc}</td>
-                                                            <td>${d.eqClass}</td>
-                                                            <td>${d.unitName}</td>
-                                                            <td>
-                                                                    ${d.nodeState}
-                                                            </td>
-
-                                                            <td>
-                                                                <fmt:formatDate value="${d.nodeTime}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-
-                                                            <td>
-                                                                <fmt:formatDate value="${d.deadLine}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                             <div class="tab-pane fade in" id="tab_1_2">
                                                 <table id="fixListTable2"
-                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                       class="table table-striped table-bordered table-hover  table-responsive"
+                                                       data-toggle="bootgrid" data-ajax="true"
+                                                       data-url="/workOrderFix/data/已暂停">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
                                                         <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="location" data-width="8%">设备位置</th>
-                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
+                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
                                                         <th data-column-id="eqClass" data-width="5%">设备分类</th>
                                                         <th data-column-id="unitName" data-width="10%"
                                                             data-visible="false">维修单位
@@ -176,50 +122,25 @@
 
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
 
-                                                    <c:forEach items="${workOrderFixDetailListList2}" var="d"
-                                                               varStatus="ds">
-                                                        <tr style="display: none;" id="tr-${d.id}">
-
-                                                            <td>${d.orderLineNo}</td>
-                                                            <td>${d.eqName}</td>
-                                                            <td>${d.locName}</td>
-                                                            <td>${d.orderDesc}</td>
-                                                            <td>${d.eqClass}</td>
-                                                            <td>${d.unitName}</td>
-                                                            <td>
-                                                                    ${d.nodeState}
-                                                            </td>
-
-                                                            <td>
-                                                                <fmt:formatDate value="${d.nodeTime}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-
-                                                            <td>
-                                                                <fmt:formatDate value="${d.deadLine}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                    </tbody>
                                                 </table>
                                             </div>
-                                            <div class="tab-pane fade in " id="tab_1_3">
+                                            <div class="tab-pane fade in" id="tab_1_3">
                                                 <table id="fixListTable3"
-                                                       class="table table-striped table-bordered table-hover  table-responsive">
+                                                       class="table table-striped table-bordered table-hover  table-responsive"
+                                                       data-toggle="bootgrid" data-ajax="true"
+                                                       data-url="/workOrderFix/data/已取消">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
                                                         <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="location" data-width="8%">设备位置</th>
-                                                        <th data-column-id="eqDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
+                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
                                                         <th data-column-id="eqClass" data-width="5%">设备分类</th>
                                                         <th data-column-id="unitName" data-width="10%"
                                                             data-visible="false">维修单位
                                                         </th>
-                                                        <th data-column-id="status" data-width="5%">维修状态</th>
+                                                        <th data-column-id="nodeState" data-width="5%">维修状态</th>
                                                         <th data-column-id="nodeTime" data-width="8%" data-order="desc">
                                                             处理时间
                                                         </th>
@@ -227,31 +148,6 @@
 
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
-                                                    <c:forEach items="${workOrderFixDetailListList3}" var="d"
-                                                               varStatus="ds">
-                                                        <tr data-style="background:red">
-                                                            <td>${d.orderLineNo}</td>
-                                                            <td>${d.eqName}</td>
-                                                            <td>${d.locName}</td>
-                                                            <td>${d.orderDesc}</td>
-                                                            <td>${d.eqClass}</td>
-                                                            <td>${d.unitName}</td>
-                                                            <td>
-                                                                    ${d.nodeState}
-                                                            </td>
-                                                            <td>
-                                                                <fmt:formatDate value="${d.nodeTime}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-                                                            <td>
-                                                                <fmt:formatDate value="${d.deadLine}"
-                                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                                            </td>
-                                                        </tr>
-
-                                                    </c:forEach>
-                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
