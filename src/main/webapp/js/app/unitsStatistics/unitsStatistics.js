@@ -339,7 +339,7 @@ function loadEfficiencyChart() {
             enabled: true
         },
         title: {
-            text: year + '年度外委单位维修及时率统计'
+            text: year + '年度外委单位维修及时率后五名统计'
         },
         plotOptions: {
             column: {
