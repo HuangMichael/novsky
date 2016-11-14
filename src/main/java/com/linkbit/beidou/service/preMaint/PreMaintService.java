@@ -129,14 +129,6 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
      */
     @Transactional
     public List<PreMaintWorkOrder> generatePmOrder(Long id, String deadLine) {
-
-
-
-
-
-
-
-
         List<PreMaintWorkOrder> pmOrderList = new ArrayList<PreMaintWorkOrder>();
         PreMaint preMaint = preMaintRepository.findOne(id);
         int frequency, unit;
@@ -203,9 +195,6 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
     }
 
 
-
-
-
     /**
      * @param nodeState 节点状态
      * @param orderDesc 维修描述
@@ -242,4 +231,18 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
     public List<PreMaintWorkOrder> findByOrderDescContains(String orderDesc) {
         return preMaintWorkOrderRepository.findByOrderDesc(orderDesc);
     }
+
+
+    /**
+     * @param idList   执行的计划id集合
+     * @param deadLine 期限
+     */
+    @Transactional
+    public void generatePmOrderBatch(List<Long> idList, String deadLine) {
+        for (Long id : idList) {
+            this.generatePmOrder(id, deadLine);
+        }
+
+    }
+
 }

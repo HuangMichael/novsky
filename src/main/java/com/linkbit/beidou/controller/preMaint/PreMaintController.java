@@ -150,20 +150,6 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/executeGenerate")
     @ResponseBody
     public ReturnObject executeGenerating(@RequestParam("ids") String ids, @RequestParam("deadLine") String deadLine) {
-
-
-        //首先检查调度是否启用
-
-        SystemInfo systemInfo = sysInfoService.findBySysName("pre_maint_auto_schedule");
-
-        //如果调度已启用  直接返回
-
-        if (systemInfo.getStatus().equals("1")) {
-
-            return commonDataService.getReturnType(false, "预防性维修信息生成成功!", "预防性维修信息生成失败!");
-        }
-
-
         String idArray[] = ids.split(",");
         Long id;
         List<PreMaintWorkOrder> workOrderList = null;

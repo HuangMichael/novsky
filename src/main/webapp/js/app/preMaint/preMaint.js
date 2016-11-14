@@ -93,14 +93,10 @@ var validationConfig = {
     }
 };
 $(function () {
-
-
     docName = "预防性维修信息";
     mainObject = "preMaint";
-
     //初始化从数据库获取列表数据
     //initLoadData("/units/findAll", dataTableName);
-
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
         locs = data;
@@ -145,8 +141,6 @@ $(function () {
             f_units: f_units
         }
     });
-
-
     showDetail();
 
 
@@ -157,15 +151,9 @@ $(function () {
  * 生成工单
  */
 function popGen() {
-
-    $("#confirm_modal").modal("show");
-}
-
-
-/**
- * 生成工单
- */
-function generateOrder() {
+    if (selectedIds.length = 0) {
+        showMessageBox("danger", "请选择要执行的计划信息！");
+    }
     if (autoScheduled()) {
         bootbox.confirm({
             message: "预防性维修调度已启用，确定要手动执行生成么?",
@@ -180,26 +168,37 @@ function generateOrder() {
                 }
             },
             callback: function (result) {
-                var deadLine = $("#deadLine").val();
-                var url = "/preMaint/executeGenerate";
-                var obj = {
-                    deadLine: deadLine,
-                    ids: selectedIds.toString()
-                };
-                $.post(url, obj, function (data) {
-                    if (data.result) {
-                        $("#confirm_modal").modal("hide");
-                        showMessageBox("info", data["resultDesc"]);
-                    } else {
-                        showMessageBox("danger", data["resultDesc"]);
-                    }
-                });
+                if (result) {
+                    $("#confirm_modal").modal("show");
+                }
             }
         });
 
     }
 
 
+}
+
+
+/**
+ * 生成工单
+ */
+function generateOrder() {
+    var deadLine = $("#deadLine").val();
+    var url = "/preMaint/executeGenerate";
+    var selected = $(dataTableName).bootgrid("getSelectedRows");
+    var obj = {
+        deadLine: deadLine,
+        ids: selected.toString()
+    };
+    $.post(url, obj, function (data) {
+        $("#confirm_modal").modal("hide");
+        if (data.result) {
+            showMessageBox("info", data["resultDesc"]);
+        } else {
+            showMessageBox("danger", data["resultDesc"]);
+        }
+    });
 }
 
 
