@@ -31,7 +31,6 @@ public class WorkOrderDispatchService extends BaseService {
      * @param detailId
      * @param unitId
      * @return 返回更新了维修单位的报修明细信息
-     *
      */
     @Transactional
     public WorkOrderReportCart updateDetailUnit(Long detailId, Long unitId) {

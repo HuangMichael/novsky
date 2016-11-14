@@ -40,7 +40,7 @@ public class WorkOrderReportCart {
     @JoinColumn(name = "eqClass_id")
     private EquipmentsClassification equipmentsClassification;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
     Units unit;
 
@@ -68,7 +68,7 @@ public class WorkOrderReportCart {
 
     @Column(length = 1)
     private String status;
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations;  //所属位置
 
