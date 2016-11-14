@@ -4,6 +4,7 @@ package com.linkbit.beidou.dao.role;
 import com.linkbit.beidou.domain.role.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -47,6 +48,10 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
      * 保存角色信息;
      */
     Role save(Role role);
+
+
+    @Query("select e.id from Role e order by e.id asc")
+    List<Long> findAllId();
 
 
 }

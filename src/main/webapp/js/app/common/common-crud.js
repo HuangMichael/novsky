@@ -222,8 +222,6 @@ function del() {
  * 显示明细信息
  */
 function showDetail() {
-
-    console.log("mainObject------------" + mainObject);
     var object = null;
     if (selectedIds.length > 0) {
         //切换tab时默认给detail中第一个数据
@@ -312,7 +310,7 @@ function exportExcel() {
 /**
  *导出excel
  */
-function exportExcelByName(dataTableName, nodeState,docName) {
+function exportExcelByName(dataTableName, nodeState, docName) {
     var param = $(dataTableName).bootgrid("getSearchPhrase");
     var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
 

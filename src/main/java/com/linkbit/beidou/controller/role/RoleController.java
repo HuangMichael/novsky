@@ -175,6 +175,16 @@ public class RoleController extends BaseController {
 
 
     /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/findAllIds", method = {RequestMethod.GET})
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return roleService.findAllIds();
+    }
+
+
+    /**
      * @return 查询不在当前角色中的用户
      */
     @RequestMapping(value = "/removeUser", method = {RequestMethod.POST})

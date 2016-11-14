@@ -22,7 +22,6 @@ var formstatus = formStatusArray["READ"];
 var activeTab = "list";
 
 
-
 //数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
@@ -217,6 +216,8 @@ $(function () {
         e.preventDefault();
         saveEquipment();
     });
+
+
     listTab.on('click', function () {
         refresh();
 
@@ -952,24 +953,8 @@ function reload(url) {
 }
 
 
-function refresh(data) {
-    var index = $(dataTableName).bootgrid("getTotalRowCount"); //获取所有行数
-    var nextIndex = parseInt(index + 1);
-    if (data) {
-        var obj = {
-            index: nextIndex,
-            id: data.id,
-            eqCode: data.eqCode,
-            description: data.description,
-            equipClass: data.equipmentsClassification.description,
-            location: data.locations.description,
-            status: '投用',
-            running: '运行',
-            report: '<a class="btn btn-default btn-xs"  onclick="report(' + data.id + ')" title="报修"><i class="glyphicon glyphicon-wrench"></i></a>',
-            track: '<a class="btn btn-default btn-xs"  onclick="track(' + data.id + ')" title="追踪" disabled="setTrackStatus(' + data.id + ')"><i class="glyphicon glyphicon-map-marker"></i></a>'
-        };
-        $(dataTableName).bootgrid("append", [obj]);
-    }
+function refresh() {
+    $(dataTableName).bootgrid("reload");
 }
 
 

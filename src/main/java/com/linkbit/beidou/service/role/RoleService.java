@@ -46,16 +46,14 @@ public class RoleService extends BaseService {
 
 
     /**
-     *
      * @param roleDesc 角色描述
      * @return 根据角色描述关键字进行查询
      */
     public Page<Role> findByRoleDescContains(String roleDesc, Pageable pageable) {
-        return roleRepository.findByRoleDescContains(roleDesc,pageable);
+        return roleRepository.findByRoleDescContains(roleDesc, pageable);
     }
 
     /**
-     *
      * @param roleDesc 角色描述
      * @return 根据角色描述关键字进行查询
      */
@@ -127,6 +125,14 @@ public class RoleService extends BaseService {
             userList = userRepository.findUserListByRoleId(roleId);
         }
         return userList;
+    }
+
+
+    /**
+     * @return 查询所有的id集合
+     */
+    public List<Long> findAllIds() {
+        return roleRepository.findAllId();
     }
 
 

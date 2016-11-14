@@ -187,39 +187,46 @@ $(function () {
 
     docName = "角色信息";
     mainObject = "role";
+    formName = "#detailForm";
 
-
-    initLoadData("/role/findActiveRole", dataTableName);
-    $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
+    initBootGrid(dataTableName);
+    //initLoadData("/role/findActiveRole", dataTableName);
+    $(formName).bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
             e.preventDefault();
+            save();
 
         });
 
+
+    var ids = findAllRecordId();
     vdm = new Vue({
-        el: "#detailForm",
+        el: formName,
         data: {
-            role: null
+            role: findById(ids[0])
         }
     });
 
-    //点击显示角色详细信息
-    formTab.on('click',
-        function () {
-            activeTab = "detail";
-            setFormReadStatus("#detailForm", formLocked);
-            //首先判断是否有选中的
-            var role = null;
-            if (selectedIds.length > 0) {
-                role = getRoleByIdInRoles(selectedIds[0]);
-            } else {
-                //没有选中的 默认显示整个列表的第一条
-                role = getRoleByIdInRoles(roles[0]["id"]);
-                selectedIds = setAllInSelectedList(roles);
-            }
-            vdm.role = role;
-            loadUsers(role.id)
-        });
+    /* //点击显示角色详细信息
+     formTab.on('click',
+     function () {
+     activeTab = "detail";
+     setFormReadStatus("#detailForm", formLocked);
+     //首先判断是否有选中的
+     var role = null;
+     if (selectedIds.length > 0) {
+     role = findById(selectedIds[0]);
+     } else {
+     //没有选中的 默认显示整个列表的第一条
+     role = getRoleByIdInRoles(roles[0]["id"]);
+     selectedIds = setAllInSelectedList(roles);
+     }
+     vdm.role = role;
+     loadUsers(role.id)
+     });*/
+
+
+    showDetail();
 
     listTab.on('click',
         function () {
