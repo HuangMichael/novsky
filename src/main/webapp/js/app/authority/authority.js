@@ -55,10 +55,21 @@ $(function () {
     }
 
 
-    $("#authListTable").bootgrid();
+    $("#authListTable").bootgrid(
+        {
+            formatters: {
+                "remove": function (column, row) {
+                    return '<a class="btn btn-default btn-xs"  onclick="removeAuth(' + row.id + ')" title="取消授权" ><i class="glyphicon glyphicon-remove"></i></a>'
+                }
+            }
+        }
+    );
     $("select").select2({theme: "bootstrap"});
-    var roleId = $("#role_id").val();
-    // markAuthByRole(roleId);
+
+
+    docName = "权限信息";
+    mainObject = "authority";
+    dataTableName = "#authListTable";
 });
 
 
@@ -102,10 +113,16 @@ function grant() {
  */
 function loadAuthView() {
     var roleId = $("#role_id").val();
-    var url = "/authority/loadAuthView/" + roleId;
-    $("#authViewDiv").load(url, function (data) {
-        $("#authListTable").bootgrid();
-    });
+    var url = "/authority/loadByRole/" + roleId;
+
+    $("#authListTable").data("url", url);
+    $("#authListTable").bootgrid("reload");
+
+
+    /*$("#authViewDiv").load(url, function (data) {
+     $("#authListTable").data("reload");
+     $("#authListTable").bootgrid("reload");
+     });*/
 
 
 }
@@ -139,4 +156,22 @@ function markAuthByRole(roleId) {
     // var roleId = $("#role_id").val();
 
 
+}
+
+
+/**
+ *
+ * @param id 资源id
+ */
+function removeAuth(id) {
+    var roleId = $("#role_id").val();
+    var resourceId = id;
+    var url = mainObject + "/revoke";
+    var params = {
+        roleId: roleId,
+        resourceId: resourceId,
+    }
+    $.post(url, params, function (data) {
+        showMessageBox("info", "授权取消成功!");
+    });
 }

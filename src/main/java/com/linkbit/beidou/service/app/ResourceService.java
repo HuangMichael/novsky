@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.List;
  * 数据资源业务类
  */
 @Service
-public class ResourceService {
+public class ResourceService extends BaseService {
 
     @Autowired
     public ResourceRepository resourceRepository;
@@ -202,27 +203,16 @@ public class ResourceService {
         return resourceList;
     }
 
-/*
-    *//**
+
+    /**
      * @param roleId
-     * @param resourceLevel
-     * @return 根据角色和资源级别查询资源
-     *//*
-    public List<VRoleAuthView> findAppsByRoleId(Long roleId, Long resourceLevel) {
+     * @param resourceName
+     * @return
+     */
+    public List<VRoleAuthView> findByRoleAndResourceNameContaining(Long roleId, String resourceName) {
         Role role = roleService.findById(roleId);
-        return vRoleAuthViewRepository.findByRoleAndResourceLevel(role, resourceLevel);
+        return vRoleAuthViewRepository.findByRoleAndResourceNameContaining(role, resourceName);
     }
-
-
-    *//**
-     * @param roleId
-     * @param resourceLevel
-     * @return 根据角色和资源级别查询资源
-     *//*
-    public List<VRoleAuthView> findAppsByRoleIdAndParentId(Long roleId, Long resourceLevel, Long parentId) {
-        Role role = roleService.findById(roleId);
-        return vRoleAuthViewRepository.findByRoleAndResourceLevelAndParentId(role, resourceLevel, parentId);
-    }*/
 
     /**
      * @param userId 用户名
@@ -278,9 +268,9 @@ public class ResourceService {
      * @param url
      * @return 根据url查询资源集合
      */
-    public Resource findByResourceUrlStartingWithAndStaticFlag(String url,String staticFlag) {
+    public Resource findByResourceUrlStartingWithAndStaticFlag(String url, String staticFlag) {
         Resource resource = null;
-        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url,staticFlag);
+        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url, staticFlag);
         if (!resourceList.isEmpty()) {
             resource = resourceList.get(0);
         }
@@ -292,8 +282,8 @@ public class ResourceService {
      * @param url
      * @return 根据url查询资源集合
      */
-    public Boolean exists(String url,String staticFlag) {
-        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url,staticFlag);
+    public Boolean exists(String url, String staticFlag) {
+        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url, staticFlag);
         return !resourceList.isEmpty();
     }
 
@@ -311,7 +301,7 @@ public class ResourceService {
             resource.setResourceName("静态资源");
             resource.setAppName("无");
             resource.setIconClass("");
-            resource.setResourceCode(new Date().getTime()+"");
+            resource.setResourceCode(new Date().getTime() + "");
             resource.setSortNo(0l);
             resource.setStatus("1");
             resourceRepository.save(resource);
@@ -319,5 +309,23 @@ public class ResourceService {
 
 
         return resource;
+    }
+
+
+    /**
+     * @param roleId     角色id
+     * @param resourceId 资源id
+     */
+    public void deleteRoleAuth(Long roleId, Long resourceId) {
+        List<Resource> newResourceList = new ArrayList<Resource>();
+        Role role = roleService.findById(roleId);
+        List<Resource> resourceList = role.getResourceList();
+        for (Resource resource : resourceList) {
+            if (resource.getId() != null && resource.getId() != resourceId) {
+                newResourceList.add(resource);
+            }
+        }
+        role.setResourceList(newResourceList);
+        roleService.save(role);
     }
 }

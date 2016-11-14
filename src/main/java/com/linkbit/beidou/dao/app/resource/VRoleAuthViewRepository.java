@@ -2,8 +2,12 @@ package com.linkbit.beidou.dao.app.resource;
 
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.role.Role;
+import org.hibernate.annotations.SQLUpdate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.ArrayList;
@@ -12,7 +16,7 @@ import java.util.List;
 /**
  * Created by huangbin on 2016/8/16.
  */
-public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, Long> {
+public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, Long>, PagingAndSortingRepository<VRoleAuthView, Long> {
 
 
     /**
@@ -20,6 +24,23 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
      * @return 根据角色查询角色权限预览视图
      */
     List<VRoleAuthView> findByRole(Role role);
+
+
+    /**
+     * @param role
+     * @param resourceName
+     * @param pageable
+     * @return 根据角色查询角色权限预览视图
+     */
+    Page<VRoleAuthView> findByRoleAndResourceNameContaining(Role role, String resourceName, Pageable pageable);
+
+
+    /**
+     * @param role
+     * @param resourceName
+     * @return 根据角色查询角色权限预览视图
+     */
+    List<VRoleAuthView> findByRoleAndResourceNameContaining(Role role, String resourceName);
 
     /**
      * @param resourceLevel
@@ -43,4 +64,13 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
      */
     @Query("select  distinct v  from VRoleAuthView v where  v.role in :roleList and v.appName =:appName ")
     List<VRoleAuthView> findByRoleListAppName(@Param("roleList") List<Role> roleList, @Param("appName") String appName);
+
+
+    /**
+     * @param roleId 角色id
+     * @param authId 资源ID
+     * @return
+     */
+    @Query(nativeQuery = true, value = "delete from t_role_resource r where 1=1  and r.resource_id = :authId and r.role_id =:roleId ")
+    void deleteRoleAuth(@Param("roleId") Long roleId, @Param("authId") Long authId);
 }
