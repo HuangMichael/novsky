@@ -821,7 +821,7 @@ function forwards() {
 /**
  * 编辑设备信息
  */
-function editEq() {
+function edit() {
     setFormReadStatus("#detailForm", false);
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
@@ -847,11 +847,11 @@ function editEq() {
 /**
  * 保存设备信息
  */
-function saveEq() {
+function save() {
     $("#saveBtn").trigger("click");
 }
 
-function deleteEq() {
+function del() {
     if (activeTab != "list") {
         showMessageBox("info", "请到列表中选中再进行删除操作!");
         return;
