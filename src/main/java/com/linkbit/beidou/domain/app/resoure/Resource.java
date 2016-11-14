@@ -40,7 +40,7 @@ public class Resource {
     private String appName;//应用名称
 
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     Resource parent;
 

@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.equipment;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
@@ -25,29 +26,27 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/equipmentsClassification")
-public class EquipmentsClassificationController {
+public class EquipmentsClassificationController extends BaseController {
 
     @Autowired
     EquipmentsClassificationRepository equipmentsClassificationRepository;
     @Autowired
     EquipmentsClassificationService equipmentsClassificationService;
     @Autowired
-    UnitService outsoucingUnitService;
+    UnitService unitService;
     @Autowired
     ResourceService resourceService;
 
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession httpSession) {
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, "equipmentsClassification");
-        modelMap.put("appMenus", appMenus);
-        List<EquipmentsClassification> classificationList = equipmentsClassificationRepository.findAll();
-        EquipmentsClassification object = null;
-        if (!classificationList.isEmpty()) {
-            object = equipmentsClassificationRepository.findById(classificationList.get(0).getId());
-            modelMap.put("object", object);
-        }
-        modelMap.put("classificationList", classificationList);
-        return "/equipmentsClassification/list";
+
+    /**
+     * @param id id
+     * @return 根据ID查询节点对象
+     */
+    @RequestMapping(value = "/findById/{id}")
+    @ResponseBody
+    public EquipmentsClassification findById(@PathVariable("id") Long id) {
+        EquipmentsClassification eqClass = equipmentsClassificationRepository.findById(id);
+        return eqClass;
     }
 
 
@@ -181,7 +180,7 @@ public class EquipmentsClassificationController {
     @RequestMapping(value = "/findUnitByClassIdNotEq/{cid}", method = RequestMethod.GET)
     @ResponseBody
     public List<Object> findUnitByClassIdNotEq(@PathVariable("cid") Long cid) {
-        return outsoucingUnitService.findUnitListByEqClassIdNotEq(cid);
+        return unitService.findUnitListByEqClassIdNotEq(cid);
     }
 
 
@@ -194,7 +193,7 @@ public class EquipmentsClassificationController {
     @RequestMapping(value = "/findUnitListByEqClassId/{cid}", method = RequestMethod.GET)
     @ResponseBody
     public List<Object> findUnitListByEqClassId(@PathVariable("cid") Long cid) {
-        return outsoucingUnitService.findUnitListByEqClassIdEq(cid);
+        return unitService.findUnitListByEqClassIdEq(cid);
     }
 
 
@@ -207,7 +206,7 @@ public class EquipmentsClassificationController {
      */
     @RequestMapping(value = "/loadSelectUnitPage/{cid}", method = RequestMethod.GET)
     public String loadSelectUnitPage(@PathVariable("cid") Long cid, ModelMap modelMap) {
-        List<Object> unitList = outsoucingUnitService.findUnitListByEqClassIdNotEq(cid);
+        List<Object> unitList = unitService.findUnitListByEqClassIdNotEq(cid);
         modelMap.put("unitList", unitList);
         return "equipmentsClassification/unitList";
     }
@@ -223,7 +222,7 @@ public class EquipmentsClassificationController {
     public List<Units> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
         List<Units> outsourcingUnitList = null;
         if (cid != null && ids != null) {
-            outsourcingUnitList = outsoucingUnitService.addUnits(cid, ids);
+            outsourcingUnitList = unitService.addUnits(cid, ids);
         }
         return outsourcingUnitList;
     }
@@ -240,7 +239,7 @@ public class EquipmentsClassificationController {
     public List<Units> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, @RequestParam("workOrderId") Long workOrderId) {
         List<Units> outsourcingUnitList = null;
         if (cid != null && ids != null) {
-            outsourcingUnitList = outsoucingUnitService.addU2c(cid, ids, workOrderId);
+            outsourcingUnitList = unitService.addU2c(cid, ids, workOrderId);
         }
         return outsourcingUnitList;
     }
@@ -250,7 +249,7 @@ public class EquipmentsClassificationController {
     public EquipmentsClassification removeUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
         EquipmentsClassification equipmentsClassification = null;
         if (cid != null && ids != null) {
-            equipmentsClassification = outsoucingUnitService.removeUnits(cid, ids);
+            equipmentsClassification = unitService.removeUnits(cid, ids);
         }
         return equipmentsClassification;
     }

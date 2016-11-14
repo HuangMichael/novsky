@@ -23,7 +23,7 @@ var setting = {
     }
 };
 var zNodes = [];
-$(document).ready(function () {
+$(function () {
     var url = "/resource/findApps";
     var pid = 0;
     var obj = null;
