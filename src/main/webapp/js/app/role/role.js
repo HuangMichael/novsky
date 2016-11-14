@@ -189,7 +189,6 @@ $(function () {
     mainObject = "role";
 
 
-
     initLoadData("/role/findActiveRole", dataTableName);
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
@@ -354,7 +353,7 @@ function loadUsers(roleId) {
                 html += '<tr class="gradeX" id="tr' + id + '">';
                 html += '<td>' + Number(Number(x) + Number(1)) + '</td>';
                 html += '<td>' + data[x]['userName'] + '</td>';
-                html += '<td><a class="btn btn-sm" onclick="removeUser(' + roleId + "," + id + ')">移除</a></td>';
+                html += '<td><button class="btn btn-sm" onclick="removeUser(' + roleId + "," + id + ')"><i class="glyphicon glyphicon-remove"></i></button></td>';
                 html += '</tr>';
             }
         }
@@ -367,17 +366,40 @@ function loadUsers(roleId) {
  *移除用户
  */
 function removeUser(roleId, userId) {
+
     var url = "role/removeUser/";
     var data = {
         roleId: roleId,
         userId: userId
     };
-    $.post(url, data, function (msg) {
-        if (msg.result) {
-            showMessageBox("info", "用户移除成功!");
-            $("#tr" + userId).remove();
-        } else {
-            showMessageBox("danger", "用户移除失败!");
-        }
-    });
+    if (userId) {
+        bootbox.confirm({
+            message: "确定要从当前角色中删除该用户么？?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.post(url, data, function (msg) {
+                        if (msg.result) {
+                            showMessageBox("info", "用户移除成功!");
+                            $("#tr" + userId).remove();
+                        } else {
+                            showMessageBox("danger", "用户移除失败!");
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+
 }
