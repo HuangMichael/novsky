@@ -54,7 +54,7 @@ public class MatCostController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<MatCost> page = matCostService.findAll(new PageRequest(current - 1, rowCount.intValue()));
+        Page<MatCost> page = matCostService.findByMatName(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);

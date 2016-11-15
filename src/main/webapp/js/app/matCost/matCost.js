@@ -10,24 +10,10 @@ var searchVue = null;
 var searchListVue = null;
 var searchObject = null;
 
-var dataTableName = "#matCostDataTable";
-
-var bootGridCfg = {
-    searchSettings: {
-        delay: 100,
-        characters: 3
-    }
-    ,
-    templates: {
-        search: ""
-
-    }
-};
-
+ dataTableName = "#matCostDataTable";
 var mcList = [];
 $(function () {
-
-
+    initBootGrid(dataTableName);
     initSelect();
 
 
@@ -150,48 +136,4 @@ function search() {
 }
 
 
-function loadPage() {
-    var url = "matCost/loadPage";
-    $("#ctb").load(url);
-}
 
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var param = $(dataTableName).bootgrid("getSearchPhrase");
-    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
-
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "物资消耗信息";
-    var url = "matCost/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
-
-}

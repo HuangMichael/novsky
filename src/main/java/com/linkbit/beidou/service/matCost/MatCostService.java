@@ -39,6 +39,14 @@ public class MatCostService extends BaseService {
     /**
      * 查询所有数据资源
      */
+    public Page<MatCost> findByMatName(String matName, Pageable pageable) {
+        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(matName,matName,matName,pageable);
+    }
+
+
+    /**
+     * 查询所有数据资源
+     */
     public List<MatCost> findAll() {
         return matCostRepository.findAll();
     }

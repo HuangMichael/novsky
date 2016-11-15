@@ -28,59 +28,60 @@
                                     <div class="tab-pane fade in active" id="list_tab"
                                          style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
                                         <div class="container-fluid">
-                                            <div style="margin-top: 20px;padding: 20px">
-                                                <div class="form-inline" role="form" id="searchForm">
-                                                    <div class="form-group">
+                                            <%--         <div style="margin-top: 20px;padding: 20px">
+                                                         <div class="form-inline" role="form" id="searchForm">
+                                                             <div class="form-group">
 
-                                                        <div class="input-group">
-                                                            <label class="sr-only" for="ecType">分类</label>
-                                                            <select v-model="ecType" class="form-control" id="ecType"
-                                                                    name="locName"
-                                                                    style="width:200px">
-                                                                <option value="" selected>
-                                                                    请选择分类
-                                                                </option>
-                                                                <option>
-                                                                    物资
-                                                                </option>
-                                                                <option>
-                                                                    易耗品
-                                                                </option>
+                                                                 <div class="input-group">
+                                                                     <label class="sr-only" for="ecType">分类</label>
+                                                                     <select v-model="ecType" class="form-control" id="ecType"
+                                                                             name="locName"
+                                                                             style="width:200px">
+                                                                         <option value="" selected>
+                                                                             请选择分类
+                                                                         </option>
+                                                                         <option>
+                                                                             物资
+                                                                         </option>
+                                                                         <option>
+                                                                             易耗品
+                                                                         </option>
 
-                                                            </select>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label class="sr-only" for="locName">位置</label>
-                                                            <select v-model="locName" class="form-control" id="locName"
-                                                                    name="locName"
-                                                                    style="width:200px" required>
-                                                                <option value="">
-                                                                    请选择位置
-                                                                </option>
-                                                                <template v-for="loc in locs">
-                                                                    <option>
-                                                                        {{loc }}
-                                                                    </option>
-                                                                </template>
-                                                            </select>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label class="sr-only" for="ecName">名称</label>
-                                                            <input type="text" class="form-control" id="ecName"
-                                                                   placeholder="请输入名称" value="">
-                                                        </div>
-                                                    </div>
-                                                    <button type="button" class="btn btn-default" id="searchBtn">查询
-                                                    </button>
-                                                </div>
-                                            </div>
+                                                                     </select>
+                                                                 </div>
+                                                                 <div class="input-group">
+                                                                     <label class="sr-only" for="locName">位置</label>
+                                                                     <select v-model="locName" class="form-control" id="locName"
+                                                                             name="locName"
+                                                                             style="width:200px" required>
+                                                                         <option value="">
+                                                                             请选择位置
+                                                                         </option>
+                                                                         <template v-for="loc in locs">
+                                                                             <option>
+                                                                                 {{loc }}
+                                                                             </option>
+                                                                         </template>
+                                                                     </select>
+                                                                 </div>
+                                                                 <div class="input-group">
+                                                                     <label class="sr-only" for="ecName">名称</label>
+                                                                     <input type="text" class="form-control" id="ecName"
+                                                                            placeholder="请输入名称" value="">
+                                                                 </div>
+                                                             </div>
+                                                             <button type="button" class="btn btn-default" id="searchBtn">查询
+                                                             </button>
+                                                         </div>
+                                                     </div>--%>
                                             <table id="matCostDataTable"
-                                                   class=" table table-striped table-bordered table-hover"
-                                                   data-toggle="bootgrid">
+                                                   class="table table-striped table-bordered table-hover"
+                                                   data-toggle="bootgrid" data-ajax="true" data-url="/matCost/data">
                                                 <thead>
                                                 <tr>
+                                                    <th data-column-id="id" data-width="5%">序号</th>
                                                     <th data-column-id="id" data-type="numeric" data-identifier="true"
-                                                        data-visible="false" width="2%">序号
+                                                        data-visible="false" data-width="5%">ID
                                                     </th>
                                                     <th data-align="center" data-column-id="applyDate" width="10%">
                                                         采购日期
@@ -99,16 +100,6 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="matCostList" v-for="mc in mcList">
-                                                <tr>
-                                                    <td>{{$index+1}}</td>
-                                                    <td>{{mc.applyDate}}</td>
-                                                    <td>{{mc.locName}}</td>
-                                                    <td>{{mc.ecName}}</td>
-                                                    <td>{{mc.amount}}</td>
-                                                    <td>{{mc.ecType}}</td>
-                                                </tr>
-                                                </tbody>
                                             </table>
                                             <%-- <div id="mainContent"></div>
                                              <div id="callBackPager"></div>--%>

@@ -1,4 +1,4 @@
-var dataTableName = '#pmDataTable';
+ dataTableName = '#pmDataTable';
 var pms = [];
 var selectedIds = []; //获取被选择记录集合
 var vm = null; //明细页面的模型
