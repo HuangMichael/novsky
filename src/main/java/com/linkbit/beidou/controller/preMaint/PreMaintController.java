@@ -3,12 +3,14 @@ package com.linkbit.beidou.controller.preMaint;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
+import com.linkbit.beidou.domain.app.org.SystemInfo;
 import com.linkbit.beidou.domain.preMaint.PreMaint;
 import com.linkbit.beidou.domain.preMaint.PreMaintWorkOrder;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.org.SysInfoService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,10 @@ public class PreMaintController extends BaseController {
     ResourceService resourceService;
     @Autowired
     CommonDataService commonDataService;
+
+
+    @Autowired
+    SysInfoService sysInfoService;
 
     /**
      * 分页查询
@@ -144,6 +150,20 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/executeGenerate")
     @ResponseBody
     public ReturnObject executeGenerating(@RequestParam("ids") String ids, @RequestParam("deadLine") String deadLine) {
+
+
+        //首先检查调度是否启用
+
+        SystemInfo systemInfo = sysInfoService.findBySysName("pre_maint_auto_schedule");
+
+        //如果调度已启用  直接返回
+
+        if (systemInfo.getStatus().equals("1")) {
+
+            return commonDataService.getReturnType(false, "预防性维修信息生成成功!", "预防性维修信息生成失败!");
+        }
+
+
         String idArray[] = ids.split(",");
         Long id;
         List<PreMaintWorkOrder> workOrderList = null;
@@ -156,4 +176,17 @@ public class PreMaintController extends BaseController {
     }
 
 
+    /**
+     * 返回true 调度已启用
+     *
+     * @return
+     */
+    @RequestMapping(value = "/autoScheduled")
+    @ResponseBody
+    public Boolean autoScheduled() {
+        //首先检查调度是否启用
+        SystemInfo systemInfo = sysInfoService.findBySysName("pre_maint_auto_schedule");
+        return (systemInfo != null && systemInfo.getStatus().equals("1"));
+
+    }
 }

@@ -1,4 +1,4 @@
- dataTableName = '#pmDataTable';
+dataTableName = '#pmDataTable';
 var pms = [];
 var selectedIds = []; //获取被选择记录集合
 var vm = null; //明细页面的模型
@@ -166,24 +166,56 @@ function popGen() {
  * 生成工单
  */
 function generateOrder() {
-    var deadLine = $("#deadLine").val();
-    console.log("deadLine---------" + deadLine);
-    var url = "/preMaint/executeGenerate";
-    var obj = {
-        deadLine: deadLine,
-        ids: selectedIds.toString()
-    };
-    console.log("obj----------------" + JSON.stringify(obj));
-    $.post(url, obj, function (data) {
-        if (data.result) {
-            $("#confirm_modal").modal("hide");
-            showMessageBox("info", data["resultDesc"]);
-        } else {
-            showMessageBox("danger", data["resultDesc"]);
-        }
-    });
+    if (autoScheduled()) {
+        bootbox.confirm({
+            message: "预防性维修调度已启用，确定要手动执行生成么?",
+            buttons: {
+                confirm: {
+                    label: '是',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '否',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function (result) {
+                var deadLine = $("#deadLine").val();
+                var url = "/preMaint/executeGenerate";
+                var obj = {
+                    deadLine: deadLine,
+                    ids: selectedIds.toString()
+                };
+                $.post(url, obj, function (data) {
+                    if (data.result) {
+                        $("#confirm_modal").modal("hide");
+                        showMessageBox("info", data["resultDesc"]);
+                    } else {
+                        showMessageBox("danger", data["resultDesc"]);
+                    }
+                });
+            }
+        });
+
+    }
+
+
 }
 
+
+/**
+ *  查看调度启用状态
+ * @returns {boolean}
+ */
+function autoScheduled() {
+    var autoScheduled = false;
+    var url = "preMaint/autoScheduled";
+    $.getJSON(url, function (data) {
+        autoScheduled = data;
+    });
+    return autoScheduled;
+
+}
 
 
 
