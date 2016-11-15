@@ -190,11 +190,11 @@ $(function () {
     formName = "#detailForm";
 
     initBootGrid(dataTableName);
-    //initLoadData("/role/findActiveRole", dataTableName);
+    initSelect();
     $(formName).bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
             e.preventDefault();
-            save();
+            saveMainObject(formName);
 
         });
 
@@ -226,43 +226,43 @@ $(function () {
      });*/
 
 
-    showDetail();
-
-    listTab.on('click',
-        function () {
-            activeTab = "list";
-        });
-    $('select').select2({
-        theme: "bootstrap"
-    });
+    showUsers();
 });
 
-function save() {
-    var roleId = $("#roleId").val();
-    var roleName = $("#roleName").val();
-    var roleDesc = $("#roleDesc").val();
-    var status = "1";
+/*function save() {
+ var roleId = $("#roleId").val();
+ var roleName = $("#roleName").val();
+ var roleDesc = $("#roleDesc").val();
+ var status = "1";
 
-    if (roleId) {
-        var url = "/role/update";
-    } else {
-        var url = "/role/save";
-    }
-    var role = {
-        roleId: roleId,
-        roleName: roleName,
-        roleDesc: roleDesc,
-        status: status
-    };
-    $.post(url, role,
-        function (data) {
-            if (data) {
-                showMessageBox("info", "角色信息保存成功！");
-            } else {
-                showMessageBox("danger", "角色信息保存失败！");
-            }
+ if (roleId) {
+ var url = "/role/update";
+ } else {
+ var url = "/role/save";
+ }
+ var role = {
+ roleId: roleId,
+ roleName: roleName,
+ roleDesc: roleDesc,
+ status: status
+ };
+ $.post(url, role,
+ function (data) {
+ if (data) {
+ showMessageBox("info", "角色信息保存成功！");
+ } else {
+ showMessageBox("danger", "角色信息保存失败！");
+ }
 
-        });
+ });
+ }*/
+
+
+function showUsers() {
+
+    showDetail();
+    vdm.role = role;
+    loadUsers(role.id)
 }
 
 function showRole(roleId) {

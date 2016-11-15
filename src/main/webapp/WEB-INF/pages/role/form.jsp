@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form class="form-horizontal" role="form" id="form">
+<form class="form-horizontal" role="form" id="detailForm">
     <div class="form-group">
         <div class="col-md-12">
             <div class="form-group">
@@ -34,10 +34,10 @@
                 </div>
             </div>
         </div>
-        <%--<div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-              <button type="submit" class="btn btn-primary">保存</button>
-          </div>--%>
+        <div class="modal-footer">
+            <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
+            </button>
+        </div>
     </div>
 </form>
 

@@ -78,9 +78,6 @@ public class PreMaintController extends BaseController {
     public List<Long> selectAllId() {
         String location = getUserLocation();
         List<Long> idList = preMaintService.selectAllId(location);
-        for (Long id : idList) {
-            System.out.println("id---------------" + id);
-        }
         return idList;
     }
 

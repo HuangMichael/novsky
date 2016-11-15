@@ -80,14 +80,11 @@ function grant() {
 
     var roleId = $("#role_id").val();
     var resourceIds = checkedNodeIds;
-
     var url = "authority/grant";
-
     if (!roleId) {
         showMessageBox("danger", "请选择授权角色!");
         return;
     }
-
     if (!resourceIds) {
         showMessageBox("danger", "请选择授权的资源信息!");
         return;
@@ -100,7 +97,6 @@ function grant() {
         if (value.result) {
             loadAuthView();
             showMessageBox("info", value["resultDesc"]);
-
         } else {
             showMessageBox("danger", value["resultDesc"]);
         }
@@ -115,13 +111,15 @@ function loadAuthView() {
     var roleId = $("#role_id").val();
     var url = "/authority/loadByRole/" + roleId;
 
-    $("#authListTable").data("url", url);
-    $("#authListTable").bootgrid("reload");
+    console.log("roleId----------------" + roleId);
+    console.log("url----------------" + url);
+    /*
+     $("#authListTable").data("url", url);
+     $("#authListTable").bootgrid("reload");*/
 
+    $("#authListTable").bootgrid();
+    /* $("#authViewDiv").load(url, function (data) {
 
-    /*$("#authViewDiv").load(url, function (data) {
-     $("#authListTable").data("reload");
-     $("#authListTable").bootgrid("reload");
      });*/
 
 
@@ -142,20 +140,6 @@ function onCheck(e, treeId, treeNode) {
         v += nodes[i].id + ",";
     }
     checkedNodeIds = v;
-}
-
-
-/**
- *  根据角色名称标识权限树选中
- * @param roleId
- */
-function markAuthByRole(roleId) {
-    var zTree = $.fn.zTree.getZTreeObj("tree");
-    var node = zTree.getNodeByParam("id", 2);
-    zTree.selectNode(node);
-    // var roleId = $("#role_id").val();
-
-
 }
 
 
