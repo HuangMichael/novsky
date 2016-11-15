@@ -1,6 +1,5 @@
 package com.linkbit.beidou.controller.app;
 
-import com.linkbit.beidou.dao.app.org.OrgRepository;
 import com.linkbit.beidou.dao.equipments.VeqClassRepository;
 import com.linkbit.beidou.domain.app.org.SystemInfo;
 import com.linkbit.beidou.domain.equipments.VeqClass;
@@ -12,6 +11,7 @@ import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificat
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationService;
 import com.linkbit.beidou.service.locations.LocationsService;
+import com.linkbit.beidou.service.org.SysInfoService;
 import com.linkbit.beidou.service.user.UserService;
 import com.linkbit.beidou.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/4/22.
+ * Created by huangbin on 2016/4/22.
  */
 @Controller
 @EnableAutoConfiguration
@@ -39,7 +39,7 @@ public class LoginController {
     UserService userService;
 
     @Autowired
-    OrgRepository orgRepository;
+    SysInfoService sysInfoService;
 
     @Autowired
     LocationsService locationsService;
@@ -63,15 +63,14 @@ public class LoginController {
     @RequestMapping("/")
     public String logout(HttpServletRequest request, ModelMap modelMap) {
         HttpSession session = request.getSession();
-        SystemInfo org = orgRepository.findByStatus("1").get(0);
-
+        SystemInfo systemInfo = sysInfoService.findBySysName("system_name");
         if (session.getId() != null) {
             request.removeAttribute("currentUser");
             request.removeAttribute("locationsList");
             request.removeAttribute("equipmentsClassificationList");
             request.getSession().invalidate();
         }
-        modelMap.put("sysName", org.getSysName());
+        modelMap.put("sysName", systemInfo.getDescription());
         return "/index";
     }
 
@@ -113,8 +112,8 @@ public class LoginController {
             List<VeqClass> veqClassList = veqClassRepository.findAll();
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());
-            SystemInfo org = orgRepository.findByStatus("1").get(0);
-            session.setAttribute("org", org);
+            SystemInfo systemInfo = sysInfoService.findBySysName("system_name");
+            session.setAttribute("org", systemInfo);
             session.setAttribute("locationsList", locationsList);
             session.setAttribute("veqClassList", veqClassList);
 
@@ -125,11 +124,8 @@ public class LoginController {
         return returnObject;
     }
 
-
-    // 异步请求sessionId
-
     /**
-     * @return
+     * @return 获取当前用户信息
      */
     @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
     @ResponseBody

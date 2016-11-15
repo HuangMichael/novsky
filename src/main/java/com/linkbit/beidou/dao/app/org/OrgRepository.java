@@ -26,4 +26,13 @@ public interface OrgRepository extends CrudRepository<SystemInfo, Long> {
      */
     SystemInfo findById(long id);
 
+
+    /**
+     * 系统名称
+     *
+     * @param sysName
+     * @return 根据参数名称查询对应记录
+     */
+    List<SystemInfo> findBySysName(String sysName);
+
 }
