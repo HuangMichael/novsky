@@ -51,11 +51,7 @@ public class StringUtils {
                 newStr += s + ",";
             }
         }
-
-        System.out.println(newStr);
         newStr = "(" + newStr.substring(0, newStr.length() - 1) + ")";
-
-        System.out.println(newStr);
         return newStr;
     }
 

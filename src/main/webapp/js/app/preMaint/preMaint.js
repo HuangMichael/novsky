@@ -156,9 +156,9 @@ $(function () {
 /**
  * 生成工单
  */
-function popGen(pmId) {
+function popGen() {
 
-    $("#confirm_modal").data("pmId", pmId).modal("show");
+    $("#confirm_modal").modal("show");
 }
 
 
@@ -168,16 +168,13 @@ function popGen(pmId) {
 function generateOrder() {
     var deadLine = $("#deadLine").val();
     console.log("deadLine---------" + deadLine);
-    var pmId = $("#confirm_modal").data("pmId");
-
-    var url = "/preMaint/genPmOrder";
-
+    var url = "/preMaint/executeGenerate";
     var obj = {
-        pmId: pmId,
-        deadLine: deadLine
+        deadLine: deadLine,
+        ids: selectedIds.toString()
     };
+    console.log("obj----------------" + JSON.stringify(obj));
     $.post(url, obj, function (data) {
-
         if (data.result) {
             $("#confirm_modal").modal("hide");
             showMessageBox("info", data["resultDesc"]);

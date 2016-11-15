@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -135,5 +136,24 @@ public class PreMaintController extends BaseController {
         preMaintService.setDataList(dataList);
         preMaintService.exportExcel(request, response, docName, titles, colNames);
     }
+
+
+    /**
+     * 执行生成调度信息
+     */
+    @RequestMapping(value = "/executeGenerate")
+    @ResponseBody
+    public ReturnObject executeGenerating(@RequestParam("ids") String ids, @RequestParam("deadLine") String deadLine) {
+        String idArray[] = ids.split(",");
+        Long id;
+        List<PreMaintWorkOrder> workOrderList = null;
+        //遍历选中的计划
+        for (String idStr : idArray) {
+            id = Long.parseLong(idStr);
+            workOrderList = preMaintService.generatePmOrder(id, deadLine);
+        }
+        return commonDataService.getReturnType(!workOrderList.isEmpty(), "预防性维修信息生成成功!", "预防性维修信息生成失败!");
+    }
+
 
 }

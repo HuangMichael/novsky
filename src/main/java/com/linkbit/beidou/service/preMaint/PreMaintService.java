@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by huangbin on 2016年10月9日11:46:27
@@ -148,10 +149,12 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
                 e.printStackTrace();
             }
             // 先将下一个日期和选择日期对比
+
+            int i = 0;
             while (nextDate.getTime() < endDate.getTime()) {
                 PreMaintWorkOrder preMaintWorkOrder = new PreMaintWorkOrder();
-                preMaintWorkOrder.setOrderLineNo(preMaint.getPmCode() + preMaintWorkOrderRepository.genPmOrderLineNo().get(0).toString());
-                preMaintWorkOrder.setOrderDesc(preMaint.getDescription());
+                preMaintWorkOrder.setOrderLineNo(preMaint.getPmCode() + new Random().nextInt());
+                preMaintWorkOrder.setOrderDesc(preMaint.getDescription() + "-" + i);
                 preMaintWorkOrder.setCreator(preMaint.getCreateBy());
                 preMaintWorkOrder.setEquipments(preMaint.getEquipment());
                 preMaintWorkOrder.setLocation(preMaint.getEquipment().getLocations().getLocation());
@@ -160,6 +163,7 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
                 preMaintWorkOrder.setUnit(preMaint.getOutUnit());
                 preMaintWorkOrder.setReporter(preMaint.getCreateBy());
                 preMaintWorkOrder.setReportTime(new Date());
+                preMaintWorkOrder.setPreMaint(preMaint);
                 preMaintWorkOrder.setNodeState("已派工");
                 preMaintWorkOrder = preMaintWorkOrderRepository.save(preMaintWorkOrder);
                 pmOrderList.add(preMaintWorkOrder);
@@ -170,6 +174,7 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
                 preMaint.setLatestTime(DateUtils.convertDate2Str(nextDate, "yyyy-MM-dd"));
                 nextDate = DateUtils.addDateByNumAndType(nextDate, frequency, unit);
                 preMaint.setNextTime(DateUtils.convertDate2Str(nextDate, "yyyy-MM-dd"));
+                i++;
             }
 
             preMaintRepository.save(preMaint);
@@ -187,6 +192,19 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
      */
     public Page<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc, Pageable pageable) {
         return vpreMaintOrderRepository.findByNodeStateAndOrderDescContaining(nodeState, orderDesc, pageable);
+    }
+
+
+
+
+
+    /**
+     * @param nodeState 节点状态
+     * @param orderDesc 维修描述
+     * @return
+     */
+    public List<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc) {
+        return vpreMaintOrderRepository.findByNodeStateAndOrderDescContaining(nodeState, orderDesc);
     }
 
     /**

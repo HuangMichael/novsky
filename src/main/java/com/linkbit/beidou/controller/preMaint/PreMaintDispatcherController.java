@@ -75,18 +75,6 @@ public class PreMaintDispatcherController extends BaseController {
     }
 
 
-    /**
-     * @param httpSession
-     * @param modelMap
-     * @return
-     */
-    @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/preMaintDispatcher/list";
-    }
 
 
     /**
@@ -200,7 +188,7 @@ public class PreMaintDispatcherController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<PreMaintWorkOrder> dataList = preMaintService.findByOrderDescContains(param);
+        List<VpreMaintOrder> dataList = preMaintService.findByNodeStateOrderDescContaining("已派工",param);
         preMaintService.setDataList(dataList);
         preMaintService.exportExcel(request, response, docName, titles, colNames);
     }

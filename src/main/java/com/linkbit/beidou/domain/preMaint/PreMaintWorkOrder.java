@@ -35,9 +35,14 @@ public class PreMaintWorkOrder {
     @JoinColumn(name = "eqClass_id")
     private EquipmentsClassification equipmentsClassification;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id", referencedColumnName = "id")
     Units unit;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pre_maint_id", referencedColumnName = "id") //维修计划信息
+     PreMaint preMaint;
 
     @Column(length = 20)
     private String reporter; //报修人
@@ -63,7 +68,7 @@ public class PreMaintWorkOrder {
 
     @Column(length = 1)
     private String status;
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
     private Vlocations vlocations;  //所属位置
 }
