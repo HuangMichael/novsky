@@ -150,6 +150,9 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/executeGenerate")
     @ResponseBody
     public ReturnObject executeGenerating(@RequestParam("ids") String ids, @RequestParam("deadLine") String deadLine) {
+        if (!ids.contains(",")) {
+            ids += ",";
+        }
         String idArray[] = ids.split(",");
         Long id;
         List<PreMaintWorkOrder> workOrderList = null;

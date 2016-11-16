@@ -15,6 +15,7 @@ var docName = "";
 var formTab = null;
 var locs = [];
 var stations = [];
+var bills = [];
 
 /**
  *
@@ -375,7 +376,7 @@ function initBootGrid(dataTableName) {
         keepSelection: true
     }).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
-        if (selectedIds.length === bills.length) {
+        if (selectedIds.length === 0) {
             selectedIds.clear();
         }
         for (var x in rows) {

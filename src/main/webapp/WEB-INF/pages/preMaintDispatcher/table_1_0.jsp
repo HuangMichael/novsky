@@ -4,9 +4,9 @@
        data-ajax="true" data-url="/preMaintDispatcher/data/0">
     <thead>
     <tr>
-        <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+        <th data-column-id="orderLineNo" data-width="10%">跟踪号</th>
         <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
-        <th data-column-id="eqName" data-width="10%">设备名称</th>
+        <th data-column-id="eqName" data-width="20%">设备名称</th>
         <th data-column-id="locName" data-width="15%">设备位置</th>
         <th data-column-id="eqClass" data-width="10%">设备分类</th>
         <th data-column-id="orderDesc" data-width="15%">故障描述</th>

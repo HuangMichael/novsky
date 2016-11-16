@@ -71,7 +71,7 @@ function getFormDataAsJSON(formId) {
     var array = $(formId).serializeArray();
 
 
-    console.log("array-------------"+JSON.stringify(array));
+    console.log("array-------------" + JSON.stringify(array));
     var objStr = "{";
     for (var x in array) {
         var name = array[x]["name"];
@@ -223,14 +223,6 @@ Array.prototype.removeButThis = function (val) {
 
 Array.prototype.clear = function () {
     this.splice(0, this.length);
-    console.log(this); // 输出 []，空数组，即被清空了
-};
-
-
-var replaceNull = function (obj) {
-
-    var result = "";
-    return result = (!obj) ? "" : obj;
 };
 
 

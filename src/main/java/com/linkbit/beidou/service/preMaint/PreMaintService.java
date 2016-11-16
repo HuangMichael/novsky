@@ -149,12 +149,12 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
                 e.printStackTrace();
             }
             // 先将下一个日期和选择日期对比
-
-            int i = 0;
             while (nextDate.getTime() < endDate.getTime()) {
+                String dateFormat[] = {"yyyy-MM-dd", "yyyy-MM", "yyyy"};
+                String today = DateUtils.convertDate2Str(nextDate, dateFormat[preMaint.getUnit()]);
                 PreMaintWorkOrder preMaintWorkOrder = new PreMaintWorkOrder();
-                preMaintWorkOrder.setOrderLineNo(preMaint.getPmCode() + new Random().nextInt());
-                preMaintWorkOrder.setOrderDesc(preMaint.getDescription() + "-" + i);
+                preMaintWorkOrder.setOrderLineNo(preMaint.getPmCode() + "-" + today);
+                preMaintWorkOrder.setOrderDesc(preMaint.getDescription() + "-" + today);
                 preMaintWorkOrder.setCreator(preMaint.getCreateBy());
                 preMaintWorkOrder.setEquipments(preMaint.getEquipment());
                 preMaintWorkOrder.setLocation(preMaint.getEquipment().getLocations().getLocation());
@@ -174,7 +174,7 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
                 preMaint.setLatestTime(DateUtils.convertDate2Str(nextDate, "yyyy-MM-dd"));
                 nextDate = DateUtils.addDateByNumAndType(nextDate, frequency, unit);
                 preMaint.setNextTime(DateUtils.convertDate2Str(nextDate, "yyyy-MM-dd"));
-                i++;
+
             }
 
             preMaintRepository.save(preMaint);
@@ -191,7 +191,7 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
      * @return
      */
     public Page<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc, Pageable pageable) {
-        return vpreMaintOrderRepository.findByNodeStateAndOrderDescContaining(nodeState, orderDesc, pageable);
+        return vpreMaintOrderRepository.findByNodeStateAndOrderDescContainingOrderByOrderLineNoDesc(nodeState, orderDesc, pageable);
     }
 
 

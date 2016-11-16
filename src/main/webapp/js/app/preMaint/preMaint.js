@@ -151,9 +151,7 @@ $(function () {
  * 生成工单
  */
 function popGen() {
-    if (selectedIds.length = 0) {
-        showMessageBox("danger", "请选择要执行的计划信息！");
-    }
+    var selected = $(dataTableName).bootgrid("getSelectedRows");
     if (autoScheduled()) {
         bootbox.confirm({
             message: "预防性维修调度已启用，确定要手动执行生成么?",
@@ -174,9 +172,15 @@ function popGen() {
             }
         });
 
+    } else {
+
+        if (selected.length == 0) {
+            showMessageBox("danger", "请选择要执行的计划信息！");
+            return;
+        } else {
+            $("#confirm_modal").modal("show");
+        }
     }
-
-
 }
 
 
