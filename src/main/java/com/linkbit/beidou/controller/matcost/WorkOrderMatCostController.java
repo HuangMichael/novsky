@@ -12,6 +12,7 @@ import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.workOrderMatCost.WorkOrderMatCostService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.UploadUtil;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
 import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
@@ -31,9 +32,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -108,13 +108,33 @@ public class WorkOrderMatCostController {
     }
 
 
-    @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public String download(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return "redirect:/docs/wocost/mb.xls";
+    @RequestMapping(value = "/download", method = {RequestMethod.GET})
+    public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
+        String path = request.getServletContext().getRealPath("/");
+        response.setContentType("application/vnd.ms-excel");
+        String fileName = "工单物资消耗模板.xls";
+        try {
+            response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String remotePath = path + "docs\\wo\\" + fileName;
+        BufferedInputStream in;
+        BufferedOutputStream out;
+        try {
+            in = new BufferedInputStream(new FileInputStream(remotePath));
+            out = new BufferedOutputStream(response.getOutputStream());
+            int i;
+            while ((i = in.read()) != -1) {
+                out.write(i);
+            }
+            out.flush();
+            out.close();
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-
-
 
 
     /**
@@ -132,11 +152,6 @@ public class WorkOrderMatCostController {
         workOrderMatCostService.setDataList(dataList);
         workOrderMatCostService.exportExcel(request, response, docName, titles, colNames);
     }
-
-
-
-
-
 
 
 }

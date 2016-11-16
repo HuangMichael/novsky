@@ -2,7 +2,9 @@ package com.linkbit.beidou.controller.common;
 
 
 import com.linkbit.beidou.dao.locations.LocationsRepository;
+import com.linkbit.beidou.service.org.SysInfoService;
 import com.linkbit.beidou.utils.SessionUtil;
+import lombok.Data;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
@@ -13,22 +15,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
  */
 @Controller
 @EnableAutoConfiguration
-@RequestMapping("/upload")
-public class FileUploadController {
-
+@RequestMapping("/file")
+@Data
+public class FileController implements ServletContextAware {
 
     @Autowired
     LocationsRepository locationsRepository;
-    Log log = LogFactory.getLog(FileUploadController.class);
+
+    //Spring这里是通过实现ServletContextAware接口来注入ServletContext对象
+    ServletContext servletContext;
+
+
+    Log log = LogFactory.getLog(FileController.class);
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public
@@ -41,8 +54,6 @@ public class FileUploadController {
     @ResponseBody
     public Boolean handleFileUpload(@RequestParam("llid") Long llid, @RequestParam("name") String name, @RequestParam("file") MultipartFile file, HttpServletRequest request) {
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-
-        log.info("isMultipart-------------" + isMultipart);
         String contextPath = SessionUtil.getContextPath(request);
         String realPath = "img\\app\\locations\\" + name;
         String filePath = contextPath + realPath;
@@ -52,5 +63,10 @@ public class FileUploadController {
         return true;
 
     }
+
+
+
 }
+
+
 

@@ -62,8 +62,8 @@ function importExcel() {
  * 下载excel
  */
 function downExcel() {
-    window.location.href = "/workOrderMatCost/download";
-
+    var url = mainObject + "/download";
+    location.href = url;
 }
 
 

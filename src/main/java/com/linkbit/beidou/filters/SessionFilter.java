@@ -52,7 +52,7 @@ public class SessionFilter implements javax.servlet.Filter {
         String url = request.getRequestURI();
         HttpSession httpSession = request.getSession(false);
         //将公共资源加入表中
-        if (url.equals("/checkLogin") || url.equals("/") || url.endsWith("index.jsp")) {
+        if (url.equals("/checkLogin") || url.equals("/") || url.endsWith("index.jsp")||url.contains("download")) {
             filterChain.doFilter(request, response);
         } else if (url.endsWith(".js") || url.endsWith(".css") || url.endsWith(".gif") || url.endsWith(".jpg") || url.endsWith(".png") || url.endsWith(".ico")|| url.endsWith(".woff")) {
             filterChain.doFilter(request, response);
