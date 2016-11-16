@@ -82,6 +82,7 @@ function importExcelData() {
     $.post(url, {filePath: filePath}, function (data) {
         if (data.result) {
             showMessageBox("info", data['resultDesc']);
+            $(dataTableName).bootgrid("reload");
         } else {
             showMessageBox("danger", data['resultDesc']);
         }
