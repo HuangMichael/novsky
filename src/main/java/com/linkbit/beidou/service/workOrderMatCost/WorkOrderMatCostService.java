@@ -64,7 +64,6 @@ public class WorkOrderMatCostService extends BaseService {
     }
 
 
-
     /**
      * @param searchPhase 查询关键字
      * @param pageable    分页
@@ -88,11 +87,9 @@ public class WorkOrderMatCostService extends BaseService {
         System.out.println("文件类型:" + file.getContentType());
         String contentType = "application/vnd.ms-excel";
         if (!contentType.equals(file.getContentType())) {
-            System.out.println("-----------sb--------------");
             return commonDataService.getReturnType(false, "上传文件格式有误，请重新上传!", "上传文件格式有误，请重新上传!");
         }
-        System.out.println("-----------sp--------------");
-        String dir = "docs\\wocost";
+        String dir = "docs\\wo";
         String realPath = dir + "\\工单物资消耗" + DateUtils.convertDate2Str(null, "yyyy-MM-dd-HH-mm-ss") + ".xls";
         String filePath = contextPath + realPath;
         UploadUtil.uploadFile(file, filePath);
