@@ -37,6 +37,8 @@ $(function () {
         previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"progress progress-sm progress-striped active\"><div class=\"progress-bar progress-bar-success\" data-dz-uploadprogress></div></div>\n  <div class=\"dz-success-mark\"><span></span></div>\n  <div class=\"dz-error-mark\"><span></span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n</div>",
         success: function () {
             showMessageBox("info", "工单物资数据导入成功!");
+            $("#import_modal").modal("hide");
+            $(dataTableName).bootgrid("reload");
         }, error: function () {
             showMessageBox("danger", "工单物资数据导入失败!");
         }
@@ -82,8 +84,7 @@ function importExcelData() {
     $.post(url, {filePath: filePath}, function (data) {
         if (data.result) {
             showMessageBox("info", data['resultDesc']);
-            $("#import_modal").modal("hide");
-            $(dataTableName).bootgrid("reload");
+
         } else {
             showMessageBox("danger", data['resultDesc']);
         }
