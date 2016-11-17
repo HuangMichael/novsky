@@ -1256,7 +1256,7 @@
             paginationItem: "<li class=\"{{ctx.css}}\"><a data-page=\"{{ctx.page}}\" class=\"{{css.paginationButton}}\">{{ctx.text}}</a></li>",
             rawHeaderCell: "<th class=\"{{ctx.css}}\">{{ctx.content}}</th>", // Used for the multi select box
             row: "<tr{{ctx.attr}}>{{ctx.cells}}</tr>",
-            search: "<div class=\"{{css.search}}\"><div class=\"input-group\"><span class=\"{{css.icon}} input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div><button class='btn btn-default' type='button' title='查询' onclick='search()'>查询</button>",
+            search: "<div class=\"{{css.search}}\" ><div class=\"input-group\" id=\"searchBox\"><span class=\"{{css.icon}} input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div><button class='btn btn-default' type='button' title='查询' onclick='search()'>查询</button>",
             select: "<input name=\"select\" type=\"{{ctx.type}}\" class=\"{{css.selectBox}}\" value=\"{{ctx.value}}\" {{ctx.checked}} />"
         }
     };
@@ -1287,6 +1287,26 @@
         }
 
         return this;
+    };
+
+
+    /**
+     * Appends rows.
+     *
+     * @method append
+     * @param rows {Array} An array of rows to append
+     * @chainable
+     **/
+    Grid.prototype.changeCondition = function () {
+        console.log("this is the conditions------------" + JSON.stringify(this));
+        var n = 2;
+        $("#searchBox").empty();
+        var html = "";
+        for (var i = 0; i < n; i++) {
+            html += "<span class=\" input-group-addon\"></span><input type='text' id=\"searchPhase" + i + "\" class='search-field form-control col-md-6' placeholder='查询'/>";
+        }
+        $("#searchBox").html(html);
+        // return this;
     };
 
     /**

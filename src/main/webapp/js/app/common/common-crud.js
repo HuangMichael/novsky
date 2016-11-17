@@ -434,7 +434,5 @@ function getAllStations() {
 
 function search() {
     var searchPhrase = "admin,管理";
-    console.log("searchPhrase-----------------" + searchPhrase);
-    $(dataTableName).bootgrid("setSearchPhrase", searchPhrase);
-    $(dataTableName).bootgrid("reload");
+    $(dataTableName).bootgrid("changeCondition").bootgrid("setSearchPhrase", searchPhrase).bootgrid("reload");
 }
