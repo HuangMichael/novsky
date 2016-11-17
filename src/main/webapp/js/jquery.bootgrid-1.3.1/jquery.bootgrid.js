@@ -1256,10 +1256,11 @@
             paginationItem: "<li class=\"{{ctx.css}}\"><a data-page=\"{{ctx.page}}\" class=\"{{css.paginationButton}}\">{{ctx.text}}</a></li>",
             rawHeaderCell: "<th class=\"{{ctx.css}}\">{{ctx.content}}</th>", // Used for the multi select box
             row: "<tr{{ctx.attr}}>{{ctx.cells}}</tr>",
-            search: "<div class=\"{{css.search}}\"><div class=\"input-group\"><span class=\"{{css.icon}} input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div>",
+            search: "<div class=\"{{css.search}}\"><div class=\"input-group\"><span class=\"{{css.icon}} input-group-addon {{css.iconSearch}}\"></span> <input type=\"text\" class=\"{{css.searchField}}\" placeholder=\"{{lbl.search}}\" /></div></div><button class='btn btn-default' type='button' title='查询' onclick='search()'>查询</button>",
             select: "<input name=\"select\" type=\"{{ctx.type}}\" class=\"{{css.selectBox}}\" value=\"{{ctx.value}}\" {{ctx.checked}} />"
         }
     };
+
 
     /**
      * Appends rows.
@@ -1594,6 +1595,18 @@
      **/
     Grid.prototype.getSearchPhrase = function () {
         return this.searchPhrase
+    };
+    /**
+     *
+     * this method is override by HuangBin for reusing
+     *
+     * @method setSearchPhrase
+     * @return {String} Returns the actual search phrase.
+     * @since 1.2.0
+     **/
+
+    Grid.prototype.setSearchPhrase = function (searchPhrase) {
+        return this.searchPhrase = searchPhrase;
     };
 
     /**

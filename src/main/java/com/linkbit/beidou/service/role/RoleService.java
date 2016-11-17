@@ -53,12 +53,31 @@ public class RoleService extends BaseService {
         return roleRepository.findByRoleDescContains(roleDesc, pageable);
     }
 
+
     /**
-     * @param roleDesc 角色描述
+     * @param searchPhrase 条件
+     * @param pageable     可分页
      * @return 根据角色描述关键字进行查询
      */
-    public List<Role> findByRoleDescContains(String roleDesc) {
-        return roleRepository.findByRoleDescContains(roleDesc);
+    public Page<Role> findByConditions(String searchPhrase, Pageable pageable) {
+        String searchArray[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            searchArray = searchPhrase.split(",");
+        }
+        return roleRepository.findByRoleNameContainsAndRoleDescContains(searchArray[0], searchArray[1], pageable);
+    }
+
+
+    /**
+     * @param searchPhrase
+     * @return 根据角色描述关键字进行查询
+     */
+    public List<Role> findByConditions(String searchPhrase) {
+        String searchArray[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            searchArray = searchPhrase.split(",");
+        }
+        return roleRepository.findByRoleNameContainsAndRoleDescContains(searchArray[0], searchArray[1]);
     }
 
 

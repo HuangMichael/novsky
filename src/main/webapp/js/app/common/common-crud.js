@@ -366,15 +366,18 @@ function initSelect() {
 /**
  * 初始化bootgrid表格 并监听选择时间
  */
-function initBootGrid(dataTableName) {
-
+function initBootGrid(dataTableName, cfg) {
+    console.log("mainObject--------------" + mainObject);
+    if (!cfg) {
+        cfg = {
+            selection: true,
+            multiSelect: true,
+            rowSelect: false,
+            keepSelection: true
+        };
+    }
     //初始化加载列表
-    $(dataTableName).bootgrid({
-        selection: true,
-        multiSelect: true,
-        rowSelect: false,
-        keepSelection: true
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
+    $(dataTableName).bootgrid(cfg).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
         if (selectedIds.length === 0) {
             selectedIds.clear();
@@ -427,4 +430,11 @@ function getAllStations() {
         stations = data;
     });
     return stations;
+}
+
+function search() {
+    var searchPhrase = "admin,管理";
+    console.log("searchPhrase-----------------" + searchPhrase);
+    $(dataTableName).bootgrid("setSearchPhrase", searchPhrase);
+    $(dataTableName).bootgrid("reload");
 }

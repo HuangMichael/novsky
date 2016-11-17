@@ -38,6 +38,22 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
 
 
     /**
+     * @param roleName
+     * @param roleDesc
+     * @param pageable
+     * @return
+     */
+    Page<Role> findByRoleNameContainsAndRoleDescContains(String roleName, String roleDesc, Pageable pageable);
+
+    /**
+     * @param roleName
+     * @param roleDesc
+     * @return
+     */
+    List<Role> findByRoleNameContainsAndRoleDescContains(String roleName, String roleDesc);
+
+
+    /**
      * @param roleDesc 角色描述
      * @return 根据角色描述模糊查询
      */

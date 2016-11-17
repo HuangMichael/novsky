@@ -51,7 +51,7 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<Role> page = roleService.findByRoleDescContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
+        Page<Role> page = roleService.findByConditions(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());
         myPage.setRowCount(rowCount);
@@ -205,7 +205,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Role> dataList = roleService.findByRoleDescContains(param);
+        List<Role> dataList = roleService.findByConditions(param);
         roleService.setDataList(dataList);
         roleService.exportExcel(request, response, docName, titles, colNames);
     }
