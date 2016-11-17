@@ -15,7 +15,7 @@ var docName = "";
 var formTab = null;
 var locs = [];
 var stations = [];
-var bills = [];
+var searchModel = [];
 
 /**
  *
@@ -366,18 +366,10 @@ function initSelect() {
 /**
  * 初始化bootgrid表格 并监听选择时间
  */
-function initBootGrid(dataTableName, cfg) {
+function initBootGrid(dataTableName) {
     console.log("mainObject--------------" + mainObject);
-    if (!cfg) {
-        cfg = {
-            selection: true,
-            multiSelect: true,
-            rowSelect: false,
-            keepSelection: true
-        };
-    }
     //初始化加载列表
-    $(dataTableName).bootgrid(cfg).on("selected.rs.jquery.bootgrid", function (e, rows) {
+    $(dataTableName).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
         if (selectedIds.length === 0) {
             selectedIds.clear();
@@ -392,6 +384,8 @@ function initBootGrid(dataTableName, cfg) {
             selectedIds.remove(rows[x]["id"]);
         }
     });
+
+
 }
 
 
@@ -432,7 +426,24 @@ function getAllStations() {
     return stations;
 }
 
+
 function search() {
-    var searchPhrase = "admin,管理";
-    $(dataTableName).bootgrid("changeCondition").bootgrid("setSearchPhrase", searchPhrase).bootgrid("reload");
+    //组装模型
+    var params = $("#searchBox input");
+    var searchParams = "";
+    $.each(params, function (i, p) {
+        var value = $(p).val();
+        searchParams += value + ",";
+    });
+
+    console.log("searchParams------------" + JSON.stringify(searchParams));
+    $(dataTableName).bootgrid("setSearchPhrase", searchParams).bootgrid("reload");
+
+
 }
+
+
+$(function () {
+
+
+});

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link rel="stylesheet" href="js/jquery-treegrid/css/jquery.treegrid.css">
 <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 <div class="container">
     <div class="row">

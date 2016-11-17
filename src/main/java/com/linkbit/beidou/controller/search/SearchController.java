@@ -48,9 +48,7 @@ public class SearchController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        System.out.println("searchPhrase c----------------------" + searchPhrase);
-        String searchArray[] = searchPhrase.split(",");
-        System.out.println("searchArray c----------------------" + searchArray);
+        System.out.println("searchPhrase from c----------------" + searchPhrase);
         Page<Role> page = roleService.findByConditions(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
         MyPage myPage = new MyPage();
         myPage.setRows(page.getContent());

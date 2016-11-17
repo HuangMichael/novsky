@@ -60,11 +60,11 @@ public class RoleService extends BaseService {
      * @return 根据角色描述关键字进行查询
      */
     public Page<Role> findByConditions(String searchPhrase, Pageable pageable) {
-        String searchArray[] = {"", ""};
+        String array[] = {"", ""};
         if (!searchPhrase.isEmpty()) {
-            searchArray = searchPhrase.split(",");
+            array = searchPhrase.split(",", 3);
         }
-        return roleRepository.findByRoleNameContainsAndRoleDescContains(searchArray[0], searchArray[1], pageable);
+        return roleRepository.findByRoleNameContainsAndRoleDescContains(array[0], array[1], pageable);
     }
 
 
@@ -73,11 +73,11 @@ public class RoleService extends BaseService {
      * @return 根据角色描述关键字进行查询
      */
     public List<Role> findByConditions(String searchPhrase) {
-        String searchArray[] = {"", ""};
+        String array[] = {"", ""};
         if (!searchPhrase.isEmpty()) {
-            searchArray = searchPhrase.split(",");
+            array = searchPhrase.split(",", 3);
         }
-        return roleRepository.findByRoleNameContainsAndRoleDescContains(searchArray[0], searchArray[1]);
+        return roleRepository.findByRoleNameContainsAndRoleDescContains(array[0], array[1]);
     }
 
 
