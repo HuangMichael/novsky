@@ -23,6 +23,7 @@ public class VworkOrderReportBill {
     private String orderDesc;
     private String eqName;
     private String locName;
+    private String location;
     private String eqClass;
     private String nodeTime;
     private String nodeState;

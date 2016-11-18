@@ -44,7 +44,7 @@
                                                             style="width:100%" required>
                                                         <option></option>
                                                         <template v-for="option in locs">
-                                                            <option :value="option.locName">
+                                                            <option :value="option.location">
                                                                 {{option.locName }}
                                                             </option>
                                                         </template>

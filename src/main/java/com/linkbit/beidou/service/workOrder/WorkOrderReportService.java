@@ -166,7 +166,7 @@ public class WorkOrderReportService extends BaseService implements Searchable{
      */
     public Page<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
+        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
     }
 
 
@@ -177,7 +177,7 @@ public class WorkOrderReportService extends BaseService implements Searchable{
     public List<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize) {
 
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
+        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
 
     }
 }
