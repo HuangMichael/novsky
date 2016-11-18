@@ -46,6 +46,13 @@ $(function () {
         persons = data;
     });
 
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            locs: locs
+        }
+    });
+
 
     initBootGrid(dataTableName);
     initSelect.call();

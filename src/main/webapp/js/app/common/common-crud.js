@@ -429,10 +429,11 @@ function getAllStations() {
 
 function search() {
     //组装模型
-    var params = $("#searchBox input");
+    var params = $("#searchBox :input");
     var searchParams = "";
     $.each(params, function (i, p) {
         var value = $(p).val();
+        value = value ? value : "";
         searchParams += value + ",";
     });
 
