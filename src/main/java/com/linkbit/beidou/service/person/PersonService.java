@@ -94,22 +94,31 @@ public class PersonService extends BaseService {
 
 
     /**
-     * @param personNo
-     * @param personName
      * @param pageable
      * @return 根据人员姓名模糊查询
      */
-    public Page<Person> findByPersonNoContainsAndPersonNameContains(String personNo, String personName, Pageable pageable) {
-        return personRepository.findByPersonNoContainsAndPersonNameContains(personNo, personName, pageable);
+    @Override
+    public Page<Person> findByConditions(String searchPhrase, Pageable pageable) {
+        String array[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", 3);
+        }
+        return personRepository.findByPersonNoContainsAndPersonNameContains(array[0], array[1], pageable);
+
     }
 
 
     /**
-     * @param personName
+     * @param searchPhrase
      * @return 根据人员姓名模糊查询
      */
-    public List<Person> findByPersonNoContainsAndPersonNameContains(String personNo, String personName) {
-        return personRepository.findByPersonNoContainsAndPersonNameContains(personNo, personName);
+    @Override
+    public List<Person> findByConditions(String searchPhrase) {
+        String array[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", 3);
+        }
+        return personRepository.findByPersonNoContainsAndPersonNameContains(array[0], array[1]);
     }
 
 

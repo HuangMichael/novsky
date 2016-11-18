@@ -10,6 +10,7 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.person.PersonService;
+import com.linkbit.beidou.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/person")
-public class PersonController extends BaseController{
+public class PersonController extends BaseController {
     @Autowired
     PersonService personService;
     @Autowired
@@ -51,13 +52,8 @@ public class PersonController extends BaseController{
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<Person> page = personService.findByPersonNameContains(searchPhrase,new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return PageUtils.searchByService(personService, searchPhrase, current, rowCount);
     }
 
     /**
@@ -201,7 +197,6 @@ public class PersonController extends BaseController{
     }
 
 
-
     /**
      * @param request  请求
      * @param response 响应
@@ -213,7 +208,7 @@ public class PersonController extends BaseController{
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Person> dataList = personService.findByPersonNameContains(param);
+        List<Person> dataList = personService.findByConditions(param);
         personService.setDataList(dataList);
         personService.exportExcel(request, response, docName, titles, colNames);
     }

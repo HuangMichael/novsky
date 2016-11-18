@@ -52,4 +52,14 @@ public class BaseService {
 
         return null;
     }
+
+
+    /**
+     * @param searchPhrase
+     * @return
+     */
+    public List findByConditions(String searchPhrase) {
+
+        return null;
+    }
 }

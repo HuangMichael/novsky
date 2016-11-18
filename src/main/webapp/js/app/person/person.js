@@ -86,9 +86,8 @@ $(function () {
             person: getPersonById(personList[0]["id"])
         }
     });
-
-
     initBootGrid(dataTableName);
+    searchModel = [{"param": "personNo", "paramDesc": "人员编号"}, {"param": "personName", "paramDesc": "人员名称"}];
     initSelect();
 
 
