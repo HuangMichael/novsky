@@ -28,7 +28,7 @@ import java.util.List;
  * 设备台账业务类
  */
 @Service
-public class EquipmentAccountService extends BaseService implements Searchable {
+public class EquipmentAccountService extends BaseService  {
 
     Log log = LogFactory.getLog(this.getClass());
 
@@ -280,36 +280,4 @@ public class EquipmentAccountService extends BaseService implements Searchable {
         return equipmentsRepository.findAllId();
     }
 
-
-    /**
-     * @param searchPhrase 条件
-     * @param pageable     可分页
-     * @return 根据角色描述关键字进行查询
-     */
-
-    public Page<Vequipments> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
-    }
-
-
-    /**
-     * @param searchPhrase
-     * @return 根据角色描述关键字进行查询
-     */
-
-    public List<Vequipments> findByConditions(String searchPhrase, int paramsSize) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
-    }
 }

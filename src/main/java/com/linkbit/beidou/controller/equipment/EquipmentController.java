@@ -20,6 +20,7 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
+import com.linkbit.beidou.service.equipments.EquipmentSearchService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.*;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -76,6 +77,9 @@ public class EquipmentController extends BaseController implements LocationSepar
     @Autowired
     EqUpdateBillService eqUpdateBillService;
 
+    @Autowired
+    EquipmentSearchService equipmentSearchService;
+
 
     /**
      * 分页查询
@@ -104,7 +108,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return  new PageUtils().searchByService(equipmentAccountService, searchPhrase, 4, current, rowCount);
+        return  new PageUtils().searchByService(equipmentSearchService, searchPhrase, 4, current, rowCount);
     }
 
 
@@ -438,8 +442,8 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Vequipments> dataList = equipmentAccountService.findByConditions(param, 4);
-        equipmentAccountService.setDataList(dataList);
-        equipmentAccountService.exportExcel(request, response, docName, titles, colNames);
+        List<Vequipments> dataList = equipmentSearchService.findByConditions(param, 4);
+        equipmentSearchService.setDataList(dataList);
+        equipmentSearchService.exportExcel(request, response, docName, titles, colNames);
     }
 }
