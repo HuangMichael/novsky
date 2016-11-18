@@ -289,9 +289,12 @@ public class EquipmentAccountService extends BaseService {
     public Page<Vequipments> findByConditions(String searchPhrase, Pageable pageable) {
         String array[] = {"", "", "", ""};
         if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",", 5);
+            array = searchPhrase.split(",", 4);
         }
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
+        for (String e : array) {
+            System.out.println("e---------------" + e);
+        }
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3].replace(",", ""), pageable);
     }
 
 
@@ -303,8 +306,12 @@ public class EquipmentAccountService extends BaseService {
     public List<Vequipments> findByConditions(String searchPhrase) {
         String array[] = {"", "", "", ""};
         if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",", 5);
+            array = searchPhrase.split(",", 4);
         }
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
+
+        for (String e : array) {
+            System.out.println("e---------------" + e);
+        }
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3].replace(",", ""));
     }
 }

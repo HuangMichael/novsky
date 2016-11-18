@@ -47,14 +47,31 @@
                                             <input class="form-control" id="eqName" type="text" name="eqName"
                                                    placeholder="设备描述"/>
                                         </div>
+
                                         <div class="col-md-2">
-                                            <input class="form-control" id="locName" type="text" name="locName"
-                                                   placeholder="设备位置"/>
+                                            <select class="form-control" id="locName" name="locName"
+                                                    style="width:100%" required>
+                                                <option></option>
+                                                <template v-for="option in locs">
+                                                    <option :value="option.locName">
+                                                        {{option.locName }}
+                                                    </option>
+                                                </template>
+                                            </select>
                                         </div>
+
                                         <div class="col-md-2">
-                                            <input class="form-control" id="eqClass" type="text" name="eqClass"
-                                                   placeholder="设备分类"/>
+                                            <select class="form-control" id="eqClass" name="eqClass" style="width:100%"
+                                                    required>
+                                                <option></option>
+                                                <template v-for="option in eqClasses">
+                                                    <option :value="option.cname">
+                                                        {{option.cname }}
+                                                    </option>
+                                                </template>
+                                            </select>
                                         </div>
+
 
                                         <div class="col-md-2">
                                             <button id="searchBtn" class="btn btn-default" onclick="search()">查询

@@ -104,14 +104,6 @@ $(function () {
     mainObject = "equipment";
     docName = "设备信息";
     dataTableName = "#equipmentsDataTable";
-    searchModel = [
-        {"param": "eqCode", "paramDesc": "设备编号"},
-        {"param": "eqName", "paramDesc": "设备名称"},
-        {"param": "locName", "paramDesc": "设备位置"},
-        {"param": "eqClass", "paramDesc": "设备分类"}
-    ];
-    initBootGrid(dataTableName);
-
 
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
@@ -131,155 +123,175 @@ $(function () {
     var url = "/commonData/findVEqClass";
     $.getJSON(url, function (data) {
         eqClasses = data;
+
+        console.log("eqClasses----------------"+JSON.stringify(eqClasses));
     });
 
 
-   // var eq = getEquipmentById(eqs[0]["id"]);
-  /*  vdm = new Vue({
-        el: "#detailForm",
+    var searchVue = new Vue({
+        el: "#searchBox",
         data: {
-            formLocked: formLocked,
-            equipments: eq,
             locs: locs,
-            eqClasses: eqClasses,
-            eqStatuses: eqStatuses,
-            runStatus: runStatus
-        },
-        methods: {
-            previous: function () {
-                if (pointer <= 0) {
-                    showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
-                } else {
-                    pointer = pointer - 1;
-                    //判断当前指针位置
-                    var eid = selectedIds[pointer];
-                    var e = getEquipmentById(eid);
-                    vdm.$set("equipments", e);
-                    hm.$set("e", e);
-                    //loadFixHistoryByEid(selectedIds[pointer]);
-                    hm.$set("histories", loadFixHistoryByEid(eid));
-                    uhm.set("records", loadRecordsByEid(eid));
-                    uhmd.$set("e", e);
-                }
-            },
-            next: function () {
-                if (pointer >= selectedIds.length - 1) {
-                    showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-
-                } else {
-                    pointer = pointer + 1;
-
-                    var eid = selectedIds[pointer];
-                    var e = getEquipmentById(eid);
-                    vdm.$set("equipments", e);
-                    hm.$set("e", e);
-                    hm.$set("histories", loadFixHistoryByEid(eid));
-                    uhm.set("records", loadRecordsByEid(eid));
-                    uhmd.$set("e", e);
-                }
-            },
-            checkEqCode: function () {
-                var eqCode = vdm.$get("equipments.eqCode");
-                if (checkEqCode(eqCode)) {
-                    showMessageBoxCenter("danger", "center", "设备编号不能重复");
-
-                }
-            }
+            eqClasses: eqClasses
         }
-
-
-    });*/
-
-
-  /*  hm = new Vue({
-        el: "#historyInfo",
-        data: {
-            e: eqs[0],
-            histories: loadFixHistoryByEid(eqs[0] ? eqs[0]["id"] : null)
-        },
-        methods: {
-            showDetailHistory: function (data) {
-                showDetail(data);
-            }
-        }
-    });*/
-
-/*
-    uhm = new Vue({
-        el: "#updateHistoryInfo",
-        data: {
-            e: eqs[0],
-            records: loadRecordsByEid(eqs[0] ? eqs[0]["id"] : null)
-        }
-    });
-
-
-    uhmd = new Vue({
-        el: "#recordForm",
-        data: {
-            e: eqs[0]
-        }
-    });*/
-
-
-   /* $('#detailForm')
-        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
-        e.preventDefault();
-        saveEquipment();
-    });
-
-
-    listTab.on('click', function () {
-        refresh();
 
     });
 
-
-    formTab.on('click', function () {
-        activeTab = "detail";
-        setFormReadStatus("#detailForm", formLocked);
-        //首先判断是否有选中的
-        var eq = null;
-        if (selectedIds.length > 0) {
-            //切换tab时默认给detail中第一个数据
-            eq = getEquipmentById(selectedIds[0]);
-        } else {
-            //没有选中的 默认显示整个列表的第一条
-            //所有的都在选中列表中
-            selectedIds = setAllInSelectedList();
-            eq = getEquipmentById(selectedIds[0]);
-        }
-        vdm.$set("equipments", eq);
-
-    });
+    searchModel = [
+        {"param": "eqCode", "paramDesc": "设备编号"},
+        {"param": "eqName", "paramDesc": "设备名称"},
+        {"param": "locName", "paramDesc": "设备位置"},
+        {"param": "eqClass", "paramDesc": "设备分类"}
+    ];
+    initBootGrid(dataTableName);
 
 
-    listTab.on('click', function () {
-        activeTab = "list";
-    });
+    // var eq = getEquipmentById(eqs[0]["id"]);
+    /*  vdm = new Vue({
+     el: "#detailForm",
+     data: {
+     formLocked: formLocked,
+     equipments: eq,
+     locs: locs,
+     eqClasses: eqClasses,
+     eqStatuses: eqStatuses,
+     runStatus: runStatus
+     },
+     methods: {
+     previous: function () {
+     if (pointer <= 0) {
+     showMessageBoxCenter("danger", "center", "当前记录是第一条");
+
+     } else {
+     pointer = pointer - 1;
+     //判断当前指针位置
+     var eid = selectedIds[pointer];
+     var e = getEquipmentById(eid);
+     vdm.$set("equipments", e);
+     hm.$set("e", e);
+     //loadFixHistoryByEid(selectedIds[pointer]);
+     hm.$set("histories", loadFixHistoryByEid(eid));
+     uhm.set("records", loadRecordsByEid(eid));
+     uhmd.$set("e", e);
+     }
+     },
+     next: function () {
+     if (pointer >= selectedIds.length - 1) {
+     showMessageBoxCenter("danger", "center", "当前记录是最后一条");
+
+     } else {
+     pointer = pointer + 1;
+
+     var eid = selectedIds[pointer];
+     var e = getEquipmentById(eid);
+     vdm.$set("equipments", e);
+     hm.$set("e", e);
+     hm.$set("histories", loadFixHistoryByEid(eid));
+     uhm.set("records", loadRecordsByEid(eid));
+     uhmd.$set("e", e);
+     }
+     },
+     checkEqCode: function () {
+     var eqCode = vdm.$get("equipments.eqCode");
+     if (checkEqCode(eqCode)) {
+     showMessageBoxCenter("danger", "center", "设备编号不能重复");
+
+     }
+     }
+     }
 
 
-    historyTab.on('click', function () {
-        activeTab = "history";
-        //首先判断是否有选中的
-        var equipments = vdm.equipments;
-        var histories = loadFixHistoryByEid(equipments.id);
-        var xx = $("#locations_id").find("option:selected").text().trim();
-        hm.$set("e", equipments);
-        hm.$set("e.location.description", xx);
-        hm.$set("histories", histories);
-    })
+     });*/
 
 
-    recordsTab.on('click', function () {
-        activeTab = "updateHistory";
-        //首先判断是否有选中的
-        var equipments = getEquipmentById(selectedIds[pointer]);
-        var records = loadRecordsByEid(equipments.id);
-        uhm.$set("records", records);
-        uhmd.$set("e", equipments);
-    })*/
+    /*  hm = new Vue({
+     el: "#historyInfo",
+     data: {
+     e: eqs[0],
+     histories: loadFixHistoryByEid(eqs[0] ? eqs[0]["id"] : null)
+     },
+     methods: {
+     showDetailHistory: function (data) {
+     showDetail(data);
+     }
+     }
+     });*/
+
+    /*
+     uhm = new Vue({
+     el: "#updateHistoryInfo",
+     data: {
+     e: eqs[0],
+     records: loadRecordsByEid(eqs[0] ? eqs[0]["id"] : null)
+     }
+     });
+
+
+     uhmd = new Vue({
+     el: "#recordForm",
+     data: {
+     e: eqs[0]
+     }
+     });*/
+
+
+    /* $('#detailForm')
+     .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
+     e.preventDefault();
+     saveEquipment();
+     });
+
+
+     listTab.on('click', function () {
+     refresh();
+
+     });
+
+
+     formTab.on('click', function () {
+     activeTab = "detail";
+     setFormReadStatus("#detailForm", formLocked);
+     //首先判断是否有选中的
+     var eq = null;
+     if (selectedIds.length > 0) {
+     //切换tab时默认给detail中第一个数据
+     eq = getEquipmentById(selectedIds[0]);
+     } else {
+     //没有选中的 默认显示整个列表的第一条
+     //所有的都在选中列表中
+     selectedIds = setAllInSelectedList();
+     eq = getEquipmentById(selectedIds[0]);
+     }
+     vdm.$set("equipments", eq);
+
+     });
+
+
+     listTab.on('click', function () {
+     activeTab = "list";
+     });
+
+
+     historyTab.on('click', function () {
+     activeTab = "history";
+     //首先判断是否有选中的
+     var equipments = vdm.equipments;
+     var histories = loadFixHistoryByEid(equipments.id);
+     var xx = $("#locations_id").find("option:selected").text().trim();
+     hm.$set("e", equipments);
+     hm.$set("e.location.description", xx);
+     hm.$set("histories", histories);
+     })
+
+
+     recordsTab.on('click', function () {
+     activeTab = "updateHistory";
+     //首先判断是否有选中的
+     var equipments = getEquipmentById(selectedIds[pointer]);
+     var records = loadRecordsByEid(equipments.id);
+     uhm.$set("records", records);
+     uhmd.$set("e", equipments);
+     })*/
 
 
     $('select').select2({theme: "bootstrap"});
@@ -691,7 +703,6 @@ function getEquipmentById(eid) {
     });
     return equipment;
 }
-
 
 
 /**
