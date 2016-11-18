@@ -7,7 +7,9 @@ import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.line.LineSearchService;
 import com.linkbit.beidou.service.line.LineService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -41,6 +43,8 @@ public class LineController extends BaseController {
 
     @Autowired
     ResourceService resourceService;
+    @Autowired
+    LineSearchService lineSearchService;
 
 
     /**
@@ -53,21 +57,8 @@ public class LineController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<Line> page = null;
-        if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = lineService.findByDescriptionContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        } else {
-            page = lineService.findAll(new PageRequest(current - 1, rowCount.intValue()));
-        }
-
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        return new PageUtils().searchByService(lineSearchService, searchPhrase, 2, current, rowCount);
     }
 
 
@@ -192,8 +183,8 @@ public class LineController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Line> dataList = lineService.findByDescriptionContains(param);
-        lineService.setDataList(dataList);
-        lineService.exportExcel(request, response, docName, titles, colNames);
+        List<Line> dataList = lineSearchService.findByConditions(param,2);
+        lineSearchService.setDataList(dataList);
+        lineSearchService.exportExcel(request, response, docName, titles, colNames);
     }
 }

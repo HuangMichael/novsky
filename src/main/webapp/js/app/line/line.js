@@ -229,6 +229,11 @@ $(function () {
 
     mainObject = "line";
     docName = "线路信息";
+    searchModel = [{"param": "lineNo", "paramDesc": "线路编号"}, {"param": "description", "paramDesc": "线路名称"}];
+
+    initBootGrid(dataTableName);
+    initSelect();
+
     initLoadData("/line/findAllLines", dataTableName);
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
@@ -250,30 +255,7 @@ $(function () {
         }
     });
 
-    //点击显示角色详细信息
-    formTab.on('click',
-        function () {
-            activeTab = "detail";
-            setFormReadStatus("#detailForm", formLocked);
-            //首先判断是否有选中的
-            var line = null;
-            if (selectedIds.length > 0) {
-                line = getLineByIdInLines(selectedIds[0]);
-            } else {
-                //没有选中的 默认显示整个列表的第一条
-                line = getLineByIdInLines(lines[0]["id"]);
-                selectedIds = setAllInSelectedList(lines);
-            }
-            vdm.line = line;
-        });
 
-    listTab.on('click',
-        function () {
-            activeTab = "list";
-        });
-    $('select').select2({
-        theme: "bootstrap"
-    });
 });
 
 /**
