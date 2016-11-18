@@ -61,13 +61,8 @@ public class RoleService extends BaseService implements Searchable{
      * @return 根据角色描述关键字进行查询
      */
 
-    public Page<Role> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
+    public Page<Role> findByConditions(String searchPhrase, int paramSize, Pageable pageable) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return roleRepository.findByRoleNameContainsAndRoleDescContains(array[0], array[1], pageable);
     }
 
@@ -78,12 +73,7 @@ public class RoleService extends BaseService implements Searchable{
      */
 
     public List<Role> findByConditions(String searchPhrase, int paramSize) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramSize; i++) {
-                array[i] = "";
-            }
-        }
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return roleRepository.findByRoleNameContainsAndRoleDescContains(array[0], array[1]);
     }
 
