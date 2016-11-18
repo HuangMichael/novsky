@@ -34,8 +34,6 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
     Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc, String locName, String eqName, Pageable pageable);
 
 
-
-
     /**
      * @param orderDesc 报修描述
      * @param locName   位置名称
@@ -74,6 +72,27 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
      * @return 根据位置和节点的状态查询
      */
     List<VworkOrderReportBill> findByNodeState(String nodeState);
+
+
+    /**
+     * @param orderLineNo
+     * @param orderDesc 报修描述
+     * @param locName   位置名称
+     * @param eqClass
+     * @param pageable
+     * @return 模糊查询
+     */
+    Page<VworkOrderReportBill> findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String orderLineNo, String orderDesc, String locName, String eqClass, Pageable pageable);
+
+
+    /**
+     * @param orderLineNo
+     * @param orderDesc 报修描述
+     * @param locName   位置名称
+     * @param eqClass
+     * @return 模糊查询
+     */
+    List<VworkOrderReportBill> findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String orderLineNo, String orderDesc, String locName, String eqClass);
 
 
 }

@@ -160,17 +160,16 @@ public class WorkOrderReportService extends BaseService {
      * @param pageable
      * @return 根据维修描述和位置名称查询
      */
-    public Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc ,Pageable pageable) {
+    public Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc, Pageable pageable) {
         return vworkOrderReportBillRepository.findByOrderDescContainsOrLocNameContainsOrEqNameContains(orderDesc, orderDesc, orderDesc, pageable);
     }
-
 
 
     /**
      * @param orderDesc
      * @return 根据维修描述和位置名称查询
      */
-    public List<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc ) {
+    public List<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc) {
         return vworkOrderReportBillRepository.findByOrderDescContainsOrLocNameContainsOrEqNameContains(orderDesc, orderDesc, orderDesc);
     }
 
@@ -184,4 +183,40 @@ public class WorkOrderReportService extends BaseService {
 
         return vworkOrderReportBillRepository.findByLocNameContains(orderDesc, pageable);
     }
+
+
+    /**
+     * @param searchPhrase
+     * @param pageable
+     * @return
+     */
+    public Page<VworkOrderReportBill> findByConditions(String searchPhrase, Pageable pageable) {
+        String array[] = {"", "", "", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",");
+        }
+        for (String e : array) {
+            System.out.println("e---------------" + e);
+        }
+        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
+    }
+
+
+    /**
+     * @param searchPhrase
+     * @return
+     */
+    public List<VworkOrderReportBill> findByConditions(String searchPhrase) {
+
+        String array[] = {"", "", "",""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",");
+        }
+        for (String e : array) {
+            System.out.println("e---------------" + e);
+        }
+        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
+    }
+
+
 }

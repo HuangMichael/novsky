@@ -123,8 +123,6 @@ $(function () {
     var url = "/commonData/findVEqClass";
     $.getJSON(url, function (data) {
         eqClasses = data;
-
-        console.log("eqClasses----------------"+JSON.stringify(eqClasses));
     });
 
 
