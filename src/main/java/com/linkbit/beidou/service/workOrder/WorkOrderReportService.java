@@ -24,18 +24,18 @@ import java.util.List;
  * Created by huangbin  on 2016/5/20.
  */
 @Service
-public class WorkOrderReportService extends BaseService {
+public class WorkOrderReportService extends BaseService implements Searchable {
 
 
     @Autowired
     EquipmentsRepository equipmentsRepository;
-
 
     @Autowired
     WorkOrderReportCartRepository workOrderReportCartRepository;
 
     @Autowired
     OutsourcingUnitRepository outsourcingUnitRepository;
+
     @Autowired
     VlocationsRepository vlocationsRepository;
     @Autowired
@@ -52,7 +52,6 @@ public class WorkOrderReportService extends BaseService {
 
 
     @Autowired
-
     VworkOrderReportBillRepository vworkOrderReportBillRepository;
 
     /**
@@ -156,64 +155,28 @@ public class WorkOrderReportService extends BaseService {
     }
 
 
-    /**
-     * @param orderDesc
-     * @param pageable
-     * @return 根据维修描述和位置名称查询
-     */
-    public Page<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc, Pageable pageable) {
-        return vworkOrderReportBillRepository.findByOrderDescContainsOrLocNameContainsOrEqNameContains(orderDesc, orderDesc, orderDesc, pageable);
-    }
+
+
 
 
     /**
-     * @param orderDesc
-     * @return 根据维修描述和位置名称查询
-     */
-    public List<VworkOrderReportBill> findByOrderDescContainsOrLocNameContainsOrEqNameContains(String orderDesc) {
-        return vworkOrderReportBillRepository.findByOrderDescContainsOrLocNameContainsOrEqNameContains(orderDesc, orderDesc, orderDesc);
-    }
-
-
-    /**
-     * @param orderDesc 报修单描述
-     * @param pageable  分页
-     * @return
-     */
-    public Page<VworkOrderReportBill> findByLocName(String orderDesc, Pageable pageable) {
-
-        return vworkOrderReportBillRepository.findByLocNameContains(orderDesc, pageable);
-    }
-
-
-    /**
-     * @param searchPhrase
-     * @param pageable
-     * @return
+     * @param searchPhrase   查询关键字
+     * @param pageable 可分页
+     * @return 根据条件查询
      */
     public Page<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
+        String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
         return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
     }
 
 
     /**
-     * @param searchPhrase
-     * @return
+     * @param searchPhrase   查询关键字
+     * @return 根据条件查询
      */
     public List<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize) {
 
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
+        String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
         return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
 
     }

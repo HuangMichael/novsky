@@ -30,6 +30,9 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchController extends BaseController {
 
+
+    @Autowired
+    PageUtils pageUtils;
     @Autowired
     RoleRepository roleRepository;
     @Autowired
@@ -50,7 +53,7 @@ public class SearchController extends BaseController {
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return getPageUtils().searchByService(roleService,searchPhrase, 2, current, rowCount);
+        return pageUtils.searchByService(roleService, searchPhrase, 2, current, rowCount);
     }
 
 
@@ -65,7 +68,7 @@ public class SearchController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Role> dataList = roleService.findByConditions(param,2);
+        List<Role> dataList = roleService.findByConditions(param, 2);
         roleService.setDataList(dataList);
         roleService.exportExcel(request, response, docName, titles, colNames);
     }

@@ -17,6 +17,7 @@ import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
 import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -36,7 +37,12 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/user")
+@Data
 public class UserController extends BaseController {
+
+    @Autowired
+    PageUtils pageUtils;
+
     @Autowired
     UserRepository userRepository;
 
@@ -63,7 +69,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return getPageUtils().searchByService(userService,searchPhrase, 2, current, rowCount);
+        return getPageUtils().searchByService(userService, searchPhrase, 2, current, rowCount);
     }
 
 
@@ -237,7 +243,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<User> dataList = userService.findByConditions(param,2);
+        List<User> dataList = userService.findByConditions(param, 2);
         userService.setDataList(dataList);
         userService.exportExcel(request, response, docName, titles, colNames);
     }

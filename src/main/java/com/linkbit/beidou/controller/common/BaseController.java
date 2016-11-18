@@ -36,7 +36,6 @@ import java.util.List;
 public abstract class BaseController {
 
 
-    PageUtils pageUtils = new PageUtils();
 
     @Autowired
     ResourceService resourceService;

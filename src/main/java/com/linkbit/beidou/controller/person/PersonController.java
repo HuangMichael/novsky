@@ -8,6 +8,7 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.person.PersonService;
+import com.linkbit.beidou.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,9 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController extends BaseController {
     @Autowired
-    PersonService  personService;
+    PageUtils pageUtils;
+    @Autowired
+    PersonService personService;
     @Autowired
     ResourceService resourceService;
 
@@ -46,7 +49,7 @@ public class PersonController extends BaseController {
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return getPageUtils().searchByService(personService, searchPhrase, 2, current, rowCount);
+        return pageUtils.searchByService(personService, searchPhrase, 2, current, rowCount);
     }
 
     /**
