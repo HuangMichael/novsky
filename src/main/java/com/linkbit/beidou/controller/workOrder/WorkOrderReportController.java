@@ -22,6 +22,7 @@ import com.linkbit.beidou.utils.export.exporter.DataExport;
 import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,8 +49,6 @@ import java.util.List;
 public class WorkOrderReportController extends BaseController {
 
 
-    @Autowired
-    PageUtils pageUtils;
 
 
     @Autowired
@@ -73,7 +72,7 @@ public class WorkOrderReportController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return getPageUtils().searchByService(workOrderReportService, searchPhrase, 4, current, rowCount);
+        return new PageUtils().searchByService(workOrderReportService, searchPhrase, 4, current, rowCount);
     }
 
 

@@ -15,6 +15,7 @@ import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,14 +34,10 @@ import java.util.List;
 @Controller
 @Data
 @EnableAutoConfiguration
-public abstract class BaseController {
-
-
+public class BaseController {
 
     @Autowired
     ResourceService resourceService;
-
-
     String userLocation;
 
 

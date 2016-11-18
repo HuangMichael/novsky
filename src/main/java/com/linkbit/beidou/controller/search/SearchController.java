@@ -32,8 +32,6 @@ public class SearchController extends BaseController {
 
 
     @Autowired
-    PageUtils pageUtils;
-    @Autowired
     RoleRepository roleRepository;
     @Autowired
     RoleService roleService;
@@ -53,7 +51,7 @@ public class SearchController extends BaseController {
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return pageUtils.searchByService(roleService, searchPhrase, 2, current, rowCount);
+        return new PageUtils().searchByService(roleService, searchPhrase, 2, current, rowCount);
     }
 
 

@@ -26,8 +26,7 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/person")
 public class PersonController extends BaseController {
-    @Autowired
-    PageUtils pageUtils;
+
     @Autowired
     PersonService personService;
     @Autowired
@@ -49,7 +48,7 @@ public class PersonController extends BaseController {
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return pageUtils.searchByService(personService, searchPhrase, 2, current, rowCount);
+        return new PageUtils().searchByService(personService, searchPhrase, 2, current, rowCount);
     }
 
     /**

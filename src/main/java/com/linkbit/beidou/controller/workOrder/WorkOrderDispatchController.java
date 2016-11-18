@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.workOrder;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.domain.user.User;
@@ -9,6 +10,7 @@ import com.linkbit.beidou.service.workOrder.WorkOrderDispatchService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.SessionUtil;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,8 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/workOrderDispatch")
-public class WorkOrderDispatchController {
+@Data
+public class WorkOrderDispatchController extends BaseController {
 
 
     @Autowired

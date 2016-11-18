@@ -24,7 +24,7 @@ import java.util.List;
  * Created by huangbin  on 2016/5/20.
  */
 @Service
-public class WorkOrderReportService extends BaseService implements Searchable {
+public class WorkOrderReportService extends BaseService implements Searchable{
 
 
     @Autowired
@@ -58,7 +58,7 @@ public class WorkOrderReportService extends BaseService implements Searchable {
      * @param ids 选中的报修车列表id集合
      * @return
      */
-    @Transactional
+
     public List<WorkOrderReportCart> generateReport(String ids) {
         List<Long> idList = new ArrayList<Long>();
         if (ids != null && !ids.equals("")) {
@@ -89,7 +89,7 @@ public class WorkOrderReportService extends BaseService implements Searchable {
      * @return 根据维修单位Id规约
      * @version 0.1
      */
-    @Transactional
+
     public List mapByUnitId(String ids) {
         List<WorkOrderReportCart> workOrderReportCartList = new ArrayList<WorkOrderReportCart>();
         List<Long> idsList = StringUtils.str2List(ids, ",");

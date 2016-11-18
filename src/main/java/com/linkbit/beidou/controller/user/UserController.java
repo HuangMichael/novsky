@@ -40,8 +40,7 @@ import java.util.List;
 @Data
 public class UserController extends BaseController {
 
-    @Autowired
-    PageUtils pageUtils;
+
 
     @Autowired
     UserRepository userRepository;
@@ -69,7 +68,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return getPageUtils().searchByService(userService, searchPhrase, 2, current, rowCount);
+        return new PageUtils().searchByService(userService, searchPhrase, 2, current, rowCount);
     }
 
 

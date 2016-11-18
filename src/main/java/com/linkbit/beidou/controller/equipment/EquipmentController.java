@@ -51,8 +51,6 @@ import java.util.List;
 @RequestMapping("/equipment")
 public class EquipmentController extends BaseController implements LocationSeparatable {
 
-    @Autowired
-    PageUtils pageUtils;
 
     Log log = LogFactory.getLog(this.getClass());
 
@@ -106,7 +104,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return pageUtils.searchByService(equipmentAccountService, searchPhrase, 4, current, rowCount);
+        return  new PageUtils().searchByService(equipmentAccountService, searchPhrase, 4, current, rowCount);
     }
 
 
