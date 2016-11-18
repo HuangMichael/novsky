@@ -1,28 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../common/common-head.jsp" %>
-
-
-<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
-<div class="modal fade" id="user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">新建用户</h4>
-            </div>
-            <div class="modal-body">
-                <%-- <%@include file="form.jsp" %>--%>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="saveBtn" onclick="save()">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
 <div class="container">
     <div class="row">
         <div id="content" class="col-lg-12">
@@ -50,6 +28,24 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
+
+                                    <div class="form-group" style="margin-bottom:10px;position:inherit" id="searchBox">
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="roleName" type="text" name="userName"
+                                                   placeholder="用户名"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="roleDesc" type="text" name="roleDesc"
+                                                   placeholder="位置"/>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button id="searchBtn" class="btn btn-default" onclick="search()">查询
+                                            </button>
+                                        </div>
+                                    </div>
+
+
                                     <div class="tab-pane fade in active" id="tab_1_0">
                                         <table id="userDataTable"
                                                class=" table table-striped table-bordered table-hover"
