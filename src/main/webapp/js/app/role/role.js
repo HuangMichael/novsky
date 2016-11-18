@@ -188,8 +188,8 @@ $(function () {
     docName = "角色信息";
     mainObject = "role";
     formName = "#detailForm";
-
     initBootGrid(dataTableName);
+    searchModel = [{"param": "roleName", "paramDesc": "角色名称"}, {"param": "roleDesc", "paramDesc": "角色描述"}];
     initSelect();
     $(formName).bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
@@ -206,56 +206,9 @@ $(function () {
             role: findById(ids[0])
         }
     });
-
-    /* //点击显示角色详细信息
-     formTab.on('click',
-     function () {
-     activeTab = "detail";
-     setFormReadStatus("#detailForm", formLocked);
-     //首先判断是否有选中的
-     var role = null;
-     if (selectedIds.length > 0) {
-     role = findById(selectedIds[0]);
-     } else {
-     //没有选中的 默认显示整个列表的第一条
-     role = getRoleByIdInRoles(roles[0]["id"]);
-     selectedIds = setAllInSelectedList(roles);
-     }
-     vdm.role = role;
-     loadUsers(role.id)
-     });*/
-
-
     showUsers();
 });
 
-/*function save() {
- var roleId = $("#roleId").val();
- var roleName = $("#roleName").val();
- var roleDesc = $("#roleDesc").val();
- var status = "1";
-
- if (roleId) {
- var url = "/role/update";
- } else {
- var url = "/role/save";
- }
- var role = {
- roleId: roleId,
- roleName: roleName,
- roleDesc: roleDesc,
- status: status
- };
- $.post(url, role,
- function (data) {
- if (data) {
- showMessageBox("info", "角色信息保存成功！");
- } else {
- showMessageBox("danger", "角色信息保存失败！");
- }
-
- });
- }*/
 
 
 function showUsers() {
