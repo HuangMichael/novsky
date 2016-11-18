@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/8/15.
  */
 
-var dataTableName = '#stationListTable';
+
 var stations = [];
 var selectedIds = []; //获取被选择记录集合
 var locs = [];
@@ -185,13 +185,37 @@ function setFormReadStatus(formId, formLocked, except) {
 }
 
 $(function () {
-    initLoadData("/station/findActiveStation", dataTableName);
+
+    mainObject = "station";
+    dataTableName = '#stationListTable';
+    formName = "#detailForm";
+    searchModel = [
+        {
+            "param": "stationNo",
+            "paramDesc": "车站编号"
+        }, {"param": "description", "paramDesc": "车站名称"}, {"param": "line", "paramDesc": "线路"}];
+
+    initBootGrid(dataTableName);
+    initSelect();
+    search();
+
+
     var url = "/line/findLines";
     $.getJSON(url, function (data) {
         lines = data;
     });
 
     types = [{"id": "1", "typeName": "站区"}, {"id": "2", "typeName": "段区"}];
+
+
+
+    console.log(JSON.stringify(lines));
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            lines: lines
+        }
+    });
 
 
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
@@ -209,31 +233,7 @@ $(function () {
         }
     });
 
-    //点击显示角色详细信息
-    formTab.on('click',
-        function () {
-            activeTab = "detail";
-            setFormReadStatus("#detailForm", formLocked);
-            //首先判断是否有选中的
-            var station = null;
-            if (selectedIds.length > 0) {
-                station = getStationByIdInStations(selectedIds[0]);
-            } else {
-                //没有选中的 默认显示整个列表的第一条
-                station = getStationByIdInStations(stations[0]["id"]);
-                selectedIds = setAllInSelectedList(stations);
-            }
-            vdm.station = station;
 
-        });
-
-    listTab.on('click',
-        function () {
-            activeTab = "list";
-        });
-    $('select').select2({
-        theme: "bootstrap"
-    });
 });
 
 

@@ -14,7 +14,7 @@
                             <h4><i class="fa fa-users"></i>车站</h4>
                         </div>
 
-                        <%@include file="../common/common-menubar.jsp"%>
+                        <%@include file="../common/common-menubar.jsp" %>
                         <div class="box-body">
                             <div class="tabbable">
                                 <ul class="nav nav-tabs" id="myTab">
@@ -28,11 +28,39 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
+                                    <div class="form-group" style="margin-bottom:10px;position:inherit" id="searchBox">
+
+                                       <%-- <div class="col-md-2">
+                                            <select class="form-control" id="line" name="line" style="width:100%"
+                                                    required>
+                                                <template v-for="option in lines">
+                                                    <option :value="option.id">
+                                                        {{option.description }}
+                                                    </option>
+                                                </template>
+                                            </select>
+                                        </div>--%>
+
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="lineNo" type="text" name="stationNo"
+                                                   placeholder="车站编号"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="description" type="text" name="description"
+                                                   placeholder="车站名称"/>
+                                        </div>
+
+
+                                        <div class="col-md-2">
+                                            <button id="searchBtn" class="btn btn-default" onclick="search()">查询
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div class="tab-pane fade in active" id="tab_1_0">
                                         <%@include file="stationList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
-                                      <%@include file="detail.jsp" %>
+                                        <%@include file="detail.jsp" %>
                                     </div>
                                 </div>
                             </div>

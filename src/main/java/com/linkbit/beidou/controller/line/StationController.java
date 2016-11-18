@@ -9,7 +9,9 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.line.LineService;
+import com.linkbit.beidou.service.line.StationSearchService;
 import com.linkbit.beidou.service.line.StationService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -43,6 +45,8 @@ public class StationController extends BaseController {
     LineService lineService;
     @Autowired
     ResourceService resourceService;
+    @Autowired
+    StationSearchService stationSearchService;
 
 
     /**
@@ -56,13 +60,7 @@ public class StationController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<Station> page = stationService.findByStationNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+        return new PageUtils().searchByService(stationSearchService, searchPhrase, 2, current, rowCount);
     }
 
     /**
@@ -196,8 +194,8 @@ public class StationController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Station> dataList = stationService.findByStationNameContains(param);
-        stationService.setDataList(dataList);
-        stationService.exportExcel(request, response, docName, titles, colNames);
+        List<Station> dataList = stationSearchService.findByConditions(param, 2);
+        stationSearchService.setDataList(dataList);
+        stationSearchService.exportExcel(request, response, docName, titles, colNames);
     }
 }
