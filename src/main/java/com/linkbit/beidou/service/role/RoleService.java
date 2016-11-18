@@ -59,6 +59,7 @@ public class RoleService extends BaseService {
      * @param pageable     可分页
      * @return 根据角色描述关键字进行查询
      */
+    @Override
     public Page<Role> findByConditions(String searchPhrase, Pageable pageable) {
         String array[] = {"", ""};
         if (!searchPhrase.isEmpty()) {
@@ -72,6 +73,7 @@ public class RoleService extends BaseService {
      * @param searchPhrase
      * @return 根据角色描述关键字进行查询
      */
+    @Override
     public List<Role> findByConditions(String searchPhrase) {
         String array[] = {"", ""};
         if (!searchPhrase.isEmpty()) {

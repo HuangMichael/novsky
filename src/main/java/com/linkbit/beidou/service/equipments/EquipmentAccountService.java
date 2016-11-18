@@ -6,6 +6,7 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.locations.LocationsService;
@@ -243,7 +244,7 @@ public class EquipmentAccountService extends BaseService {
 
         Locations locations = locationsService.findById(locationId);
 
-        return vEqRepository.findByEqNameContainsAndLocation(eqName,locations, pageable);
+        return vEqRepository.findByEqNameContainsAndLocation(eqName, locations, pageable);
     }
 
 
@@ -276,5 +277,34 @@ public class EquipmentAccountService extends BaseService {
     public List<Long> selectAllId() {
 
         return equipmentsRepository.findAllId();
+    }
+
+
+    /**
+     * @param searchPhrase 条件
+     * @param pageable     可分页
+     * @return 根据角色描述关键字进行查询
+     */
+    @Override
+    public Page<Vequipments> findByConditions(String searchPhrase, Pageable pageable) {
+        String array[] = {"", "", "", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", 5);
+        }
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
+    }
+
+
+    /**
+     * @param searchPhrase
+     * @return 根据角色描述关键字进行查询
+     */
+    @Override
+    public List<Vequipments> findByConditions(String searchPhrase) {
+        String array[] = {"", "", "", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", 5);
+        }
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
     }
 }

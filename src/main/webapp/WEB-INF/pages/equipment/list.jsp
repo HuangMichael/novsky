@@ -14,7 +14,7 @@
                         <div class="box-title">
                             <h4 class="appTitle"><i class="fa fa-sitemap"></i>设备信息</h4>
                         </div>
-                        <%@include file="../common/common-menubar.jsp"%>
+                        <%@include file="../common/common-menubar.jsp" %>
                         <div class="box-body">
                             <div class="tabbable">
                                 <ul class="nav nav-tabs" id="myTab">
@@ -33,10 +33,36 @@
                                     </li>
                                     <li><a href="#tab_1_5" data-toggle="tab"
                                            style="font-family: 微软雅黑;font-weight: bold"><i class="fa fa-lock"
-                                                                                                                              id="profile"></i>设备履历</a>
-                                                                        </li>
+                                                                                          id="profile"></i>设备履历</a>
+                                    </li>
                                 </ul>
                                 <div class="tab-content">
+
+                                    <div class="form-group" style="margin-bottom:10px;position:inherit" id="searchBox">
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="eqCode" type="text" name="eqCode"
+                                                   placeholder="设备编号"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="eqName" type="text" name="eqName"
+                                                   placeholder="设备描述"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="locName" type="text" name="locName"
+                                                   placeholder="设备位置"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input class="form-control" id="eqClass" type="text" name="eqClass"
+                                                   placeholder="设备分类"/>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button id="searchBtn" class="btn btn-default" onclick="search()">查询
+                                            </button>
+                                        </div>
+                                    </div>
+
+
                                     <div class="tab-pane fade in active" id="tab_1_0"
                                          style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
                                         <%@include file="table_1_0.jsp" %>
@@ -49,7 +75,7 @@
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_5">
                                         <%@include file="table_1_5.jsp" %>
-                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

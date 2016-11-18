@@ -12,8 +12,7 @@ var hm = null;
 var uhm = null;
 var uhmd = null;
 var formLocked = true;
-mainObject = "equipment";
-docName = "设备信息";
+
 
 var formStatusArray = ["READ", "CREATE", "EDIT", "SAVED", "DELETED"];
 
@@ -100,7 +99,20 @@ var validateOptions = {
 };
 $(function () {
     //初始化从数据库获取列表数据
-    initLoadData("/equipment/findMyEqs", dataTableName);
+
+
+    mainObject = "equipment";
+    docName = "设备信息";
+    dataTableName = "#equipmentsDataTable";
+    searchModel = [
+        {"param": "eqCode", "paramDesc": "设备编号"},
+        {"param": "eqName", "paramDesc": "设备名称"},
+        {"param": "locName", "paramDesc": "设备位置"},
+        {"param": "eqClass", "paramDesc": "设备分类"}
+    ];
+    initBootGrid(dataTableName);
+
+
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
         locs = data;
@@ -122,8 +134,8 @@ $(function () {
     });
 
 
-    var eq = getEquipmentById(eqs[0]["id"]);
-    vdm = new Vue({
+   // var eq = getEquipmentById(eqs[0]["id"]);
+  /*  vdm = new Vue({
         el: "#detailForm",
         data: {
             formLocked: formLocked,
@@ -177,10 +189,10 @@ $(function () {
         }
 
 
-    });
+    });*/
 
 
-    hm = new Vue({
+  /*  hm = new Vue({
         el: "#historyInfo",
         data: {
             e: eqs[0],
@@ -191,9 +203,9 @@ $(function () {
                 showDetail(data);
             }
         }
-    });
+    });*/
 
-
+/*
     uhm = new Vue({
         el: "#updateHistoryInfo",
         data: {
@@ -208,10 +220,10 @@ $(function () {
         data: {
             e: eqs[0]
         }
-    });
+    });*/
 
 
-    $('#detailForm')
+   /* $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
         saveEquipment();
@@ -267,7 +279,7 @@ $(function () {
         var records = loadRecordsByEid(equipments.id);
         uhm.$set("records", records);
         uhmd.$set("e", equipments);
-    })
+    })*/
 
 
     $('select').select2({theme: "bootstrap"});
@@ -680,23 +692,7 @@ function getEquipmentById(eid) {
     return equipment;
 }
 
-/**
- * 查询
- */
-function search() {
-    var searchParams = $(dataTableName).bootgrid("getSearchPhrase");
 
-    console.log("searchParams-----------" + searchParams);
-    $(dataTableName).bootgrid("search", searchParams);
-
-
-    //查询完毕后  重新给查询框赋值
-    var searchArray = searchParams.split(",");
-    $("#param0").val(searchArray[0]);
-    $("#param1").val(searchArray[1]);
-    $("#param2").val(searchArray[2]);
-    $(dataTableName).bootgrid("reload");
-}
 
 /**
  *

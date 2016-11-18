@@ -21,10 +21,7 @@ import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
-import com.linkbit.beidou.utils.DateUtils;
-import com.linkbit.beidou.utils.LocationSeparatable;
-import com.linkbit.beidou.utils.SessionUtil;
-import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.*;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.docType.PdfDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -105,21 +102,9 @@ public class EquipmentController extends BaseController implements LocationSepar
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        String location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<Vequipments> page = null;
-        if (searchPhrase != null && !searchPhrase.equals("")) {
-            page = equipmentAccountService.findByEqNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        } else {
-            page = equipmentAccountService.findAll(new PageRequest(current - 1, rowCount.intValue()));
-        }
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+        return PageUtils.searchByService(equipmentAccountService, searchPhrase, current, rowCount);
     }
 
 
@@ -453,7 +438,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Vequipments> dataList = equipmentAccountService.findByEqNameContains(param);
+        List<Vequipments> dataList = equipmentAccountService.findByConditions(param);
         equipmentAccountService.setDataList(dataList);
         equipmentAccountService.exportExcel(request, response, docName, titles, colNames);
     }
