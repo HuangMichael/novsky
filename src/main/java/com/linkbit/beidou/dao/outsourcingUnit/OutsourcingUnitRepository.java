@@ -2,6 +2,7 @@ package com.linkbit.beidou.dao.outsourcingUnit;
 
 
 import com.linkbit.beidou.domain.units.Units;
+import com.linkbit.beidou.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -72,19 +73,6 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
     List<Object> findUnitListByEqClassIdNotEq(@Param("idList") List<Long> idList);
 
 
-    /**
-     * @param unitName
-     * @return 单位集合
-     */
-    List<Units> findByDescriptionContains(String unitName);
-
-
-    /**
-     * @param unitName 外委单位 名称
-     * @param pageable 分页
-     * @return 单位集合
-     */
-    Page<Units> findByDescriptionContains(String unitName, Pageable pageable);
 
 
     /**
@@ -92,5 +80,25 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
      */
     @Query("select u.id from Units u")
     List<Long> findAllIds();
+
+
+
+
+
+    /**
+     * @param desc
+     * @param linkMan
+     * @return 复合条件查询
+     */
+    List<Units> findByDescriptionContainsAndLinkmanContains(String desc, String linkMan );
+
+
+    /**
+     * @param desc
+     * @param linkMan
+     * @param pageable
+     * @return 复合条件查询
+     */
+    Page<Units> findByDescriptionContainsAndLinkmanContains(String desc, String linkMan ,Pageable pageable);
 
 }

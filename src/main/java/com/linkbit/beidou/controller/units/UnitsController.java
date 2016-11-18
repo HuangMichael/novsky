@@ -9,7 +9,9 @@ import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.unit.UnitSearchService;
 import com.linkbit.beidou.service.unit.UnitService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -44,6 +46,9 @@ public class UnitsController extends BaseController {
     @Autowired
     CommonDataService commonDataService;
 
+    @Autowired
+    UnitSearchService unitSearchService;
+
 
     @RequestMapping(value = "/list")
     public String list(HttpSession httpSession, ModelMap modelMap) {
@@ -63,13 +68,7 @@ public class UnitsController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<Units> page = unitService.findByDescriptionContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+        return new PageUtils().searchByService(unitSearchService, searchPhrase, 2, current, rowCount);
     }
 
 
@@ -174,7 +173,7 @@ public class UnitsController extends BaseController {
     @RequestMapping(value = "/findOutUnits/{status}", method = RequestMethod.GET)
     @ResponseBody
     public List<Units> findByStatusAndOutFlag(@PathVariable("status") String status) {
-        return outsourcingUnitRepository.findByStatusAndOutFlag(status,"1");
+        return outsourcingUnitRepository.findByStatusAndOutFlag(status, "1");
     }
 
 
@@ -208,7 +207,7 @@ public class UnitsController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Units> dataList = unitService.findByDescriptionContains(param);
+        List<Units> dataList = unitSearchService.findByConditions(param, 2);
         unitService.setDataList(dataList);
         unitService.exportExcel(request, response, docName, titles, colNames);
     }

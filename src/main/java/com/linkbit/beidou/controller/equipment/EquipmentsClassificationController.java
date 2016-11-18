@@ -3,19 +3,19 @@ package com.linkbit.beidou.controller.equipment;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.EquipmentsClassificationRepository;
-import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
 import com.linkbit.beidou.service.unit.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class EquipmentsClassificationController extends BaseController {
     EquipmentsClassificationRepository equipmentsClassificationRepository;
     @Autowired
     EquipmentsClassificationService equipmentsClassificationService;
-    @Autowired
+    @Qualifier("unitService")
     UnitService unitService;
     @Autowired
     ResourceService resourceService;

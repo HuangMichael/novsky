@@ -50,6 +50,8 @@ $(function () {
     mainObject = "units";
     formName = "#unitDetailForm";
     docName = "外委单位信息";
+
+
     $(formName)
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
@@ -57,7 +59,10 @@ $(function () {
     });
 
 
+    searchModel = [{"param": "description", "paramDesc": "单位名称"}, {"param": "linkMan", "paramDesc": "联系人"}];
     initBootGrid(dataTableName);
+
+    search();
 
 
     ids = findAllRecordId();
@@ -70,8 +75,6 @@ $(function () {
 
     });
 
-
-    console.log(ids);
 
     formTab.on('click', function () {
         //首先判断是否有选中的

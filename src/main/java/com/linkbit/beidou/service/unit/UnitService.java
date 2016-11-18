@@ -5,9 +5,11 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.workOrder.WorkOrderReportCartRepository;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
 import com.linkbit.beidou.domain.units.Units;
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.equipmentsClassification.EquipmentsClassificationService;
+import com.linkbit.beidou.utils.search.Searchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -190,30 +192,11 @@ public class UnitService extends BaseService {
 
 
     /**
-     * @param param 根据名称模糊查询
-     * @return
-     */
-    public List<Units> findByDescriptionContains(String param) {
-        return unitsRepository.findByDescriptionContains(param);
-    }
-
-
-    /**
-     * @param param 根据名称模糊查询
-     * @return
-     */
-    public Page<Units> findByDescriptionContains(String param, Pageable pageable) {
-        return unitsRepository.findByDescriptionContains(param, pageable);
-    }
-
-
-    /**
      * @return 查询所有的id
      */
     public List<Long> findAllIds() {
         List<Long> ids = unitsRepository.findAllIds();
         return ids;
     }
-
 
 }
