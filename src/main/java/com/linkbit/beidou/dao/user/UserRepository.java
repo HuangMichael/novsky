@@ -1,6 +1,7 @@
 package com.linkbit.beidou.dao.user;
 
 
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,5 +86,22 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Query("select e.id from User e order by e.id asc")
     List<Long> findAllId();
+
+
+    /**
+     * @param userName
+     * @param location
+     * @return
+     */
+    List<User> findByUserNameContainsAndLocationStartingWith(String userName, String location );
+
+
+    /**
+     * @param userName
+     * @param location
+     * @param pageable
+     * @return
+     */
+    Page<User> findByUserNameContainsAndLocationStartingWith(String userName, String location ,Pageable pageable);
 
 }

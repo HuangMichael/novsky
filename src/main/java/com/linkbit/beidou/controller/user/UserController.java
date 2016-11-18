@@ -15,6 +15,7 @@ import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.user.UserService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -62,14 +63,8 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data( @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<User> page = userService.findByUserNameContrains(searchPhrase,new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        return PageUtils.searchByService(userService, searchPhrase, current, rowCount);
     }
 
 
@@ -121,7 +116,7 @@ public class UserController extends BaseController {
     public ReturnObject save(@RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId) {
         User user = new User();
         user.setPerson(personRepository.findById(personId));
-        Vlocations vlocations =vlocationsRepository.findById(locationId);
+        Vlocations vlocations = vlocationsRepository.findById(locationId);
         user.setVlocations(vlocations);
         user.setLocation(vlocations.getLocation());
         user = userService.save(user);
@@ -147,7 +142,7 @@ public class UserController extends BaseController {
         User user = new User();
         user.setUserName(userName);
         user.setPerson(personRepository.findById(personId));
-        Vlocations vlocations =vlocationsRepository.findById(locationId);
+        Vlocations vlocations = vlocationsRepository.findById(locationId);
         user.setVlocations(vlocations);
         user.setLocation(vlocations.getLocation());
         user = userService.createUser(user);
@@ -186,11 +181,11 @@ public class UserController extends BaseController {
     /**
      * @return 修改密码
      */
-    @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
+    @RequestMapping(value = "/changePwd", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject changePwd(@RequestParam("userName") String userName, @RequestParam("newPwd") String newPwd) {
         ReturnObject returnObject = new ReturnObject();
-       boolean result = userService.changePwd(userName,newPwd);
+        boolean result = userService.changePwd(userName, newPwd);
         returnObject.setResult(result);
         if (returnObject.getResult()) {
             returnObject.setResultDesc("用户密码修改成功!");
@@ -222,7 +217,6 @@ public class UserController extends BaseController {
     }
 
 
-
     /**
      * @return 查询所有的id
      */
@@ -231,12 +225,6 @@ public class UserController extends BaseController {
     List<Long> findAllIds() {
         return userService.selectAllId();
     }
-
-
-
-
-
-
 
 
     /**
@@ -250,7 +238,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<User> dataList = userService.findByUserNameContrains(param);
+        List<User> dataList = userService.findByConditions(param);
         userService.setDataList(dataList);
         userService.exportExcel(request, response, docName, titles, colNames);
     }

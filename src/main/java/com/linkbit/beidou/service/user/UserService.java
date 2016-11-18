@@ -5,6 +5,7 @@ import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.dao.user.UserRepository;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
@@ -87,7 +88,6 @@ public class UserService extends BaseService {
     }
 
 
-
     /**
      * 对用户进行加密
      */
@@ -161,6 +161,32 @@ public class UserService extends BaseService {
     public List<Long> selectAllId() {
 
         return userRepository.findAllId();
+    }
+
+
+    /**
+     * @param searchPhrase
+     * @return 根据多条件关键字进行查询
+     */
+    public List<User> findByConditions(String searchPhrase) {
+        String array[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", 3);
+        }
+        return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1]);
+    }
+
+
+    /**
+     * @param searchPhrase
+     * @return 根据多条件关键字进行查询
+     */
+    public Page<User> findByConditions(String searchPhrase, Pageable pageable) {
+        String array[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", 3);
+        }
+        return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1], pageable);
     }
 
 
