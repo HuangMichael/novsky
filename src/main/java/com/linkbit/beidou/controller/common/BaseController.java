@@ -6,6 +6,7 @@ import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -33,6 +34,9 @@ import java.util.List;
 @Data
 @EnableAutoConfiguration
 public abstract class BaseController {
+
+
+    PageUtils pageUtils = new PageUtils();
 
     @Autowired
     ResourceService resourceService;

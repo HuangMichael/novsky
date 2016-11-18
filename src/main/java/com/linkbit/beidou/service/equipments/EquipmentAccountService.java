@@ -11,6 +11,7 @@ import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.CommonStatusType;
+import com.linkbit.beidou.utils.search.Searchable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.List;
  * 设备台账业务类
  */
 @Service
-public class EquipmentAccountService extends BaseService {
+public class EquipmentAccountService extends BaseService implements Searchable {
 
     Log log = LogFactory.getLog(this.getClass());
 
@@ -285,16 +286,15 @@ public class EquipmentAccountService extends BaseService {
      * @param pageable     可分页
      * @return 根据角色描述关键字进行查询
      */
-    @Override
-    public Page<Vequipments> findByConditions(String searchPhrase, Pageable pageable) {
-        String array[] = {"", "", "", ""};
-        if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",", 4);
+
+    public Page<Vequipments> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
+        String array[] = searchPhrase.split(",");
+        if (array == null || array.length == 0) {
+            for (int i = 0; i < paramsSize; i++) {
+                array[i] = "";
+            }
         }
-        for (String e : array) {
-            System.out.println("e---------------" + e);
-        }
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3].replace(",", ""), pageable);
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
     }
 
 
@@ -302,16 +302,14 @@ public class EquipmentAccountService extends BaseService {
      * @param searchPhrase
      * @return 根据角色描述关键字进行查询
      */
-    @Override
-    public List<Vequipments> findByConditions(String searchPhrase) {
-        String array[] = {"", "", "", ""};
-        if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",", 4);
-        }
 
-        for (String e : array) {
-            System.out.println("e---------------" + e);
+    public List<Vequipments> findByConditions(String searchPhrase, int paramsSize) {
+        String array[] = searchPhrase.split(",");
+        if (array == null || array.length == 0) {
+            for (int i = 0; i < paramsSize; i++) {
+                array[i] = "";
+            }
         }
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3].replace(",", ""));
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
     }
 }

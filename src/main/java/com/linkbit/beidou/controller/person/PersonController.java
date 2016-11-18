@@ -3,25 +3,18 @@ package com.linkbit.beidou.controller.person;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
-import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.person.Person;
-import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.person.PersonService;
-import com.linkbit.beidou.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -33,7 +26,7 @@ import java.util.List;
 @RequestMapping("/person")
 public class PersonController extends BaseController {
     @Autowired
-    PersonService personService;
+    PersonService  personService;
     @Autowired
     ResourceService resourceService;
 
@@ -53,7 +46,7 @@ public class PersonController extends BaseController {
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return PageUtils.searchByService(personService, searchPhrase, current, rowCount);
+        return getPageUtils().searchByService(personService, searchPhrase, 2, current, rowCount);
     }
 
     /**
@@ -208,7 +201,7 @@ public class PersonController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Person> dataList = personService.findByConditions(param);
+        List<Person> dataList = personService.findByConditions(param, 2);
         personService.setDataList(dataList);
         personService.exportExcel(request, response, docName, titles, colNames);
     }

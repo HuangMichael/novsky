@@ -1,8 +1,10 @@
 package com.linkbit.beidou.service.app;
 
+import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
 import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
+import com.linkbit.beidou.utils.search.Searchable;
 import lombok.Data;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,23 +45,26 @@ public class BaseService {
         }
     }
 
-    /**
-     * @param searchPhrase
-     * @param pageable
-     * @return
-     */
-    public Page findByConditions(String searchPhrase, Pageable pageable) {
-
-        return null;
-    }
-
 
     /**
      * @param searchPhrase
-     * @return
+     * @param paramSize
+     * @return 组装查询参数数组
      */
-    public List findByConditions(String searchPhrase) {
+    public String[] assembleSearchArray(String searchPhrase, int paramSize) {
 
-        return null;
+
+        String array[] = {"", ""};
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", paramSize + 1);
+        } else {
+            for (int i = 0; i < paramSize; i++) {
+                array[i] = "";
+            }
+        }
+
+        return array;
     }
+
+
 }

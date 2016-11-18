@@ -432,8 +432,7 @@ function search() {
     var params = $("#searchBox :input");
     var searchParams = "";
     $.each(params, function (i, p) {
-        var value = $(p).val();
-        value = value ? value : "";
+        var value = $(p).val().trim();
         searchParams += value + ",";
     });
 

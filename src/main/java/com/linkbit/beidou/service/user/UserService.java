@@ -10,6 +10,7 @@ import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
+import com.linkbit.beidou.utils.search.Searchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 
 @Service
-public class UserService extends BaseService {
+public class UserService extends BaseService implements Searchable {
 
     @Autowired
     UserRepository userRepository;
@@ -168,11 +169,8 @@ public class UserService extends BaseService {
      * @param searchPhrase
      * @return 根据多条件关键字进行查询
      */
-    public List<User> findByConditions(String searchPhrase) {
-        String array[] = {"", ""};
-        if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",", 3);
-        }
+    public List<User> findByConditions(String searchPhrase, int paramSize) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1]);
     }
 
@@ -181,11 +179,8 @@ public class UserService extends BaseService {
      * @param searchPhrase
      * @return 根据多条件关键字进行查询
      */
-    public Page<User> findByConditions(String searchPhrase, Pageable pageable) {
-        String array[] = {"", ""};
-        if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",", 3);
-        }
+    public Page<User> findByConditions(String searchPhrase, int paramSize, Pageable pageable) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1], pageable);
     }
 

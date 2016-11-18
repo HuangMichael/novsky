@@ -37,7 +37,6 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/user")
 public class UserController extends BaseController {
-
     @Autowired
     UserRepository userRepository;
 
@@ -64,7 +63,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return PageUtils.searchByService(userService, searchPhrase, current, rowCount);
+        return getPageUtils().searchByService(userService,searchPhrase, 2, current, rowCount);
     }
 
 
@@ -238,7 +237,7 @@ public class UserController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<User> dataList = userService.findByConditions(param);
+        List<User> dataList = userService.findByConditions(param,2);
         userService.setDataList(dataList);
         userService.exportExcel(request, response, docName, titles, colNames);
     }

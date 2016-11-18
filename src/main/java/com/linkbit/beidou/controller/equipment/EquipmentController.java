@@ -104,7 +104,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return PageUtils.searchByService(equipmentAccountService, searchPhrase, current, rowCount);
+        return getPageUtils().searchByService(equipmentAccountService, searchPhrase, 4, current, rowCount);
     }
 
 
@@ -438,7 +438,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Vequipments> dataList = equipmentAccountService.findByConditions(param);
+        List<Vequipments> dataList = equipmentAccountService.findByConditions(param, 4);
         equipmentAccountService.setDataList(dataList);
         equipmentAccountService.exportExcel(request, response, docName, titles, colNames);
     }

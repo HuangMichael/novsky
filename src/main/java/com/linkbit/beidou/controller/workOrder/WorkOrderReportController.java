@@ -68,7 +68,8 @@ public class WorkOrderReportController extends BaseController {
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return  PageUtils.searchByService(workOrderReportService, searchPhrase, current, rowCount);
+        //getPageUtils().searchByService(workOrderReportService, searchPhrase, 4, current, rowCount);
+        return null;
     }
 
 
@@ -128,7 +129,7 @@ public class WorkOrderReportController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VworkOrderReportBill> dataList = workOrderReportService.findByConditions(param);
+        List<VworkOrderReportBill> dataList = workOrderReportService.findByConditions(param, 4);
         workOrderReportService.setDataList(dataList);
         workOrderReportService.exportExcel(request, response, docName, titles, colNames);
     }

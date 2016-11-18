@@ -9,6 +9,7 @@ import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
+import com.linkbit.beidou.utils.search.Searchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -190,13 +191,12 @@ public class WorkOrderReportService extends BaseService {
      * @param pageable
      * @return
      */
-    public Page<VworkOrderReportBill> findByConditions(String searchPhrase, Pageable pageable) {
-        String array[] = {"", "", "", ""};
-        if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",");
-        }
-        for (String e : array) {
-            System.out.println("e---------------" + e);
+    public Page<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
+        String array[] = searchPhrase.split(",");
+        if (array == null || array.length == 0) {
+            for (int i = 0; i < paramsSize; i++) {
+                array[i] = "";
+            }
         }
         return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
     }
@@ -206,17 +206,15 @@ public class WorkOrderReportService extends BaseService {
      * @param searchPhrase
      * @return
      */
-    public List<VworkOrderReportBill> findByConditions(String searchPhrase) {
+    public List<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize) {
 
-        String array[] = {"", "", "",""};
-        if (!searchPhrase.isEmpty()) {
-            array = searchPhrase.split(",");
-        }
-        for (String e : array) {
-            System.out.println("e---------------" + e);
+        String array[] = searchPhrase.split(",");
+        if (array == null || array.length == 0) {
+            for (int i = 0; i < paramsSize; i++) {
+                array[i] = "";
+            }
         }
         return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
+
     }
-
-
 }
