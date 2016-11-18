@@ -16,7 +16,7 @@ import java.util.List;
  * 人员业务类
  */
 @Service
-public class PersonService extends BaseService  implements Searchable {
+public class PersonService extends BaseService implements Searchable {
 
 
     @Autowired
@@ -73,39 +73,13 @@ public class PersonService extends BaseService  implements Searchable {
         return (personRepository.findById(id) == null);
     }
 
-
-    /**
-     * @param personName
-     * @param pageable
-     * @return 根据人员姓名模糊查询
-     * @Date 2016年9月23日09:34:44
-     */
-    public Page<Person> findByPersonNameContains(String personName, Pageable pageable) {
-        return personRepository.findByPersonNameContains(personName, pageable);
-    }
-
-
-    /**
-     * @param personName
-     * @return 根据人员姓名模糊查询
-     */
-    public List<Person> findByPersonNameContains(String personName) {
-        return personRepository.findByPersonNameContains(personName);
-    }
-
-
     /**
      * @param pageable
      * @return 根据人员姓名模糊查询
      */
 
-    public Page<Person> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
+    public Page<Person> findByConditions(String searchPhrase, int paramSize, Pageable pageable) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return personRepository.findByPersonNoContainsAndPersonNameContains(array[0], array[1], pageable);
 
     }
@@ -116,13 +90,8 @@ public class PersonService extends BaseService  implements Searchable {
      * @return 根据人员姓名模糊查询
      */
 
-    public List<Person> findByConditions(String searchPhrase, int paramsSize) {
-        String array[] = searchPhrase.split(",");
-        if (array == null || array.length == 0) {
-            for (int i = 0; i < paramsSize; i++) {
-                array[i] = "";
-            }
-        }
+    public List<Person> findByConditions(String searchPhrase, int paramSize) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return personRepository.findByPersonNoContainsAndPersonNameContains(array[0], array[1]);
     }
 
