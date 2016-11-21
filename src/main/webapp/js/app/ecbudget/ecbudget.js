@@ -177,10 +177,9 @@ $(function () {
     mainObject = "ecbudget";
     docName = "易耗品采购申请信息";
     searchModel = [
-        {"param": "beginDate", "paramDesc": "申请日期"},
-        {"param": "endDate", "paramDesc": "申请日期"},
-        {"param": "ecname", "paramDesc": "消耗品名称"},
-        {"param": "location", "paramDesc": "位置"}
+        {"param": "locName", "paramDesc": "位置"},
+        {"param": "eqName", "paramDesc": "消耗品名称"},
+        {"param": "eqClass", "paramDesc": "设备分类"}
     ];
     initBootGrid(dataTableName);
     initSearchDate();
@@ -248,16 +247,7 @@ function findMyLoc() {
     return locs;
 }
 
-/**
- *查询我的位置
- * */
-function findMyEqClass() {
-    var url_eqclass = "/commonData/findVEqClass";
-    $.getJSON(url_eqclass, function (data) {
-        eqClass = data;
-    });
-    return eqClass;
-}
+
 
 /**
  *获取服务器时间

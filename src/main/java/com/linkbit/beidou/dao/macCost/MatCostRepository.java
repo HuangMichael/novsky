@@ -49,20 +49,20 @@ public interface MatCostRepository extends PagingAndSortingRepository<MatCost, L
 
 
     /**
-     * @param ecType
      * @param locName
      * @param ecName
+     * @param ecType
      * @return
      */
-    List<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType, String locName, String ecName);
+    List<MatCost> findByLocNameContainsAndEcNameContainsAndEcTypeContains(String locName, String ecName, String ecType);
 
 
     /**
-     * @param ecType   分类
      * @param locName  位置
      * @param ecName   名称
+     * @param ecType
      * @param pageable 模糊查询分页
      * @return
      */
-    Page<MatCost> findByEcTypeContainsAndLocNameContainsAndEcNameContains(String ecType, String locName, String ecName, Pageable pageable);
+    Page<MatCost> findByLocNameContainsAndEcNameContainsAndEcTypeContains(String locName, String ecName, String ecType, Pageable pageable);
 }

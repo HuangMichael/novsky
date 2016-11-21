@@ -27,61 +27,11 @@ public class MatCostService extends BaseService {
     @Autowired
     public MatCostRepository matCostRepository;
 
-
-    /**
-     * 查询所有数据资源
-     */
-    public Page<MatCost> findAll(Pageable pageable) {
-        return matCostRepository.findAll(pageable);
-    }
-
-
-    /**
-     * 查询所有数据资源
-     */
-    public Page<MatCost> findByMatName(String matName, Pageable pageable) {
-        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(matName,matName,matName,pageable);
-    }
-
-
-    /**
-     * 查询所有数据资源
-     */
-    public List<MatCost> findAll() {
-        return matCostRepository.findAll();
-    }
-
-
     /**
      * @return 返回有物资消耗单据的所有的位置
      */
     public List<String> findMyLocs() {
         return matCostRepository.findMyLocs();
-    }
-
-    // {"ecType":"物资","line":"10号线","locName":"10号线亮马桥办公区","ecName":""}
-
-
-    /**
-     * @param ecType  分类
-     * @param locName 位置名称
-     * @param ecName  物资名称
-     * @return
-     */
-    public List<MatCost> findByCondition(String ecType, String locName, String ecName) {
-        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName);
-    }
-
-
-    /**
-     * @param ecType   分类
-     * @param locName  位置名称
-     * @param ecName   物资名称
-     * @param pageable 分页
-     * @return
-     */
-    public Page<MatCost> findByCondition(String ecType, String locName, String ecName, Pageable pageable) {
-        return matCostRepository.findByEcTypeContainsAndLocNameContainsAndEcNameContains(ecType, locName, ecName, pageable);
     }
 
 

@@ -402,6 +402,28 @@ function getMyLocs() {
 
 
 /**
+ *查询我的位置
+ * */
+function findEqClass() {
+    var url_eqclass = "/commonData/findEqClass";
+    $.getJSON(url_eqclass, function (data) {
+        eqClasses = data;
+    });
+    return eqClasses;
+}
+
+/**
+ * 查询我的位置
+ */
+function findMyEqs() {
+    var url = "/commonData/findMyEqs";
+    $.getJSON(url, function (data) {
+        locs = data;
+    });
+    return locs;
+}
+
+/**
  * 查询所有线路
  */
 function getAllLines() {
@@ -432,7 +454,12 @@ function search() {
     var params = $("#searchBox :input");
     var searchParams = "";
     $.each(params, function (i, p) {
+
+        var id = $(p).attr("id");
         var value = $(p).val().trim();
+
+        console.log("id---------" + id);
+        console.log("value---------" + value);
         searchParams += value + ",";
     });
 
@@ -447,7 +474,7 @@ function search() {
  * 初始化查询起始日期
  */
 function initSearchDate() {
-    $("#beginDate ").val(addMonthToday(-1, new Date()));
+    $("#beginDate ").val(addMonthToday(-3, new Date()));
     $("#endDate").val(transformYMD(new Date().getTime()));
 }
 

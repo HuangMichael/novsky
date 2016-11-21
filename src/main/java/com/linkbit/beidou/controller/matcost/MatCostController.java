@@ -8,7 +8,9 @@ import com.linkbit.beidou.domain.budget.VbudgetBill;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.matCost.MatCostSearchService;
 import com.linkbit.beidou.service.matCost.MatCostService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -37,11 +39,13 @@ import java.util.List;
 @RequestMapping("/matCost")
 public class MatCostController extends BaseController {
 
-    @Autowired
-    ResourceService resourceService;
 
     @Autowired
     MatCostService matCostService;
+
+    @Autowired
+    MatCostSearchService matCostSearchService;
+
 
     /**
      * 分页查询
@@ -54,44 +58,9 @@ public class MatCostController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<MatCost> page = matCostService.findByMatName(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+        return new PageUtils().searchByService(matCostSearchService, searchPhrase, 4, current, rowCount);
     }
 
-
-    /**
-     * 分页查询
-     *
-     * @param ecType
-     * @param locName
-     * @param ecName
-     * @return
-     */
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    @ResponseBody
-    public MyPage search(
-            @RequestParam(value = "ecType", required = false) String ecType,
-            @RequestParam(value = "locName", required = false) String locName,
-            @RequestParam(value = "ecName", required = false) String ecName,
-            @RequestParam(value = "current", defaultValue = "1") int current,
-            @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount) {
-
-        Page<MatCost> page = matCostService.findByCondition(ecType, locName, ecName, new PageRequest(current - 1, rowCount.intValue()));
-
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-
-        return myPage;
-
-    }
 
     /**
      * @return 查询我的位置信息
@@ -122,7 +91,7 @@ public class MatCostController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<MatCost> dataList = matCostService.findAll();
+        List<MatCost> dataList = matCostSearchService.findByConditions(param, 4);
         matCostService.setDataList(dataList);
         matCostService.exportExcel(request, response, docName, titles, colNames);
     }
