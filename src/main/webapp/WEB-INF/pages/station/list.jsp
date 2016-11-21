@@ -28,19 +28,8 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab_1_0">
                                     <div class="form-group" style="margin-bottom:10px;position:inherit" id="searchBox">
-
-                                       <%-- <div class="col-md-2">
-                                            <select class="form-control" id="line" name="line" style="width:100%"
-                                                    required>
-                                                <template v-for="option in lines">
-                                                    <option :value="option.id">
-                                                        {{option.description }}
-                                                    </option>
-                                                </template>
-                                            </select>
-                                        </div>--%>
-
                                         <div class="col-md-2">
                                             <input class="form-control" id="lineNo" type="text" name="stationNo"
                                                    placeholder="车站编号"/>
@@ -56,7 +45,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade in active" id="tab_1_0">
                                         <%@include file="stationList.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1" style="padding: 20px">
