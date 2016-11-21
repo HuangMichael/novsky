@@ -60,7 +60,7 @@ public class StationController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return new PageUtils().searchByService(stationSearchService, searchPhrase, 2, current, rowCount);
+        return new PageUtils().searchByService(stationSearchService, searchPhrase, 3, current, rowCount);
     }
 
     /**
@@ -194,7 +194,7 @@ public class StationController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Station> dataList = stationSearchService.findByConditions(param, 2);
+        List<Station> dataList = stationSearchService.findByConditions(param, 3);
         stationSearchService.setDataList(dataList);
         stationSearchService.exportExcel(request, response, docName, titles, colNames);
     }

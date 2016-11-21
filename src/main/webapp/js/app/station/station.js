@@ -40,50 +40,7 @@ var validateOptions = {
     }
 };
 
-/**
- *
- * @param url 数据接口路径
- * @param elementName 渲染元素名称
- */
-function initLoadData(url, elementName) {
-    $.getJSON(url,
-        function (data) {
-            stations = data;
-            allSize = data.length; //计算所有记录的个数
-            if (dataTableName) {
-                vm = new Vue({
-                    el: elementName,
-                    data: {
-                        stations: stations,
-                        types: types
-                    }
-                });
-                //ajax载入设备信息  并且监听选择事件
-                $(dataTableName).bootgrid({
-                    selection: true,
-                    multiSelect: true,
-                    rowSelect: false,
-                    keepSelection: true
-                }).on("selected.rs.jquery.bootgrid",
-                    function (e, rows) {
-                        //如果默认全部选中
-                        if (selectedIds.length === stations.length) {
-                            selectedIds.clear();
-                        }
-                        for (var x in rows) {
-                            if (rows[x]["id"]) {
-                                selectedIds.push(rows[x]["id"]);
-                            }
-                        }
-                    }).on("deselected.rs.jquery.bootgrid",
-                    function (e, rows) {
-                        for (var x in rows) {
-                            selectedIds.remove(rows[x]["id"]);
-                        }
-                    });
-            }
-        })
-}
+
 /**
  * 根据ID获取设备信息
  * @param stations 设备信息集合
@@ -100,39 +57,6 @@ function getStationByIdInStations(eid) {
 }
 
 /**
- *
- * @param stations 所有的记录
- * @returns {Array}将所有的放入选中集合
- */
-function setAllInSelectedList(stations) {
-    var selecteds = [];
-    for (var x in stations) {
-        if (!isNaN(stations[x]["id"])) {
-            selecteds.push(stations[x]["id"]);
-        }
-    }
-    return selecteds;
-
-}
-
-/**
- *  上一条
- */
-function backwards() {
-    if (pointer <= 0) {
-        showMessageBoxCenter("danger", "center", "当前记录是第一条");
-        return;
-    } else {
-        //  pointer = pointer - 1;
-        //判断当前指针位置
-        var station = getStationByIdInStations(selectedIds[--pointer]);
-        vdm.station = station;
-
-
-    }
-
-}
-/**
  *  下一条
  */
 function forwards() {
@@ -146,25 +70,6 @@ function forwards() {
     }
 }
 
-/**
- * 编辑设备信息
- */
-function edit() {
-    var uid = selectedIds[pointer];
-    var station = getStationByIdInStations(uid);
-    if (uid) {
-        vdm.$set("station", station);
-        formTab.tab('show');
-        setFormReadStatus("#detailForm", false, null);
-    } else {
-        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
-    }
-}
-
-function saveUser() {
-    $("#saveBtn").trigger("click");
-}
 
 /**
  *
@@ -193,20 +98,24 @@ $(function () {
         {
             "param": "stationNo",
             "paramDesc": "车站编号"
-        }, {"param": "description", "paramDesc": "车站名称"}, {"param": "line", "paramDesc": "线路"}];
+        },
+        {
+            "param": "description", "paramDesc": "车站名称"
+        },
+        {"param": "line", "paramDesc": "线路"}
+    ];
+
+
+    var lines = getAllLines();
 
     initBootGrid(dataTableName);
     initSelect();
     search();
 
 
-    var url = "/line/findLines";
-    $.getJSON(url, function (data) {
-        lines = data;
-    });
+
 
     types = [{"id": "1", "typeName": "站区"}, {"id": "2", "typeName": "段区"}];
-
 
 
     console.log(JSON.stringify(lines));

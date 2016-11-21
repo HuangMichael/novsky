@@ -21,13 +21,21 @@ public class StationSearchService extends BaseService implements Searchable {
     @Autowired
     StationRepository stationRepository;
 
+
+    @Autowired
+    LineService lineService;
+
     /**
      * @param searchPhrase
      * @return 根据多条件关键字进行查询
      */
     public List<Station> findByConditions(String searchPhrase, int paramSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramSize);
-        return stationRepository.findByStationNoContainsAndDescriptionContains(array[0], array[1]);
+        Line line = null;
+        if (!array[0].isEmpty()) {
+            line = lineService.findById(Long.parseLong(array[0]));
+        }
+        return stationRepository.findByLineAndStationNoContainsAndDescriptionContains(line, array[1], array[2]);
     }
 
 
@@ -37,7 +45,11 @@ public class StationSearchService extends BaseService implements Searchable {
      */
     public Page<Station> findByConditions(String searchPhrase, int paramSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramSize);
-        return stationRepository.findByStationNoContainsAndDescriptionContains(array[0], array[1], pageable);
+        Line line = null;
+        if (!array[0].isEmpty()) {
+            line = lineService.findById(Long.parseLong(array[0]));
+        }
+        return stationRepository.findByLineAndStationNoContainsAndDescriptionContains(line, array[1], array[2], pageable);
     }
 
 }

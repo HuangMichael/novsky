@@ -234,7 +234,7 @@ $(function () {
     initBootGrid(dataTableName);
     initSelect();
 
-    initLoadData("/line/findAllLines", dataTableName);
+   // initLoadData("/line/findAllLines", dataTableName);
     $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
         function (e) {
             e.preventDefault();
