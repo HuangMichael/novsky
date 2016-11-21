@@ -184,6 +184,8 @@ $(function () {
     initBootGrid(dataTableName);
     // 监听切换tab的方法
 
+    search();
+
     $(formTab).on('click', function () {
         vdm = new Vue({
             el: "#detailContainer",
