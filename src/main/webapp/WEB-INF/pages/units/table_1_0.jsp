@@ -3,7 +3,7 @@
 <table id="unitsDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid"  data-ajax="true" data-url="/units/data">
     <thead>
     <tr>
-        <th data-column-id="index" style="width:5%">序号</th>
+        <th data-column-id="id" style="width:5%">序号</th>
         <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
         <th data-column-id="unitNo" width="10%">单位编号</th>
         <th data-column-id="description" width="20%">单位名称</th>

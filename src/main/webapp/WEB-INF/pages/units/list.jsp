@@ -30,28 +30,23 @@
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-
-                                    <div class="form-group" style="margin-bottom:10px;position:inherit" id="searchBox">
-                                        <div class="col-md-2">
-                                            <input class="form-control" id="description" type="text" name="description"
-                                                   placeholder="单位名称"/>
-                                        </div>
-
-
-                                        <div class="col-md-2">
-                                            <input class="form-control" id="linkMan" type="text" name="linkMan"
-                                                   placeholder="联系人"/>
-                                        </div>
-
-
-                                        <div class="col-md-2">
-                                            <button id="searchBtn" class="btn btn-default" onclick="search()">查询
-                                            </button>
-                                        </div>
-                                    </div>
-
-
                                     <div class="tab-pane fade in active" id="tab_1_0">
+                                        <div class="form-group" style="margin-bottom:10px;position:inherit"
+                                             id="searchBox">
+                                            <div class="col-md-2">
+                                                <input class="form-control" id="description" type="text"
+                                                       name="description"
+                                                       placeholder="单位名称"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input class="form-control" id="linkMan" type="text" name="linkMan"
+                                                       placeholder="联系人"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button id="searchBtn" class="btn btn-default" onclick="search()">查询
+                                                </button>
+                                            </div>
+                                        </div>
                                         <%@include file="table_1_0.jsp" %>
                                     </div>
                                     <div class="tab-pane fade" id="tab_1_1">

@@ -142,6 +142,7 @@ $(function () {
         {"param": "eqClass", "paramDesc": "设备分类"}
     ];
     initBootGrid(dataTableName);
+    initSelect();
     search();
 
     eqs = findAllRecordId();
@@ -256,15 +257,25 @@ $(function () {
         var eq = null;
         if (selectedIds.length > 0) {
             //切换tab时默认给detail中第一个数据
-            eq = getEquipmentById(selectedIds[0]);
+            eq = findById(selectedIds[0]);
         } else {
             //没有选中的 默认显示整个列表的第一条
             //所有的都在选中列表中
-            selectedIds = setAllInSelectedList();
-            eq = getEquipmentById(selectedIds[0]);
+            //  selectedIds = setAllInSelectedList();
+            eq = findById(selectedIds[0]);
         }
         vdm.$set("equipments", eq);
 
+    });
+
+
+    $(dataTableName).bootgrid({
+        formatters: {
+            "report": function (column, row) {
+                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                    + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
+            }
+        }
     });
 
 
@@ -665,12 +676,7 @@ function initLoadData(url, elementName) {
                     multiSelect: true,
                     rowSelect: false,
                     keepSelection: true,
-                    formatters: {
-                        "report": function (column, row) {
-                            return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
-                                + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
-                        }
-                    }
+
 
                 }
             ).on("selected.rs.jquery.bootgrid", function (e, rows) {
