@@ -1,8 +1,8 @@
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
 var formTab = $('#myTab li:eq(1) a');
-
 var vdm = null;
+var pointer = 0;
 $(function () {
 
 
@@ -158,8 +158,7 @@ $(function () {
 
     var locs = getMyLocs();
     // var eqClasses = findMyEqClass();
-
-
+    selectedIds = findAllRecordId();
     vdm = new Vue({
         el: "#detailContainer",
         data: {
@@ -182,6 +181,9 @@ $(function () {
     initSearchDate();
     initSelect();
     search();
+
+
+    showDetail();
 });
 
 

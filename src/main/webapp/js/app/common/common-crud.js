@@ -28,8 +28,6 @@ function getMainObject() {
 
 
 function getDataTableName() {
-
-
     return dataTableName;
 }
 
@@ -113,6 +111,7 @@ function findById(id) {
  *  上一条 记录
  */
 function backwards() {
+    console.log("from crud----backwards");
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
     } else {
@@ -126,6 +125,7 @@ function backwards() {
  *  下一条记录
  */
 function forwards() {
+    console.log("from crud----forwards");
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
@@ -395,7 +395,7 @@ function getMyLocs() {
     $.getJSON(url, function (data) {
         locs = data;
 
-        console.log("data-----"+JSON.stringify(data));
+        console.log("data-----" + JSON.stringify(data));
     });
     return locs;
 }
