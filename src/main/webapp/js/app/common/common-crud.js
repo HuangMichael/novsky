@@ -51,8 +51,6 @@ function validateForm(validationConfig) {
  *保存或者更新 后刷新数据列表
  * */
 function saveMainObject(formName) {
-
-    console.log(formName);
     var objStr = getFormDataAsJSON(formName);
     var object = JSON.parse(objStr);
     console.log("save" + JSON.stringify(object));
@@ -396,6 +394,8 @@ function getMyLocs() {
     var url = "/commonData/findMyLoc";
     $.getJSON(url, function (data) {
         locs = data;
+
+        console.log("data-----"+JSON.stringify(data));
     });
     return locs;
 }

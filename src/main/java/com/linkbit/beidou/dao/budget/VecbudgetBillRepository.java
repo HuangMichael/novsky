@@ -52,7 +52,7 @@ public interface VecbudgetBillRepository extends PagingAndSortingRepository<VEcB
      * @param location
      * @return
      */
-    List<VEcBudgetBill> findByApplyDateBetweenAndEcnameContainsAndLocationContains(Date beginDate, Date endDate, String ecname, String location);
+    List<VEcBudgetBill> findByApplyDateBetweenAndEcnameContainsAndLocationContains(String beginDate, String endDate, String ecname, String location);
 
 
     /**
@@ -63,5 +63,5 @@ public interface VecbudgetBillRepository extends PagingAndSortingRepository<VEcB
      * @param pageable
      * @return
      */
-    Page<VEcBudgetBill> findByApplyDateBetweenAndEcnameContainsAndLocationContains(Date beginDate, Date endDate, String ecname, String location,Pageable pageable);
+    Page<VEcBudgetBill> findByApplyDateBetweenAndEcnameContainsAndLocationContains(String beginDate, String endDate, String ecname, String location, Pageable pageable);
 }

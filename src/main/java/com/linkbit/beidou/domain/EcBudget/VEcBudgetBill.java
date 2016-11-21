@@ -27,14 +27,14 @@ public class VEcBudgetBill {
     private long amount;
     private String applicant;
     private String auditDate;
-    private String  auditor;
+    private String auditor;
     private String confirmReason;
     private String ecname;
     private String epermited;
     private String fixAdvice;
-    private String  leaderAdvice;
+    private String leaderAdvice;
     private String updateReason;
     private String locName;
-    private String  location;
+    private String location;
 
 }

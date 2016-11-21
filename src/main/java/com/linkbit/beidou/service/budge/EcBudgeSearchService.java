@@ -30,26 +30,7 @@ public class EcBudgeSearchService extends BaseService implements Searchable {
      */
     public List<VEcBudgetBill> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        Date beginDate = null, endDate = null;
-        if (array[0].isEmpty()) {
-            beginDate = new Date();
-        } else {
-            try {
-                beginDate = DateUtils.convertStr2Date(array[0], "yyyy-MM-dd");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (array[1].isEmpty()) {
-            endDate = new Date();
-        } else {
-            try {
-                endDate = DateUtils.convertStr2Date(array[1], "yyyy-MM-dd");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return vecbudgetBillRepository.findByApplyDateBetweenAndEcnameContainsAndLocationContains(beginDate, endDate, array[2], array[3]);
+        return vecbudgetBillRepository.findByApplyDateBetweenAndEcnameContainsAndLocationContains(array[0], array[1], array[2], array[3]);
     }
 
     /**
@@ -59,26 +40,7 @@ public class EcBudgeSearchService extends BaseService implements Searchable {
      */
     public Page<VEcBudgetBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        Date beginDate = null, endDate = null;
-        if (array[0].isEmpty()) {
-            beginDate = new Date();
-        } else {
-            try {
-                beginDate = DateUtils.convertStr2Date(array[0], "yyyy-MM-dd");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (array[1].isEmpty()) {
-            endDate = new Date();
-        } else {
-            try {
-                endDate = DateUtils.convertStr2Date(array[1], "yyyy-MM-dd");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return vecbudgetBillRepository.findByApplyDateBetweenAndEcnameContainsAndLocationContains(beginDate, endDate, array[2], array[3], pageable);
+        return vecbudgetBillRepository.findByApplyDateBetweenAndEcnameContainsAndLocationContains(array[0], array[1], array[2], array[3], pageable);
     }
 
 }

@@ -309,16 +309,7 @@ function edit() {
     setFormReadStatus("#detailForm", false);
 }
 
-/**
- *查询我的位置
- * */
-function findMyLoc() {
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
-    return locs;
-}
+
 
 /**
  *查询我的位置

@@ -62,7 +62,6 @@ public class EcbudgetController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-
         return new PageUtils().searchByService(ecBudgeSearchService, searchPhrase, 4, current, rowCount);
     }
 

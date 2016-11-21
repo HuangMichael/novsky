@@ -1,18 +1,11 @@
-var bills = [];
-var selectedIds = [];
-//数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
-formTab = $('#myTab li:eq(1) a');
-var vdm = null;
-//位置信息
-var locs = [];
-var eqClasses = [];
+var formTab = $('#myTab li:eq(1) a');
 
-var ids = [];
-var pointer = 0;
+var vdm = null;
 $(function () {
-    //设置数据有效性验证配置项
+
+
     var validateOptions = {
         message: '该值无效',
         fields: {
@@ -152,18 +145,29 @@ $(function () {
     };
 
 
-    locs = findMyLoc();
+    mainObject = "ecbudget";
+    dataTableName = "#ecBudgetDataTable";
+    docName = "易耗品采购申请信息";
+    formName = "#detailForm";
+    searchModel = [
+        {"param": "locName", "paramDesc": "位置"},
+        {"param": "eqName", "paramDesc": "消耗品名称"},
+        {"param": "eqClass", "paramDesc": "设备分类"}
+    ];
 
-    eqClasses = findMyEqClass();
+
+    var locs = getMyLocs();
+    // var eqClasses = findMyEqClass();
+
 
     vdm = new Vue({
         el: "#detailContainer",
         data: {
             budgetBill: null,
-            locs: locs,
-            eqClasses: eqClasses
+            locs: locs
         }
     });
+
 
     var searchVue = new Vue({
         el: "#searchBox",
@@ -172,134 +176,24 @@ $(function () {
         }
     });
 
-    ids = findAllIds().sort();
-    formName = "#detailForm";
-    mainObject = "ecbudget";
-    docName = "易耗品采购申请信息";
-    searchModel = [
-        {"param": "locName", "paramDesc": "位置"},
-        {"param": "eqName", "paramDesc": "消耗品名称"},
-        {"param": "eqClass", "paramDesc": "设备分类"}
-    ];
+
     initBootGrid(dataTableName);
+    validateForm(validateOptions);
     initSearchDate();
-    search();
-
-
-    $(formTab).on('click', function () {
-
-        showDetail();
-        vdm.$set("locs", locs);
-        vdm.$set("eqClass", eqClass);
-
-
-    });
-
-
     initSelect();
-
-
-    $(formName)
-        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
-        e.preventDefault();
-        saveMainObject(formName);
-    });
-
-
-    formTab.on('click', function () {
-
-    });
+    search();
 });
 
 
-function add() {
-
-    //重新建立模型 新建对象模型
-
-    var newVue = new Vue({
-        el: "#detailContainer",
-        locs: locs,
-        eqClasses: eqClasses
-    });
-    setFormReadStatus("#detailForm", false);
-    clearForm("#detailForm");
-    formTab.tab('show');
-    formTab.data("status", "add");
-    //alert("add一条记录");
-}
-
 /**
- *保存或者更新
- * */
-function save() {
-    $("#saveBtn").trigger("click");
-}
-
-
-/**
- *查询我的位置
- * */
-function findMyLoc() {
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
+ * 查询我的位置
+ */
+function getMyLocs() {
+    var url = "/commonData/findMyLoc";
+    $.getJSON(url, function (data) {
         locs = data;
+
+        // console.log("data-----"+JSON.stringify(data));
     });
     return locs;
 }
-
-
-
-/**
- *获取服务器时间
- * */
-function getServerDate() {
-
-    var today = null;
-    var url = "/commonData/getServerDate";
-    $.getJSON(url, function (data) {
-        today = data;
-    });
-    return today;
-}
-
-
-/**
- *查询所有的id
- * */
-function findAllIds() {
-
-    var ids = [];
-    var url = "ecbudget/findAllIds";
-    $.getJSON(url, function (data) {
-        ids = data;
-    });
-    return ids;
-}
-
-
-/**
- *
- * @param formId 设置form为只读
- */
-function setFormReadStatus(formId, formLocked) {
-    if (formLocked) {
-        $(formId + " input ").attr("readonly", "readonly");
-        $(formId + " textarea ").attr("readonly", "readonly");
-        $(formId + " select").attr("disabled", "disabled");
-    } else {
-        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
-        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
-        $(formId + " textarea").attr("readonly", "readonly").removeAttr("readonly");
-
-    }
-}
-
-
-function clearForm(formId) {
-    $(formId + " input ").val("");
-    $(formId + " textarea ").val("");
-    $(formId + " select").val("");
-}
-
-
-
