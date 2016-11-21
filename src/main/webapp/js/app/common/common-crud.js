@@ -447,8 +447,8 @@ function search() {
  * 初始化查询起始日期
  */
 function initSearchDate() {
-    $("#beginDate").val(new Date());
-    $("#endDate").val(new Date());
+    $("#beginDate ").val(addMonthToday(-1, new Date()));
+    $("#endDate").val(transformYMD(new Date().getTime()));
 }
 
 

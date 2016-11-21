@@ -44,6 +44,15 @@ function addMonth(interval, dtDate) {
     return date.getFullYear() + '-' + month;
 }
 
+function addMonthToday(interval, dtDate) {
+    var date = (dtDate != null) ? new Date(dtDate) : new Date();
+    interval = (interval) ? parseInt(interval) : 0;//间隔
+    date.setMonth(date.getMonth() + interval);
+    var month = (date.getMonth() + 1 < 10) ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+    var day = (date.getDate() + 1 < 10) ? "0" + (date.getDate() + 1) : date.getDate() + 1;
+    return date.getFullYear() + '-' + month + "-" + day;
+}
+
 
 function getFormJsonData(formId) {
     var array = $("#" + formId).serializeArray();
