@@ -172,6 +172,7 @@ $(function () {
         {"param": "applyDep", "paramDesc": "申请部门"}
     ];
     initBootGrid(dataTableName);
+    initSearchDate();
 
     search();
     // 监听切换tab的方法
