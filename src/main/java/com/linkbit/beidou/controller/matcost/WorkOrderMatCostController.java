@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.matcost;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.equipments.VEqAddBill;
@@ -9,8 +10,10 @@ import com.linkbit.beidou.domain.matCost.WorkOrderMatCost;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.workOrderMatCost.WorkOrderMatCostSearchService;
 import com.linkbit.beidou.service.workOrderMatCost.WorkOrderMatCostService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.UploadUtil;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
@@ -43,7 +46,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/workOrderMatCost")
-public class WorkOrderMatCostController {
+public class WorkOrderMatCostController extends BaseController {
 
     @Autowired
     ResourceService resourceService;
@@ -51,16 +54,14 @@ public class WorkOrderMatCostController {
     @Autowired
     WorkOrderMatCostService workOrderMatCostService;
 
+
+    @Autowired
+    WorkOrderMatCostSearchService workOrderMatCostSearchService;
+
+
     @Autowired
     CommonDataService commonDataService;
 
-    @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/workOrderMatCost/list";
-    }
 
     /**
      * 分页查询
@@ -73,13 +74,8 @@ public class WorkOrderMatCostController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<WorkOrderMatCost> page = workOrderMatCostService.findByCondition(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return new PageUtils().searchByService(workOrderMatCostSearchService, searchPhrase, 3, current, rowCount);
     }
 
 
@@ -148,7 +144,7 @@ public class WorkOrderMatCostController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<WorkOrderMatCost> dataList = workOrderMatCostService.findByCondition(param);
+        List<WorkOrderMatCost> dataList = workOrderMatCostService.findByCondition(param, 3);
         workOrderMatCostService.setDataList(dataList);
         workOrderMatCostService.exportExcel(request, response, docName, titles, colNames);
     }

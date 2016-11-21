@@ -55,7 +55,7 @@ public interface WorkOrderMatCostRepository extends PagingAndSortingRepository<W
      * @param pageable
      * @return
      */
-    Page<WorkOrderMatCost> findByOrderLineNoContainsOrMatNameContainsOrMatModelContains(String orderLineNo, String matName, String matModel, Pageable pageable);
+    Page<WorkOrderMatCost> findByOrderLineNoContainsAndMatNameContainsAndMatModelContains(String orderLineNo, String matName, String matModel, Pageable pageable);
 
 
     /**
@@ -64,6 +64,6 @@ public interface WorkOrderMatCostRepository extends PagingAndSortingRepository<W
      * @param matModel    物资型号
      * @return
      */
-    List<WorkOrderMatCost> findByOrderLineNoContainsOrMatNameContainsOrMatModelContains(String orderLineNo, String matName, String matModel);
+    List<WorkOrderMatCost> findByOrderLineNoContainsAndMatNameContainsAndMatModelContains(String orderLineNo, String matName, String matModel);
 
 }

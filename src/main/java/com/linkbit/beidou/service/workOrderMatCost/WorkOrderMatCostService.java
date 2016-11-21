@@ -59,18 +59,19 @@ public class WorkOrderMatCostService extends BaseService {
      * @param pageable    分页
      * @return
      */
-    public Page<WorkOrderMatCost> findByCondition(String searchPhase, Pageable pageable) {
-        return workOrderMatCostRepository.findByOrderLineNoContainsOrMatNameContainsOrMatModelContains(searchPhase, searchPhase, searchPhase, pageable);
+    public Page<WorkOrderMatCost> findByCondition(String searchPhase, int paramSize, Pageable pageable) {
+        String array[] = super.assembleSearchArray(searchPhase, paramSize);
+        return workOrderMatCostRepository.findByOrderLineNoContainsAndMatNameContainsAndMatModelContains(array[0], array[1], array[2], pageable);
     }
 
 
     /**
      * @param searchPhase 查询关键字
-     * @param pageable    分页
      * @return
      */
-    public List<WorkOrderMatCost> findByCondition(String searchPhase) {
-        return workOrderMatCostRepository.findByOrderLineNoContainsOrMatNameContainsOrMatModelContains(searchPhase, searchPhase, searchPhase);
+    public List<WorkOrderMatCost> findByCondition(String searchPhase, int paramSize) {
+        String array[] = super.assembleSearchArray(searchPhase, paramSize);
+        return workOrderMatCostRepository.findByOrderLineNoContainsAndMatNameContainsAndMatModelContains(array[0], array[1], array[2]);
     }
 
 

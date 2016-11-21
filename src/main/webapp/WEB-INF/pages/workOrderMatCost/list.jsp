@@ -6,7 +6,7 @@
 
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-    String docPath =  "/docs/wocost/工单物资消耗模板.xls";
+    String docPath = "/docs/wocost/工单物资消耗模板.xls";
 
 %>
 <!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
@@ -37,8 +37,35 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="list_tab"
                                          style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+
+                                        <div class="form-group" style="margin-bottom:10px;position:inherit"
+                                             id="searchBox">
+
+                                            <div class="col-md-2">
+                                                <input class="form-control" id="orderLineNo" type="text"
+                                                       name="orderLineNo"
+                                                       placeholder="跟踪号"/>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input class="form-control" id="matName" type="text" name="matName"
+                                                       placeholder="耗材名称"/>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input class="form-control" id="matModel" type="text" name="matModel"
+                                                       placeholder="耗材型号"/>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <button id="searchBtn" class="btn btn-default" onclick="search()">查询
+                                                </button>
+                                            </div>
+                                        </div>
+
+
                                         <div class="container-fluid">
-                                            <table id="budgetDataTable"
+                                            <table id="workOrderMatCostDataTable"
                                                    class="table  table-striped  table-bordered table-hover"
                                                    data-toggle="bootgrid" data-ajax="true"
                                                    data-url="/workOrderMatCost/data">

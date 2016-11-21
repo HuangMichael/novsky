@@ -2,14 +2,6 @@
  * Created by Administrator on 2016/9/29.
  */
 
-
-
-var locs = [];
-var lines = [];
-
-var dataTableName = "#budgetDataTable";
-
-
 var bootGridCfg = {
     searchSettings: {
         delay: 100,
@@ -20,12 +12,17 @@ $(function () {
 
     docName = "工单物料消耗信息";
     mainObject = "workOrderMatCost";
+    dataTableName = "#workOrderMatCostDataTable";
+    searchModel = [
+        {"param": "orderLineNo", "paramDesc": "跟踪号"},
+        {"param": "matName", "paramDesc": "物资名称"},
+        {"param": "matModel", "paramDesc": "物资型号"}
+    ];
 
-    $("select").select2({
-        theme: "bootstrap"
-    });
 
-    $(dataTableName).bootgrid(bootGridCfg);
+    initSelect();
+    initBootGrid(dataTableName);
+    search();
 
 
     $(".dropzone").dropzone({
@@ -75,7 +72,6 @@ function downExcel() {
 function importExcelData() {
 
     var filePath = $("#theFilePath").val();
-    console.log("filePath----------" + JSON.stringify(filePath));
     if (!file) {
         showMessageBox("danger", "请选择excel文件");
         return;
