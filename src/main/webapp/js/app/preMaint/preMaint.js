@@ -1,18 +1,13 @@
-dataTableName = '#pmDataTable';
-var pms = [];
 var selectedIds = []; //获取被选择记录集合
 var vm = null; //明细页面的模型
 var pm = null;
 var locs = [];
 var eqs = [];
 var units = [];
-
-var f_units = [];
 var pointer = 0;
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 var object = null;
-formName = "#detailForm";
 $.ajaxSettings.async = false;
 var validationConfig = {
     message: '该值无效 ',
@@ -93,55 +88,28 @@ var validationConfig = {
     }
 };
 $(function () {
-    docName = "预防性维修信息";
+
     mainObject = "preMaint";
-    //初始化从数据库获取列表数据
-    //initLoadData("/units/findAll", dataTableName);
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
-
-    var unit_location = "/units" + "/findAll";
-    $.getJSON(unit_location, function (data) {
-        units = data;
-    });
+    dataTableName = "#pmDataTable";
+    formName = "#detailForm";
 
 
-    var eqs_url = "/commonData/findMyEqs";
-    $.getJSON(eqs_url, function (data) {
-        eqs = data;
-    });
-
-
-    f_units = [{
-        key: 0,
-        text: "天"
-    }, {
-        key: 1,
-        text: "月"
-    }, {
-        key: 2,
-        text: "年"
-    }];
-
-    initBootGrid(dataTableName);
-    initSelect();
-    selectedIds = findAllRecordId();
-    validateForm(validationConfig);
-
-
-    vdm = new Vue({
-        el: "#detailForm",
+    var searchVue = new Vue({
+        el: "#searchBox",
         data: {
-            pm: pms[0],
-            locs: locs,
-            units: units,
-            eqs: eqs,
-            f_units: f_units
+            locs: locs
         }
     });
-    showDetail();
+
+    // ids = findAllIds().sort();
+    docName = "易耗品采购申请信息";
+    searchModel = [
+        {"param": "description", "paramDesc": "计划描述"},
+        {"param": "location", "paramDesc": "设备位置"},
+        {"param": "description", "paramDesc": "计划描述"}
+    ];
+    initBootGrid(dataTableName);
+    search();
 
 
 });

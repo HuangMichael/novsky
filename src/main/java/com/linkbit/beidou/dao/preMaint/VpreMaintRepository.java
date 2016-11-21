@@ -32,6 +32,14 @@ public interface VpreMaintRepository extends PagingAndSortingRepository<VpreMain
 
     /**
      * @param desc
+     * @param location
+     * @return 分页
+     */
+    List<VpreMaint> findByPmDescContainingAndLocationStartingWith(String desc,String location);
+
+
+    /**
+     * @param desc
      * @return 分页
      */
     List<VpreMaint> findByPmDescContaining(String desc);
