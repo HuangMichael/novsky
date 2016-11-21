@@ -169,32 +169,22 @@ $(function () {
     eqClasses = findMyEqClass();
     ids = findAllIds();
 
+    initSearchDate();
 
-    //初始化加载列表
-    $(dataTableName).bootgrid({
-        selection: true,
-        multiSelect: true,
-        rowSelect: false,
-        keepSelection: true
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        //如果默认全部选中
-        if (selectedIds.length === bills.length) {
-            selectedIds.clear();
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            locs: locs,
+            eqClasses: eqClasses
         }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
+
     });
+
+
+    initBootGrid(dataTableName);
     // 监听切换tab的方法
 
     $(formTab).on('click', function () {
-
         vdm = new Vue({
             el: "#detailContainer",
             data: {
@@ -220,15 +210,12 @@ $(function () {
 
         setFormReadStatus("#detailForm", true);
     });
-
-    $("select").select2({
-        theme: "bootstrap"
-    });
+    initSelect();
 
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
-        saveObject();
+        saveMainObject(formName);
     });
 });
 

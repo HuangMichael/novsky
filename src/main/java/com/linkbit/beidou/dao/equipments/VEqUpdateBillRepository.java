@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,4 +44,27 @@ public interface VEqUpdateBillRepository extends PagingAndSortingRepository<VEqU
      */
     @Query("select id from VEqUpdateBill")
     List<Long> findAllIds();
+
+
+    /**
+     * @param beginDate 申请日期开始
+     * @param endDate   申请日期结束
+     * @param eqName    设备名称
+     * @param eqClass   设备分类
+     * @param locName
+     * @return
+     */
+    List<VEqUpdateBill> findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(String beginDate, String endDate, String eqName, String eqClass, String locName);
+
+
+    /**
+     * @param beginDate 申请日期开始
+     * @param endDate   申请日期结束
+     * @param eqName    设备名称
+     * @param eqClass   设备分类
+     * @param locName
+     * @param pageable  可分页
+     * @return
+     */
+    Page<VEqUpdateBill> findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(String beginDate, String endDate, String eqName, String eqClass, String locName, Pageable pageable);
 }

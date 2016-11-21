@@ -50,7 +50,7 @@ public class BaseService {
     public String[] assembleSearchArray(String searchPhrase, int paramSize) {
 
 
-        String array[] = {"", ""};
+        String array[] = new String[paramSize];
         if (!searchPhrase.isEmpty()) {
             array = searchPhrase.split(",", paramSize + 1);
         } else {

@@ -28,6 +28,66 @@
 									</li>
 								</ul>
 								<div class="tab-content">
+									<div class="form-group" style="margin-bottom:10px;position:inherit"
+										 id="searchBox">
+
+										<div class="col-md-2">
+											<input class="Wdate form-control" id="beginDate"
+												   name="beginDate"
+												   onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
+												   onClick="WdatePicker({maxDate:'%y-%M-%d'})"
+												   style="height:34px;border:1px solid #cccccc"/>
+
+										</div>
+										<div class="col-md-2">
+											<input class="Wdate form-control" id="endDate" name="endDate"
+												   onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
+												   onClick="WdatePicker({maxDate:'%y-%M-%d'})"
+												   style="height:34px;border:1px solid #cccccc"
+											/>
+
+										</div>
+
+
+
+										<div class="col-md-2">
+											<input class="form-control" id="eqName" type="text" name="eqName"
+												   placeholder="设备名称"/>
+										</div>
+
+										<div class="col-md-2">
+											<select class="form-control" id="locName" name="locName"
+													style="width:100%" required>
+												<option></option>
+												<template v-for="option in locs">
+													<option :value="option.locName">
+														{{option.locName }}
+													</option>
+												</template>
+											</select>
+										</div>
+
+										<div class="col-md-2">
+											<select class="form-control" id="eqClass" name="eqClass"
+													style="width:100%"
+													required>
+												<option></option>
+												<template v-for="option in eqClasses">
+													<option :value="option.cname">
+														{{option.cname }}
+													</option>
+												</template>
+											</select>
+										</div>
+
+
+										<div class="col-md-2">
+											<button id="searchBtn" class="btn btn-default" onclick="search()">查询
+											</button>
+										</div>
+
+									</div>
+
 									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
 										<div class="container-fluid">
 											<table id="eqUpdateDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqUpdateBill/data">
@@ -39,7 +99,6 @@
 														<th data-align="center" data-column-id="eqCode" data-width="10%">设备编号</th>
 														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
 														<th data-align="center" data-column-id="eqClass" data-width="10%">设备分类</th>
-														<th data-align="center" data-column-id="eqName" data-width="10%">设备名称</th>
 														<th data-align="center" data-column-id="applicant" data-width="5%">申请人</th>
 														<th data-align="center" data-column-id="applyDep" data-width="5%">申请部门</th>
 														<th data-align="center" data-column-id="approver" data-width="5%">批准人</th>

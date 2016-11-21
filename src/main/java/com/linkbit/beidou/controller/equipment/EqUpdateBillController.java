@@ -9,8 +9,10 @@ import com.linkbit.beidou.domain.equipments.*;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.equipments.EqUpdateBillSearchService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -39,6 +41,10 @@ import java.util.List;
 public class EqUpdateBillController extends BaseController {
     @Autowired
     EqUpdateBillService eqUpdateBillService;
+
+    @Autowired
+    EqUpdateBillSearchService eqUpdateBillSearchService;
+
     @Autowired
     ResourceService resourceService;
 
@@ -59,13 +65,8 @@ public class EqUpdateBillController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VEqUpdateBill> page = eqUpdateBillService.findByEqNameContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return new PageUtils().searchByService(eqUpdateBillSearchService, searchPhrase, 5, current, rowCount);
     }
 
 
@@ -166,7 +167,7 @@ public class EqUpdateBillController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VEqUpdateBill> dataList = eqUpdateBillService.findByEqNameContaining(param);
+        List<VEqUpdateBill> dataList = eqUpdateBillSearchService.findByConditions(param, 5);
         eqUpdateBillService.setDataList(dataList);
         eqUpdateBillService.exportExcel(request, response, docName, titles, colNames);
     }
