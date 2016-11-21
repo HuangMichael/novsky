@@ -47,40 +47,6 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
     VpreMaintOrderRepository vpreMaintOrderRepository;
 
 
-    /**
-     * @return 查询所有
-     */
-    public Page<PreMaint> findAll(Pageable pageable) {
-
-        return preMaintRepository.findAll(pageable);
-    }
-
-    /**
-     * @return 查询所有
-     */
-    public Page<VpreMaint> findAllv(Pageable pageable) {
-
-        return vpreMaintRepository.findAll(pageable);
-    }
-
-
-    /**
-     * @param desc     预防性维修描述
-     * @param location 位置编号
-     * @param pageable 可分页
-     * @return
-     */
-    public Page<VpreMaint> findByPmDescContainingAndLocationStartingWith(String desc, String location, Pageable pageable) {
-
-        return vpreMaintRepository.findByPmDescContainingAndLocationStartingWith(desc, location, pageable);
-    }
-
-
-    public List<VpreMaint> findByPmDescContains(String desc) {
-
-        return vpreMaintRepository.findByPmDescContaining(desc);
-    }
-
 
     /**
      * @param id 根据id查询

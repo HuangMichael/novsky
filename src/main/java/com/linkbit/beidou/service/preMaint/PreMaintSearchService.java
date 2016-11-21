@@ -32,7 +32,7 @@ public class PreMaintSearchService extends BaseService implements Searchable {
     public List<VpreMaint> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
 
-        return vpreMaintRepository.findByPmDescContainingAndLocationStartingWith(array[0], array[1]);
+        return vpreMaintRepository.findByPmDescContainingAndLocationContains(array[0], array[1]);
     }
 
     /**
@@ -42,7 +42,7 @@ public class PreMaintSearchService extends BaseService implements Searchable {
      */
     public Page<VpreMaint> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vpreMaintRepository.findByPmDescContainingAndLocationStartingWith(array[0], array[1], pageable);
+        return vpreMaintRepository.findByPmDescContainingAndLocationContains(array[0], array[1], pageable);
     }
 
 

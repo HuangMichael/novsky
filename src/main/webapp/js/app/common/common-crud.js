@@ -456,11 +456,15 @@ function search() {
     $.each(params, function (i, p) {
 
         var id = $(p).attr("id");
-        var value = $(p).val().trim();
 
-        console.log("id---------" + id);
-        console.log("value---------" + value);
-        searchParams += value + ",";
+        if (!$(p).is(":button")) {
+            var value = $(p).val().trim();
+
+            console.log("id---------" + id);
+            console.log("value---------" + value);
+            searchParams += value + ",";
+        }
+
     });
 
     console.log("searchParams------------" + JSON.stringify(searchParams));

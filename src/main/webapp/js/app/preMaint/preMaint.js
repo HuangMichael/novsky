@@ -94,6 +94,12 @@ $(function () {
     formName = "#detailForm";
 
 
+    var url_location = "/commonData/findMyLoc";
+    $.getJSON(url_location, function (data) {
+        locs = data;
+    });
+
+
     var searchVue = new Vue({
         el: "#searchBox",
         data: {
@@ -101,14 +107,14 @@ $(function () {
         }
     });
 
-    // ids = findAllIds().sort();
-    docName = "易耗品采购申请信息";
+    ids = findAllRecordId();
+    docName = "预防性维修计划信息";
     searchModel = [
-        {"param": "description", "paramDesc": "计划描述"},
-        {"param": "location", "paramDesc": "设备位置"},
-        {"param": "description", "paramDesc": "计划描述"}
+        {"param": "pmDesc", "paramDesc": "计划描述"},
+        {"param": "location", "paramDesc": "设备位置"}
     ];
     initBootGrid(dataTableName);
+    initSelect();
     search();
 
 

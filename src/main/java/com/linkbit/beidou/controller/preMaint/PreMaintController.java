@@ -11,7 +11,9 @@ import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.org.SysInfoService;
+import com.linkbit.beidou.service.preMaint.PreMaintSearchService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -40,10 +42,10 @@ public class PreMaintController extends BaseController {
     ResourceService resourceService;
     @Autowired
     CommonDataService commonDataService;
-
-
     @Autowired
     SysInfoService sysInfoService;
+    @Autowired
+    PreMaintSearchService preMaintSearchService;
 
     /**
      * 分页查询
@@ -56,14 +58,8 @@ public class PreMaintController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(HttpSession session, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        String location = this.getUserLocation(session);
-        Page<VpreMaint> page = preMaintService.findByPmDescContainingAndLocationStartingWith(searchPhrase, location, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return new PageUtils().searchByService(preMaintSearchService, searchPhrase, 2, current, rowCount);
     }
 
 
@@ -138,7 +134,7 @@ public class PreMaintController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VpreMaint> dataList = preMaintService.findByPmDescContains(param);
+        List<VpreMaint> dataList = preMaintSearchService.findByConditions(param, 2);
         preMaintService.setDataList(dataList);
         preMaintService.exportExcel(request, response, docName, titles, colNames);
     }

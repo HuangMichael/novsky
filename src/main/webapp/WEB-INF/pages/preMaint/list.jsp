@@ -34,31 +34,20 @@
                                         <div class="form-group" style="margin-bottom:10px;position:inherit"
                                              id="searchBox">
                                             <div class="col-md-2">
-                                                <input class="Wdate form-control" id="beginDate"
-                                                       name="beginDate"
-                                                       onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
-                                                       onClick="WdatePicker({maxDate:'%y-%M-%d'})"
-                                                       style="height:34px;border:1px solid #cccccc"/>
-
+                                                <input class="form-control" id="pmDesc" type="text"
+                                                       name="pmDesc"
+                                                       placeholder="计划描述"/>
                                             </div>
                                             <div class="col-md-2">
-                                                <input class="Wdate form-control" id="endDate" name="endDate"
-                                                       onLoad="WdatePicker({maxDate:'%y-%M-%d'})"
-                                                       onClick="WdatePicker({maxDate:'%y-%M-%d'})"
-                                                       style="height:34px;border:1px solid #cccccc"
-                                                />
-
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <input class="form-control" id="accessoryName" type="text"
-                                                       name="accessoryName"
-                                                       placeholder="配件名称"/>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input class="form-control" id="applyDep" type="text"
-                                                       name="applyDep"
-                                                       placeholder="申请部门"/>
+                                                <select class="form-control" id="locName" name="locName"
+                                                        style="width:100%" required>
+                                                    <option></option>
+                                                    <template v-for="option in locs">
+                                                        <option :value="option.location">
+                                                            {{option.locName }}
+                                                        </option>
+                                                    </template>
+                                                </select>
                                             </div>
 
                                             <div class="col-md-2">
