@@ -210,12 +210,10 @@ $(function () {
 });
 
 
-
 function showUsers() {
 
     showDetail();
-    vdm.role = role;
-    loadUsers(role.id)
+    loadUsers(vdm.role.id)
 }
 
 function showRole(roleId) {
