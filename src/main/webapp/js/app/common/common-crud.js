@@ -447,8 +447,8 @@ function search() {
  * 初始化查询起始日期
  */
 function initSearchDate() {
-    $("#beginDate").val("2016-01-01");
-    $("#endDate").val("2016-12-31");
+    $("#beginDate").val(new Date());
+    $("#endDate").val(new Date());
 }
 
 
