@@ -175,7 +175,6 @@ $(function () {
         }
     });
 
-
     initBootGrid(dataTableName);
     validateForm(validateOptions);
     initSearchDate();
@@ -194,8 +193,6 @@ function getMyLocs() {
     var url = "/commonData/findMyLoc";
     $.getJSON(url, function (data) {
         locs = data;
-
-        // console.log("data-----"+JSON.stringify(data));
     });
     return locs;
 }

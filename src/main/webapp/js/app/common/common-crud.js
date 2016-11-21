@@ -365,9 +365,12 @@ function initSelect() {
  * 初始化bootgrid表格 并监听选择时间
  */
 function initBootGrid(dataTableName) {
-    console.log("mainObject--------------" + mainObject);
+    var config = {
+            selection: true,
+            multiSelect: true
+        }
     //初始化加载列表
-    $(dataTableName).on("selected.rs.jquery.bootgrid", function (e, rows) {
+    $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
         if (selectedIds.length === 0) {
             selectedIds.clear();
@@ -382,8 +385,6 @@ function initBootGrid(dataTableName) {
             selectedIds.remove(rows[x]["id"]);
         }
     });
-
-
 }
 
 
