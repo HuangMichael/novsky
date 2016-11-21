@@ -8,29 +8,14 @@ var vdm = null;
 //位置信息
 var locs = [];
 var eqClasses = [];
-dataTableName = "#ecBudgetDataTable";
-formName = "#detailForm";
-mainObject = "ecbudget";
-docName = "易耗品采购申请信息";
+
 var ids = [];
 var pointer = 0;
 $(function () {
     //设置数据有效性验证配置项
-
-
-    //设置数据有效性验证配置项
     var validateOptions = {
         message: '该值无效',
         fields: {
-            /*            "applyDate": {
-             message: '申请日期无效',
-             validators: {
-             notEmpty: {
-             message: '申请日期不能为空!'
-             }
-
-             }
-             },*/
             "ecname": {
                 message: '易耗品名称无效',
                 validators: {
@@ -166,6 +151,7 @@ $(function () {
         }
     };
 
+
     locs = findMyLoc();
 
     eqClasses = findMyEqClass();
@@ -179,9 +165,26 @@ $(function () {
         }
     });
 
-    ids = findAllIds().sort();
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            locs: locs
+        }
+    });
 
+    ids = findAllIds().sort();
+    formName = "#detailForm";
+    mainObject = "ecbudget";
+    docName = "易耗品采购申请信息";
+    searchModel = [
+        {"param": "beginDate", "paramDesc": "申请日期"},
+        {"param": "endDate", "paramDesc": "申请日期"},
+        {"param": "ecname", "paramDesc": "消耗品名称"},
+        {"param": "location", "paramDesc": "位置"}
+    ];
     initBootGrid(dataTableName);
+    initSearchDate();
+    search();
 
 
     $(formTab).on('click', function () {

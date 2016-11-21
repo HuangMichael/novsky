@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.ecbudget;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.EcBudget.EcBudgetBill;
 import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.domain.app.MyPage;
@@ -9,8 +10,10 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.budge.EcBudgeSearchService;
 import com.linkbit.beidou.service.budge.EcBudgeService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -35,10 +38,14 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/ecbudget")
-public class EcbudgetController {
+public class EcbudgetController extends BaseController {
 
     @Autowired
     EcBudgeService ecBudgeService;
+
+    @Autowired
+    EcBudgeSearchService ecBudgeSearchService;
+
     @Autowired
     ResourceService resourceService;
     @Autowired
@@ -55,28 +62,10 @@ public class EcbudgetController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VEcBudgetBill> page = ecBudgeService.findByEcnameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return new PageUtils().searchByService(ecBudgeSearchService, searchPhrase, 4, current, rowCount);
     }
 
-
-    /**
-     * @param httpSession
-     * @param modelMap
-     * @return
-     */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/ecbudget/list";
-    }
 
     /**
      * @param id 根据id查询
@@ -137,7 +126,7 @@ public class EcbudgetController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VEcBudgetBill> dataList = ecBudgeService.findByEcnameContains(param);
+        List<VEcBudgetBill> dataList = ecBudgeSearchService.findByConditions(param, 4);
         ecBudgeService.setDataList(dataList);
         ecBudgeService.exportExcel(request, response, docName, titles, colNames);
     }

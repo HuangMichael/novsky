@@ -1,7 +1,7 @@
 package com.linkbit.beidou.service.budge;
 
-import com.linkbit.beidou.dao.budget.VbudgetBillRepository;
-import com.linkbit.beidou.domain.budget.VbudgetBill;
+import com.linkbit.beidou.dao.budget.VecbudgetBillRepository;
+import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.search.Searchable;
@@ -14,22 +14,21 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by huangbin on 2016/5/4.
- * 设备台账业务类
+ * Created by huangbin on 2016/11/21.
+ * 易耗品查询
  */
 @Service
-public class BudgeSearchService extends BaseService implements Searchable {
-
+public class EcBudgeSearchService extends BaseService implements Searchable {
 
     @Autowired
-    VbudgetBillRepository budgetBillRepository;
+    VecbudgetBillRepository vecbudgetBillRepository;
 
     /**
      * @param searchPhrase
      * @param paramsSize
      * @return
      */
-    public List<VbudgetBill> findByConditions(String searchPhrase, int paramsSize) {
+    public List<VEcBudgetBill> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
         Date beginDate = null, endDate = null;
         if (array[0].isEmpty()) {
@@ -50,7 +49,7 @@ public class BudgeSearchService extends BaseService implements Searchable {
                 e.printStackTrace();
             }
         }
-        return budgetBillRepository.findByApplyDateBetweenAndAccessoryNameContainsAndApplyDepContains(beginDate, endDate, array[2], array[3]);
+        return vecbudgetBillRepository.findByApplyDateBetweenAndEcnameContainsAndLocationContains(beginDate, endDate, array[2], array[3]);
     }
 
     /**
@@ -58,7 +57,7 @@ public class BudgeSearchService extends BaseService implements Searchable {
      * @param paramsSize
      * @return
      */
-    public Page<VbudgetBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
+    public Page<VEcBudgetBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
         Date beginDate = null, endDate = null;
         if (array[0].isEmpty()) {
@@ -79,8 +78,7 @@ public class BudgeSearchService extends BaseService implements Searchable {
                 e.printStackTrace();
             }
         }
-        return budgetBillRepository.findByApplyDateBetweenAndAccessoryNameContainsAndApplyDepContains(beginDate, endDate, array[2], array[3], pageable);
+        return vecbudgetBillRepository.findByApplyDateBetweenAndEcnameContainsAndLocationContains(beginDate, endDate, array[2], array[3], pageable);
     }
-
 
 }

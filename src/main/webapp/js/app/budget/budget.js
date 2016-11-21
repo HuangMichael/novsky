@@ -173,7 +173,6 @@ $(function () {
     ];
     initBootGrid(dataTableName);
     initSearchDate();
-
     search();
     // 监听切换tab的方法
 

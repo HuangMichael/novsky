@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,9 +33,8 @@ public interface VecbudgetBillRepository extends PagingAndSortingRepository<VEcB
     Page<VEcBudgetBill> findByEcnameContains(String ecname, Pageable pageable);
 
 
-
     /**
-     * @param ecname   根据易耗品名称查询
+     * @param ecname 根据易耗品名称查询
      * @return
      */
     List<VEcBudgetBill> findByEcnameContains(String ecname);
@@ -43,4 +43,25 @@ public interface VecbudgetBillRepository extends PagingAndSortingRepository<VEcB
      * @return
      */
     List<VEcBudgetBill> findAll();
+
+
+    /**
+     * @param beginDate
+     * @param endDate
+     * @param ecname
+     * @param location
+     * @return
+     */
+    List<VEcBudgetBill> findByApplyDateBetweenAndEcnameContainsAndLocationContains(Date beginDate, Date endDate, String ecname, String location);
+
+
+    /**
+     * @param beginDate
+     * @param endDate
+     * @param ecname
+     * @param location
+     * @param pageable
+     * @return
+     */
+    Page<VEcBudgetBill> findByApplyDateBetweenAndEcnameContainsAndLocationContains(Date beginDate, Date endDate, String ecname, String location,Pageable pageable);
 }
