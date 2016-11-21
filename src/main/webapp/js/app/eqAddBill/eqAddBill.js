@@ -10,7 +10,7 @@ var myEqs = [];
 var locs = [];
 var eqClasses = [];
 
-var dataTableName ="#eqAddBillDataTable";
+var dataTableName = "#eqAddBillDataTable";
 var ids = [];
 var pointer = 0;
 var newVue = null;
@@ -168,36 +168,28 @@ $(function () {
             },
         }
     };
+
+
     locs = findMyLoc();
     eqClasses = findMyEqClass();
-    ids = findAllIds();
-    //初始化加载列表
-    $(dataTableName).bootgrid({
-        selection: true,
-        multiSelect: true,
-        rowSelect: false,
-        keepSelection: true
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        //如果默认全部选中
-        if (selectedIds.length === bills.length) {
-            selectedIds.clear();
+    ids = findAllRecordId();
+    initSearchDate();
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            locs: locs,
+            eqClasses: eqClasses
         }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
+
     });
+    initBootGrid(dataTableName);
     // 监听切换tab的方法
+    search();
 
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            eqAddBill: getEqAddBillById(ids[pointer]),
+            eqAddBill: findById(ids[pointer]),
             locs: locs,
             eqClasses: eqClasses
         }
@@ -260,50 +252,6 @@ function setAllInSelectedList(bugetBills) {
 }
 
 
-/**
- * 根据ID获取
- * @param bid
- * @return {*}
- */
-function getEqAddBillById(bid) {
-    var eqAddBill = null;
-    var url = "/eqAddBill/findById/" + bid;
-    $.getJSON(url, function (data) {
-        eqAddBill = data;
-    });
-    return eqAddBill;
-}
-
-
-/**
- *  上一条
- */
-function backwards() {
-    if (pointer <= 0) {
-        showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
-    } else {
-        pointer = pointer - 1;
-        //判断当前指针位置
-        var eqAddBill = getEqAddBillById(selectedIds[pointer]);
-        vdm.$set("eqAddBill", eqAddBill);
-    }
-}
-/**
- *  下一条
- */
-function forwards() {
-    if (pointer >= selectedIds.length - 1) {
-        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-
-    } else {
-        pointer = pointer + 1;
-        var eqAddBill = getEqAddBillById(selectedIds[pointer]);
-        vdm.$set("eqAddBill", eqAddBill);
-    }
-}
-
-
 function add() {
     //重新建立模型 新建对象模型
     newVue = new Vue({
@@ -362,69 +310,6 @@ function edit() {
 }
 
 /**
- * 删除选中的对象
- */
-function del() {
-
-    //删除时判断当前form的状态
-    var status = formTab.data("status");
-    if (status == "add") {
-        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
-        return;
-    }
-    var bid = selectedIds[0];
-    if (!bid) {
-        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
-    }
-    var url = "/eqAddBill/delete/" + bid;
-    if (bid) {
-        bootbox.confirm({
-            message: "确定要删除该记录么？?",
-            buttons: {
-                confirm: {
-                    label: '是',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: '否',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function (msg) {
-                            if (msg) {
-                                showMessageBox("info", "设备新置申请信息删除成功!");
-                            }
-                        },
-                        error: function (msg) {
-                            showMessageBox("danger", "设备新置申请信息有关联数据，无法删除，请联系管理员");
-                        }
-                    });
-                }
-            }
-        });
-    }
-}
-/**
- *根据id查询
- * */
-function findById(id) {
-    var eqAddBill = null;
-    var url = "eqAddBill/findById/" + id;
-    $.getJSON(url, function (data) {
-        eqAddBill = data;
-    });
-
-    console.log(JSON.stringify(eqAddBill));
-    return eqAddBill;
-
-}
-/**
  *查询我的位置
  * */
 function findMyLoc() {
@@ -444,19 +329,6 @@ function findMyEqClass() {
         eqClass = data;
     });
     return eqClass;
-}
-
-/**
- *查询所有的id
- * */
-function findAllIds() {
-    $.ajaxSettings.async = false;
-    ids = [];
-    var url = "eqAddBill/findAllIds";
-    $.getJSON(url, function (data) {
-        ids = data;
-    });
-    return ids;
 }
 
 
@@ -511,7 +383,6 @@ function changeEqc(a) {
         vdm.$set("myEqs", data);
     });
 }
-
 
 
 /**

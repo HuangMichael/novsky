@@ -45,4 +45,27 @@ public interface VEqAddBillRepository extends PagingAndSortingRepository<VEqAddB
      */
     @Query("select id from VEqAddBill")
     List<Long> findAllIds();
+
+
+    /**
+     * @param beginDate 申请日期开始
+     * @param endDate   申请日期结束
+     * @param eqName    设备名称
+     * @param eqClass   设备分类
+     * @param locName
+     * @return
+     */
+    List<VEqAddBill> findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(String beginDate, String endDate, String eqName, String eqClass, String locName);
+
+
+    /**
+     * @param beginDate 申请日期开始
+     * @param endDate   申请日期结束
+     * @param eqName    设备名称
+     * @param eqClass   设备分类
+     * @param locName
+     * @param pageable  可分页
+     * @return
+     */
+    Page<VEqAddBill> findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(String beginDate, String endDate, String eqName, String eqClass, String locName, Pageable pageable);
 }

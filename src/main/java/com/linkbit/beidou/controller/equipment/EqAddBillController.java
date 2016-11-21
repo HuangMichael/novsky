@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.equipment;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.VEqAddBillRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
@@ -9,10 +10,13 @@ import com.linkbit.beidou.domain.equipments.VEqAddBill;
 import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.object.ReturnObject;
+import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.equipments.EqAddBillSearchService;
 import com.linkbit.beidou.service.equipments.EqAddBillService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -38,25 +42,21 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/eqAddBill")
-public class EqAddBillController {
+public class EqAddBillController extends BaseController {
     @Autowired
     EqUpdateBillService eqUpdateBillService;
 
     @Autowired
     EqAddBillService eqAddBillService;
 
+
+    @Autowired
+    EqAddBillSearchService eqAddBillSearchService;
+
     @Autowired
     ResourceService resourceService;
     @Autowired
     CommonDataService commonDataService;
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/eqAddBill/list";
-    }
 
     /**
      * 初始化分页查询设备新置申请单信息
@@ -69,13 +69,8 @@ public class EqAddBillController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VEqAddBill> page = eqAddBillService.findByEqNameContaining(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return new PageUtils().searchByService(eqAddBillSearchService, searchPhrase, 5, current, rowCount);
     }
 
 
@@ -125,7 +120,7 @@ public class EqAddBillController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VEqAddBill> dataList = eqAddBillService.findByEqNameContaining(param);
+        List<VEqAddBill> dataList = eqAddBillSearchService.findByConditions(param, 5);
         eqAddBillService.setDataList(dataList);
         eqAddBillService.exportExcel(request, response, docName, titles, colNames);
     }

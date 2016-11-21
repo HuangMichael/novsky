@@ -1,6 +1,8 @@
 package com.linkbit.beidou.service.equipments;
 
+import com.linkbit.beidou.dao.equipments.VEqAddBillRepository;
 import com.linkbit.beidou.dao.equipments.VEqUpdateBillRepository;
+import com.linkbit.beidou.domain.equipments.VEqAddBill;
 import com.linkbit.beidou.domain.equipments.VEqUpdateBill;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.search.Searchable;
@@ -12,21 +14,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 设备更新查询业务类
+ * 设备新置查询业务类
  */
 @Service
-public class EqUpdateBillSearchService extends BaseService implements Searchable {
+public class EqAddBillSearchService extends BaseService implements Searchable {
 
     @Autowired
-    VEqUpdateBillRepository vEqUpdateBillRepository;
+    VEqAddBillRepository vEqAddBillRepository;
+
     /**
      * @param searchPhrase
      * @param paramsSize
      * @return
      */
-    public List<VEqUpdateBill> findByConditions(String searchPhrase, int paramsSize) {
+    public List<VEqAddBill> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vEqUpdateBillRepository.findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(array[0], array[1],  array[2], array[3], array[4]);
+        return vEqAddBillRepository.findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(array[0], array[1], array[2], array[3], array[4]);
     }
 
     /**
@@ -34,9 +37,9 @@ public class EqUpdateBillSearchService extends BaseService implements Searchable
      * @param paramsSize
      * @return
      */
-    public Page<VEqUpdateBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
+    public Page<VEqAddBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vEqUpdateBillRepository.findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(array[0], array[1], array[2], array[3], array[4], pageable);
+        return vEqAddBillRepository.findByApplyDateBetweenAndEqNameContainsAndEqClassContainsAndLocNameContains(array[0], array[1], array[2], array[3], array[4], pageable);
     }
 
 
