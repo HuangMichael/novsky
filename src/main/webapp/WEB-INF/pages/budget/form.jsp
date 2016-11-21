@@ -20,7 +20,7 @@
 
 			<label for="applicant" class="col-md-1 control-label">申请日期</label>
 			<div class="col-md-3">
-				<input class="Wdate form-control" id="applyDate" onLoad ="WdatePicker({maxDate:'%y-%M-%d'})" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate" style="height:34px;border:1px solid #cccccc" />
+				<input class="Wdate form-control myDateBox" id="applyDate" onLoad ="WdatePicker({maxDate:'%y-%M-%d'})" onClick="WdatePicker({maxDate:'%y-%M-%d'})" name="applyDate" v-model="budgetBill.applyDate"  />
 			</div>
 		</div>
 	</fieldset>

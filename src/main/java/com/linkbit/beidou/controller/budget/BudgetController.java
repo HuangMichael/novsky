@@ -10,8 +10,10 @@ import com.linkbit.beidou.domain.matCost.MatCost;
 import com.linkbit.beidou.domain.workOrder.VworkOrderReportBill;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.budge.BudgeSearchService;
 import com.linkbit.beidou.service.budge.BudgeService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.export.docType.ExcelDoc;
 import com.linkbit.beidou.utils.export.exporter.DataExport;
@@ -44,6 +46,10 @@ public class BudgetController extends BaseController {
     @Autowired
     CommonDataService commonDataService;
 
+
+    @Autowired
+    BudgeSearchService budgeSearchService;
+
     /**
      * 初始化分页查询采购单信息
      *
@@ -55,24 +61,10 @@ public class BudgetController extends BaseController {
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        Page<VbudgetBill> page = budgeService.findByAccessoryNameContains(searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        return new PageUtils().searchByService(budgeSearchService, searchPhrase, 4, current, rowCount);
     }
-
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/budget/list";
-    }
-
+    
     /**
      * @param id 根据id查询
      * @return
@@ -134,9 +126,7 @@ public class BudgetController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VbudgetBill> dataList = budgeService.findByAccessoryNameContains(param);
+        List<VbudgetBill> dataList = budgeSearchService.findByConditions(param, 4);
         budgeService.exportExcel(request, response, docName, titles, colNames, dataList);
     }
-
-
 }

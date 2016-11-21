@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import javax.persistence.Column;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,4 +43,29 @@ public interface VbudgetBillRepository extends PagingAndSortingRepository<Vbudge
      * @return
      */
     List<VbudgetBill> findAll();
+
+
+    //根据采购日期 配件名称 位置 查询
+
+
+    /**
+     * @param beginDate     开始日期
+     * @param endDate       截止日期
+     * @param accessoryName 配件名称
+     * @param applyDep      申请单位
+     * @return
+     */
+    List<VbudgetBill> findByApplyDateBetweenAndAccessoryNameContainsAndApplyDepContains(Date beginDate, Date endDate, String accessoryName, String applyDep);
+
+
+    /**
+     * @param beginDate     开始日期
+     * @param endDate       截止日期
+     * @param accessoryName 配件名称
+     * @param applyDep      申请单位
+     * @param pageable      可分页
+     * @return
+     */
+    Page<VbudgetBill> findByApplyDateBetweenAndAccessoryNameContainsAndApplyDepContains(Date beginDate, Date endDate, String accessoryName, String applyDep, Pageable pageable);
+
 }

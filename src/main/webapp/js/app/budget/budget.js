@@ -8,10 +8,7 @@ var vdm = null;
 //位置信息
 var locs = [];
 var eqClasses = [];
-var budgetBills = [];
-var mainObject = "budget";
-var dataTableName = "#budgetDataTable";
-docName = "采购申请信息";
+
 var ids = [];
 var pointer = 0;
 $(function () {
@@ -165,27 +162,18 @@ $(function () {
 
     ids = findAllIds().sort();
 
-    //初始化加载列表
-    $("#budgetDataTable").bootgrid({
-        selection: true,
-        multiSelect: true,
-        rowSelect: false,
-        keepSelection: true
-    }).on("selected.rs.jquery.bootgrid", function (e, rows) {
-        //如果默认全部选中
-        if (selectedIds.length === bills.length) {
-            selectedIds.clear();
-        }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
-    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
-    });
+    mainObject = "budget";
+    dataTableName = "#budgetDataTable";
+    docName = "采购申请信息";
+    searchModel = [
+        {"param": "beginDate", "paramDesc": "申请日期"},
+        {"param": "endDate", "paramDesc": "申请日期"},
+        {"param": "accessoryName", "paramDesc": "配件名称"},
+        {"param": "applyDep", "paramDesc": "申请部门"}
+    ];
+    initBootGrid(dataTableName);
+
+    search();
     // 监听切换tab的方法
 
     $(formTab).on('click', function () {
@@ -207,16 +195,12 @@ $(function () {
 
     });
 
-    $("select").select2({
-        theme: "bootstrap"
-    });
-
+    initSelect();
     $('#detailForm')
         .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
         e.preventDefault();
         saveMainObject();
     });
-
 
     formTab.on('click', function () {
         //首先判断是否有选中的
@@ -264,36 +248,6 @@ function getBudgetBillById(bid) {
     return budgetBill;
 }
 
-
-/**
- *  上一条
- */
-function backwards() {
-    if (pointer <= 0) {
-        showMessageBoxCenter("danger", "center", "当前记录是第一条");
-
-    } else {
-        pointer = pointer - 1;
-        //判断当前指针位置
-        var budgetBill = getBudgetBillById(selectedIds[pointer]);
-        vdm.$set("budgetBill", budgetBill);
-    }
-}
-/**
- *  下一条
- */
-function forwards() {
-    if (pointer >= selectedIds.length - 1) {
-        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-
-    } else {
-        pointer = pointer + 1;
-        var budgetBill = getBudgetBillById(selectedIds[pointer]);
-        vdm.$set("budgetBill", budgetBill);
-    }
-}
-
-
 function add() {
     //重新建立模型 新建对象模型
     var newVue = new Vue({
@@ -306,17 +260,7 @@ function add() {
     formTab.tab('show');
     formTab.data("status", "add");
 }
-/**
- *保存或者更新
- * */
-function save() {
-    $("#saveBtn").trigger("click");
-}
 
-
-function edit() {
-    setFormReadStatus("#detailForm", false);
-}
 
 /**
  *查询我的位置

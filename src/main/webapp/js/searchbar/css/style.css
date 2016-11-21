@@ -105,3 +105,9 @@ body {
     font-family: 微软雅黑;
     font-weight: bold
 }
+
+.myDateBox {
+
+    height: 34px;
+    border: 1px solid #cccccc
+}
