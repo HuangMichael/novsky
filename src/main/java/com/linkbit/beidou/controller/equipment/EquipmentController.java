@@ -18,6 +18,7 @@ import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.PageObject;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.equipments.EqUpdateBillService;
 import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.equipments.EquipmentSearchService;
@@ -79,6 +80,8 @@ public class EquipmentController extends BaseController implements LocationSepar
 
     @Autowired
     EquipmentSearchService equipmentSearchService;
+    @Autowired
+    CommonDataService commonDataService;
 
 
     /**
@@ -108,7 +111,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
 
-        return  new PageUtils().searchByService(equipmentSearchService, searchPhrase, 4, current, rowCount);
+        return new PageUtils().searchByService(equipmentSearchService, searchPhrase, 4, current, rowCount);
     }
 
 
@@ -142,88 +145,14 @@ public class EquipmentController extends BaseController implements LocationSepar
 
 
     /**
-     * 查询根节点
+     * @param equipments    保存设备信息
+     * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Equipments save(
-            @RequestParam(value = "id", required = false) Long id,
-            @RequestParam("eqCode") String eqCode,
-            @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "manager", required = false) String manager,
-            @RequestParam(value = "maintainer", required = false) String maintainer,
-            @RequestParam(value = "productFactory", required = false) String productFactory,
-            @RequestParam(value = "imgUrl", required = false) String imgUrl,
-            @RequestParam(value = "originalValue", required = false) Double originalValue,
-            @RequestParam(value = "netValue", required = false) Double netValue,
-            @RequestParam(value = "purchasePrice", required = false) Double purchasePrice,
-            @RequestParam(value = "purchaseDate", required = false) String purchaseDate,
-            @RequestParam(value = "locations_id", required = false) Long locations_id,
-            @RequestParam(value = "equipmentsClassification_id", required = false) Long equipmentsClassification_id,
-            @RequestParam(value = "status", defaultValue = "1") String status,
-            @RequestParam(value = "eqModel", required = false) String eqModel,
-            @RequestParam(value = "assetNo", required = false) String assetNo,
-            @RequestParam(value = "manageLevel", required = false) Long manageLevel,
-            @RequestParam(value = "running", required = false) String running,
-            @RequestParam(value = "warrantyPeriod", required = false) String warrantyPeriod,
-            @RequestParam(value = "setupDate", required = false) String setupDate,
-            @RequestParam(value = "productDate", required = false) String productDate,
-            @RequestParam(value = "runDate", required = false) String runDate,
-            @RequestParam(value = "expectedYear", required = false) Long expectedYear
-    ) {
-        Equipments equipments = (id != null) ? equipmentAccountService.findById(id) : new Equipments();
-
-        //首先判断是否存在
-        try {
-            equipments.setEqCode(eqCode);
-            equipments.setDescription(description);
-            equipments.setManager(manager);
-            equipments.setMaintainer(maintainer);
-            equipments.setProductFactory(productFactory);
-            equipments.setImgUrl(imgUrl);
-            equipments.setOriginalValue(originalValue);
-            equipments.setPurchasePrice(purchasePrice);
-            equipments.setNetValue(netValue);
-            equipments.setLocations(locationsService.findById(locations_id));
-            equipments.setEquipmentsClassification(equipmentsClassificationRepository.findById(equipmentsClassification_id));
-            equipments.setStatus(status);
-            equipments.setLocation(equipments.getLocations().getLocation());
-            equipments.setEqModel(eqModel);
-            equipments.setAssetNo(assetNo);
-            equipments.setManageLevel(manageLevel);
-            equipments.setRunning(running);
-            equipments.setVlocations(vlocationsRepository.findById(locations_id));
-            Date purchaseDated;
-            Date warrantyPeriodDate;
-            Date setupDateDate;
-            Date productDateDate;
-            Date runDateDate;
-            if (purchaseDate != null) {
-                purchaseDated = DateUtils.convertStr2Date(purchaseDate, "yyyy-MM-dd");
-                equipments.setPurchaseDate(purchaseDated);
-            }
-            if (warrantyPeriod != null) {
-                warrantyPeriodDate = DateUtils.convertStr2Date(warrantyPeriod, "yyyy-MM-dd");
-                equipments.setWarrantyPeriod(warrantyPeriodDate);
-            }
-            if (setupDate != null) {
-                setupDateDate = DateUtils.convertStr2Date(setupDate, "yyyy-MM-dd");
-                equipments.setSetupDate(setupDateDate);
-            }
-            if (productDate != null) {
-                productDateDate = DateUtils.convertStr2Date(productDate, "yyyy-MM-dd");
-                equipments.setProductDate(productDateDate);
-            }
-            if (runDate != null) {
-                runDateDate = DateUtils.convertStr2Date(runDate, "yyyy-MM-dd");
-                equipments.setRunDate(runDateDate);
-            }
-            equipments.setExpectedYear(expectedYear);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return equipmentAccountService.save(equipments);
-
+    public ReturnObject save(Equipments equipments) {
+        Equipments eqObject = equipmentAccountService.save(equipments);
+        return commonDataService.getReturnType(eqObject != null, "信息保存成功!", "信息保存失败");
     }
 
 
@@ -264,7 +193,6 @@ public class EquipmentController extends BaseController implements LocationSepar
         if (id != null) {
             equipments = equipmentAccountService.findById(id);
         }
-
         ReturnObject returnObject = new ReturnObject();
         returnObject.setResult(equipmentAccountService.delete(equipments));
         returnObject.setResultDesc(equipments.getId() + "");
@@ -360,7 +288,6 @@ public class EquipmentController extends BaseController implements LocationSepar
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Equipments add(
-
             @RequestParam("eqCode") String eqCode,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "manager", required = false) String manager,

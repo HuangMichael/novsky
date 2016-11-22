@@ -4,8 +4,6 @@ var formTab = $('#myTab li:eq(1) a');
 var vdm = null;
 var pointer = 0;
 $(function () {
-
-
     var validateOptions = {
         message: '该值无效',
         fields: {
@@ -88,16 +86,6 @@ $(function () {
                     }
                 }
             },
-
-            /*"auditDate": {
-             message: '审核日期无效',
-             validators: {
-             notEmpty: {
-             message: '审核日期不能为空!'
-             }
-             }
-             },*/
-
             "amount": {
                 message: '申请数量无效',
                 validators: {
@@ -144,20 +132,24 @@ $(function () {
         }
     };
 
-
+    //初始化配置信息
+    //主对象信息
     mainObject = "ecbudget";
+    //列表id
     dataTableName = "#ecBudgetDataTable";
+    //导出文档配置信息
     docName = "易耗品采购申请信息";
+    //表单界面信息
     formName = "#detailForm";
+    //查询模型
     searchModel = [
         {"param": "locName", "paramDesc": "位置"},
         {"param": "eqName", "paramDesc": "消耗品名称"},
         {"param": "eqClass", "paramDesc": "设备分类"}
     ];
 
-
+    //配置动态列表
     var locs = getMyLocs();
-    // var eqClasses = findMyEqClass();
     selectedIds = findAllRecordId();
     vdm = new Vue({
         el: "#detailContainer",
@@ -180,8 +172,6 @@ $(function () {
     initSearchDate();
     initSelect();
     search();
-
-
     showDetail();
 });
 

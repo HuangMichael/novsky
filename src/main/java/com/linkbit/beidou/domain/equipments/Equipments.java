@@ -101,19 +101,14 @@ public class Equipments {
     @Column(scale = 2)
     private Double purchasePrice; //采购价格
 
-    @Temporal(TemporalType.DATE)
-    private Date warrantyPeriod; //保修期至
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date setupDate; //安装日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date runDate; //运行日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Temporal(TemporalType.DATE)
-    private Date productDate; //出厂日期
-    @Column(length = 2)
+    private String warrantyPeriod; //保修期至
 
+    private String setupDate; //安装日期
+
+    private String runDate; //运行日期
+
+    private String productDate; //出厂日期
+    @Column(length = 2)
     private Long expectedYear; //预计年限
 
 
