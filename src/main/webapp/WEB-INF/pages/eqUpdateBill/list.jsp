@@ -28,6 +28,8 @@
 									</li>
 								</ul>
 								<div class="tab-content">
+									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+
 									<div class="form-group" style="margin-bottom:10px;position:inherit"
 										 id="searchBox">
 
@@ -88,7 +90,6 @@
 
 									</div>
 
-									<div class="tab-pane fade in active" id="list_tab" style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
 										<div class="container-fluid">
 											<table id="eqUpdateDataTable" class=" table table-striped table-bordered table-hover" data-toggle="bootgrid" data-ajax="true" data-url="/eqUpdateBill/data">
 												<thead>

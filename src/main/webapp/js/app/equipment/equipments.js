@@ -141,10 +141,9 @@ $(function () {
         {"param": "locName", "paramDesc": "设备位置"},
         {"param": "eqClass", "paramDesc": "设备分类"}
     ];
-    initBootGrid(dataTableName);
+    initBootGridMenu(dataTableName);
     initSelect();
     search();
-
     eqs = findAllRecordId();
 
 
@@ -244,12 +243,6 @@ $(function () {
     });
 
 
-    listTab.on('click', function () {
-        refresh();
-
-    });
-
-
     formTab.on('click', function () {
         activeTab = "detail";
         setFormReadStatus("#detailForm", formLocked);
@@ -267,22 +260,6 @@ $(function () {
         vdm.$set("equipments", eq);
 
     });
-
-
-    $(dataTableName).bootgrid({
-        formatters: {
-            "report": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
-                    + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
-            }
-        }
-    });
-
-
-    listTab.on('click', function () {
-        activeTab = "list";
-    });
-
 
     historyTab.on('click', function () {
         activeTab = "history";

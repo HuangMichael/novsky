@@ -366,9 +366,42 @@ function initSelect() {
  */
 function initBootGrid(dataTableName) {
     var config = {
-            selection: true,
-            multiSelect: true
+        selection: true,
+        multiSelect: true
+    }
+    //初始化加载列表
+    $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
+        //如果默认全部选中
+        if (selectedIds.length === 0) {
+            selectedIds.clear();
         }
+        for (var x in rows) {
+            if (rows[x]["id"]) {
+                selectedIds.push(rows[x]["id"]);
+            }
+        }
+    }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+        for (var x in rows) {
+            selectedIds.remove(rows[x]["id"]);
+        }
+    });
+}
+
+
+/**
+ * 初始化bootgrid表格 并监听选择时间
+ */
+function initBootGridMenu(dataTableName) {
+    var config = {
+        selection: true,
+        multiSelect: true,
+        formatters: {
+            "report": function (column, row) {
+                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                    + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
+            }
+        }
+    }
     //初始化加载列表
     $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
@@ -395,8 +428,6 @@ function getMyLocs() {
     var url = "/commonData/findMyLoc";
     $.getJSON(url, function (data) {
         locs = data;
-
-        console.log("data-----" + JSON.stringify(data));
     });
     return locs;
 }
@@ -428,7 +459,6 @@ function findMyEqs() {
  * 查询所有线路
  */
 function getAllLines() {
-
     var url = "/line/findAllLines";
     $.getJSON(url, function (data) {
         lines = data;
@@ -455,23 +485,14 @@ function search() {
     var params = $("#searchBox :input");
     var searchParams = "";
     $.each(params, function (i, p) {
-
         var id = $(p).attr("id");
-
         if (!$(p).is(":button")) {
             var value = $(p).val().trim();
-
-            console.log("id---------" + id);
-            console.log("value---------" + value);
             searchParams += value + ",";
         }
 
     });
-
-    console.log("searchParams------------" + JSON.stringify(searchParams));
     $(dataTableName).bootgrid("setSearchPhrase", searchParams).bootgrid("reload");
-
-
 }
 
 
