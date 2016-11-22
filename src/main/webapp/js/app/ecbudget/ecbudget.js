@@ -154,7 +154,7 @@ $(function () {
     vdm = new Vue({
         el: "#detailContainer",
         data: {
-            budgetBill: null,
+            ecbudget: null,
             locs: locs
         }
     });
