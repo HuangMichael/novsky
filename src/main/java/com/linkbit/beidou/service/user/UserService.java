@@ -11,9 +11,11 @@ import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
 import com.linkbit.beidou.utils.search.Searchable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 
 @Service
-public class UserService extends BaseService implements Searchable {
+public class UserService extends BaseService {
 
     @Autowired
     UserRepository userRepository;
@@ -67,27 +69,6 @@ public class UserService extends BaseService implements Searchable {
         user.setStatus("1");
         return userRepository.save(user);
     }
-
-
-    /**
-     * @param userName 用户名
-     * @param pageable 可分页
-     * @return 用户名模糊查询
-     * @Date 2016年9月23日09:05:15
-     */
-    public Page<User> findByUserNameContrains(String userName, Pageable pageable) {
-        return userRepository.findByUserNameContains(userName, pageable);
-    }
-
-
-    /**
-     * @param userName 用户名
-     * @return 用户名模糊查询
-     */
-    public List<User> findByUserNameContrains(String userName) {
-        return userRepository.findByUserNameContains(userName);
-    }
-
 
     /**
      * 对用户进行加密
@@ -164,25 +145,47 @@ public class UserService extends BaseService implements Searchable {
         return userRepository.findAllId();
     }
 
-
-    /**
+/*
+    *//**
      * @param searchPhrase
      * @return 根据多条件关键字进行查询
-     */
+     *//*
     public List<User> findByConditions(String searchPhrase, int paramSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1]);
     }
 
 
-    /**
+    *//**
      * @param searchPhrase
      * @return 根据多条件关键字进行查询
-     */
+     *//*
     public Page<User> findByConditions(String searchPhrase, int paramSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramSize);
         return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1], pageable);
     }
+
+
+    *//**
+     * @param searchPhrase
+     * @return 根据多条件关键字进行查询 可排序
+     *//*
+    public List<User> findByConditions(String searchPhrase, String[] sortStr, int paramSize) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
+        Sort sort = super.assembleSort(sortStr);
+        return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1], sort);
+    }
+
+
+    *//**
+     * @param searchPhrase
+     * @return 根据多条件关键字进行查询 可排序
+     *//*
+    public Page<User> findByConditions(String searchPhrase, int paramSize, String[] sortStr, Pageable pageable) {
+        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
+        Sort sort = super.assembleSort(sortStr);
+        return userRepository.findByUserNameContainsAndLocationStartingWith(array[0], array[1], sort, pageable);
+    }*/
 
 
 }

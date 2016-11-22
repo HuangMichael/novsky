@@ -29,7 +29,7 @@
             <label for="locations_id">我的位置</label>
         </div>
         <div class="col-md-4 col-sm-4 col-lg-4">
-            <select v-model="user.vlocations.id" class="form-control" id="locations_id" name="locations_id"
+            <select v-model="user.vlocations.id" class="form-control" id="locations_id" name="vlocations.id"
                     required style="width:100%" required>
                 <template v-for="option in locs">
                     <option :value="option.id" v-if="option.id == user.vlocations.id" selected>
@@ -52,6 +52,10 @@
                 <option value="0">禁用</option>
             </select>
         </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
+        </button>
     </div>
 </form>
 

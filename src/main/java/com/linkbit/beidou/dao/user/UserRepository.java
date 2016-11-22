@@ -1,12 +1,12 @@
 package com.linkbit.beidou.dao.user;
 
 
-import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by huangbin on 2016/1/8 0008.
  */
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Long>, PagingAndSortingRepository<User, Long> {
     /**
      * 查询所有菜单
      */
@@ -29,11 +29,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * 根据id查询
      */
     User findById(long id);
-
-    /**
-     * 根据用户名查询用户
-     */
-    List<User> findByUserName(String userName);
 
     /**
      * 根据用户名和密码查询用户
@@ -82,8 +77,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findByUserNameContains(String userName);
 
 
-
-
     @Query("select e.id from User e order by e.id asc")
     List<Long> findAllId();
 
@@ -93,7 +86,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param location
      * @return
      */
-    List<User> findByUserNameContainsAndLocationStartingWith(String userName, String location );
+    List<User> findByUserNameContainsAndLocationStartingWith(String userName, String location);
 
 
     /**
@@ -102,6 +95,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param pageable
      * @return
      */
-    Page<User> findByUserNameContainsAndLocationStartingWith(String userName, String location ,Pageable pageable);
+    Page<User> findByUserNameContainsAndLocationStartingWith(String userName, String location, Pageable pageable);
+
 
 }

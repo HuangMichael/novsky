@@ -71,33 +71,6 @@ $(function () {
 });
 
 
-/**
- * 生成工单
- */
-function generateOrder() {
-    var deadLine = $("#deadLine").val();
-    console.log("deadLine---------" + deadLine);
-    var pmId = $("#confirm_modal").data("pmId");
-
-    var url = "/preMaint/genPmOrder";
-
-    var obj = {
-        pmId: pmId,
-        deadLine: deadLine
-    };
-    $.post(url, obj, function (data) {
-
-        if (data.result) {
-            $("#confirm_modal").modal("hide");
-            showMessageBox("info", data["resultDesc"]);
-        } else {
-            showMessageBox("danger", data["resultDesc"]);
-        }
-    });
-}
-
-
-
 
 
 

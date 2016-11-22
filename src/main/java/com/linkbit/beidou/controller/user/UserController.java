@@ -12,6 +12,8 @@ import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.user.UserSearchService;
 import com.linkbit.beidou.service.user.UserService;
 import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
@@ -22,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,12 +46,16 @@ import java.util.List;
 public class UserController extends BaseController {
 
 
-
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserSearchService userSearchService;
+
+
     @Autowired
     PersonRepository personRepository;
 
@@ -55,6 +64,9 @@ public class UserController extends BaseController {
 
     @Autowired
     ResourceService resourceService;
+
+    @Autowired
+    CommonDataService commonDataService;
 
 
     /**
@@ -67,19 +79,33 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return new PageUtils().searchByService(userService, searchPhrase, 2, current, rowCount);
+    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current,
+                       @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount,
+                       @RequestParam(value = "sort", defaultValue = "userName") String sortStr,
+                       @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+
+        System.out.println("sortStr-----------" + sortStr.toString());
+        Sort sort = new Sort(sortStr);
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), sort);
+        Page page = userSearchService.findByConditions(searchPhrase, 2, pageable);
+        MyPage myPage = new MyPage();
+        myPage.setRows(page.getContent());
+        myPage.setRowCount(rowCount);
+        myPage.setCurrent(current);
+        myPage.setTotal(page.getTotalElements());
+
+        return myPage;
     }
 
 
     @RequestMapping(value = "/personal")
-    public String personal(ModelMap modelMap) {
+    public String personal() {
         return "/user/personal";
     }
 
 
     @RequestMapping(value = "/create")
-    public String create(ModelMap modelMap) {
+    public String create() {
         return "/user/create";
     }
 
@@ -117,19 +143,20 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public ReturnObject save(@RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId) {
-        User user = new User();
-        user.setPerson(personRepository.findById(personId));
-        Vlocations vlocations = vlocationsRepository.findById(locationId);
-        user.setVlocations(vlocations);
-        user.setLocation(vlocations.getLocation());
+    public ReturnObject save(User user) {
+
+        if (user.getPassword().isEmpty()) {
+            user.setPassword(MD5Util.md5("123456"));
+        }
+        if (user.getLocation().isEmpty()) {
+            user.setLocation(user.getVlocations().getLocation());
+        }
+        if (user.getSortNo() == 0) {
+            user.setSortNo(1l);
+        }
+
         user = userService.save(user);
-        ReturnObject returnObject = new ReturnObject();
-        returnObject.setResult(user != null);
-        String resStr = returnObject.getResult() ? "成功" : "失败";
-        returnObject.setResultDesc("用户信息保存" + resStr);
-        returnObject.getObjectsList().add(user);
-        return returnObject;
+        return commonDataService.getReturnType(user != null, "用户信息保存成功", "用户信息保存失败");
     }
 
 
@@ -241,8 +268,8 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<User> dataList = userService.findByConditions(param, 2);
+    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames, @RequestParam("sort") String[] sort) {
+        List<User> dataList = userSearchService.findByConditions(param, 2);
         userService.setDataList(dataList);
         userService.exportExcel(request, response, docName, titles, colNames);
     }

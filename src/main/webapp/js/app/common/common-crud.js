@@ -367,7 +367,8 @@ function initSelect() {
 function initBootGrid(dataTableName) {
     var config = {
         selection: true,
-        multiSelect: true
+        multiSelect: true,
+        sorting: true
     }
     //初始化加载列表
     $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
@@ -492,6 +493,10 @@ function search() {
         }
 
     });
+
+    console.log("sort-----------" + JSON.stringify($(dataTableName).bootgrid("getSortDictionary")));
+    ;
+
     $(dataTableName).bootgrid("setSearchPhrase", searchParams).bootgrid("reload");
 }
 

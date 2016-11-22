@@ -3,12 +3,8 @@ package com.linkbit.beidou.utils;/**
  */
 
 import com.linkbit.beidou.domain.app.MyPage;
-import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.search.Searchable;
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import lombok.Data;
-import org.omg.CORBA.Object;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

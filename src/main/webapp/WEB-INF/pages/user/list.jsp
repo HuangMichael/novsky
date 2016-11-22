@@ -56,12 +56,11 @@
                                                data-toggle="bootgrid" data-ajax="true" data-url="/user/data">
                                             <thead>
                                             <tr>
-                                                <th data-column-id="id">序号</th>
-                                                <th data-column-id="id" data-type="numeric" data-identifier="true"
-                                                    data-visible="false">ID
-                                                </th>
-                                                <th data-column-id="userName">用户名</th>
-                                                <th data-column-id="location">位置</th>
+                                                <th data-column-id="id" data-width="5%">序号</th>
+                                                <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false" data-width="10%">ID</th>
+                                                <th data-column-id="userName" data-sortable="true" data-width="10%">用户名</th>
+                                                <th data-column-id="location" data-sortable="true" data-width="10%">位置</th>
+                                                <th data-column-id="sortNo" data-sortable="true" data-width="75%">排序</th>
                                             </tr>
                                             </thead>
 

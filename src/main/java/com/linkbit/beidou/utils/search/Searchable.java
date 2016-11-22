@@ -14,17 +14,17 @@ public interface Searchable {
 
 
     /**
-     * @param searchPhrase
-     * @param paramSize
-     * @param pageable
+     * @param searchPhrase 搜索关键字组合
+     * @param paramSize    搜索条件个数
+     * @param pageable     可分页
      * @return
      */
     Page findByConditions(String searchPhrase, int paramSize, Pageable pageable);
 
 
     /**
-     * @param searchPhrase
-     * @param paramSize
+     * @param searchPhrase 搜索关键字组合
+     * @param paramSize    搜索条件个数
      * @return
      */
     List findByConditions(String searchPhrase, int paramSize);

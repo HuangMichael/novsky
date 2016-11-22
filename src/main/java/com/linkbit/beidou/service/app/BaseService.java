@@ -6,10 +6,12 @@ import com.linkbit.beidou.utils.export.exporter.ExcelDataExporter;
 import lombok.Data;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +62,21 @@ public class BaseService {
         }
 
         return array;
+    }
+
+
+    /**
+     * @param sortArray
+     * @return 组装排序属性对象
+     */
+    public Sort assembleSort(String[] sortArray) {
+        List<Sort.Order> orderList = new ArrayList<Sort.Order>();
+        for (String str : sortArray) {
+            orderList.add(new Sort.Order(str));
+        }
+        Sort sort = new Sort(orderList);
+        return sort;
+
     }
 
 

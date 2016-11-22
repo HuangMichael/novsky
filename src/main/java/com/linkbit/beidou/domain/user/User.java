@@ -29,9 +29,9 @@ public class User {
     @Column(length = 20, unique = true, nullable = false)
     private String userName;
     @JsonIgnore
-    @Column(length = 50, unique = false, nullable = true)
+    @Column(length = 50, columnDefinition = "default '123456'")
     private String password;
-    @Column(scale = 1000, nullable = true)
+    @Column(scale = 1000)
     private long sortNo;
     @Column(nullable = false, length = 1)
     private String status;
