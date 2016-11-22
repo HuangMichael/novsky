@@ -507,5 +507,12 @@ function initSearchDate() {
 
 $(function () {
 
+    //监听回车查询
+    $(document).keypress(function (e) {
+        // 回车键事件
+        if (e.which == 13) {
+            $("#searchBtn").click();
+        }
+    });
 
 });
