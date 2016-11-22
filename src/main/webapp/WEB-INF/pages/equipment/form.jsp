@@ -10,24 +10,24 @@
             <label class="col-md-1 control-label" for="eqCode">设备编号</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipments.eqCode" required
+                <input class="form-control" id="eqCode" type="text" name="eqCode" v-model="equipment.eqCode" required
                        @change="checkEqCode()"/>
-                <input class="form-control" id="id" type="hidden" name="id" v-model="equipments.id"/>
+                <input class="form-control" id="id" type="hidden" name="id" v-model="equipment.id"/>
             </div>
 
             <label for="description" class="col-md-1 control-label">设备名称</label>
 
             <div class="col-md-3">
                 <input class="form-control" id="description" type="text" name="description" required
-                       v-model="equipments.description"/>
+                       v-model="equipment.description"/>
             </div>
             <label for="locations_id" class="col-md-1 control-label">设备位置</label>
 
             <div class="col-md-3">
-                <select v-model="equipments.locations.id" class="form-control" id="locations_id" name="locations.id"
+                <select v-model="equipment.locations.id" class="form-control" id="locations_id" name="locations.id"
                         required style="width:100%" required>
                     <template v-for="option in locs">
-                        <option :value="option.id" v-if="option.id == equipments.locations.id" selected>
+                        <option :value="option.id" v-if="option.id == equipment.locations.id" selected>
                             {{option.locName }}
                         </option>
                         <option :value="option.id" v-else>
@@ -42,10 +42,10 @@
 
             <div class="col-md-3">
                 <select class="form-control" id="equipmentsClassification_id" name="equipmentsClassification.id"
-                        required v-model="equipments.equipmentsClassification.id"
+                        required v-model="equipment.equipmentsClassification.id"
                         style="width:100%;background-color:#ffffce" required>
                     <template v-for="option in eqClasses">
-                        <option :value="option.id" v-if="option.id == equipments.equipmentsClassification.id" selected>
+                        <option :value="option.id" v-if="option.id == equipment.equipmentsClassification.id" selected>
                             {{ option.cpName +'/'+ option.cname }}
                         </option>
                         <option :value="option.id" v-else>
@@ -60,10 +60,10 @@
             <label class="col-md-1 control-label" for="running">运行状态</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="running" name="running" required v-model="equipments.running"
+                <select class="form-control" id="running" name="running" required v-model="equipment.running"
                         style="width:100%" required>
                     <template v-for="option in runStatus ">
-                        <option :value="option.key" v-if="option.key == equipments.running" selected>
+                        <option :value="option.key" v-if="option.key == equipment.running" selected>
                             {{ option.value }}
                         </option>
                         <option :value="option.key" v-else>
@@ -78,11 +78,11 @@
 
             <div class="col-md-3">
 
-                <%--<input class="form-control" id="status" type="text" name="status" v-model="equipments.status" required/>--%>
-                <select class="form-control" id="status" name="status" required v-model="equipments.status"
+                <%--<input class="form-control" id="status" type="text" name="status" v-model="equipment.status" required/>--%>
+                <select class="form-control" id="status" name="status" required v-model="equipment.status"
                         style="width:100%" required>
                     <template v-for="option in eqStatuses">
-                        <option :value="option.key" v-if="option.key == equipments.status" selected>
+                        <option :value="option.key" v-if="option.key == equipment.status" selected>
                             {{ option.value }}
                         </option>
                         <option :value="option.key" v-else>
@@ -97,18 +97,18 @@
 
             <div class="col-md-3">
                 <input class="form-control" id="maintainer" type="text" name="maintainer"
-                       v-model="equipments.maintainer"/>
+                       v-model="equipment.maintainer"/>
             </div>
 
             <label class="col-md-1 control-label" for="eqModel">设备型号</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="eqModel" type="text" name="eqModel" v-model="equipments.eqModel"/>
+                <input class="form-control" id="eqModel" type="text" name="eqModel" v-model="equipment.eqModel"/>
             </div>
             <label class="col-md-1 control-label" for="manageLevel">管理等级</label>
 
             <div class="col-md-3">
-                <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipments.manageLevel"
+                <select class="form-control" id="manageLevel" name="manageLevel" v-model="equipment.manageLevel"
                         style="width:100%">
                     <option>请选择设备管理等级</option>
                     <option v-for="option in [1,2,3,4]" v-bind:value="option">
@@ -123,18 +123,18 @@
             <label class="col-md-1 control-label" for="assetNo">资产编号</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="assetNo" type="text" name="assetNo" v-model="equipments.assetNo"/>
+                <input class="form-control" id="assetNo" type="text" name="assetNo" v-model="equipment.assetNo"/>
             </div>
             <label class="col-md-1 control-label" for="productFactory">生产厂家</label>
 
             <div class="col-md-3">
                 <input class="form-control" id="productFactory" type="text" name="productFactory"
-                       v-model="equipments.productFactory"/>
+                       v-model="equipment.productFactory"/>
             </div>
             <label class="col-md-1 control-label" for="manager">负责人</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="manager" type="text" name="manager" v-model="equipments.manager"/>
+                <input class="form-control" id="manager" type="text" name="manager" v-model="equipment.manager"/>
             </div>
 
 
@@ -150,19 +150,19 @@
 
             <div class="col-md-3">
                 <input class="form-control" id="originalValue" type="text" name="originalValue"
-                       v-model="equipments.originalValue"/>
+                       v-model="equipment.originalValue"/>
             </div>
             <label class="col-md-1 control-label" for="netValue">净值(元)</label>
 
             <div class="col-md-3">
-                <input class="form-control" id="netValue" type="text" name="netValue" v-model="equipments.netValue"/>
+                <input class="form-control" id="netValue" type="text" name="netValue" v-model="equipment.netValue"/>
             </div>
 
             <label class="col-md-1 control-label" for="purchasePrice">采购价格</label>
 
             <div class="col-md-3">
                 <input class="form-control" id="purchasePrice" type="text" name="purchasePrice"
-                       v-model="equipments.purchasePrice" number/>
+                       v-model="equipment.purchasePrice" number/>
             </div>
         </div>
     </fieldset>
@@ -174,14 +174,14 @@
             <div class="col-md-3">
                 <input class="Wdate form-control" id="purchaseDate" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
                        name="purchaseDate"
-                       v-model="equipments.purchaseDate" style="height:34px;border:1px solid #cccccc"/>
+                       v-model="equipment.purchaseDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="warrantyPeriod">保修期至</label>
 
             <div class="col-md-3">
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({minDate:'%y-%M-%d'})"
                        id="warrantyPeriod" name="warrantyPeriod"
-                       v-model="equipments.warrantyPeriod" style="height:34px;border:1px solid #cccccc"/>
+                       v-model="equipment.warrantyPeriod" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="setupDate">安装日期</label>
 
@@ -189,7 +189,7 @@
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
                        id="setupDate"
                        name="setupDate"
-                       v-model="equipments.setupDate" style="height:34px;border:1px solid #cccccc"/>
+                       v-model="equipment.setupDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
         </div>
         <div class="form-group">
@@ -201,7 +201,7 @@
                        onClick="WdatePicker({maxDate:'%y-%M-%d'})"
                        id="productDate"
                        name="productDate"
-                       v-model="equipments.productDate" style="height:34px;border:1px solid #cccccc"/>
+                       v-model="equipment.productDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="runDate">运行日期</label>
 
@@ -209,14 +209,14 @@
                 <input class="Wdate form-control" type="text" onClick="WdatePicker({maxDate:'%y-%M-%d'})"
                        id="runDate"
                        name="runDate"
-                       v-model="equipments.runDate" style="height:34px;border:1px solid #cccccc"/>
+                       v-model="equipment.runDate" style="height:34px;border:1px solid #cccccc"/>
             </div>
             <label class="col-md-1 control-label" for="expectedYear">预计年限</label>
 
             <div class="col-md-3">
                 <input class=" form-control" type="text" id="expectedYear"
                        name="expectedYear"
-                       v-model="equipments.expectedYear"/>
+                       v-model="equipment.expectedYear"/>
             </div>
         </div>
     </fieldset>

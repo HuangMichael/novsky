@@ -352,9 +352,9 @@ public class EquipmentController extends BaseController implements LocationSepar
     /**
      * @return 查询所有的id
      */
-    @RequestMapping(value = "/selectAllId", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
     @ResponseBody
-    List<Long> selectAllId() {
+    List<Long> findAllId() {
         return equipmentAccountService.selectAllId();
     }
 

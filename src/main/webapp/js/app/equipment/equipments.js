@@ -10,7 +10,7 @@ var eqStatuses = [];
 var runStatus = [];
 
 
-var vdm = null;
+var vdm = null, hm = null;
 var pointer = 0;
 $(function () {
     var validateOptions = {
@@ -129,7 +129,7 @@ $(function () {
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            equipments: null,
+            equipment: null,
             locs: locs,
             eqClasses: eqClasses,
             eqStatuses: eqStatuses,
@@ -138,11 +138,115 @@ $(function () {
     });
 
 
+    hm = new Vue({
+        el: "#historyInfo",
+        data: {
+            e: findById(selectedIds[pointer]),
+            histories: loadFixHistoryByEid(selectedIds[pointer] ? selectedIds[pointer] : null)
+        }
+    });
+
+
+    selectedIds = findAllRecordId();
     //初始化加载列表
     initBootGridMenu(dataTableName);
     //验证保存信息
     validateForm(validateOptions);
     initSelect();
     search();
-    // showDetail();
+    showDetail();
+
+
+    historyTab.on('click', function () {
+        console.log("查看维修历史-------------")
+        showFixHistory.call(selectedIds[pointer]);
+    })
 });
+
+
+function showFixHistory(eid) {
+    var histories = loadFixHistoryByEid(eid);
+    var xx = $("#locations_id").find("option:selected").text().trim();
+    hm.$set("e", vdm.equipment);
+    hm.$set("e.location.description", xx);
+    hm.$set("histories", histories);
+}
+
+
+/**
+ * 根据设备ID载入维修历史信息
+ */
+function loadFixHistoryByEid(eid) {
+    var url = "/equipment/getFixStepsByEid/" + eid;
+    var histories = [];
+    $.getJSON(url, function (data) {
+        histories = data;
+    });
+    return histories;
+}
+
+
+/**
+ *  弹出框显示维修历史明细信息
+ */
+function showFixDetail(orderLineNo) {
+    if (orderLineNo) {
+        var url = "/equipment/loadFixHistory/" + orderLineNo;
+        $("#fix-history").load(url, function (data) {
+            $("#show_history_modal").modal("show");
+        });
+    }
+}
+
+
+
+/**
+ * 设备报修
+ * @param id
+ */
+function report(id) {
+    var status = "0";
+    var path = "/equipment/findById/" + id;
+    $.getJSON(path, function (data) {
+        status = data["status"]
+    });
+    var curl = "/workOrderReportCart/loadReportedEqPage/" + id;
+    if (status == "0") {
+        $("#eqList").load(curl, function (data) {
+            $("#show_eq_modal").modal("show");
+            //eqId = id;
+            reportId = id;
+        })
+    } else {
+        equipReport(id);
+    }
+}
+
+
+/**
+ * 设备更新申请
+ * @param id
+ */
+function eqUpdate(id) {
+    //找到该设备
+    //跳转到设备更新页面  然后将参数带入
+    $("#main-content").load("/eqUpdateBill/list", function () {
+        eqUpdateAdd(id);
+    });
+}
+
+function equipReport(id) {
+    var url = "/workOrderReportCart/add2Cart";
+    $.post(url, {equipmentId: id}, function (data) {
+        var size = $("#reportOrderSize").html();
+        if (!size) {
+            size = 0
+        }
+        $("#reportOrderSize").html(parseInt(size) + 1);
+        showMessageBox("info", "已将设备报修加入到维修车!")
+    })
+}
+function continueEqReport() {
+    $("#show_eq_modal").modal("hide");
+    equipReport(reportId);
+}
