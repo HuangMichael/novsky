@@ -12,16 +12,19 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderHistory;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.workOrder.WorkOrderFixSearchService;
 import com.linkbit.beidou.service.workOrder.WorkOrderFixService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportService;
 import com.linkbit.beidou.utils.DateUtils;
+import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -48,6 +52,10 @@ public class WorkOrderFixController extends BaseController {
 
     @Autowired
     WorkOrderFixService workOrderFixService;
+
+
+    @Autowired
+    WorkOrderFixSearchService workOrderFixSearchService;
 
     @Autowired
     WorkOrderHistoryRepository workOrderHistoryRepository;
@@ -73,54 +81,32 @@ public class WorkOrderFixController extends BaseController {
     }
 
 
-   /* *//**
-     * @param modelMap
-     * @return 显示维修工单列表
-     *//*
-    @Override
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list( HttpSession session,ModelMap modelMap) {
-        User user = SessionUtil.getCurrentUserBySession(session);
-        String location = user.getLocation();
-        //过滤显示当前用户location数据 找出不完工的单子
-        List<VworkOrderFixBill> workOrderFixDetailListList0 = workOrderFixService.findByNodeStateAndLocation("已派工", location);
-        List<VworkOrderFixBill> workOrderFixDetailListList1 = workOrderFixService.findByNodeStateAndLocation("已完工", location);
-        List<VworkOrderFixBill> workOrderFixDetailListList2 = workOrderFixService.findByNodeStateAndLocation("已暂停", location);
-        List<VworkOrderFixBill> workOrderFixDetailListList3 = workOrderFixService.findByNodeStateAndLocation("已取消", location);
-        modelMap.put("workOrderFixDetailListList0", workOrderFixDetailListList0);
-        modelMap.put("workOrderFixDetailListList1", workOrderFixDetailListList1);
-        modelMap.put("workOrderFixDetailListList2", workOrderFixDetailListList2);
-        modelMap.put("workOrderFixDetailListList3", workOrderFixDetailListList3);
-        //查询出已派工的维修单
-        return "/workOrderFix/list";
-    }*/
-
-
     /**
-     * @param session
+     * @param request
      * @param current
      * @param rowCount
      * @param searchPhrase
+     * @param nodeState
      * @return 显示维修工单列表
      */
 
-    @RequestMapping(value = "/data/{status}", method = RequestMethod.POST)
+    @RequestMapping(value = "/data/{ns}", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(HttpSession session,
+    public MyPage data(HttpServletRequest request,
                        @RequestParam(value = "current", defaultValue = "0") int current,
                        @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount,
                        @RequestParam(value = "searchPhrase", required = false) String searchPhrase,
-                       @PathVariable("status") String status) {
-        //过滤显示当前用户location数据 找出不完工的单子
-        location = SessionUtil.getCurrentUserLocationBySession(session);
-        Page<VworkOrderFixBill> page = null;
-        page = workOrderFixService.findByLocationStartingWithAndNodeStateAndOrderDescContaining(status, location, searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+                       @PathVariable("ns") int nodeState) {
+        String nodeStateArray[] = {"已派工", "已完工", "已暂停", "已取消"};
+        String nodeStateStr;
+        if (nodeState >= 0) {
+            nodeStateStr = nodeStateArray[nodeState];
+            searchPhrase += nodeStateStr + ",";
+        }
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
+        return new PageUtils().searchBySortService(workOrderFixSearchService, searchPhrase, 4, current, rowCount, pageable);
+
     }
 
 
@@ -212,7 +198,7 @@ public class WorkOrderFixController extends BaseController {
                             @RequestParam("titles") String titles[],
                             @RequestParam("colNames") String[] colNames,
                             @RequestParam("nodeState") String nodeState) {
-        List<VworkOrderFixBill> dataList = workOrderFixService.findByLocationStartingWithAndNodeStateAndOrderDescContaining(location, nodeState, param);
+        List<VworkOrderFixBill> dataList = workOrderFixSearchService.findByConditions(param, 4);
         workOrderFixService.setDataList(dataList);
         workOrderFixService.exportExcel(request, response, docName, titles, colNames);
     }

@@ -26,7 +26,6 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-
                                             <div class="form-group" style="margin-bottom:10px;position:inherit"
                                                  id="searchBox">
                                                 <div class="col-md-2">
@@ -70,8 +69,6 @@
                                                     </button>
                                                 </div>
                                             </div>
-
-
                                             <div class="tab-pane fade in active" id="tab_1_0">
                                                 <table id="fixListTable"
                                                        class="table table-bordered table-hover table-striped"

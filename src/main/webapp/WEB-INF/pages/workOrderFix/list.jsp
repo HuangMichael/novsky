@@ -39,10 +39,57 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
+                                                <div class="form-group" style="margin-bottom:10px;position:inherit"
+                                                     id="searchBox">
+                                                    <div class="col-md-2">
+                                                        <input class="form-control" id="eqCode" type="text"
+                                                               name="orderLineNo"
+                                                               placeholder="跟踪号"/>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <input class="form-control" id="orderDesc" type="text"
+                                                               name="orderDesc"
+                                                               placeholder="故障描述"/>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <select class="form-control" id="locName" name="locName"
+                                                                style="width:100%" required>
+                                                            <option></option>
+                                                            <template v-for="option in locs">
+                                                                <option :value="option.location">
+                                                                    {{option.locName }}
+                                                                </option>
+                                                            </template>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <select class="form-control" id="eqClass" name="eqClass"
+                                                                style="width:100%"
+                                                                required>
+                                                            <option></option>
+                                                            <template v-for="option in eqClasses">
+                                                                <option :value="option.cname">
+                                                                    {{option.cname }}
+                                                                </option>
+                                                            </template>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <div class="col-md-2">
+                                                        <button id="searchBtn" class="btn btn-default"
+                                                                onclick="search()">查询
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+
                                                 <table id="fixListTable0"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
                                                        data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/已派工">
+                                                       data-url="/workOrderFix/data/0">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
@@ -76,7 +123,7 @@
                                                 <table id="fixListTable1"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
                                                        data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/已完工">
+                                                       data-url="/workOrderFix/data/1">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
@@ -101,7 +148,7 @@
                                                 <table id="fixListTable2"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
                                                        data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/已暂停">
+                                                       data-url="/workOrderFix/data/2">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
@@ -127,7 +174,7 @@
                                                 <table id="fixListTable3"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
                                                        data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/已取消">
+                                                       data-url="/workOrderFix/data/3">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>

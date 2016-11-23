@@ -11,7 +11,45 @@ $(document).ready(function () {
 
     docName = "维修单信息";
     mainObject = "workOrderFix";
-    $('#fixListTable0').bootgrid({
+    //导出必须配置的两个量
+    dataTableName = "#fixListTable0";
+
+
+    var url_location = "/commonData/findMyLoc";
+    $.getJSON(url_location, function (data) {
+        locs = data;
+    });
+
+
+    var url = "/commonData/findVEqClass";
+    $.getJSON(url, function (data) {
+        eqClasses = data;
+    });
+
+
+    initSelect();
+
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            locs: locs,
+            eqClasses: eqClasses
+        }
+
+    });
+
+    searchModel = [
+        {"param": "orderLineNo", "paramDesc": "跟踪号"},
+        {"param": "orderDesc", "paramDesc": "故障描述"},
+        {"param": "location", "paramDesc": "设备位置"},
+        {"param": "eqClass", "paramDesc": "设备分类"}
+    ];
+
+    initBootGridMenu(dataTableName);
+    search();
+
+
+    var cfg = {
         columnSelection: 1,
         rowCount: [10, 20, 25, -1],
         formatters: {
@@ -24,9 +62,10 @@ $(document).ready(function () {
         templates: {
             actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据'  name='fixListTable0'  onclick='exportExcelByName(" + tableName0 + ")'>导出</button>"
         }
-    });
+    };
 
-    //fillColor(709);
+    $('#fixListTable0').bootgrid(dataTableName, cfg);
+
 
     $('#fixListTable1').bootgrid({
         templates: {

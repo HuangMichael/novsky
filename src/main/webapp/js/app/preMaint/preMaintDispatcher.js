@@ -1,11 +1,9 @@
 $(document).ready(function () {
 
-
     docName = "预防性维修工单信息";
     mainObject = "preMaintDispatcher";
     dataTableName = "#pmOrderList0";
     formName = "#detailForm";
-
 
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
