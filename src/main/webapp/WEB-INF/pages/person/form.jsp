@@ -39,9 +39,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" id="saveBtn" name="saveBtn"
-                class="btn btn-danger">保存
-        </button>
+        <button type="submit" class="btn btn-primary">保存</button>
     </div>
 </form>
 

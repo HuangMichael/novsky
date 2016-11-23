@@ -7,10 +7,13 @@ import com.linkbit.beidou.domain.person.Person;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.person.PersonSearchService;
 import com.linkbit.beidou.service.person.PersonService;
 import com.linkbit.beidou.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -28,7 +32,12 @@ import java.util.List;
 public class PersonController extends BaseController {
 
     @Autowired
+    PersonSearchService personSearchService;
+
+    @Autowired
     PersonService personService;
+
+
     @Autowired
     ResourceService resourceService;
 
@@ -39,6 +48,7 @@ public class PersonController extends BaseController {
     /**
      * 分页查询
      *
+     * @param request      http请求
      * @param current      当前页
      * @param rowCount     每页条数
      * @param searchPhrase 查询关键字
@@ -46,19 +56,10 @@ public class PersonController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-
-        return new PageUtils().searchByService(personService, searchPhrase, 2, current, rowCount);
-    }
-
-    /**
-     * 查询根节点
-     */
-    @RequestMapping(value = "/findAll")
-    @ResponseBody
-    public List<Person> findAll() {
-        List<Person> personList = personService.findAll();
-        return personList;
+    public MyPage data(HttpServletRequest request, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
+        return new PageUtils().searchBySortService(personSearchService, searchPhrase, 2, current, rowCount, pageable);
     }
 
 
@@ -143,31 +144,12 @@ public class PersonController extends BaseController {
 
 
     /**
-     * 保存人员信息
+     * @return 查询所有的id
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
     @ResponseBody
-    public ReturnObject save(@RequestParam("personNo") String personNo,
-                             @RequestParam("personName") String personName,
-                             @RequestParam("telephone") String telephone,
-                             @RequestParam("email") String email,
-                             @RequestParam("birthDate") String birthDate,
-                             @RequestParam("status") String status
-
-    ) {
-        Person person = new Person();
-        person.setPersonNo(personNo);
-        person.setPersonName(personName);
-        person.setTelephone(telephone);
-        person.setEmail(email);
-        try {
-            person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        person.setStatus(status);
-        person = personService.save(person);
-        return commonDataService.getReturnType(person != null, "人员信息保存成功!", "人员信息保存失败!");
+    List<Long> findAllIds() {
+        return personService.selectAllId();
     }
 
 
@@ -203,7 +185,7 @@ public class PersonController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Person> dataList = personService.findByConditions(param, 2);
+        List<Person> dataList = personSearchService.findByConditions(param, 2);
         personService.setDataList(dataList);
         personService.exportExcel(request, response, docName, titles, colNames);
     }

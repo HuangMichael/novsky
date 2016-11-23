@@ -19,6 +19,7 @@ import com.linkbit.beidou.utils.CommonStatusType;
 import com.linkbit.beidou.utils.MD5Util;
 import com.linkbit.beidou.utils.PageUtils;
 import com.linkbit.beidou.utils.SessionUtil;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -79,22 +81,13 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current,
+    public MyPage data(HttpServletRequest request,
+                       @RequestParam(value = "current", defaultValue = "0") int current,
                        @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount,
-                       @RequestParam(value = "sort", defaultValue = "userName") String sortStr,
                        @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-
-        System.out.println("sortStr-----------" + sortStr.toString());
-        Sort sort = new Sort(sortStr);
-        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), sort);
-        Page page = userSearchService.findByConditions(searchPhrase, 2, pageable);
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-
-        return myPage;
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
+        return new PageUtils().searchBySortService(userSearchService, searchPhrase, 2, current, rowCount, pageable);
     }
 
 

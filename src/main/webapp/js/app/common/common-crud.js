@@ -227,9 +227,9 @@ function showDetail() {
         object = findById(selectedIds[0]);
     } else {
         //没有选中的 默认显示整个列表的第一条
-        object = findById(ids[0]);
+        object = findById(selectedIds[0]);
         //所有的都在选中列表中
-        selectedIds = (ids);
+       // selectedIds = (ids);
     }
     vdm.$set(getMainObject(), object);
     setFormReadStatus(formName, true);

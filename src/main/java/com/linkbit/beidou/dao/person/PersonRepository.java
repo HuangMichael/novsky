@@ -4,6 +4,7 @@ package com.linkbit.beidou.dao.person;
 import com.linkbit.beidou.domain.person.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -43,14 +44,13 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     List<Person> findByPersonNameContains(String personName);
 
 
-
     /**
      * @param personNo
      * @param personName 人员姓名
      * @param pageable   分页
      * @return 根据人员姓名模糊查询
      */
-    Page<Person> findByPersonNoContainsAndPersonNameContains(String personNo, String personName,Pageable pageable);
+    Page<Person> findByPersonNoContainsAndPersonNameContains(String personNo, String personName, Pageable pageable);
 
 
     /**
@@ -58,6 +58,13 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
      * @param personName 人员姓名
      * @return 根据人员姓名模糊查询
      */
-    List<Person> findByPersonNoContainsAndPersonNameContains(String personNo,String personName);
+    List<Person> findByPersonNoContainsAndPersonNameContains(String personNo, String personName);
+
+    /**
+     * @return
+     */
+    // 查询所有的id
+    @Query(value = "select p.id from Person p")
+    List<Long> selectAllId();
 
 }

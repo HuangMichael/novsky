@@ -20,8 +20,6 @@ public class UserSearchService extends BaseService implements SortedSearchable {
 
     @Autowired
     UserRepository userRepository;
-
-
     /**
      * @param searchPhrase
      * @return 根据多条件关键字进行查询

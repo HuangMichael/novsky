@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -16,7 +19,7 @@ import java.util.List;
  * 人员业务类
  */
 @Service
-public class PersonService extends BaseService implements Searchable {
+public class PersonService extends BaseService  {
 
 
     @Autowired
@@ -73,27 +76,21 @@ public class PersonService extends BaseService implements Searchable {
         return (personRepository.findById(id) == null);
     }
 
-    /**
-     * @param pageable
-     * @return 根据人员姓名模糊查询
-     */
 
-    public Page<Person> findByConditions(String searchPhrase, int paramSize, Pageable pageable) {
-        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
-        return personRepository.findByPersonNoContainsAndPersonNameContains(array[0], array[1], pageable);
-
-    }
 
 
     /**
-     * @param searchPhrase
-     * @return 根据人员姓名模糊查询
+     * @return 查询所有的id
      */
 
-    public List<Person> findByConditions(String searchPhrase, int paramSize) {
-        String array[] = super.assembleSearchArray(searchPhrase, paramSize);
-        return personRepository.findByPersonNoContainsAndPersonNameContains(array[0], array[1]);
+    public List<Long> selectAllId() {
+
+
+        return personRepository.selectAllId();
     }
+
+
+
 
 
 }
