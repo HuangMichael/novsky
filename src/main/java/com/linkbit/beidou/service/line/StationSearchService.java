@@ -5,6 +5,7 @@ import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.search.Searchable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ import java.util.List;
  * 线路业务类
  */
 @Service
-public class StationSearchService extends BaseService implements Searchable {
+public class StationSearchService extends BaseService implements SortedSearchable {
     @Autowired
     StationRepository stationRepository;
 
