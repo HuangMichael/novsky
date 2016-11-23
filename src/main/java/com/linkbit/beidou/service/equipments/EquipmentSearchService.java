@@ -4,6 +4,7 @@ import com.linkbit.beidou.dao.equipments.VEqRepository;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.search.Searchable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ import java.util.List;
  * 设备查询类
  */
 @Service
-public class EquipmentSearchService extends BaseService implements Searchable {
+public class EquipmentSearchService extends BaseService implements SortedSearchable {
 
     @Autowired
     VEqRepository vEqRepository;
