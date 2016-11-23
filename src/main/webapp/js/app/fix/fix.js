@@ -60,7 +60,7 @@ $(document).ready(function () {
         }
     };
 
-    initBootGridMenu(dataTableName, cfg);
+    initBootGridMenu(tableName0, cfg);
     search();
 
 
