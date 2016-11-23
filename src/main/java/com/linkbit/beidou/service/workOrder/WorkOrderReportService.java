@@ -10,6 +10,7 @@ import com.linkbit.beidou.domain.workOrder.*;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.StringUtils;
 import com.linkbit.beidou.utils.search.Searchable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ import java.util.List;
  * Created by huangbin  on 2016/5/20.
  */
 @Service
-public class WorkOrderReportService extends BaseService implements Searchable{
+public class WorkOrderReportService extends BaseService implements SortedSearchable {
 
 
     @Autowired
