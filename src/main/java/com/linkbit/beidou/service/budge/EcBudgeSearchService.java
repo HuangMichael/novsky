@@ -5,6 +5,7 @@ import com.linkbit.beidou.domain.EcBudget.VEcBudgetBill;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.search.Searchable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,7 @@ import java.util.List;
  * 易耗品查询
  */
 @Service
-public class EcBudgeSearchService extends BaseService implements Searchable {
+public class EcBudgeSearchService extends BaseService implements SortedSearchable {
 
     @Autowired
     VecbudgetBillRepository vecbudgetBillRepository;
