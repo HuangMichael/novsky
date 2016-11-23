@@ -4,6 +4,7 @@ import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.search.Searchable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import java.util.List;
  * 外委单位业务类
  */
 @Service
-public class UnitSearchService extends BaseService implements Searchable {
+public class UnitSearchService extends BaseService implements SortedSearchable {
 
     @Autowired
     OutsourcingUnitRepository unitsRepository;

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +61,7 @@ public class UnitsController extends BaseController {
     /**
      * 分页查询
      *
+     * @param request
      * @param current      当前页
      * @param rowCount     每页条数
      * @param searchPhrase 查询关键字
@@ -67,8 +69,10 @@ public class UnitsController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-        return new PageUtils().searchByService(unitSearchService, searchPhrase, 2, current, rowCount);
+    public MyPage data(HttpServletRequest request, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
+        return new PageUtils().searchBySortService(unitSearchService, searchPhrase, 2, current, rowCount,pageable);
     }
 
 
