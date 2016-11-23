@@ -45,10 +45,6 @@ $(document).ready(function () {
         {"param": "eqClass", "paramDesc": "设备分类"}
     ];
 
-    initBootGridMenu(dataTableName);
-    search();
-
-
     var cfg = {
         columnSelection: 1,
         rowCount: [10, 20, 25, -1],
@@ -64,7 +60,8 @@ $(document).ready(function () {
         }
     };
 
-    $('#fixListTable0').bootgrid(dataTableName, cfg);
+    initBootGridMenu(dataTableName, cfg);
+    search();
 
 
     $('#fixListTable1').bootgrid({
