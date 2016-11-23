@@ -1,9 +1,10 @@
 package com.linkbit.beidou.service.preMaint;
 
+import com.linkbit.beidou.dao.preMaint.VpreMaintOrderRepository;
 import com.linkbit.beidou.dao.preMaint.VpreMaintRepository;
 import com.linkbit.beidou.domain.preMaint.VpreMaint;
+import com.linkbit.beidou.domain.preMaint.VpreMaintOrder;
 import com.linkbit.beidou.service.app.BaseService;
-import com.linkbit.beidou.utils.search.Searchable;
 import com.linkbit.beidou.utils.search.SortedSearchable;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,20 @@ import java.util.List;
  */
 @Service
 @Data
-public class PreMaintSearchService extends BaseService implements SortedSearchable {
+public class PreMaintOrderSearchService extends BaseService implements SortedSearchable {
 
 
     @Autowired
-    VpreMaintRepository vpreMaintRepository;
+    VpreMaintOrderRepository orderRepository;
 
     /**
      * @param searchPhrase
      * @param paramsSize
      * @return
      */
-    public List<VpreMaint> findByConditions(String searchPhrase, int paramsSize) {
+    public List<VpreMaintOrder> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-
-        return vpreMaintRepository.findByPmDescContainingAndLocationContains(array[0], array[1]);
+        return orderRepository.findByOrderDescContainingAndLocationContainingAndNodeState(array[0], array[1], array[2]);
     }
 
     /**
@@ -41,9 +41,9 @@ public class PreMaintSearchService extends BaseService implements SortedSearchab
      * @param paramsSize
      * @return
      */
-    public Page<VpreMaint> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
+    public Page<VpreMaintOrder> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vpreMaintRepository.findByPmDescContainingAndLocationContains(array[0], array[1], pageable);
+        return orderRepository.findByOrderDescContainingAndLocationContainingAndNodeState(array[0], array[1], array[2], pageable);
     }
 
 

@@ -26,6 +26,7 @@ public class VpreMaintOrder {
     private String eqCode;
     private String eqName;
     private String locName;
+    private String location;
     private String eqClass;
     private String orderDesc;
     private String reporter;

@@ -4,7 +4,30 @@ $(document).ready(function () {
     docName = "预防性维修工单信息";
     mainObject = "preMaintDispatcher";
     dataTableName = "#pmOrderList0";
-    $(dataTableName).bootgrid({
+    formName = "#detailForm";
+
+
+    var url_location = "/commonData/findMyLoc";
+    $.getJSON(url_location, function (data) {
+        locs = data;
+    });
+
+
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            locs: locs
+        }
+    });
+
+    ids = findAllRecordId();
+
+    searchModel = [
+        {"param": "orderDesc", "orderDesc": "故障描述"},
+        {"param": "location", "paramDesc": "设备位置"}
+    ];
+
+    var cfg = {
         columnSelection: 1,
         rowCount: [10, 20, 25, -1],
         formatters: {
@@ -14,7 +37,10 @@ $(document).ready(function () {
                     '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
             }
         }
-    });
+    };
+    initBootGridMenu(dataTableName, cfg);
+    initSelect();
+    search();
 
 
     $('#pmOrderList1').bootgrid({

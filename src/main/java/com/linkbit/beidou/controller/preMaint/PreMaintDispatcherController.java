@@ -15,12 +15,16 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.preMaint.PreMaintOrderSearchService;
+import com.linkbit.beidou.service.preMaint.PreMaintSearchService;
 import com.linkbit.beidou.service.preMaint.PreMaintService;
 import com.linkbit.beidou.service.workOrder.WorkOrderReportCartService;
+import com.linkbit.beidou.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2016-10-21
@@ -38,8 +43,8 @@ import java.util.List;
 @EnableAutoConfiguration
 @RequestMapping("/preMaintDispatcher")
 public class PreMaintDispatcherController extends BaseController {
-
-
+    @Autowired
+    PreMaintOrderSearchService preMaintOrderSearchService;
     @Autowired
     PreMaintService preMaintService;
     @Autowired
@@ -61,22 +66,19 @@ public class PreMaintDispatcherController extends BaseController {
      */
     @RequestMapping(value = "/data/{ns}", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@PathVariable("ns") int nodeState, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+    public MyPage data(HttpServletRequest request, @PathVariable("ns") int nodeState, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         String nodeStateArray[] = {"已派工", "已完工", "已暂停", "已取消"};
-        String nodeStateStr = "";
+        String nodeStateStr;
         if (nodeState >= 0) {
             nodeStateStr = nodeStateArray[nodeState];
+            searchPhrase += nodeStateStr + ",";
         }
-        Page<VpreMaintOrder> page = preMaintService.findByNodeStateOrderDescContaining(nodeStateStr, searchPhrase, new PageRequest(current - 1, rowCount.intValue()));
-        MyPage myPage = new MyPage();
-        myPage.setRows(page.getContent());
-        myPage.setRowCount(rowCount);
-        myPage.setCurrent(current);
-        myPage.setTotal(page.getTotalElements());
-        return myPage;
+
+        System.out.println("searchPhrase--------------" + searchPhrase);
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
+        return new PageUtils().searchBySortService(preMaintOrderSearchService, searchPhrase, 3, current, rowCount, pageable);
     }
-
-
 
 
     /**
@@ -190,7 +192,7 @@ public class PreMaintDispatcherController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
     public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<VpreMaintOrder> dataList = preMaintService.findByNodeStateOrderDescContaining("已派工",param);
+        List<VpreMaintOrder> dataList = preMaintOrderSearchService.findByConditions(param, 3);
         preMaintService.setDataList(dataList);
         preMaintService.exportExcel(request, response, docName, titles, colNames);
     }

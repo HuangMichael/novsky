@@ -38,6 +38,31 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="tab_1_0"
                                          style="color: #111;background-color: #fff;border-color: #d26911 #e5e5e5 ">
+                                        <div class="form-group" style="margin-bottom:10px;position:inherit"
+                                             id="searchBox">
+                                            <div class="col-md-2">
+                                                <input class="form-control" id="orderDesc" type="text"
+                                                       name="orderDesc"
+                                                       placeholder="故障描述"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <select class="form-control" id="location" name="location"
+                                                        style="width:100%" required>
+                                                    <option></option>
+                                                    <template v-for="option in locs">
+                                                        <option :value="option.location">
+                                                            {{option.locName }}
+                                                        </option>
+                                                    </template>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <button id="searchBtn" class="btn btn-default" onclick="search()">查询
+                                                </button>
+                                            </div>
+                                        </div>
+
                                         <%@include file="table_1_0.jsp" %>
                                     </div>
                                     <div class="tab-pane fade  " id="tab_1_1"

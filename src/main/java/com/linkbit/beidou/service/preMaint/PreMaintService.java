@@ -14,6 +14,7 @@ import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.service.app.BaseService;
 import com.linkbit.beidou.utils.DateUtils;
 import com.linkbit.beidou.utils.LocationSeparatable;
+import com.linkbit.beidou.utils.search.SortedSearchable;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +46,6 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
 
     @Autowired
     VpreMaintOrderRepository vpreMaintOrderRepository;
-
 
 
     /**
@@ -148,27 +148,7 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
         // 根据deadLine计算出周期数 按照每个周期生成工单
         return pmOrderList;
     }
-
-
-    /**
-     * @param nodeState 节点状态
-     * @param orderDesc 维修描述
-     * @param pageable  可分页
-     * @return
-     */
-    public Page<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc, Pageable pageable) {
-        return vpreMaintOrderRepository.findByNodeStateAndOrderDescContainingOrderByOrderLineNoDesc(nodeState, orderDesc, pageable);
-    }
-
-
-    /**
-     * @param nodeState 节点状态
-     * @param orderDesc 维修描述
-     * @return
-     */
-    public List<VpreMaintOrder> findByNodeStateOrderDescContaining(String nodeState, String orderDesc) {
-        return vpreMaintOrderRepository.findByNodeStateAndOrderDescContaining(nodeState, orderDesc);
-    }
+    
 
     /**
      * @param preMaintWorkOrder 预防性维修工单
@@ -187,15 +167,6 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
             saved = preMaintWorkOrderRepository.save(preMaintWorkOrder);
         }
         return saved;
-    }
-
-
-    /**
-     * @param orderDesc
-     * @return 根据工单描述模糊查询
-     */
-    public List<PreMaintWorkOrder> findByOrderDescContains(String orderDesc) {
-        return preMaintWorkOrderRepository.findByOrderDesc(orderDesc);
     }
 
 

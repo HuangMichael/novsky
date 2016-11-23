@@ -229,7 +229,7 @@ function showDetail() {
         //没有选中的 默认显示整个列表的第一条
         object = findById(selectedIds[0]);
         //所有的都在选中列表中
-       // selectedIds = (ids);
+        // selectedIds = (ids);
     }
     vdm.$set(getMainObject(), object);
     setFormReadStatus(formName, true);
@@ -392,14 +392,17 @@ function initBootGrid(dataTableName) {
 /**
  * 初始化bootgrid表格 并监听选择时间
  */
-function initBootGridMenu(dataTableName) {
-    var config = {
-        selection: true,
-        multiSelect: true,
-        formatters: {
-            "report": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
-                    + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
+function initBootGridMenu(dataTableName, config) {
+
+    if (!config) {
+        config = {
+            selection: true,
+            multiSelect: true,
+            formatters: {
+                "report": function (column, row) {
+                    return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                        + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
+                }
             }
         }
     }

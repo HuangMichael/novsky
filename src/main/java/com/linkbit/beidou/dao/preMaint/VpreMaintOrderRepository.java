@@ -36,5 +36,13 @@ public interface VpreMaintOrderRepository extends PagingAndSortingRepository<Vpr
      * @param orderDesc
      * @return 分页
      */
-    List<VpreMaintOrder> findByNodeStateAndOrderDescContaining(String nodeState, String orderDesc);
+    List<VpreMaintOrder> findByOrderDescContainingAndLocationContainingAndNodeState(String orderDesc, String locName, String nodeState);
+
+    /**
+     * @param nodeState
+     * @param orderDesc
+     * @param pageable
+     * @return 分页
+     */
+    Page<VpreMaintOrder> findByOrderDescContainingAndLocationContainingAndNodeState(String orderDesc, String locName, String nodeState, Pageable pageable);
 }
