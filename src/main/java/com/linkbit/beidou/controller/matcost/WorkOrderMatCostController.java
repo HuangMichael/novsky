@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
@@ -73,9 +75,11 @@ public class WorkOrderMatCostController extends BaseController {
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(@RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+    public MyPage data(HttpServletRequest request, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
 
-        return new PageUtils().searchByService(workOrderMatCostSearchService, searchPhrase, 3, current, rowCount);
+        return new PageUtils().searchBySortService(workOrderMatCostSearchService, searchPhrase, 3, current, rowCount,pageable);
     }
 
 
