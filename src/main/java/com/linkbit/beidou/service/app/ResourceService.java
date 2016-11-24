@@ -255,26 +255,15 @@ public class ResourceService extends BaseService {
 
     /**
      * 根据AppName查询应用菜单
+     * @param httpSession
+     * @param controllerName
+     * @return
      */
     public List<VRoleAuthView> findAppMenusByController(HttpSession httpSession, String controllerName) {
         User user = SessionUtil.getCurrentUserBySession(httpSession);
         List<Role> roleList = user.getRoleList();
         String appName[] = controllerName.split("Controller");
         return vRoleAuthViewRepository.findByRoleListAppName(roleList, appName[0].toUpperCase());
-    }
-
-
-    /**
-     * @param url
-     * @return 根据url查询资源集合
-     */
-    public Resource findByResourceUrlStartingWithAndStaticFlag(String url, String staticFlag) {
-        Resource resource = null;
-        List<Resource> resourceList = resourceRepository.findByResourceUrlStartingWithAndStaticFlag(url, staticFlag);
-        if (!resourceList.isEmpty()) {
-            resource = resourceList.get(0);
-        }
-        return resource;
     }
 
 

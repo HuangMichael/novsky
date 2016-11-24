@@ -61,7 +61,7 @@ public interface VRoleAuthViewRepository extends CrudRepository<VRoleAuthView, L
     /**
      * 根据应用名称查询菜单
      */
-    @Query("select  distinct v  from VRoleAuthView v where  v.role in :roleList and v.appName =:appName ")
+    @Query("select  distinct v  from VRoleAuthView v where  v.role in :roleList and v.appName =:appName order by v.sortNo asc ")
     List<VRoleAuthView> findByRoleListAppName(@Param("roleList") List<Role> roleList, @Param("appName") String appName);
 
 
