@@ -1,10 +1,8 @@
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
 var formTab = $('#myTab li:eq(1) a');
-var vdm = null;
-pointer = 0;
 $(function () {
-    var validateOptions = {
+    var validationConfig = {
         message: '该值无效 ',
         fields: {
             personNo: {
@@ -71,20 +69,22 @@ $(function () {
 
     //配置动态列表
 
-
-    selectedIds = findAllRecordId();
-
-
     initBootGridMenu(dataTableName, null);
-    validateForm(validateOptions);
+    initSelect.call();
+    //初始化查询所有的
+    ids = findAllRecordId();
+    console.log("ids------" + JSON.stringify(ids));
+    selectedIds = ids;
 
+    console.log(JSON.stringify(selectedIds));
+    validateForm.call(validationConfig);
 
     vdm = new Vue({
-        el: formName
+        el: formName,
+        data: {
+            person: findById(selectedIds[pointer])
+        }
     });
-
-    initSelect();
-    search();
 });
 
 

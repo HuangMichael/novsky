@@ -17,6 +17,7 @@ var locs = [];
 var stations = [];
 var searchModel = [];
 
+
 /**
  *
  * @returns {string}
@@ -527,6 +528,9 @@ function initSearchDate() {
 
 $(function () {
 
+
+    //取消异步加载
+    $.ajaxSettings.async = false;
     //监听回车查询
     $(document).keypress(function (e) {
         // 回车键事件

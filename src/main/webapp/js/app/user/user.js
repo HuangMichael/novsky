@@ -37,10 +37,10 @@ $(function () {
 
     locs = findMyLoc();
 
-    /*   var person_location = "/commonData/findActivePerson";
-     $.getJSON(person_location, function (data) {
-     persons = data;
-     });*/
+    var person_location = "/commonData/findActivePerson";
+    $.getJSON(person_location, function (data) {
+        persons = data;
+    });
 
     var searchVue = new Vue({
         el: "#searchBox",
