@@ -138,15 +138,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ReturnObject save(User user) {
 
-        if (user.getPassword().isEmpty()) {
-            user.setPassword(MD5Util.md5("123456"));
-        }
-        if (user.getLocation().isEmpty()) {
-            user.setLocation(user.getVlocations().getLocation());
-        }
-        if (user.getSortNo() == 0) {
-            user.setSortNo(1l);
-        }
+
 
         user = userService.save(user);
         return commonDataService.getReturnType(user != null, "用户信息保存成功", "用户信息保存失败");

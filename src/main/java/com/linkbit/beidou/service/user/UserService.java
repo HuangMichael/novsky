@@ -62,9 +62,16 @@ public class UserService extends BaseService {
      * 对用户进行加密
      */
     public User save(User user) {
-        String password = user.getPassword();
-        if (user.getPassword() != null) {
-            user.setPassword(MD5Util.md5(password));
+
+        if (user.getPassword() == null) {
+            user.setPassword(MD5Util.md5("123456"));
+        }
+        if (user.getLocation() == null) {
+           // System.out.println("user.getVlocations()-----" + user.getVlocations().getLocName());
+            user.setLocation("BJ");
+        }
+        if (user.getSortNo() == 0) {
+            user.setSortNo(1l);
         }
         user.setStatus("1");
         return userRepository.save(user);

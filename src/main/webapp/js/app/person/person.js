@@ -89,7 +89,6 @@ $(function () {
     validateForm(validateOptions);
     initSelect();
     search();
-    // showDetail();
 });
 
 
