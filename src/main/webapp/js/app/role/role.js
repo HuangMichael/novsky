@@ -102,9 +102,9 @@ function loadUsers(roleId) {
             var id = data[x]['id'];
             if (id) {
                 html += '<tr  id="tr' + id + '" style="height: 12px">';
-                html += '<td>' + Number(Number(x) + Number(1)) + '</td>';
-                html += '<td>' + data[x]['userName'] + '</td>';
-                html += '<td><a class="btn btn-default btn-xs"  onclick="removeUser(' + roleId + "," + id + ')" title="移除" ><i class="glyphicon glyphicon-remove"></i></a></td>';
+                html += '<td width="5%">' + Number(Number(x) + Number(1)) + '</td>';
+                html += '<td width="20%">' + data[x]['userName'] + '</td>';
+                html += '<td width="20%"><a class="btn btn-default btn-xs"  onclick="removeUser(' + roleId + "," + id + ')" title="移除" ><i class="glyphicon glyphicon-remove"></i></a></td>';
                 html += '</tr>';
             }
         }
