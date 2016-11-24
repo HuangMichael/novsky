@@ -440,6 +440,18 @@ function getMyLocs() {
 /**
  *查询我的位置
  * */
+function findMyLoc() {
+    var url_location = "/commonData/findMyLoc";
+    $.getJSON(url_location, function (data) {
+        locs = data;
+    });
+    return locs;
+}
+
+
+/**
+ *查询我的位置
+ * */
 function findEqClass() {
     var url_eqclass = "/commonData/findEqClass";
     $.getJSON(url_eqclass, function (data) {

@@ -1,19 +1,15 @@
 package com.linkbit.beidou.controller.app;
 
 
-import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
-import com.linkbit.beidou.domain.equipments.Vequipments;
-import com.linkbit.beidou.domain.menu.Menu;
 import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.role.RoleService;
 import com.linkbit.beidou.service.user.UserService;
-import com.linkbit.beidou.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.domain.Page;
@@ -24,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -33,7 +28,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/authority")
-public class AuthorityController extends BaseController {
+public class AuthorityController  {
     @Autowired
     ResourceService resourceService;
 

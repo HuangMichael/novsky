@@ -43,6 +43,7 @@ public class VRoleAuthView {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;  //所属位置
     private Long parentId;//上级id
+    private long sortNo; //排序
 
 
 }
