@@ -1,8 +1,6 @@
-var selectedIds = []; //获取被选择记录集合
 var locs = [];
 var eqs = [];
 var persons = [];
-var pointer = 0;
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 var object = null;
@@ -52,18 +50,19 @@ $(function () {
     });
     initBootGridMenu(dataTableName, null);
     initSelect.call();
-    selectedIds = findAllRecordId();
+    //初始化查询所有的
+    ids = findAllRecordId();
+    selectedIds = ids;
     validateForm.call(validationConfig);
 
     vdm = new Vue({
         el: formName,
         data: {
-            user: selectedIds[pointer],
+            user: findById(selectedIds[pointer]),
             locs: locs,
             persons: persons
         }
     });
-    showDetail();
 });
 
 

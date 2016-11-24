@@ -111,28 +111,30 @@ function findById(id) {
  *  上一条 记录
  */
 function backwards() {
-    console.log("from crud----backwards");
+    pointer = pointer ? pointer : 0;
+    console.log("pointer--------------" + pointer);
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
     } else {
         pointer = pointer - 1;
         //判断当前指针位置
-        var object = findById(selectedIds[pointer]);
-        vdm.$set(getMainObject(), object);
+        showDetail(selectedIds[pointer]);
     }
 }
 /**
  *  下一条记录
  */
 function forwards() {
-    console.log("from crud----forwards");
+
+    pointer = pointer ? pointer : 0;
+
+    console.log("pointer--------------" + pointer);
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
     } else {
         pointer = pointer + 1;
-        var object = findById(selectedIds[pointer]);
-        vdm.$set(getMainObject(), object);
+        showDetail(selectedIds[pointer]);
     }
 }
 
@@ -220,17 +222,8 @@ function del() {
 /**
  * 显示明细信息
  */
-function showDetail() {
-    var object = null;
-    if (selectedIds.length > 0) {
-        //切换tab时默认给detail中第一个数据
-        object = findById(selectedIds[0]);
-    } else {
-        //没有选中的 默认显示整个列表的第一条
-        object = findById(selectedIds[0]);
-        //所有的都在选中列表中
-        // selectedIds = (ids);
-    }
+function showDetail(id) {
+    var object = findById(id);
     vdm.$set(getMainObject(), object);
     setFormReadStatus(formName, true);
 }
@@ -373,18 +366,23 @@ function initBootGrid(dataTableName) {
     //初始化加载列表
     $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
-        if (selectedIds.length === 0) {
+        var selected = $(dataTableName).bootgrid("getSelectedRows");
+        pointer = 0;
+        if (selected.length === 0) {
             selectedIds.clear();
+            selectedIds = findAllRecordId();
+        } else {
+            selectedIds = selected.sort(function (a, b) {
+                return a - b
+            });
         }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
+
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
+        var selected = $(dataTableName).bootgrid("getSelectedRows");
+        pointer = 0;
+        selectedIds = selected.sort(function (a, b) {
+            return a - b
+        });
     });
 }
 
@@ -410,15 +408,21 @@ function initBootGridMenu(dataTableName, config) {
     //初始化加载列表
     $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
-        if (selectedIds.length === 0) {
+        var selected = $(dataTableName).bootgrid("getSelectedRows");
+        console.log("选择了------" + selected.length + "条");
+        pointer = 0;
+        if (selected.length === 0) {
+            console.log("没有选----------");
             selectedIds.clear();
+            selectedIds = findAllRecordId();
+        } else {
+            selectedIds = selected.reverse();
         }
-        for (var x in rows) {
-            if (rows[x]["id"]) {
-                selectedIds.push(rows[x]["id"]);
-            }
-        }
+
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
+        var selected = $(dataTableName).bootgrid("getSelectedRows");
+        console.log("选择了------" + selected.length + "条");
+        pointer = 0;
         for (var x in rows) {
             selectedIds.remove(rows[x]["id"]);
         }
@@ -509,10 +513,6 @@ function search() {
         }
 
     });
-
-    console.log("sort-----------" + JSON.stringify($(dataTableName).bootgrid("getSortDictionary")));
-    ;
-
     $(dataTableName).bootgrid("setSearchPhrase", searchParams).bootgrid("reload");
 }
 
@@ -535,5 +535,10 @@ $(function () {
             $("#searchBtn").click();
         }
     });
+
+
+    $(formTab).on("click", function () {
+        vdm.$set(getMainObject(), findById(selectedIds.reverse()[0]));
+    })
 
 });

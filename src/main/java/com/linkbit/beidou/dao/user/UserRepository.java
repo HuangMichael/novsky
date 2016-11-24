@@ -62,21 +62,8 @@ public interface UserRepository extends CrudRepository<User, Long>, PagingAndSor
 
 
     /**
-     * @param userName 用户名
-     * @param pageable 可分页
-     * @return 用户名模糊查询
-     * @Date 2016年9月23日09:05:15
+     * @return 查找所有的id
      */
-    Page<User> findByUserNameContains(String userName, Pageable pageable);
-
-
-    /**
-     * @param userName 用户名
-     * @return 用户名模糊查询
-     */
-    List<User> findByUserNameContains(String userName);
-
-
     @Query("select e.id from User e order by e.id asc")
     List<Long> findAllId();
 
