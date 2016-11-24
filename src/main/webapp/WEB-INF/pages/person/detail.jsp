@@ -5,7 +5,7 @@
         <label class="col-md-1 control-label" for="personNo">人员编号</label>
 
         <div class="col-md-3">
-            <input type="hidden" class="form-control" id="personId" name="personId" v-model="person.id" />
+            <input type="hidden" class="form-control" id="id" name="id" v-model="person.id"/>
             <input type="text" class="form-control" id="personNo" name="personNo" v-model="person.personNo" required/>
         </div>
         <label class="col-md-1 control-label" for="personName">人员姓名</label>
@@ -27,19 +27,27 @@
             <input type="email" class="form-control" id="email" name="email" v-model="person.email"/>
         </div>
 
-        <label class="col-md-1 control-label" for="birthDate">出生年月</label>
-
-        <div class="col-md-3">
-            <input class="birthDate form-control" type="text" onClick="WdatePicker()" id="birthDate" name="birthDate"
-                   v-model="person.birthDate" style="height:34px;border:1px solid #cccccc"/>
-        </div>
         <label class="col-md-1 control-label" for="status">使用状态</label>
 
-        <div class="col-md-3"><select class="form-control" id="status" name="status" v-model="person.status">
+        <div class="col-md-3"><select class="form-control" id="status" name="status" v-model="person.status"
+                                      style="width: 100%">
+            <option value="1">启用</option>
             <option value="0">禁用</option>
-            <option value="1">启用  </option>
+
         </select>
         </div>
+
+        <label class="col-md-1 control-label" for="sortNo">排序</label>
+        <div class="col-md-3">
+            <input class="form-control" type="text" id="sortNo" name="sortNo"
+                   v-model="person.sortNo"/>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
+        </button>
     </div>
 </form>
 

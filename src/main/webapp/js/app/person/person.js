@@ -73,20 +73,16 @@ $(function () {
 
 
     selectedIds = findAllRecordId();
+
+
+    initBootGridMenu(dataTableName, null);
+    validateForm(validateOptions);
+
+
     vdm = new Vue({
-        el: formName,
-        data: {
-            person: null
-        }
+        el: formName
     });
 
-
-    formTab.on("click", function () {
-        showDetail();
-
-    })
-    initBootGrid(dataTableName);
-    validateForm(validateOptions);
     initSelect();
     search();
 });

@@ -64,48 +64,14 @@ public class PersonController extends BaseController {
 
 
     /**
-     * 查询根节点
-     *
-     * @param personId
-     * @param personNo
-     * @param personName
-     * @param telephone
-     * @param email
-     * @param birthDate
-     * @param status
-     * @return
+     * @param person
+     * @return 保存人员信息
      */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnObject update(
-            @RequestParam("personId") Long personId,
-            @RequestParam("personNo") String personNo,
-            @RequestParam("personName") String personName,
-            @RequestParam("telephone") String telephone,
-            @RequestParam("email") String email,
-            @RequestParam("birthDate") String birthDate,
-            @RequestParam("status") String status
-    ) {
-
-        ReturnObject returnObject = new ReturnObject();
-        Person person = personService.findById(personId);
-        if (person != null) {
-            person.setPersonName(personName);
-            person.setPersonNo(personNo);
-            person.setPersonName(personName);
-            person.setTelephone(telephone);
-            returnObject.setResult(true);
-            returnObject.setResultDesc("人员信息已更新");
-            try {
-                person.setBirthDate(new SimpleDateFormat("yyyy-MM-dd").parse(birthDate));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            person.setEmail(email);
-            person.setStatus(status);
-            person = personService.update(person);
-        }
-        return returnObject;
+    public ReturnObject save(Person person) {
+        person = personService.save(person);
+        return commonDataService.getReturnType(person != null, "人员信息保存成功!", "人员信息保存失败!");
     }
 
 

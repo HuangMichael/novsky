@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80da2167-c0c3-4f4e-b07a-b0e671f03e0e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/dao/app/resource/VRoleAuthViewRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/dao/app/resource/VRoleAuthViewRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/app/ResourceService.java" afterPath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/app/ResourceService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/person/PersonController.java" afterPath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/person/PersonController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/person/Person.java" afterPath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/person/Person.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/detail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/app/person/person.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/app/person/person.js" />
     </list>
     <ignored path="subway.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -87,43 +90,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthorityController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java">
+      <file leaf-file-name="form.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/form.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1750">
-              <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/common/BaseController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="50" column="74" selection-start-line="50" selection-start-column="74" selection-end-line="50" selection-end-column="74" />
+            <state relative-caret-position="442">
+              <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResourceService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/app/ResourceService.java">
+      <file leaf-file-name="person.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/person/person.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="268" column="0" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VRoleAuthViewRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/dao/app/resource/VRoleAuthViewRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="63" column="115" selection-start-line="63" selection-start-column="115" selection-end-line="63" selection-end-column="115" />
+            <state relative-caret-position="572">
+              <caret line="78" column="13" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -132,8 +113,38 @@
       <file leaf-file-name="common-crud.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="413" column="32" selection-start-line="413" selection-start-column="32" selection-end-line="413" selection-end-column="32" />
+            <state relative-caret-position="292">
+              <caret line="50" column="9" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/person/PersonController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="83" column="15" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Person.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/person/Person.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/common/BaseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-487">
+              <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -142,38 +153,31 @@
       <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/user/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
+            <state relative-caret-position="2066">
               <caret line="210" column="34" selection-start-line="210" selection-start-column="34" selection-end-line="210" selection-end-column="34" />
+              <folding>
+                <element signature="e#6804#6805#0" expanded="true" />
+                <element signature="e#6852#6853#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PersonService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/person/PersonService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/user/UserService.java">
+      <file leaf-file-name="detail.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/detail.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="151" column="34" selection-start-line="151" selection-start-column="34" selection-end-line="151" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/dao/user/UserRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="71" column="22" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="eqAddBill.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="198" column="40" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="40" />
+            <state relative-caret-position="410">
+              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -223,9 +227,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/line/LineController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/line/StationSearchService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/line/StationController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/workOrder/WorkOrderReportService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/budget/BudgetController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/budge/BudgeSearchService.java" />
@@ -258,7 +259,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/resource/ResourceController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/app/resoure/VRoleAuthView.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/app/person/person.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/user/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/units/units.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/user/list.jsp" />
@@ -274,6 +274,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/dao/app/resource/VRoleAuthViewRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/app/ResourceService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/person/PersonController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/app/person/person.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/person/Person.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/detail.jsp" />
       </list>
     </option>
   </component>
@@ -493,7 +497,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="line" />
+              <option name="myItemId" value="person" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -545,7 +549,7 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="base&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.common.BaseController&#10;auth&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java&#10;user&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/user/UserController.java&#10;equip&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;unit&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/units/units.js&#10;UserController&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;person&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person.js&#10;crud&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;resourCeC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.resource.ResourceController&#10;fix&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/fix/fix.js&#10;premaint&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/preMaint/preMaintDispatcher.js&#10;report&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/workOrder/VworkOrderReportBillRepository.java&#10;reportSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.workOrder.WorkOrderReportService&#10;pre&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/preMaint/VpreMaintOrderRepository.java&#10;PRE&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/preMaint/PreMaintDispatcherController.java&#10;reportc&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/workOrder/WorkOrderReportController.java&#10;fixCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;fixC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;line&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/line/LineController.java&#10;workorderMAT&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.WorkOrderMatCostController&#10;mat&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.MatCostController&#10;add&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqAddBillController&#10;ecbud&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.ecbudget.EcbudgetController&#10;budget&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/budget/BudgetController.java&#10;station&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;role&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.role.RoleController&#10;bootgrid&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/jquery.bootgrid-1.3.1/jquery.bootgrid.js&#10;userCo&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/user/UserController.java&#10;personC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.person.PersonController&#10;userSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.user.UserService&#10;userc&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;ECBUD&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;budgetC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.budget.BudgetController&#10;lineCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.LineController&#10;lINEs&#9;PSI&#9;JAVA://com.linkbit.beidou.service.line.LineService&#10;LocationsService.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/locations/LocationsService.java&#10;ec&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;equipment&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;cru&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;matcost&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/workOrderMatCost/workOrderMatCost.js&#10;role.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;stationC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;line.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/line/line.js&#10;preS&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/preMaint/PreMaintService.java&#10;BUD&#9;PSI&#9;JAVA://com.linkbit.beidou.service.budge.BudgeSearchService&#10;dispa&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.preMaint.PreMaintDispatcherController&#10;budge&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;premain.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/preMaint/preMaint.js&#10;work&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/workOrderMatCost/workOrderMatCost.js&#10;workOrderMatCostC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.WorkOrderMatCostController" />
+    <property name="SearchEverywhereHistoryKey" value="user&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/user/UserController.java&#10;personC&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/person/PersonController.java&#10;perso&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person.js&#10;person&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.person.PersonController&#10;base&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.common.BaseController&#10;auth&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java&#10;equip&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;unit&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/units/units.js&#10;UserController&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;crud&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;resourCeC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.resource.ResourceController&#10;fix&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/fix/fix.js&#10;premaint&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/preMaint/preMaintDispatcher.js&#10;report&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/workOrder/VworkOrderReportBillRepository.java&#10;reportSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.workOrder.WorkOrderReportService&#10;pre&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/preMaint/VpreMaintOrderRepository.java&#10;PRE&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/preMaint/PreMaintDispatcherController.java&#10;reportc&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/workOrder/WorkOrderReportController.java&#10;fixCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;fixC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;line&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/line/LineController.java&#10;workorderMAT&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.WorkOrderMatCostController&#10;mat&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.MatCostController&#10;add&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqAddBillController&#10;ecbud&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.ecbudget.EcbudgetController&#10;budget&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/budget/BudgetController.java&#10;station&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;role&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.role.RoleController&#10;bootgrid&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/jquery.bootgrid-1.3.1/jquery.bootgrid.js&#10;userCo&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/user/UserController.java&#10;userSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.user.UserService&#10;userc&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;ECBUD&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;budgetC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.budget.BudgetController&#10;lineCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.LineController&#10;lINEs&#9;PSI&#9;JAVA://com.linkbit.beidou.service.line.LineService&#10;LocationsService.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/locations/LocationsService.java&#10;ec&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;equipment&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;cru&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;matcost&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/workOrderMatCost/workOrderMatCost.js&#10;role.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;stationC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;line.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/line/line.js&#10;preS&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/preMaint/PreMaintService.java&#10;BUD&#9;PSI&#9;JAVA://com.linkbit.beidou.service.budge.BudgeSearchService&#10;dispa&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.preMaint.PreMaintDispatcherController&#10;budge&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;premain.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/preMaint/preMaint.js&#10;work&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/workOrderMatCost/workOrderMatCost.js" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="186" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="210" />
@@ -1442,7 +1446,7 @@
       <workItem from="1479689062383" duration="28314000" />
       <workItem from="1479776837954" duration="21744000" />
       <workItem from="1479861896526" duration="18979000" />
-      <workItem from="1479948642902" duration="16473000" />
+      <workItem from="1479948642902" duration="18403000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <created>1471500329538</created>
@@ -1784,7 +1788,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1636556000" />
+    <option name="totallyTimeSpent" value="1638486000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1809,7 +1813,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43109152" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5117057" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6681367" sideWeight="0.9107527" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.7783903" sideWeight="0.9107527" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25860214" sideWeight="0.9184123" order="0" side_tool="false" content_ui="combo" />
@@ -1922,45 +1926,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/preMaintDispatcher/form.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/preMaint/list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="652">
-          <caret line="106" column="36" selection-start-line="106" selection-start-column="36" selection-end-line="106" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/preMaint/preMaint.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="117" column="13" selection-start-line="91" selection-start-column="4" selection-end-line="117" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/preMaintDispatcher/list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="30" column="86" selection-start-line="30" selection-start-column="86" selection-end-line="30" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/preMaint/VpreMaintOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/preMaint/PreMaintOrderSearchService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -2134,14 +2099,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/person/person.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/user/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -2154,14 +2111,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/user/form.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -2254,14 +2203,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/user/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="210" column="34" selection-start-line="210" selection-start-column="34" selection-end-line="210" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/user/UserService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -2274,22 +2215,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
           <caret line="71" column="22" selection-start-line="71" selection-start-column="22" selection-end-line="71" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="413" column="32" selection-start-line="413" selection-start-column="32" selection-end-line="413" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/user/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -2307,16 +2232,8 @@
         <state relative-caret-position="-1750">
           <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/common/BaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="50" column="74" selection-start-line="50" selection-start-column="74" selection-end-line="50" selection-end-column="74" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2324,6 +2241,97 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="268" column="0" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/user/form.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="58" column="10" selection-start-line="55" selection-start-column="3" selection-end-line="58" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/person/PersonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/form.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/user/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="40" column="49" selection-start-line="40" selection-start-column="49" selection-end-line="40" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/person/person.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="78" column="13" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="50" column="9" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/user/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2066">
+          <caret line="210" column="34" selection-start-line="210" selection-start-column="34" selection-end-line="210" selection-end-column="34" />
+          <folding>
+            <element signature="e#6804#6805#0" expanded="true" />
+            <element signature="e#6852#6853#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/common/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-487">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/person/PersonController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="83" column="15" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/domain/person/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
           <folding />
         </state>
       </provider>

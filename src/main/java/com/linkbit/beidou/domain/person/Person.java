@@ -29,8 +29,6 @@ public class Person {
     private String email;
     @Column(length = 20)
     private String telephone;
-    @Temporal(TemporalType.DATE)
-    private Date birthDate;
     @Column(length = 1)
     private String status;
     private Long sortNo;
