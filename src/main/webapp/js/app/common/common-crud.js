@@ -542,6 +542,7 @@ $(function () {
 
     $(formTab).on("click", function () {
         vdm.$set(getMainObject(), findById(selectedIds[0]));
+        setFormReadStatus(formName, true);
     })
 
 });
