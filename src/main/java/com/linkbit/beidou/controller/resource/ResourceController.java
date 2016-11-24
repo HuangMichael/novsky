@@ -1,5 +1,6 @@
 package com.linkbit.beidou.controller.resource;
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.object.ReturnObject;
@@ -19,32 +20,18 @@ import java.util.List;
 
 /**
  * Created by huangbin on 2015/12/23 0023.
- * 位置控制器类
+ * 资源控制器类
  */
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/resource")
-public class ResourceController {
+public class ResourceController extends BaseController {
 
     @Autowired
     ResourceService resourceService;
 
     @Autowired
     CommonDataService commonDataService;
-
-    /**
-     * @param modelMap
-     * @param httpSession
-     * @return 初始化载入界面
-     */
-    @RequestMapping(value = "/list")
-    public String list(ModelMap modelMap, HttpSession httpSession) {
-        String controllerName = this.getClass().getSimpleName().split("Controller")[0];
-        List<VRoleAuthView> appMenus = resourceService.findAppMenusByController(httpSession, controllerName.toUpperCase());
-        modelMap.put("appMenus", appMenus);
-        return "/resource/list";
-
-    }
 
     /**
      * 查询所有的节点
@@ -77,7 +64,7 @@ public class ResourceController {
         Resource parent = resourceService.findById(id);
         Resource newObj = new Resource();
         newObj.setParent(parent);
-        Long level = (parent.getResourceLevel() != null)?parent.getResourceLevel()+1:0l;
+        Long level = (parent.getResourceLevel() != null) ? parent.getResourceLevel() + 1 : 0l;
         newObj.setResourceLevel(level);
         //加载上级列表
         List<Resource> resourceList = resourceService.findAll();

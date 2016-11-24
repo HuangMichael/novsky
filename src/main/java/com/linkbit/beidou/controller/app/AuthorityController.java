@@ -1,6 +1,7 @@
 package com.linkbit.beidou.controller.app;
 
 
+import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.app.resource.VRoleAuthViewRepository;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.app.resoure.Resource;
@@ -32,7 +33,7 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 @RequestMapping("/authority")
-public class AuthorityController {
+public class AuthorityController extends BaseController {
     @Autowired
     ResourceService resourceService;
 
@@ -80,13 +81,13 @@ public class AuthorityController {
             returnObject.setResultDesc("应用授权失败,请选择要授权的资源!");
         } else {
             Role role = roleService.findById(roleId);
-            List<Resource> resouceList = role.getResourceList();
+            List<Resource> resourceList = role.getResourceList();
             List<Resource> resourceListInIdStr = resourceService.findResourceListInIdStr(resourceIds);
             for (Resource resource : resourceListInIdStr) {
-                if (!resouceList.contains(resource))
-                    resouceList.add(resource);
+                if (!resourceList.contains(resource))
+                    resourceList.add(resource);
             }
-            role.setResourceList(resouceList);
+            role.setResourceList(resourceList);
             roleService.save(role);
             returnObject.setResult(true);
             returnObject.setResultDesc("应用授权成功!");
