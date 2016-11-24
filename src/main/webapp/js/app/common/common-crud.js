@@ -409,23 +409,22 @@ function initBootGridMenu(dataTableName, config) {
     $(dataTableName).bootgrid(config).on("selected.rs.jquery.bootgrid", function (e, rows) {
         //如果默认全部选中
         var selected = $(dataTableName).bootgrid("getSelectedRows");
-        console.log("选择了------" + selected.length + "条");
         pointer = 0;
         if (selected.length === 0) {
-            console.log("没有选----------");
             selectedIds.clear();
             selectedIds = findAllRecordId();
         } else {
-            selectedIds = selected.reverse();
+            selectedIds = selected.sort(function (a, b) {
+                return a - b
+            });
         }
 
     }).on("deselected.rs.jquery.bootgrid", function (e, rows) {
         var selected = $(dataTableName).bootgrid("getSelectedRows");
-        console.log("选择了------" + selected.length + "条");
         pointer = 0;
-        for (var x in rows) {
-            selectedIds.remove(rows[x]["id"]);
-        }
+        selectedIds = selected.sort(function (a, b) {
+            return a - b
+        });
     });
 }
 
@@ -538,7 +537,7 @@ $(function () {
 
 
     $(formTab).on("click", function () {
-        vdm.$set(getMainObject(), findById(selectedIds.reverse()[0]));
+        vdm.$set(getMainObject(), findById(selectedIds[0]));
     })
 
 });
