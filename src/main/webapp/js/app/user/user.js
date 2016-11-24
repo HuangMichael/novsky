@@ -36,15 +36,13 @@ $(function () {
 
     searchModel = [{"param": "userName", "paramDesc": "用户名称"}, {"param": "location", "paramDesc": "位置"}];
 
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
 
-    var person_location = "/commonData/findActivePerson";
-    $.getJSON(person_location, function (data) {
-        persons = data;
-    });
+    locs = findMyLoc();
+
+    /*   var person_location = "/commonData/findActivePerson";
+     $.getJSON(person_location, function (data) {
+     persons = data;
+     });*/
 
     var searchVue = new Vue({
         el: "#searchBox",
@@ -52,9 +50,7 @@ $(function () {
             locs: locs
         }
     });
-
-
-    initBootGrid(dataTableName);
+    initBootGridMenu(dataTableName, null);
     initSelect.call();
     selectedIds = findAllRecordId();
     validateForm.call(validationConfig);
@@ -62,7 +58,7 @@ $(function () {
     vdm = new Vue({
         el: formName,
         data: {
-            user: selectedIds[0],
+            user: selectedIds[pointer],
             locs: locs,
             persons: persons
         }

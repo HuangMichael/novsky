@@ -148,8 +148,22 @@ $(function () {
 
 
     selectedIds = findAllRecordId();
+
+
+    var config = {
+        selection: true,
+        multiSelect: true,
+        rowSelect: true,
+        keepSelection: true,
+        formatters: {
+            "report": function (column, row) {
+                return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
+                    + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
+            }
+        }
+    };
     //初始化加载列表
-    initBootGridMenu(dataTableName);
+    initBootGridMenu(dataTableName,config);
     //验证保存信息
     validateForm(validateOptions);
     initSelect();
@@ -197,7 +211,6 @@ function showFixDetail(orderLineNo) {
         });
     }
 }
-
 
 
 /**

@@ -60,7 +60,7 @@ $(function () {
 
 
     searchModel = [{"param": "description", "paramDesc": "单位名称"}, {"param": "linkMan", "paramDesc": "联系人"}];
-    initBootGrid(dataTableName);
+    initBootGridMenu(dataTableName, validateOptions);
 
     search();
 

@@ -103,43 +103,12 @@ public class UserController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
-    public ReturnObject update(@RequestParam("userId") Long userId, @RequestParam("personId") Long personId, @RequestParam("locationId") Long locationId, @RequestParam("status") String status) {
-        ReturnObject returnObject = new ReturnObject();
-        User user = null;
-        if (userId != null && personId != null && locationId != null) {
-            user = userService.update(userId, personId, locationId, status);
-        }
-        if (user != null) {
-            returnObject.setResult(true);
-            returnObject.setResultDesc("用户更新成功!");
-        } else {
-            returnObject.setResult(false);
-            returnObject.setResultDesc("用户更新失败 !");
-        }
-        return returnObject;
-    }
-
-    /**
-     * @return 查询所有的用户信息
-     */
-    @RequestMapping(value = "/findAll")
-    @ResponseBody
-    public List<User> findAll() {
-        return userService.findAllUsers();
-    }
-
-
     /**
      * 保存用户信息
      */
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
     public ReturnObject save(User user) {
-
-
-
         user = userService.save(user);
         return commonDataService.getReturnType(user != null, "用户信息保存成功", "用户信息保存失败");
     }

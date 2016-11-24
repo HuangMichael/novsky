@@ -395,15 +395,16 @@ function initBootGrid(dataTableName) {
 function initBootGridMenu(dataTableName, config) {
 
     if (!config) {
+
+        console.log("use default config-------------");
         config = {
             selection: true,
             multiSelect: true,
-            formatters: {
-                "report": function (column, row) {
-                    return '<a class="btn btn-default btn-xs"  onclick="report(' + row.id + ')" title="报修" ><i class="glyphicon glyphicon-wrench"></i></a>'
-                        + '<a class="btn btn-default btn-xs"  onclick="eqUpdate(' + row.id + ')" title="更新" ><i class="glyphicon glyphicon-retweet"></i></a>'
-                }
-            }
+            sorting: true,
+            rowSelect: true,
+            keepSelection: true,
+            navigation: 0
+
         }
     }
     //初始化加载列表
