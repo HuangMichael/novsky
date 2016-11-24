@@ -24,7 +24,7 @@
 </table>
 
 <script type="text/javascript">
-    var selectUsersId = [];
+    var selectedUsersId = [];
     $("#usersNotInRole").bootgrid({
         selection: true,
         multiSelect: true,
