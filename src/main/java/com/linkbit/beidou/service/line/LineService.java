@@ -80,21 +80,13 @@ public class LineService extends BaseService {
 
 
     /**
-     * @param desc
-     * @param pageable
-     * @return
+     * @return 查询所有的id
      */
-    public Page<Line>  findByDescriptionContains(String desc ,Pageable pageable){
-       return  lineRepository.findByDescriptionContains(desc,pageable);
+    public List<Long> findAllIds() {
+        List<Long> ids = lineRepository.findAllIds();
+        return ids;
     }
 
-    /**
-     * @param desc
-     * @return
-     */
-    public List<Line>  findByDescriptionContains(String desc){
-        return  lineRepository.findByDescriptionContains(desc);
-    }
 
     /**
      * @return 查询所有段

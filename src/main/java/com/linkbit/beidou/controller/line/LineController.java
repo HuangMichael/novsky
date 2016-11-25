@@ -5,6 +5,7 @@ import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.domain.app.MyPage;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.line.Line;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.line.LineSearchService;
@@ -106,25 +107,9 @@ public class LineController extends BaseController {
      */
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public Line save(Line line) {
-        return lineService.save(line);
-    }
-
-
-    /**
-     * 保存角色信息
-     */
-    @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    @ResponseBody
-    public Line update(@RequestParam("lineId") Long lineId,
-                       @RequestParam("lineNo") String lineNo,
-                       @RequestParam("sortNo") Long sortNo,
-                       @RequestParam("description") String description) {
-        Line line = lineService.findById(lineId);
-        line.setDescription(description);
-        line.setSortNo(sortNo);
-        line.setLineNo(lineNo);
-        return lineService.save(line);
+    public ReturnObject save(Line line) {
+        line = lineService.save(line);
+        return commonDataService.getReturnType(line != null, "线路信息保存成功!", "线路信息保存失败!");
     }
 
 
@@ -173,6 +158,16 @@ public class LineController extends BaseController {
     public List<Line> findSegs() {
         List<Line> lineList = lineService.findSegs();
         return lineList;
+    }
+
+
+    /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return lineService.findAllIds();
     }
 
 

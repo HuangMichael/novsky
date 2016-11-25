@@ -42,35 +42,26 @@ public interface LineRepository extends CrudRepository<Line, Long>, PagingAndSor
 
 
     /**
-     * @param desc     线路描述
-     * @param pageable
-     * @return 线路描述模糊查询 可分页
-     */
-    Page<Line> findByDescriptionContains(String desc, Pageable pageable);
-
-
-    /**
-     * @param desc     线路描述
-     * @return 线路描述模糊查询 可分页
-     */
-    List<Line> findByDescriptionContains(String desc);
-
-
-
-    /**
      * @param lineNo
      * @param desc     线路描述
      * @param pageable
      * @return 线路描述模糊查询 可分页
      */
-    Page<Line> findByLineNoContainsAndDescriptionContains(String lineNo,String desc, Pageable pageable);
+    Page<Line> findByLineNoContainsAndDescriptionContains(String lineNo, String desc, Pageable pageable);
 
 
     /**
      * @param lineNo
-     * @param desc     线路描述
+     * @param desc   线路描述
      * @return 线路描述模糊查询 可分页
      */
-    List<Line> findByLineNoContainsAndDescriptionContains(String lineNo,String desc);
+    List<Line> findByLineNoContainsAndDescriptionContains(String lineNo, String desc);
+
+
+    /**
+     * @return 查询所有的id
+     */
+    @Query("select u.id from Line u")
+    List<Long> findAllIds();
 
 }

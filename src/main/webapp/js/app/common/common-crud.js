@@ -101,7 +101,7 @@ function findById(id) {
     var mainObject = getMainObject();
     var object = null;
     if (!id) {
-        id = selectedIds[pointer + 1];
+        id = selectedIds[pointer];
     }
     var url = mainObject + "/findById/" + id;
     $.getJSON(url, function (data) {
