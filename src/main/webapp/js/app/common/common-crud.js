@@ -269,6 +269,8 @@ function exportExcel() {
     var param = $(dataTableName).bootgrid("getSearchPhrase");
     var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
 
+    console.log("getSearchPhrase---------------"+param);
+
     var titles = [];
     var colNames = [];
     for (var x in columnSettings) {

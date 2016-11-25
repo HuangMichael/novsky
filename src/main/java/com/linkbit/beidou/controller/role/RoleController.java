@@ -10,6 +10,7 @@ import com.linkbit.beidou.domain.role.Role;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.role.RoleSearchService;
 import com.linkbit.beidou.service.role.RoleService;
 import com.linkbit.beidou.utils.PageUtils;
@@ -48,6 +49,9 @@ public class RoleController extends BaseController {
     @Autowired
     ResourceService resourceService;
 
+    @Autowired
+    CommonDataService commonDataService;
+
 
     /**
      * 分页查询
@@ -77,20 +81,9 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
-    public Role save(Role role) {
-        return roleRepository.save(role);
-    }
-
-
-    /**
-     * 保存角色信息
-     */
-    @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    @ResponseBody
-    public Role update(@RequestParam("roleId") Long roleId, @RequestParam("roleDesc") String roleDesc) {
-        Role role = roleService.findById(roleId);
-        role.setRoleDesc(roleDesc);
-        return roleRepository.save(role);
+    public ReturnObject save(Role role) {
+        role = roleService.save(role);
+        return commonDataService.getReturnType(role != null, "角色信息保存成功!", "角色信息保存失败!");
     }
 
 

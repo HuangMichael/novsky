@@ -4,21 +4,34 @@ var persons = [];
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 var object = null;
-formName = "#detailForm";
+
 $.ajaxSettings.async = false;
 var validationConfig = {
     message: '该值无效 ',
     fields: {
-        userName: {
-            message: '用户名号无效',
+        roleName: {
+            message: '角色名称无效',
             validators: {
                 notEmpty: {
-                    message: '用户名!'
+                    message: '角色名称不能为空!'
                 },
                 stringLength: {
                     min: 3,
                     max: 20,
-                    message: '用户名长度为3到20个字符'
+                    message: '角色名称长度为3到20个字符'
+                }
+            }
+        },
+        roleDesc: {
+            message: '角色描述无效',
+            validators: {
+                notEmpty: {
+                    message: '角色描述不能为空!'
+                },
+                stringLength: {
+                    min: 3,
+                    max: 20,
+                    message: '角色描述长度为3到20个字符'
                 }
             }
         }
@@ -26,26 +39,19 @@ var validationConfig = {
 };
 
 $(function () {
-    dataTableName = '#roleDataTable';
+    formName = "#detailForm";
+    dataTableName = '#roleListTable';
     docName = "角色信息";
     mainObject = "role";
     //初始化从数据库获取列表数据
     searchModel = [{"param": "roleName", "paramDesc": "角色名称"}, {"param": "roleDesc", "paramDesc": "角色描述"}];
-
-
     locs = findMyLoc();
-
     var person_location = "/commonData/findActivePerson";
     $.getJSON(person_location, function (data) {
         persons = data;
     });
 
-    var searchVue = new Vue({
-        el: "#searchBox",
-        data: {
-            locs: locs
-        }
-    });
+
     initBootGridMenu(dataTableName, null);
     initSelect.call();
     //初始化查询所有的

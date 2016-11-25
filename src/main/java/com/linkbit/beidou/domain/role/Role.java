@@ -29,9 +29,9 @@ public class Role {
     private String roleName;
     @Column(length = 50, unique = true, nullable = false)
     private String roleDesc;
-    @Column(scale = 1000, nullable = true)
+    @Column(scale = 1000)
     private long sortNo;
-    @Column(nullable = false, length = 1)
+    @Column(nullable = false, length = 1, columnDefinition = "default 1")
     private String status;
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)

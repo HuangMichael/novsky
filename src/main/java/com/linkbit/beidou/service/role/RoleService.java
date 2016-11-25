@@ -60,6 +60,10 @@ public class RoleService extends BaseService {
      * @return 保存角色信息
      */
     public Role save(Role role) {
+
+        if (role.getStatus() == null) {
+            role.setStatus(CommonStatusType.STATUS_YES);
+        }
         return roleRepository.save(role);
     }
 
