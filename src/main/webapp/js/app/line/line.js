@@ -70,7 +70,7 @@ $(function () {
                 key: '1', value: '启用'
 
             }, {
-                key: '0', value: '禁用'
+                key: '0', value: ''
 
             }]
         }
