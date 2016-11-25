@@ -1,95 +1,50 @@
-/**
- * Created by Administrator on 2016/8/15.
- */
-
-
-var stations = [];
-var selectedIds = []; //获取被选择记录集合
-var locs = [];
-var allSize = 0;
-var vdm = null; //明细页面的模型
-var vm = null; //明细页面的模型
-var formLocked = true;
-var activeTab = "list";
-//数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
 var formTab = $('#myTab li:eq(1) a');
-//维修历史列表
-var pointer = 0;
-var lines = [];
-var types = [];
-var selectedId = [];
-$.ajaxSettings.async = false;
-var validateOptions = {
+var validationConfig = {
     message: '该值无效 ',
     fields: {
-        stationName: {
-            message: '用户名号无效',
+        stationNo: {
+            message: '车站编号无效',
             validators: {
                 notEmpty: {
-                    message: '用户名!'
+                    message: '车站编号不能为空!'
                 },
                 stringLength: {
                     min: 3,
                     max: 20,
-                    message: '用户名长度为3到20个字符'
+                    message: '车站编号长度为3到20个字符'
+                }
+            }
+        },
+        description: {
+            message: '车站描述无效',
+            validators: {
+                notEmpty: {
+                    message: '车站描述不能为空!'
+                },
+                stringLength: {
+                    min: 3,
+                    max: 20,
+                    message: '车站描述长度为3到20个字符'
                 }
             }
         }
     }
 };
 
-
-/**
- * 根据ID获取设备信息
- * @param stations 设备信息集合
- * @param eid 设备ID
- */
-function getStationByIdInStations(eid) {
-    var station = null;
-    var url = "/station/findById/" + eid;
-    $.getJSON(url,
-        function (data) {
-            station = data;
-        });
-    return station;
-}
-
-/**
- *  下一条
- */
-function forwards() {
-    if (pointer >= selectedIds.length - 1) {
-        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-        return;
-    } else {
-        var station = getStationByIdInStations(selectedIds[++pointer]);
-        vdm.station = station;
-
-    }
-}
-
-
-/**
- *
- * @param formId 设置form为只读
- */
-function setFormReadStatus(formId, formLocked, except) {
-    if (formLocked) {
-        $(formId + " input").attr("readonly", "readonly");
-        $(formId + " select").attr("disabled", "disabled");
-    } else {
-        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
-        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
-        // $(formId + " #status").attr("disabled", "disabled");
-        for (var x in except) {
-            $("#" + except[x]).attr("readonly", "readonly");
-        }
-    }
-}
-
 $(function () {
+
+
+    var lines = getAllLines();
+    var types = [{"id": "1", "typeName": "站区"}, {"id": "2", "typeName": "段区"}];
+    var searchVue = new Vue({
+        el: "#searchBox",
+        data: {
+            lines: lines
+        }
+    });
+
 
     mainObject = "station";
     dataTableName = '#stationListTable';
@@ -105,217 +60,34 @@ $(function () {
         {"param": "line", "paramDesc": "线路"}
     ];
 
-
-    var lines = getAllLines();
-
     initBootGrid(dataTableName);
     initSelect();
-    search();
-
-
-
-
-    types = [{"id": "1", "typeName": "站区"}, {"id": "2", "typeName": "段区"}];
-
-
-    console.log(JSON.stringify(lines));
-    var searchVue = new Vue({
-        el: "#searchBox",
-        data: {
-            lines: lines
-        }
-    });
-
-
-    $('#detailForm').bootstrapValidator(validateOptions).on('success.form.bv',
-        function (e) {
-            e.preventDefault();
-
-        });
-
+    //初始化查询所有的
+    ids = findAllRecordId();
+    selectedIds = ids;
+    validateForm.call(validationConfig);
     vdm = new Vue({
         el: "#detailForm",
         data: {
-            station: null,
+            station: findById(selectedIds[pointer]),
             lines: lines,
-            types: types
+            types: types,
+            type: [{
+                key: '1', value: '站区'
+
+            }, {
+                key: '2', value: '段区'
+
+            }],
+            statuses: [{
+                key: '1', value: '启用'
+
+            }, {
+                key: '0', value: ''
+
+            }]
         }
     });
 
 
 });
-
-
-/**
- * 根据id删除
- */
-function del() {
-    var selectedId = selectedIds[0];
-    if (!selectedId) {
-        showMessageBox("danger", "请选择一条后再进行删除!");
-    }
-    var url = "/station/delete/" + selectedId;
-    if (selectedId) {
-        bootbox.confirm({
-            message: "确定要删除该记录么？?",
-            buttons: {
-                confirm: {
-                    label: '是',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: '否',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function (msg) {
-                            if (msg) {
-                                showMessageBox("info", "车站信息删除成功!");
-                                $("tr[data-row-id='" + msg["resultDesc"] + "']").remove();
-                            }
-                        },
-                        error: function (msg) {
-                            showMessageBox("danger", "车站信息有关联数据，无法删除，请联系管理员");
-                        }
-                    });
-                }
-            }
-        });
-    } else {
-        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-
-    }
-
-
-}
-
-function save() {
-    var stationId = $("#stationId").val();
-    var stationNo = $("#stationNo").val();
-    var description = $("#description").val();
-    var lineId = $("#lineId").val();
-    var type = $("#type").val();
-    var status = "1";
-
-    if (stationId) {
-        var url = "/station/update";
-    } else {
-        var url = "/station/save";
-    }
-    var station = {
-        stationId: stationId,
-        stationNo: stationNo,
-        description: description,
-        lineId: lineId,
-        type: type,
-        status: status
-    };
-
-    console.log("----------------------" + JSON.stringify(station));
-    $.post(url, station,
-        function (data) {
-            if (data) {
-                showMessageBox("info", "车站信息保存成功！");
-            } else {
-                showMessageBox("danger", "车站信息保存失败！");
-            }
-
-        });
-}
-
-function showStation(stationId) {
-    var url = "/station/detail/" + stationId;
-    $("#contentDiv").load(url,
-        function () {
-
-        });
-}
-
-/**
- *  ajax加载新增页面
- */
-function add() {
-    $("#tab_1_1").load("/station/create");
-    var newVue = new Vue({
-        el: "#createForm",
-        data: {
-            station: null,
-            lines: lines,
-            types: types
-        }
-    });
-    formTab.tab('show');
-}
-
-/**
- * 根据ID获取设备信息
- * @param stations 设备信息集合
- * @param eid 设备ID
- */
-function getStationByIdInStations(eid) {
-    var station = null;
-    var url = "/station/findById/" + eid;
-    $.getJSON(url,
-        function (data) {
-            station = data;
-        });
-    return station;
-}
-
-function getAllStations() {
-    var stations = null;
-    var url = "/station/findActiveStation";
-    $.getJSON(url,
-        function (data) {
-            stations = data;
-        });
-    return stations;
-}
-
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var description = $(dataTableName).bootgrid("getSearchPhrase");
-    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
-
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "车站信息";
-    var url = "station/exportExcel?param=" + description + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
-
-}
-
-

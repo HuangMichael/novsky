@@ -7,7 +7,9 @@ import com.linkbit.beidou.domain.app.resoure.VRoleAuthView;
 import com.linkbit.beidou.domain.line.Line;
 import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.matCost.MatCost;
+import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
+import com.linkbit.beidou.service.commonData.CommonDataService;
 import com.linkbit.beidou.service.line.LineService;
 import com.linkbit.beidou.service.line.StationSearchService;
 import com.linkbit.beidou.service.line.StationService;
@@ -49,6 +51,9 @@ public class StationController extends BaseController {
     ResourceService resourceService;
     @Autowired
     StationSearchService stationSearchService;
+
+    @Autowired
+    CommonDataService commonDataService;
 
 
     /**
@@ -113,53 +118,14 @@ public class StationController extends BaseController {
 
 
     /**
-     * @param stationNo   车站编号
-     * @param description 车站名称
-     * @param status      车站状态
+     * @param station
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public Station save(@RequestParam("stationNo") String stationNo,
-                        @RequestParam("description") String description,
-                        @RequestParam("lineId") Long lineId,
-                        @RequestParam("type") String type,
-                        @RequestParam("status") String status) {
-        Station station = new Station();
-        station.setStationNo(stationNo);
-        Line line = lineService.findById(lineId);
-        station.setDescription(description);
-        station.setLine(line);
-        station.setStatus(status);
-        station.setType(type);
+    public ReturnObject save(Station station) {
         station = stationService.save(station);
-        return station;
-    }
-
-
-    /**
-     * @param stationNo   车站编号
-     * @param description 车站名称
-     * @param status      车站状态
-     * @return
-     */
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
-    public Station update(@RequestParam("stationId") Long stationId,
-                          @RequestParam("stationNo") String stationNo,
-                          @RequestParam("description") String description,
-                          @RequestParam("lineId") Long lineId,
-                          @RequestParam("type") String type,
-                          @RequestParam("status") String status) {
-        Station station = stationService.findById(stationId);
-        station.setStationNo(stationNo);
-        Line line = lineService.findById(lineId);
-        station.setDescription(description);
-        station.setLine(line);
-        station.setStatus(status);
-        station.setType(type);
-        station = stationService.save(station);
-        return station;
+        return commonDataService.getReturnType(station != null, "车站信息保存成功!", "车站信息保存失败!");
     }
 
 
@@ -184,6 +150,16 @@ public class StationController extends BaseController {
     @ResponseBody
     public boolean delete(@PathVariable("id") Long id) {
         return stationService.delete(id);
+    }
+
+
+    /**
+     * @return 查询所有的id
+     */
+    @RequestMapping(value = "/findAllIds", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Long> findAllIds() {
+        return stationService.findAllIds();
     }
 
 

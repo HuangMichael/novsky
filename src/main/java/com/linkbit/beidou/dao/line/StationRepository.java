@@ -40,13 +40,6 @@ public interface StationRepository extends CrudRepository<Station, Long> {
 
 
     /**
-     * 根据状态查询车站
-     */
-    @Query("update Station s set s.status =0 where s.id =:id")
-    void update(@Param("id") Long id);
-
-
-    /**
      * 根据id 状态查询车站
      */
     Station findByIdAndStatus(Long id, String status);
@@ -81,5 +74,12 @@ public interface StationRepository extends CrudRepository<Station, Long> {
      * @return 根据站名模糊查询
      */
     List<Station> findByLineAndStationNoContainsAndDescriptionContains(Line line, String stationNo, String description);
+
+
+    /**
+     * @return 查询所有的id
+     */
+    @Query("select u.id from Station u")
+    List<Long> findAllIds();
 
 }

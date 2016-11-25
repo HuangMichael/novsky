@@ -35,7 +35,6 @@ public class StationService extends BaseService {
         return station;
     }
 
-
     /**
      * @param station 车站信息
      * @return 保存车站信息
@@ -43,7 +42,6 @@ public class StationService extends BaseService {
     public Station save(Station station) {
         return stationRepository.save(station);
     }
-
 
     /**
      * 根据状态查询所有的站
@@ -64,7 +62,6 @@ public class StationService extends BaseService {
         return stationList;
     }
 
-
     /**
      * 根据状态查询所有的站
      *
@@ -74,36 +71,23 @@ public class StationService extends BaseService {
         return stationRepository.findByStatus(CommonStatusType.STATUS_YES);
     }
 
-
-    /**
-     * @param stationName
-     * @param pageable    可分页
-     * @return 根据站名模糊查询
-     */
-    public Page<Station> findByStationNameContains(String stationName, Pageable pageable) {
-        return stationRepository.findByDescriptionContains(stationName, pageable);
-    }
-
-
-
-    /**
-     * @param stationName
-     * @param pageable    可分页
-     * @return 根据站名模糊查询
-     */
-    public List<Station> findByStationNameContains(String stationName) {
-        return stationRepository.findByDescriptionContains(stationName);
-    }
-
-
     /**
      * 根据状态查询所有的站
      *
      * @return 查询有效的站
      */
     public boolean delete(Long id) {
-        stationRepository.update(id);
+        stationRepository.delete(id);
         return stationRepository.findByIdAndStatus(id, CommonStatusType.STATUS_YES) == null;
+    }
+
+
+    /**
+     * @return 查询所有的id
+     */
+    public List<Long> findAllIds() {
+        List<Long> ids = stationRepository.findAllIds();
+        return ids;
     }
 
 }
