@@ -51,12 +51,6 @@ public class UnitsController extends BaseController {
     UnitSearchService unitSearchService;
 
 
-    @RequestMapping(value = "/list")
-    public String list(HttpSession httpSession, ModelMap modelMap) {
-        super.list(httpSession, modelMap);
-        return "/units/list";
-    }
-
 
     /**
      * 分页查询

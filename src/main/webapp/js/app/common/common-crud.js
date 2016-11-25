@@ -100,6 +100,9 @@ function saveTree(formName, childZNode) {
 function findById(id) {
     var mainObject = getMainObject();
     var object = null;
+    if (!id) {
+        id = selectedIds[pointer + 1];
+    }
     var url = mainObject + "/findById/" + id;
     $.getJSON(url, function (data) {
         object = data;
@@ -394,8 +397,6 @@ function initBootGrid(dataTableName) {
 function initBootGridMenu(dataTableName, config) {
 
     if (!config) {
-
-        console.log("use default config-------------");
         config = {
             selection: true,
             multiSelect: true,

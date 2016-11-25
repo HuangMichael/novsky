@@ -3,7 +3,7 @@ var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
 
 
-var validateOptions = {
+var validationConfig = {
     message: '该值无效 ',
     fields: {
         unitNo: {
@@ -48,51 +48,22 @@ $(function () {
 
     dataTableName = "#unitsDataTable";
     mainObject = "units";
-    formName = "#unitDetailForm";
+    formName = "#detailForm";
     docName = "外委单位信息";
 
-
-    $(formName)
-        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
-        e.preventDefault();
-        saveMainObject(formName);
-    });
-
-
     searchModel = [{"param": "description", "paramDesc": "单位名称"}, {"param": "linkMan", "paramDesc": "联系人"}];
-    initBootGridMenu(dataTableName, validateOptions);
-
-    search();
-
-
+    initBootGrid(dataTableName);
+    initSelect();
+    //初始化查询所有的
     ids = findAllRecordId();
-
+    selectedIds = ids;
+    validateForm.call(validationConfig);
     vdm = new Vue({
-
         el: formName,
-        data: null
-
-
-    });
-
-
-    formTab.on('click', function () {
-        //首先判断是否有选中的
-        var object = null;
-        if (selectedIds.length > 0) {
-            //切换tab时默认给detail中第一个数据
-            object = findById(selectedIds[0] ? selectedIds[0] : ids[0]);
-        } else {
-            object = findById(ids[0]);
-            selectedIds = (ids);
+        data: {
+            units: findById(selectedIds[pointer])
         }
-        vdm.$set(mainObject, object);
-        setFormReadStatus(formName, true);
     });
 })
 
 
-function add() {
-    formTab.tab('show');
-    formTab.data("status", "add");
-}
