@@ -104,7 +104,6 @@ public class BudgeService extends BaseService implements Exportable {
      * @return 查询所有
      */
     public BudgetBill save(BudgetBill budgetBill) {
-        //  budgetBill.setApplyDate(new Date());
         return budgetBillRepository.save(budgetBill);
     }
 

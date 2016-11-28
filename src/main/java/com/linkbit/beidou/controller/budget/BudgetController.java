@@ -89,13 +89,8 @@ public class BudgetController extends BaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject save(BudgetBill budgetBill) {
-        BudgetBill budgetObj;
-        String operation = "保存";
-        if (budgetBill.getId() != null) {
-            operation = "更新";
-        }
-        budgetObj = budgeService.save(budgetBill);
-        return commonDataService.getReturnType(budgetObj != null, "采购申请单" + operation + "成功!", "采购申请单" + operation + "失败!");
+        budgetBill = budgeService.save(budgetBill);
+        return commonDataService.getReturnType(budgetBill != null, "采购申请单保存成功!", "采购申请单保存失败!");
 
     }
 
