@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="80da2167-c0c3-4f4e-b07a-b0e671f03e0e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqAddBillController.java" afterPath="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqAddBillController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/common/common-foot.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/common/common-foot.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/form.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/form.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js" afterPath="$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js" />
     </list>
     <ignored path="subway.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -79,31 +79,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="budget.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/budget/budget.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="653">
-              <caret line="171" column="7" selection-start-line="140" selection-start-column="0" selection-end-line="171" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="common-crud.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="255" column="28" selection-start-line="255" selection-start-column="28" selection-end-line="255" selection-end-column="28" />
+            <state relative-caret-position="272">
+              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EqAddBillController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqAddBillController.java">
+      <file leaf-file-name="EqUpdateBillController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqUpdateBillController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="579">
-              <caret line="127" column="28" selection-start-line="127" selection-start-column="28" selection-end-line="127" selection-end-column="28" />
+            <state relative-caret-position="85">
+              <caret line="129" column="70" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
               <folding />
             </state>
           </provider>
@@ -132,8 +122,8 @@
       <file leaf-file-name="eqAddBill.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="177" column="22" selection-start-line="177" selection-start-column="22" selection-end-line="177" selection-end-column="22" />
+            <state relative-caret-position="663">
+              <caret line="190" column="7" selection-start-line="173" selection-start-column="0" selection-end-line="190" selection-end-column="7" />
               <folding>
                 <element signature="e#113#3813#0" expanded="false" />
               </folding>
@@ -151,7 +141,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common-foot.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="common-foot.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/common/common-foot.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
@@ -161,21 +151,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="eqUpdateBill.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js">
+      <file leaf-file-name="list.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/list.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="439" column="19" selection-start-line="439" selection-start-column="19" selection-end-line="439" selection-end-column="19" />
+            <state relative-caret-position="188">
+              <caret line="93" column="72" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="72" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqAddBill/form.jsp">
+      <file leaf-file-name="eqUpdateBill.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="102" selection-start-line="24" selection-start-column="93" selection-end-line="24" selection-end-column="102" />
+            <state relative-caret-position="612">
+              <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
+              <folding>
+                <element signature="e#107#3640#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/form.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="70" column="50" selection-start-line="70" selection-start-column="50" selection-end-line="70" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -225,8 +227,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/user/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/user/list.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/user/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/equipment/equipments.js" />
@@ -265,7 +265,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/role/RoleController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/service/role/RoleService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/role/detail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/matCost/matCostPager.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/role/role.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/budget/BudgetController.java" />
@@ -276,6 +275,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqAddBillController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/common/common-foot.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/form.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js" />
       </list>
     </option>
   </component>
@@ -454,6 +456,48 @@
               <option name="myItemId" value="webapp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eqUpdateBill" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -507,7 +551,63 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bootbox" />
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="eqUpdateBill" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -539,7 +639,7 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="eqAddC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqAddBillController&#10;budgetC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.budget.BudgetController&#10;user&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/user/user.js&#10;budget&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/budget/budget.js&#10;crud&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;role&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;person&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person.js&#10;line&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/line/line.js&#10;station&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;units&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.units.UnitsController&#10;unit&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/units/units.js&#10;equip&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;cru&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;roleC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.role.RoleController&#10;person1&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person1.js&#10;personC&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/person/PersonController.java&#10;perso&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person.js&#10;base&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.common.BaseController&#10;auth&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java&#10;UserController&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;resourCeC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.resource.ResourceController&#10;fix&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/fix/fix.js&#10;premaint&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/preMaint/preMaintDispatcher.js&#10;report&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/workOrder/VworkOrderReportBillRepository.java&#10;reportSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.workOrder.WorkOrderReportService&#10;pre&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/preMaint/VpreMaintOrderRepository.java&#10;PRE&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/preMaint/PreMaintDispatcherController.java&#10;reportc&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/workOrder/WorkOrderReportController.java&#10;fixCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;fixC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;workorderMAT&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.WorkOrderMatCostController&#10;mat&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.MatCostController&#10;add&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqAddBillController&#10;ecbud&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.ecbudget.EcbudgetController&#10;bootgrid&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/jquery.bootgrid-1.3.1/jquery.bootgrid.js&#10;userCo&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/user/UserController.java&#10;userSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.user.UserService&#10;userc&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;ECBUD&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;lineCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.LineController&#10;lINEs&#9;PSI&#9;JAVA://com.linkbit.beidou.service.line.LineService&#10;LocationsService.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/locations/LocationsService.java&#10;ec&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;equipment&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;matcost&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/workOrderMatCost/workOrderMatCost.js&#10;role.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;stationC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;line.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/line/line.js&#10;preS&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/preMaint/PreMaintService.java&#10;BUD&#9;PSI&#9;JAVA://com.linkbit.beidou.service.budge.BudgeSearchService" />
+    <property name="SearchEverywhereHistoryKey" value="equpdateC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqUpdateBillController&#10;eqAddC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqAddBillController&#10;budgetC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.budget.BudgetController&#10;user&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/user/user.js&#10;budget&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/budget/budget.js&#10;crud&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;role&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;person&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person.js&#10;line&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/line/line.js&#10;station&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;units&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.units.UnitsController&#10;unit&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/units/units.js&#10;equip&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;cru&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;roleC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.role.RoleController&#10;person1&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person1.js&#10;personC&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/person/PersonController.java&#10;perso&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/person/person.js&#10;base&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.common.BaseController&#10;auth&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/app/AuthorityController.java&#10;UserController&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;resourCeC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.resource.ResourceController&#10;fix&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/fix/fix.js&#10;premaint&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/preMaint/preMaintDispatcher.js&#10;report&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/workOrder/VworkOrderReportBillRepository.java&#10;reportSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.workOrder.WorkOrderReportService&#10;pre&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/dao/preMaint/VpreMaintOrderRepository.java&#10;PRE&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/preMaint/PreMaintDispatcherController.java&#10;reportc&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/workOrder/WorkOrderReportController.java&#10;fixCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;fixC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.workOrder.WorkOrderFixController&#10;workorderMAT&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.WorkOrderMatCostController&#10;mat&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.matcost.MatCostController&#10;add&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.equipment.EqAddBillController&#10;ecbud&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.ecbudget.EcbudgetController&#10;bootgrid&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/jquery.bootgrid-1.3.1/jquery.bootgrid.js&#10;userCo&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/user/UserController.java&#10;userSER&#9;PSI&#9;JAVA://com.linkbit.beidou.service.user.UserService&#10;userc&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.user.UserController&#10;ECBUD&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;lineCon&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.LineController&#10;lINEs&#9;PSI&#9;JAVA://com.linkbit.beidou.service.line.LineService&#10;LocationsService.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/locations/LocationsService.java&#10;ec&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/ecbudget/ecbudget.js&#10;equipment&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipment/equipments.js&#10;matcost&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/workOrderMatCost/workOrderMatCost.js&#10;role.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;stationC&#9;PSI&#9;JAVA://com.linkbit.beidou.controller.line.StationController&#10;line.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/line/line.js&#10;preS&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/preMaint/PreMaintService.java" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="186" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="210" />
@@ -1438,7 +1538,7 @@
       <workItem from="1479861896526" duration="18979000" />
       <workItem from="1479948642902" duration="23896000" />
       <workItem from="1480035492880" duration="12956000" />
-      <workItem from="1480295333400" duration="2891000" />
+      <workItem from="1480295333400" duration="4318000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <created>1471500329538</created>
@@ -1780,7 +1880,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1659826000" />
+    <option name="totallyTimeSpent" value="1661253000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1797,6 +1897,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43880928" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1805,7 +1906,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43109152" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5117057" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38919514" sideWeight="0.9107527" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46306506" sideWeight="0.9107527" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25860214" sideWeight="0.9184123" order="0" side_tool="false" content_ui="combo" />
@@ -1822,7 +1923,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43880928" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2491731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1918,30 +2018,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/equipment/equipments.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2703">
-          <caret line="159" column="150" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="150" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/personList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="47" selection-start-line="3" selection-start-column="47" selection-end-line="3" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/form.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -2200,7 +2276,7 @@
         <state relative-caret-position="282">
           <caret line="105" column="51" selection-start-line="105" selection-start-column="51" selection-end-line="105" selection-end-column="51" />
           <folding>
-            <element signature="e#2742#2743#0" expanded="true" />
+            <element signature="e#2742#2743#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2255,22 +2331,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="439" column="19" selection-start-line="439" selection-start-column="19" selection-end-line="439" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="255" column="28" selection-start-line="255" selection-start-column="28" selection-end-line="255" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqAddBillController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="579">
@@ -2295,16 +2355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="177" column="22" selection-start-line="177" selection-start-column="22" selection-end-line="177" selection-end-column="22" />
-          <folding>
-            <element signature="e#113#3813#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -2318,6 +2368,58 @@
         <state relative-caret-position="340">
           <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/list.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="93" column="72" selection-start-line="93" selection-start-column="55" selection-end-line="93" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/linkbit/beidou/controller/equipment/EqUpdateBillController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="129" column="70" selection-start-line="129" selection-start-column="70" selection-end-line="129" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqAddBill/eqAddBill.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="190" column="7" selection-start-line="173" selection-start-column="0" selection-end-line="190" selection-end-column="7" />
+          <folding>
+            <element signature="e#113#3813#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/eqUpdateBill/form.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="70" column="50" selection-start-line="70" selection-start-column="50" selection-end-line="70" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/eqUpdateBill/eqUpdateBill.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="180" column="24" selection-start-line="180" selection-start-column="24" selection-end-line="180" selection-end-column="24" />
+          <folding>
+            <element signature="e#107#3640#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

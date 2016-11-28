@@ -1,174 +1,161 @@
-var bills = [];
-var selectedIds = [];
-//数据列表
 var listTab = $('#myTab li:eq(0) a');
 //数据列表
 var formTab = $('#myTab li:eq(1) a');
-var vdm = null;
-//位置信息
-var myEqs = [];
-var locs = [];
-var eqClasses = [];
-var budgetBills = [];
 
-var dataTableName = "#eqUpdateDataTable";
-var ids = [];
-var pointer = 0;
-var newVue = null;
-$(function () {
-    //设置数据有效性验证配置项
-    var validateOptions = {
-            message: '该值无效 ',
-            fields: {
-                "applicant": {
-                    message: '申请人无效',
-                    validators: {
-                        notEmpty: {
-                            message: '申请人不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 20,
-                            message: '1到20个字符'
-                        }
-                    }
+var validationConfig = {
+    message: '该值无效 ',
+    fields: {
+        "applicant": {
+            message: '申请人无效',
+            validators: {
+                notEmpty: {
+                    message: '申请人不能为空!'
                 },
-                "applyDep": {
-                    message: '申请部门无效',
-                    validators: {
-                        notEmpty: {
-                            message: '申请部门不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 20,
-                            message: '1到20个字符'
-                        }
-                    }
-                },
-                "amount": {
-                    message: '申请数量无效',
-                    validators: {
-                        notEmpty: {
-                            message: '申请数量不能为空!'
-                        }
-                    }
-                },
-                "accessoryName": {
-                    message: '配件名称无效',
-                    validators: {
-                        notEmpty: {
-                            message: '配件名称不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 20,
-                            message: '1到20个字符'
-                        }
-                    }
-                },
-                "specifications": {
-                    message: '规格型号无效',
-                    validators: {
-                        notEmpty: {
-                            message: '规格型号不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 20,
-                            message: '1到20个字符'
-                        }
-                    }
-                },
-                "purpose": {
-                    message: '用途无效',
-                    validators: {
-                        notEmpty: {
-                            message: '用途不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 50,
-                            message: '1到50个字符'
-                        }
-                    }
-                },
-                "locations.id": {
-                    message: '位置无效',
-                    validators: {
-                        notEmpty: {
-                            message: '位置不能为空!'
-                        }
-                    }
+                stringLength: {
+                    min: 1,
+                    max: 20,
+                    message: '1到20个字符'
                 }
-
-
-                , "equipments.id": {
-                    message: '设备无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备不能为空!'
-                        }
-                    }
+            }
+        },
+        "applyDep": {
+            message: '申请部门无效',
+            validators: {
+                notEmpty: {
+                    message: '申请部门不能为空!'
                 },
-
-
-                "equipmentsClassification.id": {
-                    message: '设备分类无效',
-                    validators: {
-                        notEmpty: {
-                            message: '设备分类不能为空!'
-                        }
-                    }
+                stringLength: {
+                    min: 1,
+                    max: 20,
+                    message: '1到20个字符'
+                }
+            }
+        },
+        "amount": {
+            message: '申请数量无效',
+            validators: {
+                notEmpty: {
+                    message: '申请数量不能为空!'
+                }
+            }
+        },
+        "accessoryName": {
+            message: '配件名称无效',
+            validators: {
+                notEmpty: {
+                    message: '配件名称不能为空!'
                 },
-                "approver": {
-                    message: '批准人无效',
-                    validators: {
-                        notEmpty: {
-                            message: '批准人不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 50,
-                            message: '1到50个字符'
-                        }
-                    }
+                stringLength: {
+                    min: 1,
+                    max: 20,
+                    message: '1到20个字符'
+                }
+            }
+        },
+        "specifications": {
+            message: '规格型号无效',
+            validators: {
+                notEmpty: {
+                    message: '规格型号不能为空!'
                 },
-                "handler": {
-                    message: '经办人无效',
-                    validators: {
-                        notEmpty: {
-                            message: '经办人不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 50,
-                            message: '1到50个字符'
-                        }
-                    }
+                stringLength: {
+                    min: 1,
+                    max: 20,
+                    message: '1到20个字符'
+                }
+            }
+        },
+        "purpose": {
+            message: '用途无效',
+            validators: {
+                notEmpty: {
+                    message: '用途不能为空!'
                 },
-                "receiver": {
-                    message: '接收人无效',
-                    validators: {
-                        notEmpty: {
-                            message: '接收人不能为空!'
-                        },
-                        stringLength: {
-                            min: 1,
-                            max: 50,
-                            message: '1到50个字符'
-                        }
-                    }
+                stringLength: {
+                    min: 1,
+                    max: 50,
+                    message: '1到50个字符'
+                }
+            }
+        },
+        "locations.id": {
+            message: '位置无效',
+            validators: {
+                notEmpty: {
+                    message: '位置不能为空!'
                 }
             }
         }
-        ;
 
-    myEqs = findMyEqs();
+
+        , "equipments.id": {
+            message: '设备无效',
+            validators: {
+                notEmpty: {
+                    message: '设备不能为空!'
+                }
+            }
+        },
+
+
+        "equipmentsClassification.id": {
+            message: '设备分类无效',
+            validators: {
+                notEmpty: {
+                    message: '设备分类不能为空!'
+                }
+            }
+        },
+        "approver": {
+            message: '批准人无效',
+            validators: {
+                notEmpty: {
+                    message: '批准人不能为空!'
+                },
+                stringLength: {
+                    min: 1,
+                    max: 50,
+                    message: '1到50个字符'
+                }
+            }
+        },
+        "handler": {
+            message: '经办人无效',
+            validators: {
+                notEmpty: {
+                    message: '经办人不能为空!'
+                },
+                stringLength: {
+                    min: 1,
+                    max: 50,
+                    message: '1到50个字符'
+                }
+            }
+        },
+        "receiver": {
+            message: '接收人无效',
+            validators: {
+                notEmpty: {
+                    message: '接收人不能为空!'
+                },
+                stringLength: {
+                    min: 1,
+                    max: 50,
+                    message: '1到50个字符'
+                }
+            }
+        }
+    }
+};
+$(function () {
+    //设置数据有效性验证配置项
+    dataTableName = "#eqUpdateDataTable";
+    eqs = findMyEqs();
+    formName = "#detailForm";
+    mainObject = "eqUpdateBill";
     locs = findMyLoc();
-    eqClasses = findMyEqClass();
-    ids = findAllIds();
-
+    eqClasses = findEqClass();
+    ids = findAllRecordId();
     initSearchDate();
 
     var searchVue = new Vue({
@@ -181,121 +168,26 @@ $(function () {
     });
 
 
-    initBootGrid(dataTableName);
-    // 监听切换tab的方法
-
-    search();
-
-    $(formTab).on('click', function () {
-        vdm = new Vue({
-            el: "#detailContainer",
-            data: {
-                myEqs: myEqs,
-                locs: locs,
-                eqClasses: eqClasses
-            }
-        });
-
-        //首先判断是否有选中的
-        var budgetBill = null;
-        if (selectedIds.length > 0) {
-            //切换tab时默认给detail中第一个数据
-            budgetBill = findById(selectedIds[pointer]);
-            vdm.$set("budgetBill", budgetBill);
-        } else {
-            //没有选中的 默认显示整个列表的第一条
-            budgetBill = getEqUpdateBillById(ids[pointer]);
-            //所有的都在选中列表中
-            selectedIds = ids;
-            vdm.$set("budgetBill", budgetBill);
-        }
-
-        setFormReadStatus("#detailForm", true);
-    });
-    initSelect();
-
-    $('#detailForm')
-        .bootstrapValidator(validateOptions).on('success.form.bv', function (e) {
-        e.preventDefault();
-        saveMainObject(formName);
-    });
-});
-
-
-/**
- * @param eqs 所有的记录
- * @returns {Array}将所有的放入选中集合
- */
-function setAllInSelectedList(bugetBills) {
-    var selecteds = [];
-    for (var x in bugetBills) {
-        if (!isNaN(bugetBills[x]["id"])) {
-            selecteds.push(bugetBills[x]["id"]);
-        }
-    }
-    return selecteds;
-
-}
-
-
-/**
- * 根据ID获取
- * @param bid
- * @return {*}
- */
-function getEqUpdateBillById(bid) {
-    var budgetBill = null;
-    var url = "/eqUpdateBill/findById/" + bid;
-    $.getJSON(url, function (data) {
-        budgetBill = data;
-    });
-    return budgetBill;
-}
-
-
-/**
- *  上一条
- */
-function backwards() {
-    if (pointer <= 0) {
-        showMessageBoxCenter("danger", "center", "当前记录是第一条");
-    } else {
-        pointer = pointer - 1;
-        //判断当前指针位置
-        var budgetBill = getEqUpdateBillById(selectedIds[pointer]);
-        vdm.$set("budgetBill", budgetBill);
-    }
-}
-/**
- *  下一条
- */
-function forwards() {
-    if (pointer >= selectedIds.length - 1) {
-        showMessageBoxCenter("danger", "center", "当前记录是最后一条");
-
-    } else {
-        pointer = pointer + 1;
-        var budgetBill = getEqUpdateBillById(selectedIds[pointer]);
-        vdm.$set("budgetBill", budgetBill);
-    }
-}
-
-
-function add() {
-    //重新建立模型 新建对象模型
-    newVue = new Vue({
-        el: "#detailContainer",
+    //初始化从数据库获取列表数据
+    initBootGridMenu(dataTableName, null);
+    initSelect.call();
+    initSearchDate();
+    //初始化查询所有的
+    selectedIds = ids;
+    validateForm.call(validationConfig);
+    vdm = new Vue({
+        el: formName,
         data: {
-            myEqs: myEqs,
+            eqUpdateBill: findById(selectedIds[pointer]),
             locs: locs,
             eqClasses: eqClasses,
-            budgetBill: null
+            eqs: eqs
         }
     });
-    setFormReadStatus("#detailForm", false);
-    clearForm("#detailForm");
-    formTab.tab('show');
-}
+
+
+});
+
 
 function eqUpdateAdd(eid) {
 
@@ -317,169 +209,7 @@ function eqUpdateAdd(eid) {
     $("#eqClass").attr("readonly", "readonly");
 
 }
-/**
- *保存或者更新
- * */
-function saveObject() {
-    var objStr = getFormJsonData("detailForm");
-    var budgetBill = JSON.parse(objStr);
-    console.log(JSON.stringify(budgetBill));
-    var url = "eqUpdateBill/save";
-    $.post(url, budgetBill, function (data) {
-        if (data.result) {
-            showMessageBox("info", data["resultDesc"]);
-        } else {
-            showMessageBox("danger", data["resultDesc"]);
-        }
-    });
-}
 
-function save() {
-
-    $("#saveBtn").trigger("click");
-}
-
-function edit() {
-    setFormReadStatus("#detailForm", false);
-}
-
-/**
- * 删除选中的对象
- */
-function del() {
-
-    //删除时判断当前form的状态
-    var status = formTab.data("status");
-    if (status == "add") {
-        showMessageBoxCenter("danger", "center", "新建记录未保存，无需删除该记录!");
-        return;
-    }
-
-    var bid = selectedIds[0];
-    if (!bid) {
-        showMessageBoxCenter("danger", "center", "请选中一条记录再操作");
-        return;
-    }
-    var url = "/eqUpdateBill/delete/" + bid;
-    if (bid) {
-        bootbox.confirm({
-            message: "确定要删除该记录么？?",
-            buttons: {
-                confirm: {
-                    label: '是',
-                    className: 'btn-success'
-                },
-                cancel: {
-                    label: '否',
-                    className: 'btn-danger'
-                }
-            },
-            callback: function (result) {
-                if (result) {
-                    $.ajax({
-                        type: "GET",
-                        url: url,
-                        success: function (msg) {
-                            if (msg) {
-                                showMessageBox("info", "设备更新申请信息删除成功!");
-                            }
-                        },
-                        error: function (msg) {
-                            showMessageBox("danger", "设备更新申请信息有关联数据，无法删除，请联系管理员");
-                        }
-                    });
-                }
-            }
-        });
-    }
-}
-/**
- *根据id查询
- * */
-function findById(id) {
-    var budgetBill = null;
-    var url = "eqUpdateBill/findById/" + id;
-    $.getJSON(url, function (data) {
-        budgetBill = data;
-    });
-
-    console.log(JSON.stringify(budgetBill));
-    return budgetBill;
-
-}
-/**
- *查询我的位置
- * */
-function findMyLoc() {
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
-    return locs;
-}
-
-/**
- *查询我的位置
- * */
-function findMyEqs() {
-    var url_location = "/commonData/findMyEqs";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
-    return locs;
-}
-
-/**
- *查询我的位置
- * */
-function findMyEqClass() {
-    var url_eqclass = "/commonData/findVEqClass";
-    $.getJSON(url_eqclass, function (data) {
-        eqClass = data;
-    });
-    return eqClass;
-}
-
-/**
- *查询所有的id
- * */
-function findAllIds() {
-    $.ajaxSettings.async = false;
-
-    var ids = [];
-    var url = "eqUpdateBill/findAllIds";
-    $.getJSON(url, function (data) {
-        ids = data;
-    });
-    return ids;
-}
-
-
-/**
- *
- * @param formId 设置form为只读
- */
-function setFormReadStatus(formId, formLocked) {
-    if (formLocked) {
-        $(formId + " input ").attr("readonly", "readonly");
-        $(formId + " textarea ").attr("readonly", "readonly");
-        $(formId + " select").attr("disabled", "disabled");
-    } else {
-        $(formId + " input").attr("readonly", "readonly").removeAttr("readonly");
-        $(formId + " select").attr("disabled", "disabled").removeAttr("disabled");
-        $(formId + " textarea").attr("readonly", "readonly").removeAttr("readonly");
-
-    }
-
-    $("#eqCode").attr("readonly", "readonly");
-}
-
-
-function clearForm(formId) {
-    $(formId + " input ").val("");
-    $(formId + " textarea ").val("");
-    $(formId + " select").val("");
-}
 
 function changeLoc(a) {
     var locationsId = $(a).val();
@@ -509,43 +239,3 @@ function changeEqc(a) {
     });
 }
 
-
-/**
- *导出excel
- */
-function exportExcel() {
-    var param = $(dataTableName).bootgrid("getSearchPhrase");
-    var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
-
-    var titles = [];
-    var colNames = [];
-    for (var x in columnSettings) {
-        if (columnSettings[x] != undefined && columnSettings[x]["text"] && columnSettings[x]["id"] && !columnSettings[x]["identifier"] && !columnSettings[x]["formatter"]) {
-            titles[x] = columnSettings[x]["text"];
-            colNames[x] = columnSettings[x]["id"];
-        }
-
-    }
-
-    var docName = "设备更新申请信息";
-    var url = "eqUpdateBill/exportExcel?param=" + param + "&docName=" + docName + "&titles=" + titles + "&colNames=" + colNames;
-    bootbox.confirm({
-        message: "确定导出查询结果记录么？?",
-        buttons: {
-            confirm: {
-                label: '是',
-                className: 'btn-success'
-            },
-            cancel: {
-                label: '否',
-                className: 'btn-danger'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                window.location.href = url;
-            }
-        }
-    });
-
-}

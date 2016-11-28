@@ -14,6 +14,7 @@ var ids = [];//所有的ID的集合
 var docName = "";
 var formTab = null;
 var locs = [];
+var eqs = [];
 var stations = [];
 var searchModel = [];
 
@@ -269,7 +270,7 @@ function exportExcel() {
     var param = $(dataTableName).bootgrid("getSearchPhrase");
     var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
 
-    console.log("getSearchPhrase---------------"+param);
+    console.log("getSearchPhrase---------------" + param);
 
     var titles = [];
     var colNames = [];
@@ -464,6 +465,7 @@ function findEqClass() {
     var url_eqclass = "/commonData/findEqClass";
     $.getJSON(url_eqclass, function (data) {
         eqClasses = data;
+        console.log("data--------------------" + JSON.stringify(data));
     });
     return eqClasses;
 }
@@ -474,9 +476,9 @@ function findEqClass() {
 function findMyEqs() {
     var url = "/commonData/findMyEqs";
     $.getJSON(url, function (data) {
-        locs = data;
+        eqs = data;
     });
-    return locs;
+    return eqs;
 }
 
 /**
