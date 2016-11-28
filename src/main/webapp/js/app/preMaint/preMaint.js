@@ -1,13 +1,5 @@
-var selectedIds = []; //获取被选择记录集合
-var vm = null; //明细页面的模型
-var pm = null;
-var locs = [];
-var eqs = [];
-var units = [];
-var pointer = 0;
 var listTab = $('#myTab li:eq(0) a');
 var formTab = $('#myTab li:eq(1) a');
-var object = null;
 $.ajaxSettings.async = false;
 var validationConfig = {
     message: '该值无效 ',
@@ -94,10 +86,11 @@ $(function () {
     formName = "#detailForm";
 
 
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
+    locs = findMyLoc();
+    eqClasses = findEqClass();
+    eqs = findMyEqs();
+    units = findUnits();
+    var f_units = [{key: "0", text: "日"}, {key: "1", text: "月"}, {key: "2", text: "年"}];
 
 
     var searchVue = new Vue({
@@ -113,9 +106,24 @@ $(function () {
         {"param": "pmDesc", "paramDesc": "计划描述"},
         {"param": "location", "paramDesc": "设备位置"}
     ];
+
+    //初始化从数据库获取列表数据
     initBootGrid(dataTableName);
-    initSelect();
-    search();
+    initSelect.call();
+    initSearchDate();
+    //初始化查询所有的
+    selectedIds = ids;
+    validateForm.call(validationConfig);
+    vdm = new Vue({
+        el: formName,
+        data: {
+            preMaint: findById(selectedIds[pointer]),
+            eqClasses: eqClasses,
+            eqs: eqs,
+            units: units,
+            f_units: f_units
+        }
+    });
 
 
 });

@@ -69,6 +69,15 @@ public class PreMaintService extends BaseService implements LocationSeparatable 
         return preMaintRepository.selectAllId(location);
     }
 
+
+    /**
+     * @return
+     */
+    public List<Long> selectAllId() {
+        return preMaintRepository.selectAllId();
+    }
+
+
     /**
      * @param preMaint 预防性维修信息
      * @return 保存预防性维修信息

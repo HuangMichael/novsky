@@ -25,13 +25,13 @@ public interface PreMaintRepository extends CrudRepository<PreMaint, Long>, Pagi
     Page<PreMaint> findAll(Pageable pageable);
 
 
-    /**
-     * @param desc
-     * @param pageable
-     * @return 分页
-     */
-    Page<PreMaint> findByDescriptionContains(String desc, Pageable pageable);
-
     @Query("select v.id from PreMaint v where v.location like :location")
     List<Long> selectAllId(@Param("location") String location);
+
+
+    /**
+     * @return 查询所有的id
+     */
+    @Query("select v.id from PreMaint v ")
+    List<Long> selectAllId();
 }

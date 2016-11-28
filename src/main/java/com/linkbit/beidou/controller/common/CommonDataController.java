@@ -7,6 +7,7 @@ import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ListObject;
 import com.linkbit.beidou.service.commonData.CommonDataService;
@@ -139,6 +140,17 @@ public class CommonDataController extends BaseController {
     @ResponseBody
     public List<Person> findActivePerson(HttpSession httpSession) {
         return commonDataService.findActivePerson(httpSession);
+    }
+
+
+    /**
+     * @param httpSession 当前会话
+     * @return 查询外委单位信息
+     */
+    @RequestMapping(value = "/findUnits", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Units> findUnits(HttpSession httpSession) {
+        return commonDataService.findUnits(httpSession);
     }
 
     /**

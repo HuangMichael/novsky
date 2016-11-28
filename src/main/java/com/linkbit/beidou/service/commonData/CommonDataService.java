@@ -10,6 +10,7 @@ import com.linkbit.beidou.dao.line.LineRepository;
 import com.linkbit.beidou.dao.line.StationRepository;
 import com.linkbit.beidou.dao.locations.LocationsRepository;
 import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.linkbit.beidou.dao.person.PersonRepository;
 import com.linkbit.beidou.domain.app.resoure.Resource;
 import com.linkbit.beidou.domain.equipments.EquipmentsClassification;
@@ -20,6 +21,7 @@ import com.linkbit.beidou.domain.line.Station;
 import com.linkbit.beidou.domain.locations.Locations;
 import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.person.Person;
+import com.linkbit.beidou.domain.units.Units;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.domain.workOrder.WorkOrderReportCart;
 import com.linkbit.beidou.object.ListObject;
@@ -87,9 +89,8 @@ public class CommonDataService extends BaseService {
     @Autowired
     LineService lineService;
 
-
     @Autowired
-    OrgRepository orgRepository;
+    OutsourcingUnitRepository unitRepository;
 
 
     @Autowired
@@ -310,6 +311,26 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------将车站放入缓存");
         }
         return stationList;
+    }
+
+
+    /**
+     * @param httpSession
+     * @return 查询设备种类信息
+     */
+    public List<Units> findUnits(HttpSession httpSession) {
+        List<Units> unitsList = null;
+        Object object = httpSession.getAttribute("unitsList");
+        if (object != null) {
+            unitsList = (ArrayList<Units>) object;
+            log.info(this.getClass().getCanonicalName() + "------------从缓存中查询外委单位");
+        } else {
+            unitsList = unitRepository.findByStatus(CommonStatusType.STATUS_YES);
+            log.info(this.getClass().getCanonicalName() + "------------从数据库中查询外委单位");
+            httpSession.setAttribute("unitsList", unitsList);
+            log.info(this.getClass().getCanonicalName() + "------------将外委单位放入缓存");
+        }
+        return unitsList;
     }
 
 

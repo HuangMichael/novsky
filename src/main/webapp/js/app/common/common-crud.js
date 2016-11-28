@@ -16,6 +16,7 @@ var formTab = null;
 var locs = [];
 var eqs = [];
 var stations = [];
+var units = []; //外委单位信息
 var searchModel = [];
 
 
@@ -455,6 +456,18 @@ function findMyLoc() {
         locs = data;
     });
     return locs;
+}
+
+
+/**
+ *查询我的位置
+ * */
+function findUnits() {
+    var url_units = "/commonData/findUnits";
+    $.getJSON(url_units, function (data) {
+        units = data;
+    });
+    return units;
 }
 
 
