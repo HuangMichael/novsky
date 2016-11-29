@@ -174,7 +174,7 @@ $(function () {
 
     //初始化从数据库获取列表数据
 
-    initBootGridMenu(dataTableName, null);
+    initBootGrid(dataTableName);
     initSelect.call();
     initSearchDate();
     //初始化查询所有的
