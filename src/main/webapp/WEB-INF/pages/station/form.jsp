@@ -17,7 +17,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-2"><label for="lineId">线路名称</label></div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <select v-model="station.line.id" class="form-control" id="lineId" name="line.id" required style="width:100%"
                 required>
             <template v-for="option in lines">
@@ -31,7 +31,7 @@
         </select>
     </div>
     <div class="col-md-2"><label for="type">车站类型</label></div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <select v-model="station.type" class="form-control" id="type" name="type" required style="width:100%" required>
             <template v-for="option in types">
                 <option :value="option.id" v-if="option.id == station.type" selected>

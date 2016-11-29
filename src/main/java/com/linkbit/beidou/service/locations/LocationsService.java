@@ -25,9 +25,6 @@ public class LocationsService extends BaseService {
     VlocationsRepository vlocationsRepository;
 
 
-
-
-
     /**
      * 设置位置编码
      */
@@ -125,7 +122,6 @@ public class LocationsService extends BaseService {
         if (hasChild) {
             returnObject.setResult(false);
             returnObject.setResultDesc("该位置下有位置信息不能删除!");
-            return returnObject;
         } else {
             try {
                 locationsRepository.delete(locations);
@@ -134,16 +130,17 @@ public class LocationsService extends BaseService {
                 if (l == null) {
                     returnObject.setResult(true);
                     returnObject.setResultDesc("位置信息删除成功!");
-                    return returnObject;
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 returnObject.setResult(false);
                 returnObject.setResultDesc("位置信息有关联数据，无法删除，请联系管理员!");
-                return returnObject;
+
             }
-            return returnObject;
+
         }
+        return returnObject;
     }
 
 
