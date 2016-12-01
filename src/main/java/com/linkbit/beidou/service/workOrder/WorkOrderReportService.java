@@ -156,29 +156,25 @@ public class WorkOrderReportService extends BaseService implements SortedSearcha
     }
 
 
-
-
-
-
     /**
-     * @param searchPhrase   查询关键字
-     * @param pageable 可分页
+     * @param searchPhrase 查询关键字
+     * @param pageable     可分页
      * @return 根据条件查询
      */
     public Page<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
+        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
     }
 
 
     /**
-     * @param searchPhrase   查询关键字
+     * @param searchPhrase 查询关键字
      * @return 根据条件查询
      */
     public List<VworkOrderReportBill> findByConditions(String searchPhrase, int paramsSize) {
 
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
+        return vworkOrderReportBillRepository.findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
 
     }
 }

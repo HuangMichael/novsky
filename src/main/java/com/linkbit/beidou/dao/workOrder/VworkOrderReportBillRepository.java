@@ -82,7 +82,7 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
      * @param pageable
      * @return 模糊查询
      */
-    Page<VworkOrderReportBill> findByOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(String orderLineNo, String orderDesc, String location, String eqClass, Pageable pageable);
+    Page<VworkOrderReportBill> findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String orderLineNo, String orderDesc, String location, String eqClass, Pageable pageable);
 
 
     /**
@@ -92,7 +92,7 @@ public interface VworkOrderReportBillRepository extends PagingAndSortingReposito
      * @param eqClass
      * @return 模糊查询
      */
-    List<VworkOrderReportBill> findByOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(String orderLineNo, String orderDesc, String location, String eqClass);
+    List<VworkOrderReportBill> findByOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String orderLineNo, String orderDesc, String location, String eqClass);
 
 
 }
