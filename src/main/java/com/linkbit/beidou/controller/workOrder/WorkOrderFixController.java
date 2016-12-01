@@ -188,9 +188,8 @@ public class WorkOrderFixController extends BaseController {
                             @RequestParam("param") String param,
                             @RequestParam("docName") String docName,
                             @RequestParam("titles") String titles[],
-                            @RequestParam("colNames") String[] colNames,
-                            @RequestParam("nodeState") String nodeState) {
-        List<VworkOrderFixBill> dataList = workOrderFixSearchService.findByConditions(param, 4);
+                            @RequestParam("colNames") String[] colNames) {
+        List<VworkOrderFixBill> dataList = workOrderFixSearchService.findByConditions(param, 5);
         workOrderFixService.setDataList(dataList);
         workOrderFixService.exportExcel(request, response, docName, titles, colNames);
     }
