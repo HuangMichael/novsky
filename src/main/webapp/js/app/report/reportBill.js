@@ -13,12 +13,6 @@ $(function () {
     mainObject = "workOrderReport";
 
 
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
-
-
     var url = "/commonData/findVEqClass";
     $.getJSON(url, function (data) {
         eqClasses = data;
@@ -30,7 +24,6 @@ $(function () {
     var searchVue = new Vue({
         el: "#searchBox",
         data: {
-            locs: locs,
             eqClasses: eqClasses
         }
 

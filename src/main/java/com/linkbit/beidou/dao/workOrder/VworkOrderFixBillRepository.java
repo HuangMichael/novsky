@@ -53,7 +53,7 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
      * @param pageable
      * @return 模糊查询
      */
-    Page<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass, Pageable pageable);
+    Page<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass, Pageable pageable);
 
 
     /**
@@ -63,5 +63,5 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
      * @param eqClass
      * @return 模糊查询
      */
-    List<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocationContainsAndEqClassContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass);
+    List<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass);
 }

@@ -37,17 +37,9 @@
                                                     <input class="form-control" id="orderDesc" type="text" name="orderDesc"
                                                            placeholder="故障描述"/>
                                                 </div>
-
                                                 <div class="col-md-2">
-                                                    <select class="form-control" id="locName" name="locName"
-                                                            style="width:100%" required>
-                                                        <option></option>
-                                                        <template v-for="option in locs">
-                                                            <option :value="option.location">
-                                                                {{option.locName }}
-                                                            </option>
-                                                        </template>
-                                                    </select>
+                                                    <input class="form-control" id="locName" type="text" name="locName"
+                                                           placeholder="位置"/>
                                                 </div>
 
                                                 <div class="col-md-2">
