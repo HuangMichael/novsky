@@ -88,12 +88,6 @@ $(function () {
     formName = "#detailForm";
     //查询模型
 
-
-    var url_location = "/commonData/findMyLoc";
-    $.getJSON(url_location, function (data) {
-        locs = data;
-    });
-
     var url = "/commonData/getEqStatus";
     $.getJSON(url, function (data) {
         eqStatuses = data;
@@ -130,7 +124,6 @@ $(function () {
         el: "#detailForm",
         data: {
             equipment: null,
-            locs: locs,
             eqClasses: eqClasses,
             eqStatuses: eqStatuses,
             runStatus: runStatus
@@ -172,7 +165,6 @@ $(function () {
 
 
     historyTab.on('click', function () {
-        console.log("查看维修历史-------------")
         showFixHistory.call(selectedIds[pointer]);
     })
 });
