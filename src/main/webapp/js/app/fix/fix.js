@@ -3,12 +3,6 @@
  */
 $(document).ready(function () {
 
-
-    var tableName0 = "#fixListTable0";
-    var tableName1 = "#fixListTable1";
-    var tableName2 = "#fixListTable2";
-    var tableName3 = "#fixListTable3";
-
     docName = "维修单信息";
     mainObject = "workOrderFix";
     //导出必须配置的两个量
@@ -39,10 +33,12 @@ $(document).ready(function () {
     });
 
     searchModel = [
+        {"param": "nodeState", "paramDesc": "工单状态"},
         {"param": "orderLineNo", "paramDesc": "跟踪号"},
         {"param": "orderDesc", "paramDesc": "故障描述"},
         {"param": "location", "paramDesc": "设备位置"},
         {"param": "eqClass", "paramDesc": "设备分类"}
+
     ];
 
     var cfg = {
@@ -54,43 +50,11 @@ $(document).ready(function () {
                     '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
                     '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
             }
-        },
-        templates: {
-            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据'  name='fixListTable0'  onclick='exportExcelByName(" + tableName0 + ")'>导出</button>"
         }
     };
 
-    initBootGridMenu(tableName0, cfg);
+    initBootGridMenu(dataTableName, cfg);
     search();
-
-
-    $('#fixListTable1').bootgrid({
-        templates: {
-            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据' name='fixListTable1' onclick='exportExcelByName(" + tableName1 + ")'>导出</button>"
-        }
-    });
-
-    $('#fixListTable2').bootgrid({
-
-        templates: {
-            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据' name='fixListTable2' onclick='exportExcelByName(" + tableName2 + ")'>导出</button>"
-        }
-        ,
-        formatters: {
-            "opMenus": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="恢复" ><i class="glyphicon glyphicon-pause"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>'
-            }
-        }
-    });
-
-    $('#fixListTable3').bootgrid({
-        templates: {
-            actionButton: "<button class=\"btn btn-default\" type=\"button\" title=\"{{ctx.text}}\">{{ctx.content}}</button> <button class='btn btn-default' type='button' title='导出数据' name='fixListTable3' onclick='exportExcelByName(" + tableName3 + ")'>导出</button>"
-        }
-    });
-
 
     $("#saveFixDesc").on("click", function () {
         var orderId = $("#orderId").val();
@@ -111,14 +75,6 @@ $(document).ready(function () {
         $(this).tab('show');
     });
 
-
-    $("button[title='导出数据']").on("click", function () {
-        var tableName = "#" + $(this).attr("name");
-        var nodeState = ["已派工", "已完工", "已暂停", "已取消"];
-        var state = nodeState[tableName.charAt(tableName.length - 1)];
-        exportExcelByName(tableName, state, state + docName);
-
-    })
 });
 
 

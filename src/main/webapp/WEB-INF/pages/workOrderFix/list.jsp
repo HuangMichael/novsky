@@ -21,26 +21,25 @@
                                         <ul class="nav nav-tabs" id="myTab">
                                             <li class="active">
                                                 <a href="#tab_1_0" data-toggle="tab">
-                                                    <i class="fa fa-user" id="eq"></i>已派工</a>
+                                                    <i class="fa fa-user" id="eq"></i>维修单查询</a>
                                             </li>
-                                            <li>
-                                                <a href="#tab_1_1" data-toggle="tab">
-                                                    <i class="fa fa-home" id="eq1"></i>已完工</a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab_1_2" data-toggle="tab">
-                                                    <i class="fa  fa-caret-square-o-right" id="eq2"></i>已暂停</a>
-                                            </li>
-                                            <li>
-                                                <a href="#tab_1_3" data-toggle="tab">
-                                                    <i class="fa  fa-remove" id="eq3"></i>已取消</a>
-                                            </li>
-
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
                                                 <div class="form-group" style="margin-bottom:10px;position:inherit"
                                                      id="searchBox">
+
+                                                    <div class="col-md-2">
+                                                        <select class="form-control" id="nodeState" name="nodeState"
+                                                                style="width:100%"  onchange="search()"
+                                                                required>
+                                                            <option selected>已派工</option>
+                                                            <option>已完工</option>
+                                                            <option>已暂停</option>
+                                                            <option>已取消</option>
+                                                        </select>
+                                                    </div>
+
                                                     <div class="col-md-2">
                                                         <input class="form-control" id="eqCode" type="text"
                                                                name="orderLineNo"
@@ -76,6 +75,8 @@
                                                             </template>
                                                         </select>
                                                     </div>
+
+
 
 
                                                     <div class="col-md-2">
@@ -115,82 +116,6 @@
                                                             data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
 
                                                         </th>
-                                                    </tr>
-                                                    </thead>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade in" id="tab_1_1">
-                                                <table id="fixListTable1"
-                                                       class="table table-striped table-bordered table-hover  table-responsive"
-                                                       data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/1">
-                                                    <thead>
-                                                    <tr>
-                                                        <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
-                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
-                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" data-width="5%">设备分类</th>
-                                                        <th data-column-id="unitName" data-width="10%"
-                                                            data-visible="false">维修单位
-                                                        </th>
-                                                        <th data-column-id="nodeState" data-width="5%">维修状态</th>
-                                                        <th data-column-id="nodeTime" data-width="8%" data-order="desc">
-                                                            处理时间
-                                                        </th>
-                                                        <th data-column-id="deadLine" data-width="8%">截止日期</th>
-                                                    </tr>
-                                                    </thead>
-
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade in" id="tab_1_2">
-                                                <table id="fixListTable2"
-                                                       class="table table-striped table-bordered table-hover  table-responsive"
-                                                       data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/2">
-                                                    <thead>
-                                                    <tr>
-                                                        <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
-                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
-                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" data-width="5%">设备分类</th>
-                                                        <th data-column-id="unitName" data-width="10%"
-                                                            data-visible="false">维修单位
-                                                        </th>
-                                                        <th data-column-id="status" data-width="5%">维修状态</th>
-                                                        <th data-column-id="nodeTime" data-width="8%" data-order="desc">
-                                                            处理时间
-                                                        </th>
-                                                        <th data-column-id="deadLine" data-width="8%">截止日期</th>
-
-                                                    </tr>
-                                                    </thead>
-
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade in" id="tab_1_3">
-                                                <table id="fixListTable3"
-                                                       class="table table-striped table-bordered table-hover  table-responsive"
-                                                       data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/3">
-                                                    <thead>
-                                                    <tr>
-                                                        <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
-                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
-                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
-                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
-                                                        <th data-column-id="eqClass" data-width="5%">设备分类</th>
-                                                        <th data-column-id="unitName" data-width="10%"
-                                                            data-visible="false">维修单位
-                                                        </th>
-                                                        <th data-column-id="nodeState" data-width="5%">维修状态</th>
-                                                        <th data-column-id="nodeTime" data-width="8%" data-order="desc">
-                                                            处理时间
-                                                        </th>
-                                                        <th data-column-id="deadLine" data-width="8%">截止日期</th>
-
                                                     </tr>
                                                     </thead>
                                                 </table>

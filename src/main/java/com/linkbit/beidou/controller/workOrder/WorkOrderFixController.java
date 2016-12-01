@@ -86,7 +86,6 @@ public class WorkOrderFixController extends BaseController {
      * @param current
      * @param rowCount
      * @param searchPhrase
-     * @param nodeState
      * @return 显示维修工单列表
      */
 
@@ -95,17 +94,10 @@ public class WorkOrderFixController extends BaseController {
     public MyPage data(HttpServletRequest request,
                        @RequestParam(value = "current", defaultValue = "0") int current,
                        @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount,
-                       @RequestParam(value = "searchPhrase", required = false) String searchPhrase,
-                       @PathVariable("ns") int nodeState) {
-        String nodeStateArray[] = {"已派工", "已完工", "已暂停", "已取消"};
-        String nodeStateStr;
-        if (nodeState >= 0) {
-            nodeStateStr = nodeStateArray[nodeState];
-            searchPhrase += nodeStateStr + ",";
-        }
+                       @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         Map<String, String[]> parameterMap = request.getParameterMap();
         Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
-        return new PageUtils().searchBySortService(workOrderFixSearchService, searchPhrase, 4, current, rowCount, pageable);
+        return new PageUtils().searchBySortService(workOrderFixSearchService, searchPhrase, 5, current, rowCount, pageable);
 
     }
 
