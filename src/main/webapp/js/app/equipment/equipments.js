@@ -98,17 +98,12 @@ $(function () {
         runStatus = data;
     });
 
-    var url = "/commonData/findVEqClass";
-    $.getJSON(url, function (data) {
-        eqClasses = data;
-    });
-
-
     var searchVue = new Vue({
         el: "#searchBox",
         data: {
             locs: locs,
             eqClasses: eqClasses
+
         }
 
     });
@@ -124,6 +119,7 @@ $(function () {
         el: "#detailForm",
         data: {
             equipment: null,
+            locs: locs,
             eqClasses: eqClasses,
             eqStatuses: eqStatuses,
             runStatus: runStatus
@@ -156,7 +152,7 @@ $(function () {
         }
     };
     //初始化加载列表
-    initBootGridMenu(dataTableName,config);
+    initBootGridMenu(dataTableName, config);
     //验证保存信息
     validateForm(validateOptions);
     initSelect();

@@ -63,19 +63,19 @@ public class Equipments {
 
 
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "locations_id", referencedColumnName = "id")
     private Locations locations;  //所属位置
 
 
 
-    @Transient
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+   /* @Transient
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
-    private Vlocations vlocations;  //所属位置
+    private Vlocations vlocations;  //所属位置*/
 
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "equipments_Classification_id", referencedColumnName = "id")
     private EquipmentsClassification equipmentsClassification; //设备分类
 
@@ -90,7 +90,7 @@ public class Equipments {
     @Column(length = 20)
     private String eqModel;  //设备型号
     @Column(length = 20)
-    private String assetNo;  //固定资产编号
+    private String eamNo;  //EAM编号
 
     @Column(length = 1)
     private Long manageLevel; //管理等级

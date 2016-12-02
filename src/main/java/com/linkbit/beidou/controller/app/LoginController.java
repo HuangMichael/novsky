@@ -109,7 +109,7 @@ public class LoginController {
             returnObject.setResultDesc("用户登录成功");
             User currentUser = userList.get(0);
             List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
-            List<VeqClass> veqClassList = veqClassRepository.findAll();
+            List<VeqClass> veqClassList = commonDataService.findVeqClass(session);
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());
             SystemInfo systemInfo = sysInfoService.findBySysName("system_name");

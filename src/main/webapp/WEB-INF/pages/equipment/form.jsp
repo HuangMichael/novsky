@@ -24,8 +24,8 @@
             <label for="locations_id" class="col-md-1 control-label">设备位置</label>
 
             <div class="col-md-3">
-                <select v-model="equipment.locations.id" class="form-control" id="locations_id" name="locations.id"
-                        required style="width:100%" required>
+                <select  class="form-control" id="locations_id" name="locations.id" v-model="equipment.locations.id"
+                        required style="width:100%" >
                     <template v-for="option in locs">
                         <option :value="option.id" v-if="option.id == equipment.locations.id" selected>
                             {{option.locName }}
@@ -46,10 +46,10 @@
                         style="width:100%;background-color:#ffffce" required>
                     <template v-for="option in eqClasses">
                         <option :value="option.id" v-if="option.id == equipment.equipmentsClassification.id" selected>
-                            {{ option.cpName +'/'+ option.cname }}
+                            {{ option.cname }}
                         </option>
                         <option :value="option.id" v-else>
-                            {{ option.cpName +'/'+ option.cname }}
+                            {{ option.cname }}
                         </option>
                     </template>
 
@@ -120,24 +120,23 @@
 
         </div>
         <div class="form-group">
-            <label class="col-md-1 control-label" for="assetNo">资产编号</label>
 
-            <div class="col-md-3">
-                <input class="form-control" id="assetNo" type="text" name="assetNo" v-model="equipment.assetNo"/>
-            </div>
             <label class="col-md-1 control-label" for="productFactory">生产厂家</label>
 
             <div class="col-md-3">
                 <input class="form-control" id="productFactory" type="text" name="productFactory"
                        v-model="equipment.productFactory"/>
             </div>
-            <label class="col-md-1 control-label" for="manager">负责人</label>
+            <label class="col-md-1 control-label" for="manager">归属单位</label>
 
             <div class="col-md-3">
                 <input class="form-control" id="manager" type="text" name="manager" v-model="equipment.manager"/>
             </div>
 
-
+            <label class="col-md-1 control-label" for="eamNo">EAM编号</label>
+            <div class="col-md-3">
+                <input class="form-control" id="eamNo" type="text" name="eamNo" v-model="equipment.eamNo"/>
+            </div>
         </div>
     </fieldset>
 

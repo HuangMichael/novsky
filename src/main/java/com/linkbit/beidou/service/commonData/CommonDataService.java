@@ -97,6 +97,7 @@ public class CommonDataService extends BaseService {
     WorkOrderReportCartService workOrderReportCartService;
 
 
+
     /**
      * @param location 位置编号
      * @return 查询我的下属位置信息
@@ -185,6 +186,9 @@ public class CommonDataService extends BaseService {
     }
 
 
+
+
+
     /**
      * @param httpSession
      * @return 查询设备种类信息
@@ -202,11 +206,7 @@ public class CommonDataService extends BaseService {
             log.info(this.getClass().getCanonicalName() + "------------设备种类视图放入缓存");
         }
         return eqClassList;
-
-
     }
-
-
     /**
      * @param httpSession
      * @return 查询设备种类信息

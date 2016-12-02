@@ -128,7 +128,7 @@ public class EqAddBillService extends BaseService {
         equipments.setLocations(eqAddBill.getLocation());
         equipments.setLocation(vlocations.getLocation());
         equipments.setDescription(eqAddBill.getEqName());
-        equipments.setVlocations(vlocations);
+        //equipments.setVlocations(vlocations);
         equipments.setRunning(CommonStatusType.STATUS_ON);
         equipments.setStatus(CommonStatusType.STATUS_YES);
         equipments = equipmentAccountService.save(equipments);

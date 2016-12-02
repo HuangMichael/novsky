@@ -14,6 +14,7 @@ var ids = [];//所有的ID的集合
 var docName = "";
 var formTab = null;
 var locs = [];
+var eqClasses = [];
 var eqs = [];
 var stations = [];
 var units = []; //外委单位信息
@@ -454,6 +455,7 @@ function findMyLoc() {
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
         locs = data;
+        console.log(JSON.stringify(locs));
     });
     return locs;
 }
@@ -475,7 +477,7 @@ function findUnits() {
  *查询我的位置
  * */
 function findEqClass() {
-    var url_eqclass = "/commonData/findEqClass";
+    var url_eqclass = "/commonData/findVEqClass";
     $.getJSON(url_eqclass, function (data) {
         eqClasses = data;
         console.log("data--------------------" + JSON.stringify(data));
@@ -545,6 +547,13 @@ function initSearchDate() {
 
 
 $(function () {
+
+
+    //初始化加载设备分类  设备位置
+
+
+    locs = findMyLoc();
+    eqClasses = findEqClass();
 
 
     //取消异步加载
