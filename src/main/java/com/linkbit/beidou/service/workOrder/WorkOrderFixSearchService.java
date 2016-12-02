@@ -26,7 +26,7 @@ public class WorkOrderFixSearchService extends BaseService implements SortedSear
      */
     public Page<VworkOrderFixBill> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vworkOrderFixBillRepository.findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], array[4], pageable);
+        return vworkOrderFixBillRepository.findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContainsAndExpiredContains(array[0], array[1], array[2], array[3], array[4],array[5], pageable);
     }
     /**
      * @param searchPhrase 查询关键字
@@ -34,7 +34,7 @@ public class WorkOrderFixSearchService extends BaseService implements SortedSear
      */
     public List<VworkOrderFixBill> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vworkOrderFixBillRepository.findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], array[4]);
+        return vworkOrderFixBillRepository.findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContainsAndExpiredContains(array[0], array[1], array[2], array[3], array[4],array[5]);
 
     }
 }

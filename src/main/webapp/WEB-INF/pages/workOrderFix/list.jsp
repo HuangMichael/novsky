@@ -23,15 +23,21 @@
                                                 <a href="#tab_1_0" data-toggle="tab">
                                                     <i class="fa fa-user" id="eq"></i>维修单查询</a>
                                             </li>
+                                            <li>
+                                                <a href="#tab_1_1" data-toggle="tab">
+                                                    <i class="fa fa-clock-o" id="expiredTab"></i>超期维修单
+                                                    <div id="expiredTip" class="badge badge-red"></div>
+                                                </a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="tab_1_0">
                                                 <div class="form-group" style="margin-bottom:10px;position:inherit"
                                                      id="searchBox">
 
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-1">
                                                         <select class="form-control" id="nodeState" name="nodeState"
-                                                                style="width:100%" onchange="search()"
+                                                                 onchange="search()"
                                                                 required>
                                                             <option selected>已派工</option>
                                                             <option>已完工</option>
@@ -40,18 +46,18 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-1">
                                                         <input class="form-control" id="eqCode" type="text"
                                                                name="orderLineNo"
                                                                placeholder="跟踪号"/>
                                                     </div>
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-1">
                                                         <input class="form-control" id="orderDesc" type="text"
                                                                name="orderDesc"
                                                                placeholder="故障描述"/>
                                                     </div>
 
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-1">
                                                         <input class="form-control" id="locName" type="text"
                                                                name="orderDesc"
                                                                placeholder="位置"/>
@@ -64,14 +70,20 @@
                                                             <option></option>
                                                             <template v-for="option in eqClasses">
                                                                 <option :value="option.cname">
-                                                                    {{option.cname }}
+                                                                    {{option.cname}}
                                                                 </option>
                                                             </template>
                                                         </select>
                                                     </div>
-
-
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-1">
+                                                        <select class="form-control" id="expired" name="expired" onchange="search()"
+                                                                required>
+                                                            <option selected value="">全部</option>
+                                                            <option>未超期</option>
+                                                            <option>已超期</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-1">
                                                         <button id="searchBtn" class="btn btn-default"
                                                                 onclick="search()">查询
                                                         </button>
@@ -81,8 +93,9 @@
 
                                                 <table id="fixListTable0"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
-                                                       data-toggle="bootgrid" data-ajax="true"
-                                                       data-url="/workOrderFix/data/0">
+                                                       data-toggle="bootgrid" data-ajax="true" data-rowSelect="true"
+                                                       data-selection="true"
+                                                       data-url="/workOrderFix/data">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
@@ -104,10 +117,34 @@
                                                         <th data-column-id="expired" data-width="5%"
                                                             data-sortable="false" align="center">是否超期
                                                         </th>
-                                                        <th data-column-id="opMenus" data-formatter="opMenus"
-                                                            data-sortable="false" data-width="8%">暂停&nbsp;取消&nbsp;完工
-
+                                                    </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade in " id="tab_1_1">
+                                                <table id="expiredOrdersList"
+                                                       class="table table-striped table-bordered table-hover  table-responsive"
+                                                       data-toggle="bootgrid" data-ajax="true" data-rowSelect="true"
+                                                       data-selection="true"
+                                                       data-url="/workOrderFix/expiredCount">
+                                                    <thead>
+                                                    <tr>
+                                                        <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
+                                                        <th data-column-id="id" data-type="numeric"
+                                                            data-identifier="true" data-visible="false">ID
                                                         </th>
+                                                        <th data-column-id="eqName" data-width="10%">设备名称</th>
+                                                        <th data-column-id="locName" data-width="8%">设备位置</th>
+                                                        <th data-column-id="orderDesc" data-width="15%">故障描述</th>
+                                                        <th data-column-id="eqClass" data-width="5%">设备分类</th>
+                                                        <th data-column-id="unitName" data-width="10%"
+                                                            data-visible="false">维修单位
+                                                        </th>
+                                                        <th data-column-id="nodeState" data-width="5%">维修状态</th>
+                                                        <th data-column-id="nodeTime" data-width="8%" data-order="desc">
+                                                            处理时间
+                                                        </th>
+                                                        <th data-column-id="deadLine" data-width="8%">截止日期</th>
                                                     </tr>
                                                     </thead>
                                                 </table>

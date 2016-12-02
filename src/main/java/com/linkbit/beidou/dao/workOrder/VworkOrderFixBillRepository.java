@@ -53,7 +53,7 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
      * @param pageable
      * @return 模糊查询
      */
-    Page<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass, Pageable pageable);
+    Page<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContainsAndExpiredContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass, String expired, Pageable pageable);
 
 
     /**
@@ -63,5 +63,12 @@ public interface VworkOrderFixBillRepository extends PagingAndSortingRepository<
      * @param eqClass
      * @return 模糊查询
      */
-    List<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass);
+    List<VworkOrderFixBill> findByNodeStateContainsAndOrderLineNoContainsAndOrderDescContainsAndLocNameContainsAndEqClassContainsAndExpiredContains(String nodeStatus, String orderLineNo, String orderDesc, String location, String eqClass, String expired);
+
+
+    /**
+     * @return 统计已派工  已超期的工单数量
+     */
+    @Query(value = "select count(v)  from VworkOrderFixBill v where v.nodeState='已派工' and v.expired ='已超期' ")
+    Long findExpired();
 }

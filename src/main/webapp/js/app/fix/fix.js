@@ -1,12 +1,17 @@
 /**
  * Created by Administrator on 2016/7/22.
  */
+
+
+var expiredTab = $('#myTab li:eq(1) a');
 $(document).ready(function () {
 
     docName = "维修单信息";
     mainObject = "workOrderFix";
     //导出必须配置的两个量
     dataTableName = "#fixListTable0";
+
+    var dataTableName1 = "#expiredOrdersList";
 
 
     var url_location = "/commonData/findMyLoc";
@@ -37,24 +42,28 @@ $(document).ready(function () {
         {"param": "orderLineNo", "paramDesc": "跟踪号"},
         {"param": "orderDesc", "paramDesc": "故障描述"},
         {"param": "locName", "paramDesc": "设备位置"},
-        {"param": "eqClass", "paramDesc": "设备分类"}
+        {"param": "eqClass", "paramDesc": "设备分类"},
+        {"param": "expired", "paramDesc": "是否超期"}
 
     ];
+    initBootGrid(dataTableName);
+    initBootGrid(dataTableName1);
+    //  var expiredCount = $(dataTableName1).bootgrid("getTotalRowCount");
+    $("#expiredTip").html(getExpiredCount());
 
-    var cfg = {
-        columnSelection: 1,
-        rowCount: [10, 20, 25, -1],
-        formatters: {
-            "opMenus": function (column, row) {
-                return '<a class="btn btn-default btn-xs"  onclick="pause(' + row.id + ')" title="暂停" ><i class="glyphicon glyphicon-pause"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="abort(' + row.id + ')" title="取消" ><i class="glyphicon glyphicon glyphicon-remove-circle"></i></a>' +
-                    '<a class="btn btn-default btn-xs"  onclick="finish(' + row.id + ')" title="完工" ><i class="glyphicon glyphicon glyphicon-ok"></i></a>';
-            }
-        }
-    };
+    //计算超期 并且没有完工的工单数量
+    setInterval(function () {
+        $("#expiredTip").fadeOut(1000).fadeIn(1000);
+    }, 1000);
 
-    initBootGridMenu(dataTableName, cfg);
+
     search();
+
+
+    $(dataTableName + ":checkbox").on("check", function () {
+        console.log("this is checked");
+
+    })
 
     $("#saveFixDesc").on("click", function () {
         var orderId = $("#orderId").val();
@@ -75,6 +84,11 @@ $(document).ready(function () {
         $(this).tab('show');
     });
 
+
+    expiredTab.on("click", function () {
+        var searchPhase = "已派工,,,,,已超期,";
+        $(dataTableName1).bootgrid("setSearchPhrase", searchPhase).bootgrid("reload");
+    })
 });
 
 
@@ -88,18 +102,7 @@ function dealResult(orderId, operationType, operationDesc) {
 
 function dealResultDetail(orderId, operationType, operationDesc, fixDesc) {
     updateOrderStatus(orderId, operationType, operationDesc, fixDesc);
-}
-
-
-/**
- *
- * @param id 完工
- */
-function finish(id) {
-    var orderId = id;
-    var operationType = "finishDetail";
-    var operationDesc = "完工";
-    dealResult(orderId, operationType, operationDesc);
+    $(dataTableName).bootgrid("reload");
 }
 
 
@@ -151,12 +154,34 @@ function updateOrderStatus(orderId, operationType, operationDesc, fixDesc) {
         (data.result) ? showMessageBox("info", data['resultDesc']) : showMessageBox("danger", data['resultDesc']);
     });
 }
+
+
+/**
+ *
+ * @param id 完工
+ */
+function finish() {
+    var orderId = $(dataTableName).bootgrid("getSelectedRows")[0];
+    if (!orderId) {
+        showMessageBox("danger", "请选择一个要完工的工单！")
+        return;
+    }
+    var operationType = "finishDetail";
+    var operationDesc = "完工";
+    dealResult(orderId, operationType, operationDesc);
+}
+
+
 /**
  *
  * @param id 暂停
  */
-function pause(id) {
-    var orderId = id;
+function pause() {
+    var orderId = $(dataTableName).bootgrid("getSelectedRows")[0];
+    if (!orderId) {
+        showMessageBox("danger", "请选择一个要暂停的工单！")
+        return;
+    }
     var operationType = "pauseDetail";
     var operationDesc = "暂停";
     dealResult(orderId, operationType, operationDesc);
@@ -165,11 +190,31 @@ function pause(id) {
  *
  * @param id 取消
  */
-function abort(id) {
-    var orderId = id;
+function abort() {
+    var orderId = $(dataTableName).bootgrid("getSelectedRows")[0];
+    if (!orderId) {
+        showMessageBox("danger", "请选择一个要取消的工单！")
+        return;
+    }
     var operationType = "abortDetail";
     var operationDesc = "取消";
     dealResult(orderId, operationType, operationDesc);
 }
 
+
+function loadExpired(dataTableName1) {
+    var searchPhase = "已派工,,,,,已超期,";
+    $(dataTableName1).bootgrid("setSearchPhrase", searchPhase).bootgrid("reload");
+
+}
+
+
+function getExpiredCount() {
+    var expiredCount = 0;
+    var url = "/workOrderFix/findExpired";
+    $.getJSON(url, function (data) {
+        expiredCount = data;
+    });
+    return expiredCount;
+}
 

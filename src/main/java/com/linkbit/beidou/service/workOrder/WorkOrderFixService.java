@@ -33,7 +33,6 @@ public class WorkOrderFixService extends BaseService {
     @Autowired
     EquipmentsRepository equipmentsRepository;
 
-
     @Autowired
     LocationsService locationsService;
 
@@ -55,34 +54,6 @@ public class WorkOrderFixService extends BaseService {
     @Autowired
     VworkOrderFixBillRepository vworkOrderFixBillRepository;
 
-
-    /**
-     * @return 查询已派工的维修单
-     */
-    public List<WorkOrderReportCart> findDistributedOrders(String location) {
-        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已派工");
-    }
-
-    /**
-     * @return 查询已完工的维修单
-     */
-    public List<WorkOrderReportCart> findFinishOrders(String location) {
-        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已完工");
-    }
-
-    /**
-     * @return 查询已暂停的维修单
-     */
-    public List<WorkOrderReportCart> findPausedOrders(String location) {
-        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已暂停");
-    }
-
-    /**
-     * @return 查询已取消的维修单
-     */
-    public List<WorkOrderReportCart> findRemovedOrders(String location) {
-        return workOrderReportCartRepository.findByLocationStartingWithAndNodeState(location, "已取消");
-    }
 
 
     /**
@@ -138,57 +109,6 @@ public class WorkOrderFixService extends BaseService {
         return deadLine;
     }
 
-
-    /**
-     * @param status 状态
-     */
-    public void updateFixTaskStatus(String status) {
-        List<WorkOrderReportCart> workOrderReportCartList = workOrderReportCartRepository.findByNodeStateAndDeadLineLessThan(status, new Date());
-        for (WorkOrderReportCart workOrderReportCart : workOrderReportCartList) {
-            System.out.println(workOrderReportCart.getOrderLineNo());
-        }
-    }
-
-
-    /**
-     * @return 查询已派工的维修单
-     */
-    public List<VworkOrderFixBill> findByNodeStateAndLocation(String nodeState, String location) {
-
-        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeState(location, nodeState);
-
-    }
-
-
-    /**
-     * @param nodeState 节点状态
-     * @param location  位置编号
-     * @param orderDesc 维修单描述
-     * @param pageable  可分页
-     * @return 查询已派工的维修单
-     */
-    public Page<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContaining(String nodeState, String location, String orderDesc, Pageable pageable) {
-
-
-        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeStateAndOrderDescContainingOrderByNodeTimeDesc(location, nodeState, orderDesc, pageable);
-
-    }
-
-
-    /**
-     * @param nodeState 节点状态
-     * @param location  位置编号
-     * @param orderDesc 维修单描述
-     * @return 查询已派工的维修单
-     */
-    public List<VworkOrderFixBill> findByLocationStartingWithAndNodeStateAndOrderDescContaining(String location, String nodeState, String orderDesc) {
-
-
-        return vworkOrderFixBillRepository.findByLocationStartingWithAndNodeStateAndOrderDescContainingOrderByNodeTimeDesc(location, nodeState, orderDesc);
-
-    }
-
-
     /**
      * @param workOrderReportCart 工单信息
      * @param fixDesc             维修描述
@@ -215,5 +135,11 @@ public class WorkOrderFixService extends BaseService {
 
         }
         return workOrderHistory;
+    }
+
+
+    public Long findExpired() {
+
+        return vworkOrderFixBillRepository.findExpired();
     }
 }

@@ -30,11 +30,7 @@ $(function () {
     docName = "用户信息";
     mainObject = "user";
     //初始化从数据库获取列表数据
-
-
     searchModel = [{"param": "userName", "paramDesc": "用户名称"}, {"param": "location", "paramDesc": "位置"}];
-
-
     locs = findMyLoc();
 
     var person_location = "/commonData/findActivePerson";

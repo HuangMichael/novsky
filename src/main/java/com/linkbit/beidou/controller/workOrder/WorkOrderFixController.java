@@ -89,7 +89,7 @@ public class WorkOrderFixController extends BaseController {
      * @return 显示维修工单列表
      */
 
-    @RequestMapping(value = "/data/{ns}", method = RequestMethod.POST)
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
     public MyPage data(HttpServletRequest request,
                        @RequestParam(value = "current", defaultValue = "0") int current,
@@ -97,7 +97,28 @@ public class WorkOrderFixController extends BaseController {
                        @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         Map<String, String[]> parameterMap = request.getParameterMap();
         Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
-        return new PageUtils().searchBySortService(workOrderFixSearchService, searchPhrase, 5, current, rowCount, pageable);
+        return new PageUtils().searchBySortService(workOrderFixSearchService, searchPhrase, 6, current, rowCount, pageable);
+
+    }
+
+
+    /**
+     * @param request
+     * @param current
+     * @param rowCount
+     * @param searchPhrase
+     * @return 显示维修工单列表
+     */
+
+    @RequestMapping(value = "/expiredCount", method = RequestMethod.POST)
+    @ResponseBody
+    public MyPage expiredCount(HttpServletRequest request,
+                               @RequestParam(value = "current", defaultValue = "0") int current,
+                               @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount,
+                               @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
+        return new PageUtils().searchBySortService(workOrderFixSearchService, searchPhrase, 6, current, rowCount, pageable);
 
     }
 
@@ -189,9 +210,17 @@ public class WorkOrderFixController extends BaseController {
                             @RequestParam("docName") String docName,
                             @RequestParam("titles") String titles[],
                             @RequestParam("colNames") String[] colNames) {
-        List<VworkOrderFixBill> dataList = workOrderFixSearchService.findByConditions(param, 5);
+        List<VworkOrderFixBill> dataList = workOrderFixSearchService.findByConditions(param, 6);
         workOrderFixService.setDataList(dataList);
         workOrderFixService.exportExcel(request, response, docName, titles, colNames);
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/findExpired", method = RequestMethod.GET)
+    public Long findExpired() {
+
+        return workOrderFixService.findExpired();
     }
 
 }

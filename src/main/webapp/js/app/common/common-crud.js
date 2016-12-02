@@ -271,9 +271,6 @@ function findAllRecordId() {
 function exportExcel() {
     var param = $(dataTableName).bootgrid("getSearchPhrase");
     var columnSettings = $(dataTableName).bootgrid("getColumnSettings");
-
-    console.log("getSearchPhrase---------------" + param);
-
     var titles = [];
     var colNames = [];
     for (var x in columnSettings) {
@@ -455,7 +452,6 @@ function findMyLoc() {
     var url_location = "/commonData/findMyLoc";
     $.getJSON(url_location, function (data) {
         locs = data;
-        console.log(JSON.stringify(locs));
     });
     return locs;
 }
@@ -480,7 +476,6 @@ function findEqClass() {
     var url_eqclass = "/commonData/findVEqClass";
     $.getJSON(url_eqclass, function (data) {
         eqClasses = data;
-        console.log("data--------------------" + JSON.stringify(data));
     });
     return eqClasses;
 }
