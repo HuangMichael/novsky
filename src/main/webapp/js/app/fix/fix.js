@@ -48,7 +48,6 @@ $(document).ready(function () {
     ];
     initBootGrid(dataTableName);
     initBootGrid(dataTableName1);
-    //  var expiredCount = $(dataTableName1).bootgrid("getTotalRowCount");
     $("#expiredTip").html(getExpiredCount());
 
     //计算超期 并且没有完工的工单数量
@@ -103,6 +102,8 @@ function dealResult(orderId, operationType, operationDesc) {
 function dealResultDetail(orderId, operationType, operationDesc, fixDesc) {
     updateOrderStatus(orderId, operationType, operationDesc, fixDesc);
     $(dataTableName).bootgrid("reload");
+    //更新超期
+    $("#expiredTip").html(getExpiredCount());
 }
 
 
@@ -199,13 +200,6 @@ function abort() {
     var operationType = "abortDetail";
     var operationDesc = "取消";
     dealResult(orderId, operationType, operationDesc);
-}
-
-
-function loadExpired(dataTableName1) {
-    var searchPhase = "已派工,,,,,已超期,";
-    $(dataTableName1).bootgrid("setSearchPhrase", searchPhase).bootgrid("reload");
-
 }
 
 

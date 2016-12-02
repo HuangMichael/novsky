@@ -37,7 +37,7 @@
 
                                                     <div class="col-md-1">
                                                         <select class="form-control" id="nodeState" name="nodeState"
-                                                                 onchange="search()"
+                                                                onchange="search()"
                                                                 required>
                                                             <option selected>已派工</option>
                                                             <option>已完工</option>
@@ -76,7 +76,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-1">
-                                                        <select class="form-control" id="expired" name="expired" onchange="search()"
+                                                        <select class="form-control" id="expired" name="expired"
+                                                                onchange="search()"
                                                                 required>
                                                             <option selected value="">全部</option>
                                                             <option>未超期</option>
@@ -124,15 +125,11 @@
                                             <div class="tab-pane fade in " id="tab_1_1">
                                                 <table id="expiredOrdersList"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
-                                                       data-toggle="bootgrid" data-ajax="true" data-rowSelect="true"
-                                                       data-selection="true"
+                                                       data-toggle="bootgrid" data-ajax="true"
                                                        data-url="/workOrderFix/expiredCount">
                                                     <thead>
                                                     <tr>
                                                         <th data-column-id="orderLineNo" data-width="8%">跟踪号</th>
-                                                        <th data-column-id="id" data-type="numeric"
-                                                            data-identifier="true" data-visible="false">ID
-                                                        </th>
                                                         <th data-column-id="eqName" data-width="10%">设备名称</th>
                                                         <th data-column-id="locName" data-width="8%">设备位置</th>
                                                         <th data-column-id="orderDesc" data-width="15%">故障描述</th>
