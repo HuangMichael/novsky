@@ -50,7 +50,6 @@ $(function () {
     mainObject = "units";
     formName = "#detailForm";
     docName = "外委单位信息";
-
     searchModel = [{"param": "description", "paramDesc": "单位名称"}, {"param": "linkMan", "paramDesc": "联系人"}];
     initBootGrid(dataTableName);
     initSelect();
@@ -58,12 +57,14 @@ $(function () {
     ids = findAllRecordId();
     selectedIds = ids;
     validateForm.call(validationConfig);
+    var units = findById(ids[0]);
     vdm = new Vue({
         el: formName,
         data: {
-            units: findById(selectedIds[pointer])
+            "units": units
         }
     });
+    setFormReadStatus(formName, true);
 })
 
 

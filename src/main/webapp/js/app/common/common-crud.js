@@ -120,7 +120,6 @@ function findById(id) {
  */
 function backwards() {
     pointer = pointer ? pointer : 0;
-    console.log("pointer--------------" + pointer);
     if (pointer <= 0) {
         showMessageBoxCenter("danger", "center", "当前记录是第一条");
     } else {
@@ -135,8 +134,6 @@ function backwards() {
 function forwards() {
 
     pointer = pointer ? pointer : 0;
-
-    console.log("pointer--------------" + pointer);
     if (pointer >= selectedIds.length - 1) {
         showMessageBoxCenter("danger", "center", "当前记录是最后一条");
 
@@ -258,10 +255,12 @@ function setFormReadStatus(formId, formLocked) {
  *查询所有的id
  * */
 function findAllRecordId() {
+    $.ajaxSettings.async = false;
     var url = getMainObject() + "/findAllIds";
     $.getJSON(url, function (data) {
         ids = data;
     });
+    console.log("ids----------" + JSON.stringify(ids));
     return ids;
 }
 
@@ -564,7 +563,10 @@ $(function () {
 
 
     $(formTab).on("click", function () {
-        vdm.$set(getMainObject(), findById(selectedIds[0]));
+        selectedIds = findAllRecordId();
+        pointer = 0;
+        var obj = findById(selectedIds[pointer]);
+        vdm.$set(getMainObject(), obj);
         setFormReadStatus(formName, true);
     })
 
