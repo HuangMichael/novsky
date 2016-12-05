@@ -59,9 +59,11 @@ $(document).ready(function () {
     search();
 
 
-    $(dataTableName + ":checkbox").on("check", function () {
-        console.log("this is checked");
-
+    $(":checkbox").on("click", function () {
+        if ($(this).prop("checked")) {
+            $(this).siblings().attr("checked",false);
+            $(this).attr("checked",true);
+        }
     })
 
     $("#saveFixDesc").on("click", function () {

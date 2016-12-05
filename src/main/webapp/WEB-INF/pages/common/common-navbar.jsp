@@ -24,7 +24,7 @@
         <ul class="nav navbar-nav pull-right">
 
             <li class="dropdown" id="header-notification">
-                <a class="dropdown-toggle" data-toggle="dropdown" id="reportOrder">
+                <a class="dropdown-toggle" data-toggle="dropdown" id="reportOrder" title="报修车信息">
                     <i class="fa fa-bell"></i>
                     <span class="badge" id="reportOrderSize"></span>
 
@@ -35,7 +35,19 @@
                     </li>
                     <div id="orderBox"></div>
                 </ul>
+
+
             </li>
+
+
+            <li class="dropdown" id="header-notification2">
+                <a class="dropdown-toggle" data-toggle="dropdown" id="expiredOrder" title="超期工单信息">
+                    <i class="fa fa-bell-o"></i>
+                    <span class="badge" id="expiredOrderSize"></span>
+                </a>
+            </li>
+
+
             <li class="dropdown user" id="header-user">
                 <a onclick="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                     <img alt="" src="img/avatars/avatar3.jpg"/>
