@@ -147,6 +147,7 @@
      * @returns {number} 查询过期的工单数量
      */
     function getExpiredCount() {
+        $.ajaxSettings.async = false;
         var expiredCount = 0;
         var url = "/workOrderFix/findExpired";
         $.getJSON(url, function (data) {
