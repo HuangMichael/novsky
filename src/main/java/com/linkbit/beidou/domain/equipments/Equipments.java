@@ -68,6 +68,11 @@ public class Equipments {
     private Locations locations;  //所属位置
 
 
+    @ManyToOne( fetch = FetchType.LAZY)
+    @JoinColumn(name = "vlocations_id", referencedColumnName = "id")
+    private Vlocations vlocations;  //所属位置
+
+
 
    /* @Transient
     @ManyToOne( fetch = FetchType.LAZY)

@@ -2,14 +2,20 @@ package com.linkbit.beidou.controller.locations;
 
 import com.linkbit.beidou.controller.common.BaseController;
 import com.linkbit.beidou.dao.equipments.VequipmentsRepository;
+import com.linkbit.beidou.dao.locations.VlocationsRepository;
+import com.linkbit.beidou.domain.equipments.Equipments;
 import com.linkbit.beidou.domain.equipments.Vequipments;
 import com.linkbit.beidou.domain.locations.Locations;
+import com.linkbit.beidou.domain.locations.Vlocations;
 import com.linkbit.beidou.domain.user.User;
 import com.linkbit.beidou.object.ReturnObject;
 import com.linkbit.beidou.service.app.ResourceService;
 import com.linkbit.beidou.service.commonData.CommonDataService;
+import com.linkbit.beidou.service.equipments.EquipmentAccountService;
 import com.linkbit.beidou.service.locations.LocationsService;
 import com.linkbit.beidou.utils.SessionUtil;
+import com.linkbit.beidou.utils.importer.tool.ImportService;
+import com.linkbit.beidou.utils.importer.tool.Importable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +47,16 @@ public class LocationController extends BaseController {
     VequipmentsRepository vequipmentsRepository;
     @Autowired
     CommonDataService commonDataService;
+
+
+    @Autowired
+    ImportService importService;
+
+    @Autowired
+    EquipmentAccountService equipmentAccountService;
+
+    @Autowired
+    VlocationsRepository vlocationsRepository;
 
 
     /**
@@ -182,5 +199,38 @@ public class LocationController extends BaseController {
     public String loadReportForm() {
         return "/location/locationReport2";
     }
+
+
+    /**
+     * @return 根据上级节点id查询
+     */
+    @RequestMapping(value = "/importData/{id}")
+    public ReturnObject importData(@PathVariable("id") Long locationId) {
+
+        String filePath = "d://设备信息.xls";
+        List<String> columnList = new ArrayList<String>();
+        columnList.add("EqCode");
+        columnList.add("Description");
+        columnList.add("Manager");
+        String packageName = "com.linkbit.beidou.domain.equipments.Equipments";
+        List<Equipments> equipmentsList = null;
+        try {
+            equipmentsList = importService.assembleList(filePath, packageName, columnList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return commonDataService.getReturnType(false, "数据导入成功!", "数据路径有误!");
+        }
+
+        Locations locations = locationsService.findById(locationId);
+        for (Equipments equipments : equipmentsList) {
+            equipments.setLocations(locations);
+            equipments.setLocation(locations.getLocation());
+            equipments.setVlocations(vlocationsRepository.findById(locationId));
+            equipments.setStatus("1");
+        }
+        importService.importData(equipmentAccountService, equipmentsList);
+        return commonDataService.getReturnType(true, "数据导入成功!", "数据导入失败!");
+    }
+
 
 }

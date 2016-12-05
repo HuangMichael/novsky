@@ -79,5 +79,13 @@ public class BaseService {
 
     }
 
+    /**
+     * @param list 批量保存
+     */
+    public void save(List list) {
+
+
+    }
+
 
 }

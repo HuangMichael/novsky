@@ -366,3 +366,19 @@ function loadEqList(locationId) {
         }
     });
 }
+
+
+/**
+ * 导入数据
+ */
+function importData() {
+    var id = getSelectedNodeId();
+    if (!id) {
+        showMessageBox("danger", "请选中要导入的位置!");
+        return;
+    }
+    var url = mainObject + "/importData/" + id;
+    $.getJSON(url, function (data) {
+        showMessageBox(data.result ? "info" : "danger", data["resultDesc"]);
+    })
+}
