@@ -19,6 +19,7 @@ var eqs = [];
 var stations = [];
 var units = []; //外委单位信息
 var searchModel = [];
+var expiredCount = 0;
 
 
 /**

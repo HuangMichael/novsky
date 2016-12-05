@@ -128,7 +128,32 @@
                 $("#orderBox").html(html)
             })
         });
+        var expiredCount = getExpiredCount();
+
+        $("#expiredOrder").on("click", function () {
+            var url = "workOrderFix/list";
+            $("#main-content").load(url, function () {
+                $(this).removeData("url");
+                var formTab = $('#myTab li:eq(1) a');
+                formTab.tab('show');
+                $("#expiredOrderSize").html(expiredCount);
+            });
+        });
     });
 
+
+    /**
+     *
+     * @returns {number} 查询过期的工单数量
+     */
+    function getExpiredCount() {
+        var expiredCount = 0;
+        var url = "/workOrderFix/findExpired";
+        $.getJSON(url, function (data) {
+            expiredCount = data;
+            $("#expiredOrderSize").html(expiredCount);
+        });
+        return expiredCount;
+    }
 
 </script>

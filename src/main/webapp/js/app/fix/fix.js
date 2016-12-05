@@ -89,6 +89,7 @@ $(document).ready(function () {
     expiredTab.on("click", function () {
         var searchPhase = "已派工,,,,,已超期,";
         $(dataTableName1).bootgrid("setSearchPhrase", searchPhase).bootgrid("reload");
+        $("#expiredOrderSize").html(expiredCount);
     })
 });
 
@@ -105,7 +106,7 @@ function dealResultDetail(orderId, operationType, operationDesc, fixDesc) {
     updateOrderStatus(orderId, operationType, operationDesc, fixDesc);
     $(dataTableName).bootgrid("reload");
     //更新超期
-    $("#expiredTip").html(getExpiredCount());
+    $("#expiredTip").html(expiredCount);
 }
 
 
@@ -205,12 +206,5 @@ function abort() {
 }
 
 
-function getExpiredCount() {
-    var expiredCount = 0;
-    var url = "/workOrderFix/findExpired";
-    $.getJSON(url, function (data) {
-        expiredCount = data;
-    });
-    return expiredCount;
-}
+
 
