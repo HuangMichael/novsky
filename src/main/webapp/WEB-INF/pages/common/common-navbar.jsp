@@ -135,7 +135,7 @@
             $("#main-content").load(url, function () {
                 $(this).removeData("url");
                 var formTab = $('#myTab li:eq(1) a');
-                formTab.tab('show');
+                formTab.trigger("click");
                 $("#expiredOrderSize").html(expiredCount);
             });
         });
