@@ -3,6 +3,7 @@ package com.subway.service.equipments;
 import com.subway.dao.equipments.VEqRepository;
 import com.subway.domain.equipments.Vequipments;
 import com.subway.service.app.BaseService;
+import com.subway.utils.dataAuth.DataSeparatable;
 import com.subway.utils.search.SortedSearchable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,14 +17,14 @@ import java.util.List;
  * 设备查询类
  */
 @Service
-public class EquipmentSearchService extends BaseService implements SortedSearchable {
+public class EquipmentSearchService extends BaseService implements SortedSearchable,DataSeparatable {
 
     @Autowired
     VEqRepository vEqRepository;
 
     public Page<Vequipments> findByConditions(String searchPhrase, int paramsSize, Pageable pageable) {
-        String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3], pageable);
+        String array[] = super.assembleSearchArray(searchPhrase, paramsSize,true,"");
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContainsAndLocationContains(array[0], array[1], array[2], array[3],array[4], pageable);
     }
 
 
@@ -34,6 +35,12 @@ public class EquipmentSearchService extends BaseService implements SortedSearcha
 
     public List<Vequipments> findByConditions(String searchPhrase, int paramsSize) {
         String array[] = super.assembleSearchArray(searchPhrase, paramsSize);
-        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(array[0], array[1], array[2], array[3]);
+        return vEqRepository.findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContainsAndLocationContains(array[0], array[1], array[2], array[3], array[4]);
+    }
+
+
+
+    public void addConditionToService() {
+
     }
 }

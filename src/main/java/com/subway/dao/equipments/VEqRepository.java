@@ -15,22 +15,6 @@ import java.util.List;
  * 设备信息查询接口
  */
 public interface VEqRepository extends PagingAndSortingRepository<Vequipments, Long>, JpaSpecificationExecutor<Vequipments> {
-
-
-    /**
-     * @param eqName   设备名称
-     * @param pageable 根据设备名称查询
-     * @return
-     */
-    Page<Vequipments> findByEqNameContains(String eqName, Pageable pageable);
-
-
-    /**
-     * @param eqName 设备名称
-     * @return
-     */
-    List<Vequipments> findByEqNameContains(String eqName);
-
     /**
      * @param pageable
      * @return
@@ -55,25 +39,16 @@ public interface VEqRepository extends PagingAndSortingRepository<Vequipments, L
      * @param pageable 分页属性
      * @return
      */
-    Page<Vequipments> findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(String eqCode, String eqName, String locName, String eqClass, Pageable pageable);
+    Page<Vequipments> findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContainsAndLocationContains(String eqCode, String eqName, String locName, String eqClass, String location, Pageable pageable);
 
 
     /**
-     * @param eqCode   设备编号
-     * @param eqName   设备名称
-     * @param locName  设备位置
-     * @param eqClass  设备分类
+     * @param eqCode  设备编号
+     * @param eqName  设备名称
+     * @param locName 设备位置
+     * @param eqClass 设备分类
      * @return
      */
-    List<Vequipments> findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContains(String eqCode, String eqName, String locName, String eqClass);
-
-
-    /**
-     * @param eqName
-     * @param locations
-     * @param pageable
-     * @return 根据设备名称和设备位置过滤
-     */
-    Page<Vequipments> findByEqNameContainsAndLocation(String eqName, Locations locations, Pageable pageable);
+    List<Vequipments> findByEqCodeContainsAndEqNameContainsAndLocNameContainsAndEqClassContainsAndLocationContains(String eqCode, String eqName, String locName, String eqClass, String location);
 
 }

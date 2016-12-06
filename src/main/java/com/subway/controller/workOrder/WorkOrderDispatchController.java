@@ -55,8 +55,8 @@ public class WorkOrderDispatchController extends BaseController {
         List<WorkOrderReportCart> workOrderReportDetailList = null;
 
         List<Units> unitList = null;
-        if (user != null && user.getLocation() != null) {
-            workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWithAndNodeState(user.getLocation(), "已报修");
+        if (user != null && user.getVlocations() != null) {
+            workOrderReportDetailList = workOrderReportCartService.findByLocationStartingWithAndNodeState(user.getVlocations().getLocation(), "已报修");
             unitList = outsourcingUnitRepository.findByStatus("1");
             modelMap.put("workOrderReportDetailList", workOrderReportDetailList);
             modelMap.put("unitList", unitList);

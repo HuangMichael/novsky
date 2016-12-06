@@ -73,7 +73,7 @@ public interface UserRepository extends CrudRepository<User, Long>, PagingAndSor
      * @param location
      * @return
      */
-    List<User> findByUserNameContainsAndLocationStartingWith(String userName, String location);
+    List<User> findByUserNameContainsAndVlocations_LocationStartingWith(String userName, String location);
 
 
     /**
@@ -82,7 +82,7 @@ public interface UserRepository extends CrudRepository<User, Long>, PagingAndSor
      * @param pageable
      * @return
      */
-    Page<User> findByUserNameContainsAndLocationStartingWith(String userName, String location, Pageable pageable);
+    Page<User> findByUserNameContainsAndVlocations_LocationStartingWith(String userName, String location, Pageable pageable);
 
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,6 +67,28 @@ public class BaseService {
 
 
     /**
+     * @param searchPhrase
+     * @param paramSize
+     * @param separatable
+     * @return 组装查询参数数组
+     */
+    public String[] assembleSearchArray(String searchPhrase, int paramSize, Boolean separatable, String location) {
+        String array[] = new String[paramSize + 1];
+        if (!searchPhrase.isEmpty()) {
+            array = searchPhrase.split(",", paramSize + 1);
+        } else {
+            for (int i = 0; i < paramSize; i++) {
+                array[i] = "";
+            }
+        }
+        if (separatable) {
+            array[paramSize] = location;
+        }
+        return array;
+    }
+
+
+    /**
      * @param sortArray
      * @return 组装排序属性对象
      */
@@ -86,9 +109,6 @@ public class BaseService {
 
 
     }
-
-
-
 
 
 }

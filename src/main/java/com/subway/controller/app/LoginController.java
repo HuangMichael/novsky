@@ -108,7 +108,7 @@ public class LoginController {
             returnObject.setResult(true);
             returnObject.setResultDesc("用户登录成功");
             User currentUser = userList.get(0);
-            List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
+            List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getVlocations().getLocation());
             List<VeqClass> veqClassList = commonDataService.findVeqClass(session);
             session.setAttribute("currentUser", currentUser);
             session.setAttribute("personName", currentUser.getPerson().getPersonName());

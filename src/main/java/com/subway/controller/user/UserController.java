@@ -123,7 +123,7 @@ public class UserController extends BaseController {
         user.setPerson(personRepository.findById(personId));
         Vlocations vlocations = vlocationsRepository.findById(locationId);
         user.setVlocations(vlocations);
-        user.setLocation(vlocations.getLocation());
+      //  user.setLocation(vlocations.getLocation());
         user = userService.createUser(user);
         ReturnObject returnObject = new ReturnObject();
         returnObject.setResult(user != null);

@@ -60,10 +60,10 @@ public class UserService extends BaseService {
         if (user.getPassword() == null) {
             user.setPassword(MD5Util.md5("123456"));
         }
-        if (user.getLocation() == null) {
+    /*    if (user.getLocation() == null) {
            // System.out.println("user.getVlocations()-----" + user.getVlocations().getLocName());
             user.setLocation("BJ");
-        }
+        }*/
         if (user.getSortNo() == 0) {
             user.setSortNo(1l);
         }
@@ -94,7 +94,7 @@ public class UserService extends BaseService {
         Vlocations vlocations = vlocationsRepository.findById(locationId);
         user.setPerson(person);
         user.setVlocations(vlocations);
-        user.setLocation(vlocations.getLocation());
+       // user.setLocation(vlocations.getLocation());
         user.setStatus(status);
         return userRepository.save(user);
     }

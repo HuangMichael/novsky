@@ -73,7 +73,7 @@ public class WorkOrderFixController extends BaseController {
     @RequestMapping(value = "/list2", method = RequestMethod.GET)
     public String list2(ModelMap modelMap, HttpSession session) {
         User user = SessionUtil.getCurrentUserBySession(session);
-        String location = user.getLocation();
+        String location = user.getVlocations().getLocation();
         //查询出已派工的维修单*/
         return "/workOrderFix/list";
     }

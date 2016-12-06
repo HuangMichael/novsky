@@ -54,7 +54,7 @@ public class SessionUtil {
         User user = (User) session.getAttribute("currentUser");
         String location = null;
         if (user != null) {
-            location = user.getLocation();
+            location = user.getVlocations().getLocation();
         }
         return location;
     }

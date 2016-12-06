@@ -403,8 +403,8 @@ public class CommonDataService extends BaseService {
 
         List<Line> lineList = lineService.findByStatus("1");
         List<Station> stationList = stationService.findByStatus("1");
-        List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation());
-        List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getLocation(), "1");
+        List<Vlocations> locationsList = locationsService.findByLocationStartingWithAndStatus(currentUser.getVlocations().getLocation());
+        List<Locations> locList = locationsService.findByLocationStartingWithAndStatus(currentUser.getVlocations().getLocation(), "1");
         List<VeqClass> veqClassList = veqClassRepository.findAll();
         List<Resource> menusList = findMenus(session);
         session.setAttribute("locationsList", locationsList);

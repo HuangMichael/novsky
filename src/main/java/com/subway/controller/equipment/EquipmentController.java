@@ -22,6 +22,7 @@ import com.subway.service.equipments.EquipmentSearchService;
 import com.subway.service.locations.LocationsService;
 import com.subway.utils.LocationSeparatable;
 import com.subway.utils.PageUtils;
+import com.subway.utils.SessionUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,8 @@ public class EquipmentController extends BaseController implements LocationSepar
     /**
      * 分页查询
      *
+     * @param session
+     * @param request
      * @param current      当前页
      * @param rowCount     每页条数
      * @param searchPhrase 查询关键字
@@ -103,11 +106,14 @@ public class EquipmentController extends BaseController implements LocationSepar
      */
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public MyPage data(HttpServletRequest request, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
-
+    public MyPage data(HttpSession session, HttpServletRequest request, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
+        String location = SessionUtil.getCurrentUserLocationBySession(session);
         Map<String, String[]> parameterMap = request.getParameterMap();
+        if (separatable) {
+            searchPhrase += location + ",";
+        }
         Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
-        return new PageUtils().searchBySortService(equipmentSearchService, searchPhrase, 4, current, rowCount, pageable);
+        return new PageUtils().searchBySortService(equipmentSearchService, searchPhrase, 5, current, rowCount, pageable);
     }
 
 
@@ -119,7 +125,7 @@ public class EquipmentController extends BaseController implements LocationSepar
     @ResponseBody
     public List<Vequipments> findMyEqs(HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
-        String userLocation = user.getLocation();
+        String userLocation = user.getVlocations().getLocation();
         return vequipmentsRepository.findByLocationStartingWith(userLocation);
     }
 
