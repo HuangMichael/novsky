@@ -20,7 +20,7 @@ public class VeqClass {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(length = 50,name = "c_name")
+    @Column(length = 50,name = "cname")
     private String cname;
 }
 

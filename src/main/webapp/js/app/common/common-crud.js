@@ -21,6 +21,8 @@ var units = []; //外委单位信息
 var searchModel = [];
 var expiredCount = 0;
 
+var formReadOnly = true;
+
 
 /**
  *
@@ -160,7 +162,8 @@ function add() {
  * 编辑记录 使文本框可编辑
  */
 function edit() {
-    setFormReadStatus(formName, false);
+    formReadOnly = !formReadOnly;
+    setFormReadStatus(formName, formReadOnly);
 }
 
 

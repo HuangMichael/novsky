@@ -25,9 +25,8 @@
 
             <li class="dropdown" id="header-notification">
                 <a class="dropdown-toggle" data-toggle="dropdown" id="reportOrder" title="报修车信息">
-                    <i class="fa fa-bell"></i>
+                    <i class="fa fa-bell-o"></i>
                     <span class="badge" id="reportOrderSize"></span>
-
                 </a>
                 <ul class="dropdown-menu notification">
                     <li class="dropdown-title">
@@ -35,14 +34,12 @@
                     </li>
                     <div id="orderBox"></div>
                 </ul>
-
-
             </li>
 
 
             <li class="dropdown" id="header-notification2">
                 <a class="dropdown-toggle" data-toggle="dropdown" id="expiredOrder" title="超期工单信息">
-                    <i class="fa fa-bell-o"></i>
+                    <i class="fa fa-comment-o"></i>
                     <span class="badge" id="expiredOrderSize"></span>
                 </a>
             </li>
