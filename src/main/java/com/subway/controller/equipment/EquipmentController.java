@@ -370,8 +370,12 @@ public class EquipmentController extends BaseController implements LocationSepar
      */
     @ResponseBody
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public void exportExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
-        List<Vequipments> dataList = equipmentSearchService.findByConditions(param, 4);
+    public void exportExcel(HttpSession session,HttpServletRequest request, HttpServletResponse response, @RequestParam("param") String param, @RequestParam("docName") String docName, @RequestParam("titles") String titles[], @RequestParam("colNames") String[] colNames) {
+        String location = SessionUtil.getCurrentUserLocationBySession(session);
+        if (separatable) {
+            param += location + ",";
+        }
+        List<Vequipments> dataList = equipmentSearchService.findByConditions(param, 5);
         equipmentSearchService.setDataList(dataList);
         equipmentSearchService.exportExcel(request, response, docName, titles, colNames);
     }

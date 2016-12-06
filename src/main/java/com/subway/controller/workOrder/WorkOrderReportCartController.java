@@ -130,20 +130,6 @@ public class WorkOrderReportCartController extends BaseController {
     }
 
 
-   /* *//**
-     * @param lid
-     * @param modelMap
-     * @return 在加入报修车之前检查是否已有该设备报修未完成的维修任务 objectList
-     *//*
-    @RequestMapping(value = "/loadWorkOrderStep/{lid}", method = RequestMethod.GET)
-    public String loadWorkOrderStep(@PathVariable("lid") Long lid, ModelMap modelMap) {
-        Locations locations = locationsService.findById(lid);
-        List<VworkOrderStep> vworkOrderStepList = workOrderReportCartService.findByLocations(locations);
-        modelMap.put("vworkOrderStepList", vworkOrderStepList);
-        return "/location/locList";
-    }*/
-
-
     /**
      * @param locationId 位置id
      * @return 在加入报修车之前检查是否已有该位置报修未完成的维修任务
