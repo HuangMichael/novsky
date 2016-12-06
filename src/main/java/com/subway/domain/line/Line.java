@@ -1,5 +1,6 @@
 package com.subway.domain.line;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Line implements java.io.Serializable {
     @Column(length = 1)
     private String status;
     private Long sortNo; //排序
+    @JsonBackReference("stationList")
     @OneToMany(mappedBy = "line")
     List<Station> stationList = new ArrayList<Station>();
     @Column(length = 1)
