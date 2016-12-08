@@ -89,7 +89,7 @@ $(document).ready(function () {
     expiredTab.on("click", function () {
         var searchPhase = "已派工,,,,,已超期,";
         $(dataTableName1).bootgrid("setSearchPhrase", searchPhase).bootgrid("reload");
-        $("#expiredOrderSize").html(expiredCount);
+        //$("#expiredOrderSize").html(expiredCount);
     })
 });
 
