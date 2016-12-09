@@ -24,10 +24,6 @@ public class Units implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //Fields
-    @Column(length = 20, unique = true, nullable = false)
-    private String unitNo; //编码
-
     @Column(length = 200)
     private String description;//外委单位名称
 
@@ -37,11 +33,6 @@ public class Units implements java.io.Serializable {
     @Column(length = 20)
     private String telephone;//联系电话
 
-    @Temporal(TemporalType.DATE)
-    private Date beginDate; //合同开始日期
-
-    @Temporal(TemporalType.DATE)
-    private Date endDate;  //合同结束日期
 
     @Column(length = 1, columnDefinition = "default '1'")
     private String status;  //使用状态

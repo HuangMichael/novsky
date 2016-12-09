@@ -43,7 +43,6 @@ public class UnitsController extends BaseController {
     UnitSearchService unitSearchService;
 
 
-
     /**
      * 分页查询
      *
@@ -58,7 +57,7 @@ public class UnitsController extends BaseController {
     public MyPage data(HttpServletRequest request, @RequestParam(value = "current", defaultValue = "0") int current, @RequestParam(value = "rowCount", defaultValue = "10") Long rowCount, @RequestParam(value = "searchPhrase", required = false) String searchPhrase) {
         Map<String, String[]> parameterMap = request.getParameterMap();
         Pageable pageable = new PageRequest(current - 1, rowCount.intValue(), super.getSort(parameterMap));
-        return new PageUtils().searchBySortService(unitSearchService, searchPhrase, 2, current, rowCount,pageable);
+        return new PageUtils().searchBySortService(unitSearchService, searchPhrase, 2, current, rowCount, pageable);
     }
 
 
@@ -99,15 +98,14 @@ public class UnitsController extends BaseController {
 
     @RequestMapping(value = "/saveLink", method = RequestMethod.POST)
     @ResponseBody
-    public List<Units> saveLink(@RequestParam("unitNo") String unitNo,
-                                @RequestParam("description") String description,
-                                @RequestParam("linkman") String linkman,
-                                @RequestParam("telephone") String telephone,
-                                @RequestParam("eqClassId") Long eqClassId,
-                                @RequestParam("workDays") String workDays
+    public List<Units> saveLink(
+            @RequestParam("description") String description,
+            @RequestParam("linkman") String linkman,
+            @RequestParam("telephone") String telephone,
+            @RequestParam("eqClassId") Long eqClassId,
+            @RequestParam("workDays") String workDays
     ) {
         Units units = new Units();
-        units.setUnitNo(unitNo);
         units.setDescription(description);
         units.setLinkman(linkman);
         units.setTelephone(telephone);
@@ -172,17 +170,6 @@ public class UnitsController extends BaseController {
         Units unit = outsourcingUnitRepository.findById(uid);
         modelMap.put("unit", unit);
         return "/units/" + pageUrl;
-    }
-
-
-    /**
-     * @param unitNo 单位编号
-     * @return 查询单位编号是否存在
-     */
-    @RequestMapping(value = "/checkUnitCodeExists/{unitNo}", method = RequestMethod.GET)
-    @ResponseBody
-    public Boolean checkUnitCodeExists(@PathVariable("unitNo") String unitNo) {
-        return unitService.unitNoExists(unitNo);
     }
 
 

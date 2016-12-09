@@ -109,13 +109,6 @@
             <div class="modal-body" id="addUnitBody">
                 <form class="form-horizontal" role="form" id="createForm">
                     <div class="form-group">
-                        <label for="unitNo" class="col-md-2 control-label">单位编号</label>
-
-                        <div class="col-md-10">
-                            <input class="form-control" name="unit.unitNo" id="unitNo" required/>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label for="description" class="col-md-2 control-label">单位名称</label>
 
                         <div class="col-md-10">
@@ -137,8 +130,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger"
-                                onclick="createUnit()">保存记录
+                        <button type="button" id="saveBtn" name="saveBtn" class="btn btn-primary btn-danger">保存记录
                         </button>
                     </div>
                 </form>
@@ -156,9 +148,10 @@
         }
         $.post(url, data, function (data) {
             if (data.result) {
-                showMessageBox("info", data.resultDesc);
+                showMessageBox("info", data["resultDesc"]);
             } else {
-                showMessageBox("danger", data.resultDesc);
+                showMessageBox("danger", data["resultDesc"]);
             }
         });
-    }</script>
+    }
+</script>

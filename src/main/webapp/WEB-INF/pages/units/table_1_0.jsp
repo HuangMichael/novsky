@@ -6,7 +6,6 @@
     <tr>
         <th data-column-id="id" data-width="5%">序号</th>
         <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
-        <th data-column-id="unitNo" width="10%">单位编号</th>
         <th data-column-id="description" width="20%">单位名称</th>
         <th data-column-id="linkman" width="10%">联系人</th>
         <th data-column-id="telephone" width="10%">电话</th>

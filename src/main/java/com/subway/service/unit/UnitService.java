@@ -56,19 +56,6 @@ public class UnitService extends BaseService {
         return unitsRepository.findUnitListByEqClassIdEq(eqClassId);
     }
 
-   /* *//**
-     * @param eqClassId
-     * @return 根据设备分类查询非该分类对应的外委单位信息 id 描述
-     *//*
-    public List<Object> findUnitListByEqClassIdNotEq(Long eqClassId) {
-
-        System.out.println("eqClassId--------------------" + eqClassId);
-
-        List<Long> longList = equipmentsClassificationService.getUnitsByEqClassId(eqClassId);
-        return unitsRepository.findUnitListByEqClassIdNotEq(longList);
-    }*/
-
-
     /**
      * @param uid
      * @return 根据根据ID查询外委单位信息
@@ -156,19 +143,6 @@ public class UnitService extends BaseService {
         }
         return equipmentsClassification;
     }
-
-    /**
-     * @param unitCode
-     * @return 查询维修历史信息
-     */
-    public Boolean unitNoExists(String unitCode) {
-        List<Units> equipmentsList = new ArrayList<Units>();
-        if (unitCode != null && !unitCode.equals("")) {
-            equipmentsList = unitsRepository.findByUnitNo(unitCode);
-        }
-        return !equipmentsList.isEmpty();
-    }
-
 
     /**
      * @param outsourcingUnit 外委单位信息

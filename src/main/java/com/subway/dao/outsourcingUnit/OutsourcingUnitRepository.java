@@ -21,14 +21,6 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
      */
     List<Units> findAll();
 
-
-    /**
-     * @param unitCode
-     * @return 根据单位编号查询
-     */
-    List<Units> findByUnitNo(String unitCode);
-
-
     /**
      * @return 根据单位编号查询
      */
@@ -63,17 +55,14 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
     List<Object> findUnitListByEqClassIdEq(@Param("eqClassId") Long eqClassId);
 
 
-
-
     /**
      * 查询不在当前角色中的用户信息
+     *
      * @param cid
      * @return
      */
     @Query(nativeQuery = true, value = "SELECT  u.id, u.description, u.linkman, u.telephone FROM t_outsourcing_unit u WHERE u.id NOT IN (SELECT uc.unit_id FROM  t_unit_class uc  WHERE uc.class_id = :cid) AND u.status = 1")
     List<Object> findUnitListByEqClassIdNotEq(@Param("cid") Long cid);
-
-
 
 
     /**
@@ -83,15 +72,12 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
     List<Long> findAllIds();
 
 
-
-
-
     /**
      * @param desc
      * @param linkMan
      * @return 复合条件查询
      */
-    List<Units> findByDescriptionContainsAndLinkmanContains(String desc, String linkMan );
+    List<Units> findByDescriptionContainsAndLinkmanContains(String desc, String linkMan);
 
 
     /**
@@ -100,6 +86,6 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
      * @param pageable
      * @return 复合条件查询
      */
-    Page<Units> findByDescriptionContainsAndLinkmanContains(String desc, String linkMan ,Pageable pageable);
+    Page<Units> findByDescriptionContainsAndLinkmanContains(String desc, String linkMan, Pageable pageable);
 
 }
