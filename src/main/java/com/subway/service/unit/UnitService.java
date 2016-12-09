@@ -56,15 +56,17 @@ public class UnitService extends BaseService {
         return unitsRepository.findUnitListByEqClassIdEq(eqClassId);
     }
 
-    /**
+   /* *//**
      * @param eqClassId
      * @return 根据设备分类查询非该分类对应的外委单位信息 id 描述
-     */
+     *//*
     public List<Object> findUnitListByEqClassIdNotEq(Long eqClassId) {
+
+        System.out.println("eqClassId--------------------" + eqClassId);
 
         List<Long> longList = equipmentsClassificationService.getUnitsByEqClassId(eqClassId);
         return unitsRepository.findUnitListByEqClassIdNotEq(longList);
-    }
+    }*/
 
 
     /**

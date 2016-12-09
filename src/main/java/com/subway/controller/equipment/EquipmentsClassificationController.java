@@ -5,6 +5,7 @@ import com.subway.controller.common.BaseController;
 import com.subway.dao.equipments.EquipmentsClassificationRepository;
 import com.subway.domain.equipments.EquipmentsClassification;
 import com.subway.domain.units.Units;
+import com.subway.object.ReturnObject;
 import com.subway.service.app.ResourceService;
 import com.subway.service.equipmentsClassification.EquipmentsClassificationService;
 import com.subway.service.unit.UnitService;
@@ -170,17 +171,17 @@ public class EquipmentsClassificationController extends BaseController {
         return equipmentsClassificationService.findById(id) == null;
     }
 
-    /**
+   /* *//**
      * 根据设备分类查询不是该分类对应的外委单位信息
      *
      * @param cid 设备分类编号
      * @return 返回 id  外委单位名称
-     */
+     *//*
     @RequestMapping(value = "/findUnitByClassIdNotEq/{cid}", method = RequestMethod.GET)
     @ResponseBody
     public List<Object> findUnitByClassIdNotEq(@PathVariable("cid") Long cid) {
         return unitService.findUnitListByEqClassIdNotEq(cid);
-    }
+    }*/
 
 
     /**
@@ -196,19 +197,19 @@ public class EquipmentsClassificationController extends BaseController {
     }
 
 
-    /**
+   /* *//**
      * 载入选择外委单位页面
      *
      * @param cid      设备分类编号
      * @param modelMap map对象
      * @return 返回 选择外委单位页面
-     */
+     *//*
     @RequestMapping(value = "/loadSelectUnitPage/{cid}", method = RequestMethod.GET)
     public String loadSelectUnitPage(@PathVariable("cid") Long cid, ModelMap modelMap) {
         List<Object> unitList = unitService.findUnitListByEqClassIdNotEq(cid);
         modelMap.put("unitList", unitList);
         return "equipmentsClassification/unitList";
-    }
+    }*/
 
 
     /**
@@ -218,12 +219,8 @@ public class EquipmentsClassificationController extends BaseController {
      */
     @RequestMapping(value = "/addUnits", method = RequestMethod.POST)
     @ResponseBody
-    public List<Units> addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
-        List<Units> outsourcingUnitList = null;
-        if (cid != null && ids != null) {
-            outsourcingUnitList = unitService.addUnits(cid, ids);
-        }
-        return outsourcingUnitList;
+    public ReturnObject addUnits(@RequestParam("cid") Long cid, @RequestParam("ids") String ids) {
+        return equipmentsClassificationService.addUnits(cid, ids);
     }
 
 
@@ -264,4 +261,16 @@ public class EquipmentsClassificationController extends BaseController {
         List<Long> longList = equipmentsClassificationService.getUnitsByEqClassId(cid);
         return longList;
     }
+
+
+    /**
+     * 载入明细信息
+     */
+    @RequestMapping(value = "/popUnits/{cid}", method = RequestMethod.GET)
+    public String popUsers(@PathVariable("cid") Long cid, ModelMap modelMap) {
+        List<Object> unitsNotInEqClass = equipmentsClassificationService.findUnitsNotInEqclass(cid);
+        modelMap.put("unitsNotInEqClass", unitsNotInEqClass);
+        return "/equipmentsClassification/popUnits";
+    }
+
 }

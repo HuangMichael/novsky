@@ -1,9 +1,14 @@
 package com.subway.service.equipmentsClassification;
 
 import com.subway.dao.equipments.EquipmentsClassificationRepository;
+import com.subway.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.subway.domain.equipments.EquipmentsClassification;
+import com.subway.domain.role.Role;
 import com.subway.domain.units.Units;
+import com.subway.domain.user.User;
+import com.subway.object.ReturnObject;
 import com.subway.service.app.BaseService;
+import com.subway.service.commonData.CommonDataService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +23,13 @@ import java.util.List;
 public class EquipmentsClassificationService extends BaseService {
 
     @Autowired
-    @Getter
     EquipmentsClassificationRepository equipmentsClassificationRepository;
+
+    @Autowired
+    OutsourcingUnitRepository outsourcingUnitRepository;
+
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
      * 根据上级设备种类生成子类编号
@@ -99,5 +109,40 @@ public class EquipmentsClassificationService extends BaseService {
             }
         }
         return idList;
+    }
+
+
+    /**
+     * 查询出不在当前设备分类的外委单位
+     *
+     * @param cid
+     * @return
+     */
+
+    public List<Object> findUnitsNotInEqclass(Long cid) {
+        return outsourcingUnitRepository.findUnitListByEqClassIdNotEq(cid);
+    }
+
+
+    /**
+     * @param cid
+     * @param unitsIdStr
+     * @return 添加外委单位
+     */
+    public ReturnObject addUnits(Long cid, String unitsIdStr) {
+        EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
+        if (unitsIdStr != null && !unitsIdStr.equals("")) {
+            String[] ids = unitsIdStr.split(",");
+            List<Units> unitsList = equipmentsClassification.getUnitSet();
+            for (String id : ids) {
+                Units units = outsourcingUnitRepository.findById(Long.parseLong(id));
+                if (!unitsList.contains(units)) {
+                    unitsList.add(units);
+                }
+            }
+            equipmentsClassification.setUnitSet(unitsList);
+            equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
+        }
+        return commonDataService.getReturnType(equipmentsClassification != null, "设备分类关联外委单位成功！", "设备分类关联外委单位失败！");
     }
 }

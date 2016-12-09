@@ -68,4 +68,4 @@
         </div>
     </div>
 </div>
-<script src="js/app/equipmentsClassification/equipmentsClassification.js"></script>
+<script src="/js/app/equipmentsClassification/equipmentsClassification.js"></script>

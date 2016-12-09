@@ -17,18 +17,11 @@ public interface EquipmentsClassificationRepository extends CrudRepository<Equip
      * 查询所有设备类别
      */
     List<EquipmentsClassification> findAll();
+
     /**
      * 根据id查询
      */
     EquipmentsClassification findById(long id);
-
-
-    /**
-     * 查询一级节点集合
-     */
-    @OrderBy("sortNo asc")
-    List<EquipmentsClassification> findByParent(EquipmentsClassification equipmentsClassification);
-
 
     /**
      * 根据根节点id查询子节点
@@ -42,18 +35,6 @@ public interface EquipmentsClassificationRepository extends CrudRepository<Equip
      */
     @Query("select l from  EquipmentsClassification  l   where  l.parent is null  order by l.sortNo")
     List<EquipmentsClassification> findNodeByParentId();
-
-
-    /**
-     * 查询叶子节点 按照编号排序
-     */
-    @Query("select l from  EquipmentsClassification  l   where  l.hasChild ='0' order by l.sortNo")
-    List<EquipmentsClassification> findLeafNode();
-
-
-    /**
-     * 查询设备分类对应的维修单位
-     */
 
 
 }

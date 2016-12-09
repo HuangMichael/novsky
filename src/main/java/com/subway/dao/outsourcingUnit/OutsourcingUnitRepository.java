@@ -63,12 +63,15 @@ public interface OutsourcingUnitRepository extends CrudRepository<Units, Long>, 
     List<Object> findUnitListByEqClassIdEq(@Param("eqClassId") Long eqClassId);
 
 
+
+
     /**
-     * @param idList id 集合
-     * @return 根据设备分类查询非该分类对应的外委单位信息 id 描述
+     * 查询不在当前角色中的用户信息
+     * @param cid
+     * @return
      */
-    @Query(nativeQuery = true, value = "SELECT u.id, u.description, u.linkman, u.telephone  FROM t_outsourcing_unit u WHERE u.id NOT IN (:idList) AND u.status = '1'  AND u.description <> '无'")
-    List<Object> findUnitListByEqClassIdNotEq(@Param("idList") List<Long> idList);
+    @Query(nativeQuery = true, value = "SELECT  u.id, u.description, u.linkman, u.telephone FROM t_outsourcing_unit u WHERE u.id NOT IN (SELECT uc.unit_id FROM  t_unit_class uc  WHERE uc.class_id = :cid) AND u.status = 1")
+    List<Object> findUnitListByEqClassIdNotEq(@Param("cid") Long cid);
 
 
 
