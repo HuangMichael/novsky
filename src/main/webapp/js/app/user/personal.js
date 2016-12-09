@@ -140,56 +140,9 @@ function linkUnit(wid, cid) {
 }
 
 
-/**
- *
- * @param cid  设备分类ID
- * 添加并且关联单位
- */
-
-var eqClassId = null;
-function addLinkUnit(wid, cid) {
-    //弹出模态框  新增一个单位 点击确定
-    eqClassId = cid;
-    workOrderId = wid;
-    console.log("eqClassId---------------" + eqClassId);
-    $("#add_link_unit_modal").modal("show");
-    //提示新增并且关联单位成功  并将加入到对应的列表中
-}
 
 
-function confirmLinkUnit() {
-    var ids = "";
-    $("#unitTable input[type='checkbox']").each(function (i) {
-        if ($(this).is(":checked") && !isNaN($(this).val())) {
-            ids += $(this).val() + ",";
-        }
-    });
-    ids = ids.replace(/\ +/g, "").replace(/[\r\n]/g, "");
-    if (!ids) {
-        showMessageBox("danger", "请选择外委单位！");
 
-    } else {
-        //加入
-        $("#link_unit_modal").modal("hide");
-        var url = "/equipmentsClassification/addU2c";
-        // 提示操作成功或失败
-        $.post(url, {cid: currentCid, ids: ids, workOrderId: workOrderId}, function (data) {
-            if (data) {
-                $("#selUnit" + workOrderId).empty();
-                $("#selUnit" + workOrderId).append("<option value=''>请选择外委单位</option>");
-                for (var x in data) {
-                    if (data[x]["id"] && data[x]["description"]) {
-                        $("#selUnit" + workOrderId).append("<option value='" + data[x]["id"] + "'>" + data[x]["description"] + "</option>");
-                    }
-                }
-                //清空select 重新载入外委单位放入
-                showMessageBox("info", "设备分类关联外委单位成功！")
-            } else {
-                showMessageBox("danger", "设备分类关联外委单位失败！")
-            }
-        });
-    }
-}
 
 
 function createUnit() {

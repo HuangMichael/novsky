@@ -196,22 +196,6 @@ public class EquipmentsClassificationController extends BaseController {
         return unitService.findUnitListByEqClassIdEq(cid);
     }
 
-
-   /* *//**
-     * 载入选择外委单位页面
-     *
-     * @param cid      设备分类编号
-     * @param modelMap map对象
-     * @return 返回 选择外委单位页面
-     *//*
-    @RequestMapping(value = "/loadSelectUnitPage/{cid}", method = RequestMethod.GET)
-    public String loadSelectUnitPage(@PathVariable("cid") Long cid, ModelMap modelMap) {
-        List<Object> unitList = unitService.findUnitListByEqClassIdNotEq(cid);
-        modelMap.put("unitList", unitList);
-        return "equipmentsClassification/unitList";
-    }*/
-
-
     /**
      * @param cid 设备分类id
      * @param ids 选中的外委单位id
@@ -233,7 +217,7 @@ public class EquipmentsClassificationController extends BaseController {
     @RequestMapping(value = "/addU2c", method = RequestMethod.POST)
     @ResponseBody
     public List<Units> addU2c(@RequestParam("cid") Long cid, @RequestParam("ids") String ids, @RequestParam("workOrderId") Long workOrderId) {
-        List<Units> outsourcingUnitList = null;
+        List<Units> outsourcingUnitList = new ArrayList<Units>();
         if (cid != null && ids != null) {
             outsourcingUnitList = unitService.addU2c(cid, ids, workOrderId);
         }

@@ -180,12 +180,11 @@ var workOrderId = null;
 function linkUnit(wid, cid) {
     //弹出模态框  选中一个单位 点击确定
     currentCid = cid;
-    var url = "/equipmentsClassification/loadSelectUnitPage/" + cid;
+    var url = "equipmentsClassification/popUnits/" + cid;
+    //var url = "/equipmentsClassification/loadSelectUnitPage/" + cid;
     $("#unitBody").load(url);
     $("#link_unit_modal").modal("show");
     workOrderId = wid;
-    // alert("linkUnit---" + cid);
-
     //提示关联单位成功  并将加入到对应的列表中
 
 }
@@ -210,7 +209,7 @@ function addLinkUnit(wid, cid) {
 
 function confirmLinkUnit() {
     var ids = "";
-    $("#unitTable input[type='checkbox']").each(function (i) {
+    $("#unitsNotInEqClass input[type='checkbox']").each(function (i) {
         if ($(this).is(":checked") && !isNaN($(this).val())) {
             ids += $(this).val() + ",";
         }
@@ -223,6 +222,9 @@ function confirmLinkUnit() {
         //加入
         $("#link_unit_modal").modal("hide");
         var url = "/equipmentsClassification/addU2c";
+        console.log("currentCid-----------"+currentCid);
+        console.log("ids-----------"+ids);
+        console.log("workOrderId-----------"+workOrderId);
         // 提示操作成功或失败
         $.post(url, {cid: currentCid, ids: ids, workOrderId: workOrderId}, function (data) {
             if (data) {
