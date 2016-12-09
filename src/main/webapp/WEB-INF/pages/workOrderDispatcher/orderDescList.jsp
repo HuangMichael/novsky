@@ -112,21 +112,21 @@
                         <label for="description" class="col-md-2 control-label">单位名称</label>
 
                         <div class="col-md-10">
-                            <input class="form-control" id="description" name="unit.description" required/>
+                            <input class="form-control" id="description" name="description" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="linkman" class="col-md-2 control-label">联系人</label>
 
                         <div class="col-md-10">
-                            <input class="form-control" name="unit.linkman" id="linkman"/>
+                            <input class="form-control" name="linkman" id="linkman"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="telephone" class="col-md-2 control-label">联系电话</label>
 
                         <div class="col-md-10">
-                            <input class="form-control" id="telephone" name="unit.telephone"/>
+                            <input class="form-control" id="telephone" name="telephone"/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -153,5 +153,24 @@
                 showMessageBox("danger", data["resultDesc"]);
             }
         });
+    }
+    $(function () {
+        $("#saveBtn").on("click", function () {
+            addUnit();
+        });
+
+    });
+
+    function addUnit() {
+        formName = "#createForm";
+        var objStr = getFormDataAsJSON(formName);
+        var object = JSON.parse(objStr);
+        var url = "units/save";
+        $.post(url, object, function (data) {
+            var type = "info";
+            type = data["result"] ? type : "danger";
+            showMessageBox(type, data["resultDesc"]);
+            $("#add_link_unit_modal").modal("hide");
+        })
     }
 </script>

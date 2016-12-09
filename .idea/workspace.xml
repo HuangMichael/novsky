@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="80da2167-c0c3-4f4e-b07a-b0e671f03e0e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/subway/controller/units/UnitsController.java" afterPath="$PROJECT_DIR$/src/main/java/com/subway/controller/units/UnitsController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/subway/dao/outsourcingUnit/OutsourcingUnitRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/subway/dao/outsourcingUnit/OutsourcingUnitRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/subway/domain/units/Units.java" afterPath="$PROJECT_DIR$/src/main/java/com/subway/domain/units/Units.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/subway/service/unit/UnitService.java" afterPath="$PROJECT_DIR$/src/main/java/com/subway/service/unit/UnitService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp" />
     </list>
     <ignored path="subway.iws" />
@@ -95,8 +90,8 @@
       <file leaf-file-name="UnitsController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/subway/controller/units/UnitsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+            <state relative-caret-position="782">
+              <caret line="128" column="25" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,11 +99,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="table_1_0.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="table_1_0.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="103" selection-start-line="7" selection-start-column="103" selection-end-line="7" selection-end-column="103" />
+            <state relative-caret-position="238">
+              <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+              <folding>
+                <marker date="1481263619188" expanded="true" signature="277:833" ph="..." />
+                <marker date="1481263619188" expanded="true" signature="393:824" ph="..." />
+                <marker date="1481263619188" expanded="true" signature="402:811" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orderDescList.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="579">
+              <caret line="128" column="77" selection-start-line="128" selection-start-column="77" selection-end-line="128" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/form.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="common-crud.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/user/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -223,12 +262,12 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/equipmentsClassification/list.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/js/app/equipmentsClassification/equipmentsClassification.js" />
         <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/subway/domain/units/Units.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/subway/dao/outsourcingUnit/OutsourcingUnitRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/subway/service/unit/UnitService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/subway/controller/units/UnitsController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp" />
       </list>
     </option>
   </component>
@@ -431,6 +470,40 @@
               <option name="myItemId" value="webapp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="person" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="subway" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="novsky" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -502,7 +575,7 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="unitser&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/unit/UnitService.java&#10;unitRe&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/dao/outsourcingUnit/OutsourcingUnitRepository.java&#10;unitsC&#9;PSI&#9;JAVA://com.subway.controller.units.UnitsController&#10;unit&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/domain/units/Units.java&#10;applica&#9;FILE&#9;file://E:/dev/novsky/src/main/resources/application.properties&#10;eq&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipmentsClassification/equipmentsClassification.js&#10;role&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;ROLESER&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/role/RoleService.java&#10;equipment&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/equipment/EquipmentsClassificationController.java&#10;roleService&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/role/RoleService.java&#10;roleC&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/role/RoleController.java&#10;role.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;RoleC&#9;PSI&#9;JAVA://com.subway.controller.role.RoleController&#10;location.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/locations/location.js&#10;eqclass&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipmentsClassification/equipmentsClassification.js&#10;WorkOrderReportService&#9;PSI&#9;JAVA://com.subway.service.workOrder.WorkOrderReportService&#10;unitSer&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/unit/UnitService.java&#10;UNIT&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/unit/UnitService.java&#10;Out&#9;PSI&#9;JAVA://com.subway.dao.outsourcingUnit.OutsourcingUnitRepository&#10;EquipmentsClassificationController&#9;PSI&#9;JAVA://com.subway.controller.equipment.EquipmentsClassificationController&#10;fix.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/fix/fix.js&#10;app&#9;FILE&#9;file://E:/dev/novsky/src/main/resources/application.properties&#10;userSer&#9;PSI&#9;JAVA://com.subway.service.user.UserSearchService&#10;userRepository&#9;PSI&#9;JAVA://com.subway.dao.user.UserRepository&#10;res&#9;PSI&#9;JAVA://com.subway.service.app.ResourceService&#10;SessionFilter&#9;PSI&#9;JAVA://com.subway.filters.SessionFilter&#10;UserControlle&#9;PSI&#9;JAVA://com.subway.controller.user.UserController&#10;WorkOrderReportCartController&#9;PSI&#9;JAVA://com.subway.controller.workOrder.WorkOrderReportCartController&#10;LocationController&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/locations/LocationController.java&#10;login&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/app/LoginController.java&#10;EquipmentController.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/equipment/EquipmentController.java&#10;WorkOrderFixController.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/workOrder/WorkOrderFixController.java&#10;WorkOrderReportController&#9;PSI&#9;JAVA://com.subway.controller.workOrder.WorkOrderReportController&#10;WorkOrderDispatchController&#9;PSI&#9;JAVA://com.subway.controller.workOrder.WorkOrderDispatchController&#10;UserService&#9;PSI&#9;JAVA://com.subway.service.user.UserService&#10;CommonDataService&#9;PSI&#9;JAVA://com.subway.service.commonData.CommonDataService&#10;LOGIN&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/app/LoginController.java&#10;equipmentC&#9;PSI&#9;JAVA://com.subway.controller.equipment.EquipmentController&#10;location&#9;PSI&#9;JAVA://com.subway.dao.locations.LocationsRepository&#10;defa&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/css/themes/default.css&#10;common-head&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/WEB-INF/pages/common/common-head.jsp&#10;line&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/domain/line/Line.java&#10;veq&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/domain/equipments/VeqClass.java&#10;appli&#9;FILE&#9;file://E:/dev/novsky/src/main/resources/application.properties&#10;units&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/units/units.js&#10;crud&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;LOCATION&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/locations/location.js&#10;equipmentA&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/equipments/EquipmentAccountService.java&#10;LOCATION.JS&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/locations/location.js&#10;loca&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/controller/locations/LocationController.java" />
+    <property name="SearchEverywhereHistoryKey" value="user&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/user/user.js&#10;crud&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/common/common-crud.js&#10;unitser&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/unit/UnitService.java&#10;unitRe&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/dao/outsourcingUnit/OutsourcingUnitRepository.java&#10;unitsC&#9;PSI&#9;JAVA://com.subway.controller.units.UnitsController&#10;unit&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/domain/units/Units.java&#10;applica&#9;FILE&#9;file://E:/dev/novsky/src/main/resources/application.properties&#10;eq&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipmentsClassification/equipmentsClassification.js&#10;role&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;ROLESER&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/role/RoleService.java&#10;equipment&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/equipment/EquipmentsClassificationController.java&#10;roleService&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/role/RoleService.java&#10;roleC&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/role/RoleController.java&#10;role.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/role/role.js&#10;RoleC&#9;PSI&#9;JAVA://com.subway.controller.role.RoleController&#10;location.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/locations/location.js&#10;eqclass&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/equipmentsClassification/equipmentsClassification.js&#10;WorkOrderReportService&#9;PSI&#9;JAVA://com.subway.service.workOrder.WorkOrderReportService&#10;unitSer&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/unit/UnitService.java&#10;UNIT&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/service/unit/UnitService.java&#10;Out&#9;PSI&#9;JAVA://com.subway.dao.outsourcingUnit.OutsourcingUnitRepository&#10;EquipmentsClassificationController&#9;PSI&#9;JAVA://com.subway.controller.equipment.EquipmentsClassificationController&#10;fix.js&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/fix/fix.js&#10;app&#9;FILE&#9;file://E:/dev/novsky/src/main/resources/application.properties&#10;userSer&#9;PSI&#9;JAVA://com.subway.service.user.UserSearchService&#10;userRepository&#9;PSI&#9;JAVA://com.subway.dao.user.UserRepository&#10;res&#9;PSI&#9;JAVA://com.subway.service.app.ResourceService&#10;SessionFilter&#9;PSI&#9;JAVA://com.subway.filters.SessionFilter&#10;UserControlle&#9;PSI&#9;JAVA://com.subway.controller.user.UserController&#10;WorkOrderReportCartController&#9;PSI&#9;JAVA://com.subway.controller.workOrder.WorkOrderReportCartController&#10;LocationController&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/locations/LocationController.java&#10;login&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/app/LoginController.java&#10;EquipmentController.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/equipment/EquipmentController.java&#10;WorkOrderFixController.&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/workOrder/WorkOrderFixController.java&#10;WorkOrderReportController&#9;PSI&#9;JAVA://com.subway.controller.workOrder.WorkOrderReportController&#10;WorkOrderDispatchController&#9;PSI&#9;JAVA://com.subway.controller.workOrder.WorkOrderDispatchController&#10;UserService&#9;PSI&#9;JAVA://com.subway.service.user.UserService&#10;CommonDataService&#9;PSI&#9;JAVA://com.subway.service.commonData.CommonDataService&#10;LOGIN&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/controller/app/LoginController.java&#10;equipmentC&#9;PSI&#9;JAVA://com.subway.controller.equipment.EquipmentController&#10;location&#9;PSI&#9;JAVA://com.subway.dao.locations.LocationsRepository&#10;defa&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/css/themes/default.css&#10;common-head&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/WEB-INF/pages/common/common-head.jsp&#10;line&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/subway/domain/line/Line.java&#10;veq&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/domain/equipments/VeqClass.java&#10;appli&#9;FILE&#9;file://E:/dev/novsky/src/main/resources/application.properties&#10;units&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/units/units.js&#10;LOCATION&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/locations/location.js&#10;equipmentA&#9;FILE&#9;file://E:/dev/novsky/src/main/java/com/linkbit/beidou/service/equipments/EquipmentAccountService.java&#10;LOCATION.JS&#9;FILE&#9;file://E:/dev/novsky/src/main/webapp/js/app/locations/location.js" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="186" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="210" />
@@ -1401,7 +1474,7 @@
       <workItem from="1481169068583" duration="761000" />
       <workItem from="1481178448775" duration="67000" />
       <workItem from="1481245708322" duration="10218000" />
-      <workItem from="1481262087057" duration="1579000" />
+      <workItem from="1481262087057" duration="2896000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <created>1471500329538</created>
@@ -1743,7 +1816,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1752935000" />
+    <option name="totallyTimeSpent" value="1754252000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1768,10 +1841,10 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5117057" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43109152" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32855567" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.7486457" sideWeight="0.9107527" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4810401" sideWeight="0.9107527" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32302773" sideWeight="0.9184123" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16364606" sideWeight="0.9184123" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24193548" sideWeight="0.08158765" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994652" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1882,27 +1955,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/subway/utils/LocationSeparatable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/subway/service/preMaint/PreMaintService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="54" column="23" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_31/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="239" column="6" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/8.0.20/tomcat-embed-core-8.0.20-sources.jar!/javax/servlet/ServletRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -2040,6 +2092,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2047,6 +2100,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1547">
           <caret line="91" column="10" selection-start-line="91" selection-start-column="10" selection-end-line="91" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2054,6 +2108,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2076,6 +2131,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="154" selection-start-line="2" selection-start-column="88" selection-end-line="2" selection-end-column="154" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2207,14 +2263,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="109" column="74" selection-start-line="109" selection-start-column="74" selection-end-line="109" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="539">
@@ -2255,20 +2303,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding>
+            <marker date="1481263619188" expanded="true" signature="277:833" ph="..." />
+            <marker date="1481263619188" expanded="true" signature="393:824" ph="..." />
+            <marker date="1481263619188" expanded="true" signature="402:811" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/subway/controller/units/UnitsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+        <state relative-caret-position="782">
+          <caret line="128" column="25" selection-start-line="128" selection-start-column="25" selection-end-line="128" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/units/table_1_0.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/user/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="103" selection-start-line="7" selection-start-column="103" selection-end-line="7" selection-end-column="103" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/person/form.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/js/app/common/common-crud.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workOrderDispatcher/orderDescList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="128" column="77" selection-start-line="128" selection-start-column="77" selection-end-line="128" selection-end-column="77" />
           <folding />
         </state>
       </provider>
