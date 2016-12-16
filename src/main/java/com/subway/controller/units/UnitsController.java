@@ -4,6 +4,7 @@ package com.subway.controller.units;
 import com.subway.controller.common.BaseController;
 import com.subway.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.subway.domain.app.MyPage;
+import com.subway.domain.equipments.EquipmentsClassification;
 import com.subway.domain.units.Units;
 import com.subway.object.ReturnObject;
 import com.subway.service.commonData.CommonDataService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -200,4 +202,19 @@ public class UnitsController extends BaseController {
     }
 
 
+    /**
+     * @return 根据外委单位查询其对应的设备分类
+     * @author huangbin
+     * 2016年12月16日09:01:03
+     */
+    @RequestMapping(value = "/findEqsByUnit/{unitId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<EquipmentsClassification> findEqClassesByUnit(@PathVariable Long unitId) {
+        List<EquipmentsClassification> equipmentsClassificationList = new ArrayList<EquipmentsClassification>();
+        Units units = unitService.findById(unitId);
+        if (units != null) {
+            equipmentsClassificationList = units.getClassificationSet();
+        }
+        return equipmentsClassificationList;
+    }
 }

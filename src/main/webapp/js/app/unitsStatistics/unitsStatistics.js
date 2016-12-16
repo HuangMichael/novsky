@@ -74,7 +74,7 @@ function loadUnitsRankChart() {
         chart2Data.forEach(function (e, i) {
             var obj = null;
             if (i < 5) {
-                obj = {name: e["unitName"], y: e["fixNum"]};
+                obj = {name: e["unitName"], className: e["className"], y: e["fixNum"]};
                 newData.push(obj);
             } else {
                 sumOther += e["fixNum"];
@@ -103,11 +103,14 @@ function loadUnitsRankChart() {
             text: reportYear + '年度维修数量前五名统计'
         },
         plotOptions: {
-            series: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
                 dataLabels: {
-                    enabled: true,
-                    format: '{point.name}: {point.y}'
-                }
+                    enabled: false
+                },
+                showInLegend: false,
+                connectorColor: 'silver'
             }
         },
         exporting: {
@@ -115,7 +118,7 @@ function loadUnitsRankChart() {
         },
         tooltip: {
             headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>报修: <b>{point.y}</b>单/共<b>{point.total}</b>单<b>/占比:{point.percentage:.1f}%</b>'
+            pointFormat: '<span style="color:{point.color}">{point.name}</span><br>报修: <b>{point.y}</b>单/共<b>{point.total}</b>单<b>/占比:{point.percentage:.1f}%</b>'
         },
         series: [{
             name: '维修数量',
@@ -123,12 +126,11 @@ function loadUnitsRankChart() {
             data: newData
         }]
     }
+
     $('#highCharts0').highcharts(unitsRankChartConfig);
 
 
 }
-
-
 /**
  *
  * @param year 根据年份获得有数据的月
@@ -160,8 +162,6 @@ function getDataYear() {
  * @param reportMonth
  */
 function loadReportFinishChart() {
-
-
     var year = $("#selectYear").val();
     var unitId = $("#selectUnits").val();
     var unitName = $("#selectUnits").find("option:selected").text();

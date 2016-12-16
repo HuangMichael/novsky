@@ -2,6 +2,7 @@ package com.subway.domain.equipments;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.subway.domain.units.Units;
 import lombok.*;
 
@@ -31,7 +32,9 @@ public class EquipmentsClassification {
     private String description;
     @Column(length = 1)
     private String hasChild;
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     EquipmentsClassification parent;
 
