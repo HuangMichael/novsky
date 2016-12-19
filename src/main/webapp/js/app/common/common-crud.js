@@ -526,7 +526,23 @@ function search() {
     $.each(params, function (i, p) {
         var id = $(p).attr("id");
         if (!$(p).is(":button")) {
-            var value = $(p).val().trim();
+            var value = ($(p).val()) ? $(p).val().trim() : "";
+            searchParams += value + ",";
+        }
+
+    });
+    $(dataTableName).bootgrid("setSearchPhrase", searchParams).bootgrid("reload");
+}
+
+
+function searchMore() {
+    //组装模型
+    var params = $("#searchBox :input");
+    var searchParams = "";
+    $.each(params, function (i, p) {
+        var id = $(p).attr("id");
+        if (!$(p).is(":button")) {
+            var value = ($(p).val()) ? $(p).val().trim() : "";
             searchParams += value + ",";
         }
 

@@ -37,7 +37,7 @@
 
                                                     <div class="col-md-1">
                                                         <select class="form-control" id="nodeState" name="nodeState"
-                                                                onchange="search()"
+                                                                onchange="searchMore()"
                                                                 required>
                                                             <option selected>已派工</option>
                                                             <option>已完工</option>
@@ -77,7 +77,7 @@
                                                     </div>
                                                     <div class="col-md-1">
                                                         <select class="form-control" id="expired" name="expired"
-                                                                onchange="search()"
+                                                                onchange="searchMore()"
                                                                 required>
                                                             <option selected value="">全部</option>
                                                             <option>未超期</option>
@@ -86,12 +86,10 @@
                                                     </div>
                                                     <div class="col-md-1">
                                                         <button id="searchBtn" class="btn btn-default"
-                                                                onclick="search()">查询
+                                                                onclick="searchMore()">查询
                                                         </button>
                                                     </div>
                                                 </div>
-
-
                                                 <table id="fixListTable0"
                                                        class="table table-striped table-bordered table-hover  table-responsive"
                                                        data-toggle="bootgrid" data-ajax="true" data-rowSelect="true"

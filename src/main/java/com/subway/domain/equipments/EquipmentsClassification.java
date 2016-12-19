@@ -33,7 +33,7 @@ public class EquipmentsClassification {
     @Column(length = 1)
     private String hasChild;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     EquipmentsClassification parent;
