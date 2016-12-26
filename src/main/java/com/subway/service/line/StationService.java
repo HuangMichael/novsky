@@ -49,6 +49,20 @@ public class StationService extends BaseService {
         return stationRepository.findByStatus(status);
     }
 
+
+
+
+    /**
+     * 根据状态查询所有的站
+     * @return
+     */
+    public List<Station> findAll() {
+
+        return stationRepository.findAll();
+    }
+
+
+
     /**
      * 根据状态查询所有的站
      */

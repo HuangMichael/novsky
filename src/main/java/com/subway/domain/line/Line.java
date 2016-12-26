@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Resource
 @Entity
-@Table(name = "T_LINE")
+@Table(name = "V_LINE")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

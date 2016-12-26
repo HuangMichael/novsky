@@ -4,17 +4,18 @@ import lombok.*;
 
 import javax.annotation.Resource;
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by huangbin on 2016/03/14 0023.
  * 线路信息
  */
 @Entity
-@Table(name = "T_STATION")
+@Table(name = "V_STATION")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Station implements java.io.Serializable {
+public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

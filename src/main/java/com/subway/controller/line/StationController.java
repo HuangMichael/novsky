@@ -29,7 +29,6 @@ import java.util.Map;
  * 设备台账控制器类
  */
 @Controller
-@EnableAutoConfiguration
 @RequestMapping("/station")
 public class StationController extends BaseController {
 
@@ -93,6 +92,17 @@ public class StationController extends BaseController {
     @ResponseBody
     public List<Station> findByStatus() {
         List<Station> stationList = stationService.findByStatus("1");
+        return stationList;
+    }
+
+
+    /**
+     * 根据所有车站信息
+     */
+    @RequestMapping(value = "/findAll")
+    @ResponseBody
+    public List<Station> findAll() {
+        List<Station> stationList = stationService.findAll();
         return stationList;
     }
 

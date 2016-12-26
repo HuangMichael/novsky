@@ -123,22 +123,18 @@ public class LocationController extends BaseController {
 
     /**
      * @param id
-     * @param modelMap
      * @param session
      * @return 新建位置信息
      */
     @RequestMapping(value = "/create/{id}")
-    public String create(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
-        Locations newObj = locationsService.create(id);
+    @ResponseBody
+    public Locations create(@PathVariable("id") Long id, HttpSession session) {
+        Locations location = locationsService.create(id);
         User user = SessionUtil.getCurrentUserBySession(session);
-        newObj.setSuperior(user.getPerson().getPersonName());
-        newObj.setStatus("1");
-        modelMap.put("locations", newObj);
-        commonDataService.findLines(session);
-        commonDataService.findStations(session);
-        List<Locations> locationsList = locationsService.findAll();
-        modelMap.put("locationsList", locationsList);
-        return "/location/create";
+        location.setSuperior(user.getPerson().getPersonName());
+        location.setStatus("1");
+        System.out.println("SAVE location---------------" + location.toString());
+        return location;
     }
 
 
@@ -149,7 +145,14 @@ public class LocationController extends BaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject save(Locations locations) {
+
+
+        System.out.println("SAVE location---------------" + locations.toString());
+
+
         locations = locationsService.save(locations);
+
+        System.out.println("after SAVE location---------------" + locations.toString());
         return commonDataService.getReturnType(locations != null, "位置信息保存成功!", "位置信息保存失败!");
 
     }

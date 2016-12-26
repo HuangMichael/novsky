@@ -22,18 +22,18 @@ public class Locations implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 30)
+    @Column(length = 30, updatable = false)
     private String location;//位置
     @Column(length = 100)
     private String description;//描述
-
+/*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "line_id", referencedColumnName = "id")
     Line line; //线路
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", referencedColumnName = "id")
-    Station station; //车站
+    Station station; //车站*/
 
     @Column(length = 20)
     String superior;  //负责人

@@ -8,7 +8,9 @@ var setting = {
     data: {simpleData: {enable: true, idKey: "id", pIdKey: "pId", rootPId: ""}},
     callback: {
         onClick: function (event, treeId, treeNode) {
-            fillForm(treeNode.id);
+            var node = findObjById("location", treeNode.id);
+            vdm.$set("location",node);
+            setFormReadStatus("#detailForm",true);
             loadEqList(treeNode.id);
             return true
         }
@@ -74,7 +76,12 @@ $(document).ready(function () {
         demoIframe.bind("load", loadReady);
         zTree = $.fn.zTree.getZTreeObj("tree");
         zTree.selectNode(zTree.getNodeByParam("id", zNodes[0]));
-        firstLoad(zNodes[0]);
+        //firstLoad(zNodes[0]);
+
+
+        afterClick.call(zNodes[0]["id"]);
+
+
     });
     function loadReady() {
         var bodyH = demoIframe.contents().find("body").get(0).scrollHeight, htmlH = demoIframe.contents().find("html").get(0).scrollHeight, maxH = Math.max(bodyH, htmlH), minH = Math.min(bodyH, htmlH), h = demoIframe.height() >= maxH ? minH : maxH;
@@ -85,58 +92,43 @@ $(document).ready(function () {
     }
 
 
-    initSelect();
-
-
     dataTableName = "#eqDataTable";
     formName = "#detailForm";
     mainObject = "location";
     docName = "设备信息";
     exportObject = "equipment";
-
-    lines = getAllLines();
-    stations = getAllStations();
-
+    validateForm(validationConfig);
 
     vdm = new Vue({
         el: formName,
         data: {
-            location: location,
-            lines: lines,
-            stations: stations
+            location: null
+
         }
     });
 
 
-    $(formName)
-        .bootstrapValidator(validationConfig).on('success.form.bv', function (e) {
-        // Prevent form submission
-        e.preventDefault();
-        saveMainObject(formName);
-    });
+    initSelect();
 
 
-    afterClick(1);
+    $("#saveBtn").on("click", function () {
 
 
+        console.log("save---------------------");
+    })
 });
 var flag = false;
+
+
 function add() {
-    var tree = $.fn.zTree.getZTreeObj("tree");
-    var selectedNode = zTree.getSelectedNodes()[0];
-    var id = selectedNode.id;
-    if (!id) {
-        id = 0
-    }
-    var url = "/location/create/" + id;
-    $("#contentDiv").load(url, function () {
-        $("#line_id").val(selectedNode.line);
-        $("#parent_id").val(id);
-        $("#station_id").val(selectedNode.station);
-        flag = true
-    });
+    // var parent = addNode();
+    var url = mainObject + "/create/" + getSelectedNode().id;
+    $.getJSON(url, function (data) {
 
 
+        vdm.$set(mainObject, data);
+    })
+    setFormReadStatus(formName, false,"location");
 }
 
 
@@ -200,16 +192,15 @@ function del() {
                         type: "GET",
                         url: url,
                         success: function (msg) {
-                            if (msg) {
-                                showMessageBox("info", "位置信息删除成功!");
+                            if (msg.result) {
+                                showMessageBox("info", msg["resultDesc"]);
                                 var zTree = $.fn.zTree.getZTreeObj("tree");
                                 zTree.removeNode(zTree.getSelectedNodes()[0]);
                                 zTree.selectNode(zTree.getNodeByParam("id", 1));
-                                showMessageBox("info", data["resultDesc"]);
                             }
                         },
                         error: function (msg) {
-                            showMessageBox("danger", "位置信息有关联数据，无法删除，请联系管理员");
+                            showMessageBox("danger", msg["resultDesc"]);
                         }
                     });
                 }
@@ -315,16 +306,18 @@ function add2LocCart() {
  * @param data
  * 首次加载函数 在form中显示第一条记录内容
  */
-function firstLoad(data) {
-    if (data.length > 0) {
-        $("#form #lid").val(data.id);
-        $("#form #location").val(data.location);
-        $("#form #description").val(data.name);
-        $("#form #superior").val(data.superior);
-        //$("#parent_id").val(null).attr("readonly", "readonly");
+/*
+ function firstLoad(data) {
+ if (data.length > 0) {
+ $("#form #lid").val(data.id);
+ $("#form #location").val(data.location);
+ $("#form #description").val(data.name);
+ $("#form #superior").val(data.superior);
+ //$("#parent_id").val(null).attr("readonly", "readonly");
 
-    }
-}
+ }
+ }
+ */
 
 
 /**
@@ -334,16 +327,6 @@ function firstLoad(data) {
 function afterClick(id) {
     fillForm(id);
     loadEqList(id);
-}
-
-/**
- *
- * @param id 同步选中数据
- */
-function fillForm(id) {
-    var location = findById(id);
-    vdm.$set(mainObject, location);
-    setFormReadStatus(formName, true);
 }
 
 
@@ -365,20 +348,4 @@ function loadEqList(locationId) {
             }
         }
     });
-}
-
-
-/**
- * 导入数据
- */
-function importData() {
-    var id = getSelectedNodeId();
-    if (!id) {
-        showMessageBox("danger", "请选中要导入的位置!");
-        return;
-    }
-    var url = mainObject + "/importData/" + id;
-    $.getJSON(url, function (data) {
-        showMessageBox(data.result ? "info" : "danger", data["resultDesc"]);
-    })
 }

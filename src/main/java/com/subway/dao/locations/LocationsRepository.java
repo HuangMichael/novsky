@@ -15,12 +15,10 @@ import java.util.List;
  * 位置信息查询接口
  */
 
-@CacheConfig(cacheNames = "locationsList")
 public interface LocationsRepository extends CrudRepository<Locations, Long> {
     /**
      * 查询所有设备类别
      */
-    @Cacheable(key = "#p0")
     @Query("SELECT l FROM Locations l")
     List<Locations> findAll();
 
@@ -48,7 +46,6 @@ public interface LocationsRepository extends CrudRepository<Locations, Long> {
      * @return 保存位置信息
      */
 
-    @CachePut(key = "#p0.id")
     Locations save(Locations locations);
 
     /**

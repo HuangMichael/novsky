@@ -16,6 +16,7 @@ var formTab = null;
 var locs = [];
 var eqClasses = [];
 var eqs = [];
+var lines = [];
 var stations = [];
 var units = []; //外委单位信息
 var searchModel = [];
@@ -110,6 +111,25 @@ function findById(id) {
         id = selectedIds[pointer];
     }
     var url = mainObject + "/findById/" + id;
+    $.getJSON(url, function (data) {
+        object = data;
+    });
+    return object;
+}
+
+
+/**
+ *根据id查询返回对象
+ * @param objName
+ * @param id
+ * @return {*}
+ * */
+function findObjById(objName, id) {
+    var object = null;
+    if (!id) {
+        id = selectedIds[pointer];
+    }
+    var url = objName + "/findById/" + id;
     $.getJSON(url, function (data) {
         object = data;
     });
@@ -511,7 +531,7 @@ function getAllLines() {
  */
 function getAllStations() {
 //初始化为第一条线路id
-    var url = "/station/findByStatus";
+    var url = "/station/findAll";
     $.getJSON(url, function (data) {
         stations = data;
     });
