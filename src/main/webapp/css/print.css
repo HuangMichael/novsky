@@ -1,29 +1,30 @@
 #header {
-	display: none;
+    display: none;
 }
 
 #sidebar {
-	display: none;
+    display: none;
 }
 
 .page-header {
-	display: none;
+    display: none;
 }
 
 .box-title {
-	display: none;
+    display: none;
 }
 
 .footer-tools {
-	display: none;
+    display: none;
 }
 
 #content {
-	margin: 0px;
-	padding: 0px;
-	border: none;
+    margin: 0px;
+    padding: 0px;
+    border: none;
 }
+
 #main-content {
-	margin-left: 0px !important;
-	border: none;
+    margin-left: 0px !important;
+    border: none;
 }

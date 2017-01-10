@@ -8,11 +8,19 @@ var setting = {
     data: {simpleData: {enable: true, idKey: "id", pIdKey: "pId", rootPId: ""}},
     callback: {
         onClick: function (event, treeId, treeNode) {
+            var locName = findLocNameById(treeNode.id);
+
+
+            console.log("locName---------------"+locName);
+            vdm.$set("locName",locName);
+
+            $("#locName").val(locName);
             var node = findObjById("location", treeNode.id);
             vdm.$set("location",node);
+
             setFormReadStatus("#detailForm",true);
             loadEqList(treeNode.id);
-            return true
+            return true;
         }
     }
 };
@@ -102,7 +110,8 @@ $(document).ready(function () {
     vdm = new Vue({
         el: formName,
         data: {
-            location: null
+            location: null,
+            locName:""
 
         }
     });
@@ -124,11 +133,10 @@ function add() {
     // var parent = addNode();
     var url = mainObject + "/create/" + getSelectedNode().id;
     $.getJSON(url, function (data) {
-
-
         vdm.$set(mainObject, data);
     })
     setFormReadStatus(formName, false,"location");
+    $("#locNameDiv").hide();
 }
 
 
@@ -348,4 +356,24 @@ function loadEqList(locationId) {
             }
         }
     });
+
+
+}
+
+
+/**
+ *根据位置id查询位置详细名称
+ * @param id
+ * @return {*}
+ * */
+function findLocNameById(id) {
+    $.ajaxSettings.async=false;
+    var object = "";
+    var url =   "/location/findLocNameById/" + id;
+    console.log("url--------------"+url);
+    $.getJSON(url, function (data) {
+        object = data;
+        console.log("locName--------------"+JSON.stringify(object));
+    });
+    return object.locName;
 }

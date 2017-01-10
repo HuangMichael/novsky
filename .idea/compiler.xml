@@ -25,7 +25,7 @@
         <module name="ROOT" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="ROOT" target="1.6" />
     </bytecodeTargetLevel>
   </component>

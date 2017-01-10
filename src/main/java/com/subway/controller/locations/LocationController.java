@@ -6,6 +6,7 @@ import com.subway.dao.locations.VlocationsRepository;
 import com.subway.domain.equipments.Equipments;
 import com.subway.domain.equipments.Vequipments;
 import com.subway.domain.locations.Locations;
+import com.subway.domain.locations.Vlocations;
 import com.subway.domain.user.User;
 import com.subway.object.ReturnObject;
 import com.subway.service.app.ResourceService;
@@ -59,15 +60,12 @@ public class LocationController extends BaseController {
 
     /**
      * @param id
-     * @param modelMap
-     * @param session
      * @return 根据ID显示位置信息 显示明细
      */
     @RequestMapping(value = "/detail/{id}")
-    public String detail(@PathVariable("id") Long id, ModelMap modelMap, HttpSession session) {
+    public String detail(@PathVariable("id") Long id, ModelMap modelMap) {
         String url = "/location";
         Locations object = locationsService.findById(id);
-
         if (id != 0) {
             url += "/locEqList";
 
@@ -133,7 +131,6 @@ public class LocationController extends BaseController {
         User user = SessionUtil.getCurrentUserBySession(session);
         location.setSuperior(user.getPerson().getPersonName());
         location.setStatus("1");
-        System.out.println("SAVE location---------------" + location.toString());
         return location;
     }
 
@@ -145,14 +142,7 @@ public class LocationController extends BaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject save(Locations locations) {
-
-
-        System.out.println("SAVE location---------------" + locations.toString());
-
-
         locations = locationsService.save(locations);
-
-        System.out.println("after SAVE location---------------" + locations.toString());
         return commonDataService.getReturnType(locations != null, "位置信息保存成功!", "位置信息保存失败!");
 
     }
@@ -161,7 +151,7 @@ public class LocationController extends BaseController {
      * @param id
      * @return 根据id查询
      */
-    @RequestMapping(value = "/findById/{id}")
+    @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Locations findById(@PathVariable("id") Long id) {
         return locationsService.findById(id);
@@ -231,6 +221,18 @@ public class LocationController extends BaseController {
         }
         importService.importData(equipmentAccountService, equipmentsList);
         return commonDataService.getReturnType(true, "数据导入成功!", "数据导入失败!");
+    }
+
+
+    /**
+     * @param id
+     * @return 根据位置id查询位置具体描述
+     */
+    @RequestMapping(value = "/findLocNameById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Vlocations findLocNameById(@PathVariable("id") Long id) {
+        Vlocations vlocations = vlocationsRepository.findById(id);
+        return vlocations;
     }
 
 

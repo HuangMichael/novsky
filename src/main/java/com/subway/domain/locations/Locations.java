@@ -26,8 +26,8 @@ public class Locations implements java.io.Serializable {
     private String location;//位置
     @Column(length = 100)
     private String description;//描述
-/*
-    @ManyToOne(fetch = FetchType.LAZY)
+
+/*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "line_id", referencedColumnName = "id")
     Line line; //线路
 

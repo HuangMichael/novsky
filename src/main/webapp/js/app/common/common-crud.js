@@ -130,6 +130,8 @@ function findObjById(objName, id) {
         id = selectedIds[pointer];
     }
     var url = objName + "/findById/" + id;
+
+    console.log("url----------"+url);
     $.getJSON(url, function (data) {
         object = data;
     });

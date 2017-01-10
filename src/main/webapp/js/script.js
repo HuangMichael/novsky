@@ -656,7 +656,7 @@ var App = function () {
                 handleGritter()
             }
             if (App.isPage("equipments")) {
-               // handleRaty()
+                // handleRaty()
             }
             if (App.isPage("portal")) {
                 handleCalendar();
