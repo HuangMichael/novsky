@@ -125,8 +125,6 @@ public class LocationController extends BaseController {
     @ResponseBody
     public Locations create(@PathVariable("id") Long id, HttpSession session) {
         Locations location = locationsService.create(id);
-        User user = SessionUtil.getCurrentUserBySession(session);
-        location.setSuperior(user.getPerson().getPersonName());
         location.setStatus("1");
         return location;
     }

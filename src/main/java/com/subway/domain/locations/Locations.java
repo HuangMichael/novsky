@@ -35,16 +35,13 @@ public class Locations implements java.io.Serializable {
     @JoinColumn(name = "station_id", referencedColumnName = "id")
     Station station; //车站*/
 
-    @Column(length = 20)
-    String superior;  //负责人
 
     private Long parent;
 
     @Column(length = 1)
     private Long locLevel;
 
-    @Column(length = 50)
-    private String imgUrl;
+
 
     @Column(length = 1, columnDefinition = "default 1") //默认位置正常
     private String status;//状态

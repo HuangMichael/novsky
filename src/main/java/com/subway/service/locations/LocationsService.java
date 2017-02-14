@@ -221,7 +221,6 @@ public class LocationsService extends BaseService {
                 newLoc.setDescription(classDesc);
                 newLoc.setLocation(location);
                 newLoc.setLocLevel(locations.getLocLevel() + 1);
-                newLoc.setSuperior("");
                 newLoc.setHasChild("0");
                 newLoc.setParent(locations.getId());
                 newLoc.setStatus("1");

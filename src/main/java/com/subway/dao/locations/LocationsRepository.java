@@ -24,7 +24,7 @@ public interface LocationsRepository extends CrudRepository<Locations, Long> {
      * @param location 位置编码
      * @return
      */
-    @Query("SELECT  l.id,l.location, l.description, l.superior, l.parent FROM Locations l where l.location like :location  ")
+    @Query("SELECT  l.id,l.location, l.description, '', l.parent FROM Locations l where l.location like :location  ")
     List<Object> findTree(@Param("location") String location);
 
     /**
