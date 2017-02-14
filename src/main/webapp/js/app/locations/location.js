@@ -384,17 +384,18 @@ function findLocNameById(id) {
  */
 function importLoc() {
     //弹出框 输入设备分类
-    var cid = getSelectedNodeId();
+    var lid = getSelectedNodeId();
     $("#importLocModal").modal("show");
     var split = ",";
     $("#confitmBtna").on("click", function () {
-        var classStr = $("#locStrField").val().trim();
-        var url = "location/importLoc";
+        var locStr = $("#locStrField").val().trim();
+        var url = "/location/importLoc";
         var data = {
-            cid: cid,
-            classStr: classStr,
+            lid: lid,
+            locStr: locStr,
             split: split
         };
+        console.log("data---------"+JSON.stringify(data));
         $.post(url, data, function (data) {
             if (data.result) {
                 showMessageBox("info", data["resultDesc"]);

@@ -242,6 +242,10 @@ public class LocationController extends BaseController {
     @RequestMapping(value = "/importLoc", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject importLoc(@RequestParam("lid") Long lid, @RequestParam("locStr") String locStr, @RequestParam("split") String split) {
+
+        System.out.println("lid---------------"+lid);
+        System.out.println("locStr---------------"+locStr);
+        System.out.println("split---------------"+split);
         return locationsService.importLoc(lid,locStr,split);
     }
 
