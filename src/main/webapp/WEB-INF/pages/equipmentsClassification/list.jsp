@@ -76,12 +76,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">请输入要导入的设备分类,并用英文逗号隔开(,)</h4>
+                <h4 class="modal-title">请输入要导入的设备分类,并用,隔开</h4>
             </div>
             <div class="modal-body" id="mBody1">
                 <form class="form-horizontal" role="form" id="form">
                     <div class="form-group">
-                        <textarea id="classStrField" class="form-control"></textarea>
+                        <textarea id="classStrField" class="form-control" rows="10"></textarea>
                     </div>
                 </form>
             </div>
