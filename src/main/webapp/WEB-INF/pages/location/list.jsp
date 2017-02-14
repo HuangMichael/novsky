@@ -58,4 +58,36 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="importLocModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请输入要导入的位置信息,并用,隔开</h4>
+            </div>
+            <div class="modal-body" id="mBody1">
+                <form class="form-horizontal" role="form" id="form">
+                    <div class="form-group">
+                        <textarea id="locStrField" class="form-control" rows="10"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">取消
+                </button>
+                <button type="button" id="confitmBtna" name="confitmBtna"
+                        class="btn btn-danger">确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script type="text/javascript" src="/js/app/locations/location.js"></script>

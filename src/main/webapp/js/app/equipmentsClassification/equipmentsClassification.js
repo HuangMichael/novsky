@@ -217,42 +217,6 @@ function loadTable() {
     });
 }
 
-/**
- * 选中设备分类节点  添加外委单位
- */
-/*function addUnit() {
- $.ajaxSettings.async = false;
- //获取选中的设备分类节点
- var selectEqClassId = getSelectedNodeId();
- //弹出框选择未添加的外委单位信息
- var url = "/equipmentsClassification/loadSelectUnitPage/" + selectEqClassId;
- $("#mBody").load(url);
- $("#unitListModal").modal("show");
- }*/
-
-/**
- * 选中设备分类节点  添加外委单位
- */
-/*function addMoreUnit() {
- $.ajaxSettings.async = false;
- //获取选中的设备分类节点
- var selectEqClassId = getSelectedNodeId();
- //弹出框选择未添加的外委单位信息
- var url = "/equipmentsClassification/loadSelectUnitPage/" + selectEqClassId;
- $("#mBody").load(url);
- var units = getUnitsByEqClass(selectEqClassId);
- for (var x in units) {
- if (!isNaN(units[x])) {
- $("#unitListModal input[value='" + units[x] + "'] ").each(function () {
- $(this).attr("checked", "checked");
- });
- }
- }
- //将已有的默认选中//
- $("#unitListModal").modal("show");
- }*/
-
-
 $("#confitmBtn").on("click", function () {
     //检查获取选择的ids
     var ids = "";
@@ -365,12 +329,9 @@ function confirmAddUnits() {
  * 导入设备分类
  */
 function importClass() {
-
-
     //弹出框 输入设备分类
     var cid = getSelectedNodeId();
     $("#importClassModal").modal("show");
-
     var split = ",";
     $("#confitmBtna").on("click", function () {
         var classStr = $("#classStrField").val().trim();

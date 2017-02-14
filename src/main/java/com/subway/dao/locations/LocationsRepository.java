@@ -1,9 +1,6 @@
 package com.subway.dao.locations;
 
 import com.subway.domain.locations.Locations;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -88,4 +85,12 @@ public interface LocationsRepository extends CrudRepository<Locations, Long> {
      */
     @Override
     void delete(Locations locations);
+
+
+    /**
+     * @param parent      上级节点id
+     * @param description 位置名称
+     * @return 根据上级节点名称和节点名称查询位置信息
+     */
+    List<Locations> findByParentAndDescription(@Param("parent") Long parent, @Param("description") String description);
 }

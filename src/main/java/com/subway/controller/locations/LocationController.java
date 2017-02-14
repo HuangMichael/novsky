@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -233,6 +230,19 @@ public class LocationController extends BaseController {
     public Vlocations findLocNameById(@PathVariable("id") Long id) {
         Vlocations vlocations = vlocationsRepository.findById(id);
         return vlocations;
+    }
+
+
+    /**
+     * @param lid      位置ID
+     * @param locStr
+     * @param split    分隔符
+     * @return 返回导入成功失败标识
+     */
+    @RequestMapping(value = "/importLoc", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject importLoc(@RequestParam("lid") Long lid, @RequestParam("locStr") String locStr, @RequestParam("split") String split) {
+        return locationsService.importLoc(lid,locStr,split);
     }
 
 

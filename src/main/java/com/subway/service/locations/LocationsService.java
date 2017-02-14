@@ -6,7 +6,7 @@ import com.subway.domain.locations.Locations;
 import com.subway.domain.locations.Vlocations;
 import com.subway.object.ReturnObject;
 import com.subway.service.app.BaseService;
-import com.subway.utils.StringUtils;
+import com.subway.service.commonData.CommonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,8 @@ public class LocationsService extends BaseService {
     @Autowired
     VlocationsRepository vlocationsRepository;
 
+    @Autowired
+    CommonDataService commonDataService;
 
     /**
      * 设置位置编码
@@ -46,7 +48,7 @@ public class LocationsService extends BaseService {
             locationNo = locations.getLocation() + "01";
         }
 
-        System.out.println("locationNo------------------------" +locationNo);
+        System.out.println("locationNo------------------------" + locationNo);
         return locationNo;
     }
 
@@ -192,6 +194,44 @@ public class LocationsService extends BaseService {
     public List<Vlocations> findByLocationStartingWithAndStatus(String location) {
 
         return vlocationsRepository.findByLocationStartingWith(location);
+    }
+
+
+    /**
+     * @param cid    位置编号id
+     * @param locStr 位置名称字符串
+     * @return 导入设备分类
+     */
+
+    public ReturnObject importLoc(Long cid, String locStr, String split) {
+        Locations locations = locationsRepository.findById(cid);
+        int records = 0;
+
+        List<Locations> locationsList = null;
+        Locations newLoc;
+        //根据分隔符分割
+        String[] locArray = locStr.split(split);
+        String location = "";
+        for (String classDesc : locArray) {
+            //查询是否已经存在 类型和名称确定唯一一个设备类型
+            locationsList = locationsRepository.findByParentAndDescription(cid, classDesc);
+            if (locationsList.isEmpty()) {
+                newLoc = new Locations();
+                location = getLocationsNo(locations);
+                newLoc.setDescription(classDesc);
+                newLoc.setLocation(location);
+                newLoc.setLocLevel(locations.getLocLevel() + 1);
+                newLoc.setSuperior("");
+                newLoc.setHasChild("0");
+                newLoc.setParent(locations.getId());
+                newLoc.setStatus("1");
+                locationsRepository.save(newLoc);
+                records++;
+            }
+            //如果不存在，保存
+        }
+
+        return commonDataService.getReturnType(records != 0, records + "条位置信息导入成功！", "位置信息导入失败！");
     }
 
 }

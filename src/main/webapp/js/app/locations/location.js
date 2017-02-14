@@ -11,14 +11,14 @@ var setting = {
             var locName = findLocNameById(treeNode.id);
 
 
-            console.log("locName---------------"+locName);
-            vdm.$set("locName",locName);
+            console.log("locName---------------" + locName);
+            vdm.$set("locName", locName);
 
             $("#locName").val(locName);
             var node = findObjById("location", treeNode.id);
-            vdm.$set("location",node);
+            vdm.$set("location", node);
 
-            setFormReadStatus("#detailForm",true);
+            setFormReadStatus("#detailForm", true);
             loadEqList(treeNode.id);
             return true;
         }
@@ -111,7 +111,7 @@ $(document).ready(function () {
         el: formName,
         data: {
             location: null,
-            locName:""
+            locName: ""
 
         }
     });
@@ -135,7 +135,7 @@ function add() {
     $.getJSON(url, function (data) {
         vdm.$set(mainObject, data);
     })
-    setFormReadStatus(formName, false,"location");
+    setFormReadStatus(formName, false, "location");
     $("#locNameDiv").hide();
 }
 
@@ -367,13 +367,41 @@ function loadEqList(locationId) {
  * @return {*}
  * */
 function findLocNameById(id) {
-    $.ajaxSettings.async=false;
+    $.ajaxSettings.async = false;
     var object = "";
-    var url =   "/location/findLocNameById/" + id;
-    console.log("url--------------"+url);
+    var url = "/location/findLocNameById/" + id;
+    console.log("url--------------" + url);
     $.getJSON(url, function (data) {
         object = data;
-        console.log("locName--------------"+JSON.stringify(object));
+        console.log("locName--------------" + JSON.stringify(object));
     });
     return object.locName;
+}
+
+
+/**
+ * 导入位置信息
+ */
+function importLoc() {
+    //弹出框 输入设备分类
+    var cid = getSelectedNodeId();
+    $("#importLocModal").modal("show");
+    var split = ",";
+    $("#confitmBtna").on("click", function () {
+        var classStr = $("#locStrField").val().trim();
+        var url = "location/importLoc";
+        var data = {
+            cid: cid,
+            classStr: classStr,
+            split: split
+        };
+        $.post(url, data, function (data) {
+            if (data.result) {
+                showMessageBox("info", data["resultDesc"]);
+            } else {
+                showMessageBox("danger", data["resultDesc"]);
+            }
+            $("#importLocModal").modal("hide");
+        });
+    });
 }
