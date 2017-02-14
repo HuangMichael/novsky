@@ -5,7 +5,6 @@ import com.subway.domain.equipments.EquipmentsClassification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.persistence.OrderBy;
 import java.util.List;
 
 /**
@@ -36,5 +35,14 @@ public interface EquipmentsClassificationRepository extends CrudRepository<Equip
     @Query("select l from  EquipmentsClassification  l   where  l.parent is null  order by l.sortNo")
     List<EquipmentsClassification> findNodeByParentId();
 
+
+    /**
+     * 根据i根据设备类型和描述查询
+     *
+     * @param classType   设备分类类型  2为站区  1为段区
+     * @param description 设备分类描述
+     * @return
+     */
+    List<EquipmentsClassification> findByClassTypeAndDescription(String classType, String description);
 
 }

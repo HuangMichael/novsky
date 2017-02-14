@@ -19,14 +19,14 @@
                 <div class="col-md-3">
                     <!-- BOX -->
                     <div class="box border blue">
-                        <div class="box-body treeContainer"  id="treeDiv">
+                        <div class="box-body treeContainer" id="treeDiv">
                             <ul id="tree" class="ztree"></ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="box border blue">
-                         <%@include file="../common/common-menubar.jsp"%>
+                        <%@include file="../common/common-menubar.jsp" %>
                     </div>
                     <div class="divide-2"></div>
                     <!-- BOX -->
@@ -62,6 +62,34 @@
                         data-dismiss="modal">取消
                 </button>
                 <button type="button" id="confitmBtn" name="confitmBtn"
+                        class="btn btn-danger">确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="importClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请输入要导入的设备分类,并用英文逗号隔开(,)</h4>
+            </div>
+            <div class="modal-body" id="mBody1">
+                <form class="form-horizontal" role="form" id="form">
+                    <div class="form-group">
+                        <textarea id="classStrField" class="form-control"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">取消
+                </button>
+                <button type="button" id="confitmBtna" name="confitmBtna"
                         class="btn btn-danger">确定
                 </button>
             </div>

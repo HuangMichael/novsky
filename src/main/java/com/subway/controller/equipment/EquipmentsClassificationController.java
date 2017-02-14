@@ -257,4 +257,16 @@ public class EquipmentsClassificationController extends BaseController {
         return "/equipmentsClassification/popUnits";
     }
 
+
+    /**
+     * @param cid      设备分类ID
+     * @param classStr 分类字符串
+     * @param split    分隔符
+     * @return 返回导入成功失败标识
+     */
+    @RequestMapping(value = "/importClass", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject importClass(@RequestParam("cid") Long cid, @RequestParam("classStr") String classStr, @RequestParam("split") String split) {
+        return equipmentsClassificationService.importClasses(cid, classStr, split);
+    }
 }

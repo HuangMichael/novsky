@@ -3,13 +3,10 @@ package com.subway.service.equipmentsClassification;
 import com.subway.dao.equipments.EquipmentsClassificationRepository;
 import com.subway.dao.outsourcingUnit.OutsourcingUnitRepository;
 import com.subway.domain.equipments.EquipmentsClassification;
-import com.subway.domain.role.Role;
 import com.subway.domain.units.Units;
-import com.subway.domain.user.User;
 import com.subway.object.ReturnObject;
 import com.subway.service.app.BaseService;
 import com.subway.service.commonData.CommonDataService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -144,5 +141,42 @@ public class EquipmentsClassificationService extends BaseService {
             equipmentsClassification = equipmentsClassificationRepository.save(equipmentsClassification);
         }
         return commonDataService.getReturnType(equipmentsClassification != null, "设备分类关联外委单位成功！", "设备分类关联外委单位失败！");
+    }
+
+
+    /**
+     * @param cid
+     * @param classStr 设备分类字符串
+     * @return 导入设备分类
+     */
+
+    public ReturnObject importClasses(Long cid, String classStr, String split) {
+        EquipmentsClassification equipmentsClassification = equipmentsClassificationRepository.findById(cid);
+        String classType = equipmentsClassification.getClassType();
+        List<EquipmentsClassification> classList = null;
+        EquipmentsClassification newClass;
+        int records = 0;
+        if (!classStr.isEmpty() && !classType.isEmpty()) {
+            //根据分隔符分割
+            String[] classArray = classStr.split(split);
+            for (String classDesc : classArray) {
+                //查询是否已经存在 类型和名称确定唯一一个设备类型
+                classList = equipmentsClassificationRepository.findByClassTypeAndDescription(classType, classDesc);
+                if (classList.isEmpty()) {
+                    newClass = new EquipmentsClassification();
+                    newClass.setClassType(classType);
+                    newClass.setDescription(classDesc);
+                    newClass.setHasChild("0");
+                    newClass.setLevel(equipmentsClassification.getLevel() + 1);
+                    newClass.setParent(equipmentsClassification);
+                    newClass.setLimitHours(72l);
+                    newClass.setStatus("1");
+                    equipmentsClassificationRepository.save(newClass);
+                    records++;
+                }
+                //如果不存在，保存
+            }
+        }
+        return commonDataService.getReturnType(records != 0, records + "条设备分类导入成功！", "设备分类导入失败！");
     }
 }

@@ -346,7 +346,7 @@ function confirmAddUnits() {
     var eqClassId = getSelectedNodeId();
     $("#unitListModal").modal("hide");
     var unitsIdStr = $("#unitsNotInEqClass").bootgrid("getSelectedRows").join(",");
-    // ajax将选中的用户进行与角色关联
+
     var url = "equipmentsClassification/addUnits";
     var data = {
         cid: eqClassId,
@@ -357,5 +357,37 @@ function confirmAddUnits() {
             showMessageBox("info", data["resultDesc"]);
             $("#unitsNotInEqClass").bootgrid("reload");
         }
+    });
+}
+
+
+/**
+ * 导入设备分类
+ */
+function importClass() {
+
+
+    //弹出框 输入设备分类
+    var cid = getSelectedNodeId();
+    $("#importClassModal").modal("show");
+
+    var split = ",";
+    $("#confitmBtna").on("click", function () {
+        var classStr = $("#classStrField").val().trim();
+        console.log("classStr--------------"+classStr);
+        var url = "equipmentsClassification/importClass";
+        var data = {
+            cid: cid,
+            classStr: classStr,
+            split: split
+        };
+        $.post(url, data, function (data) {
+            if (data.result) {
+                showMessageBox("info", data["resultDesc"]);
+            } else {
+                showMessageBox("danger", data["resultDesc"]);
+            }
+            $("#importClassModal").modal("hide");
+        });
     });
 }
