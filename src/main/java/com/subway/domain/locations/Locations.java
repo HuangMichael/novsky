@@ -27,20 +27,19 @@ public class Locations implements java.io.Serializable {
     @Column(length = 100)
     private String description;//描述
 
-/*    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "line_id", referencedColumnName = "id")
     Line line; //线路
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", referencedColumnName = "id")
-    Station station; //车站*/
+    Station station; //车站
 
 
     private Long parent;
 
     @Column(length = 1)
     private Long locLevel;
-
 
 
     @Column(length = 1, columnDefinition = "default 1") //默认位置正常

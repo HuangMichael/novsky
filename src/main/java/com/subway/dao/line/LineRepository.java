@@ -64,4 +64,10 @@ public interface LineRepository extends CrudRepository<Line, Long>, PagingAndSor
     @Query("select u.id from Line u")
     List<Long> findAllIds();
 
+
+    /**
+     * @return 根据位置查询线路
+     */
+    List<Line> findByLineNo(String lineNo);
+
 }

@@ -80,4 +80,11 @@ public interface StationRepository extends CrudRepository<Station, Long> {
     @Query("select u.id from Station u")
     List<Long> findAllIds();
 
+
+    /**
+     * @param stationNo 站编号
+     * @return 按照编号查询站
+     */
+
+    List<Station> findByStationNo(String stationNo);
 }

@@ -395,7 +395,7 @@ function importLoc() {
             locStr: locStr,
             split: split
         };
-        console.log("data---------"+JSON.stringify(data));
+        console.log("data---------" + JSON.stringify(data));
         $.post(url, data, function (data) {
             if (data.result) {
                 showMessageBox("info", data["resultDesc"]);
@@ -404,5 +404,26 @@ function importLoc() {
             }
             $("#importLocModal").modal("hide");
         });
+    });
+}
+
+
+/**
+ * 更新设备位置车站和线路信息
+ */
+function sysnLoc() {
+    //弹出框 输入设备分类
+    var lid = getSelectedNodeId();
+    var url = "/location/sysnLoc";
+    var data = {
+        lid: lid
+    };
+    $.post(url, data, function (data) {
+        if (data.result) {
+            showMessageBox("info", data["resultDesc"]);
+        } else {
+            showMessageBox("danger", data["resultDesc"]);
+        }
+        $("#importLocModal").modal("hide");
     });
 }

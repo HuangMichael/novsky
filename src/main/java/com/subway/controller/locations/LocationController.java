@@ -232,19 +232,26 @@ public class LocationController extends BaseController {
 
 
     /**
-     * @param lid      位置ID
+     * @param lid    位置ID
      * @param locStr
-     * @param split    分隔符
+     * @param split  分隔符
      * @return 返回导入成功失败标识
      */
     @RequestMapping(value = "/importLoc", method = RequestMethod.POST)
     @ResponseBody
     public ReturnObject importLoc(@RequestParam("lid") Long lid, @RequestParam("locStr") String locStr, @RequestParam("split") String split) {
+        return locationsService.importLoc(lid, locStr, split);
+    }
 
-        System.out.println("lid---------------"+lid);
-        System.out.println("locStr---------------"+locStr);
-        System.out.println("split---------------"+split);
-        return locationsService.importLoc(lid,locStr,split);
+
+    /**
+     * @param lid 位置ID
+     * @return 返回更新子记录条数返回信息
+     */
+    @RequestMapping(value = "/sysnLoc", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnObject sysnLoc(@RequestParam("lid") Long lid) {
+        return locationsService.sysnLoc(lid);
     }
 
 

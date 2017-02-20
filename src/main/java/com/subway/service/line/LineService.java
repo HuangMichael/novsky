@@ -102,4 +102,6 @@ public class LineService extends BaseService {
     public Page<Line> findAll(Pageable pageable) {
         return lineRepository.findAll(pageable);
     }
+
+
 }

@@ -1,7 +1,11 @@
 package com.subway.service.locations;
 
+import com.subway.dao.line.LineRepository;
+import com.subway.dao.line.StationRepository;
 import com.subway.dao.locations.LocationsRepository;
 import com.subway.dao.locations.VlocationsRepository;
+import com.subway.domain.line.Line;
+import com.subway.domain.line.Station;
 import com.subway.domain.locations.Locations;
 import com.subway.domain.locations.Vlocations;
 import com.subway.object.ReturnObject;
@@ -28,6 +32,12 @@ public class LocationsService extends BaseService {
     @Autowired
     CommonDataService commonDataService;
 
+    @Autowired
+    LineRepository lineRepository;
+
+    @Autowired
+    StationRepository stationRepository;
+
     /**
      * 设置位置编码
      */
@@ -47,8 +57,6 @@ public class LocationsService extends BaseService {
         } else {
             locationNo = locations.getLocation() + "01";
         }
-
-        System.out.println("locationNo------------------------" + locationNo);
         return locationNo;
     }
 
@@ -57,10 +65,6 @@ public class LocationsService extends BaseService {
      * @return
      */
     public Locations save(Locations locations) {
-
-        System.out.println("locations------------------------" + locations.toString());
-
-
         return locationsRepository.save(locations);
     }
 
@@ -159,6 +163,8 @@ public class LocationsService extends BaseService {
      * @return 如果有上级根据上级生成对象  如果没有将其当做根节点
      */
     public Locations create(Long parentId) {
+
+        //创建之时  如果loc_level 为3站时 保存 3以下位置保存line_id 和station_id
         Locations newObj = new Locations();
         if (parentId != null) {
             Locations parent = locationsRepository.findById(parentId);
@@ -169,6 +175,14 @@ public class LocationsService extends BaseService {
                 level = parent.getLocLevel();
             }
             newObj.setLocLevel(level + 1);
+    /*        if (newObj.getLocLevel() >= 2 && newObj.getLocLevel() <= 3) {
+                newObj.setLine(parent.getLine());
+            }
+            if (newObj.getLocLevel() > 3) {
+                newObj.setLine(parent.getLine());
+                newObj.setStation(pa);
+            }*/
+
         } else {
             newObj.setLocation("01");
         }
@@ -231,6 +245,43 @@ public class LocationsService extends BaseService {
         }
 
         return commonDataService.getReturnType(records != 0, records + "条位置信息导入成功！", "位置信息导入失败！");
+    }
+
+
+    /**
+     * @param cid 位置编号id
+     * @return 同步设备位置线路和车站数据
+     */
+
+    public ReturnObject sysnLoc(Long cid) {
+        //根据id查询设备位置
+        Locations locations = locationsRepository.findById(cid);
+        String location = locations.getLocation();
+        //根据位置查询出子位置
+        long records = 0;
+        List<Locations> subLocations = locationsRepository.findByLocationStartingWith(location);
+        Line line = null;
+        Station station = null;
+        //为每个子位置设置车站和线路
+        for (Locations child : subLocations) {
+            location = child.getLocation();
+            //查询该位置下的所有位置 设置line
+            if (child.getLocLevel() == 2) {
+                line = lineRepository.findByLineNo(location.substring(0, 4)).get(0);
+                child.setLine(line);
+                //设置line
+            } else if (child.getLocLevel() >= 3) {
+                //设置station
+                line = lineRepository.findByLineNo(location.substring(0, 4)).get(0);
+                station = stationRepository.findByStationNo(location.substring(0, 6)).get(0);
+                child.setLine(line);
+                child.setStation(station);
+            }
+            child = locationsRepository.save(child);
+        }
+        records = subLocations.size();
+        //查询出station
+        return commonDataService.getReturnType(records != 0, records + "条位置信息更新成功！", "位置信息更新失败！");
     }
 
 }

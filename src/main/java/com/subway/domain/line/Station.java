@@ -13,8 +13,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "V_STATION")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
