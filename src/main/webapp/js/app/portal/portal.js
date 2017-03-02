@@ -138,11 +138,9 @@ function loadReportFinishChart(reportMonth) {
     function get3MonthTitle(reportMonth) {
         var title = [];
         var date = new Date();
-        title.push(getMonthAdd(date.getMonth(), -1) + "月");
-        title.push(getMonthAdd(date.getMonth(), 0) + "月");
+        title.push(getMonthAdd(date.getMonth(),- 1) + "月");
+        title.push(getMonthAdd(date.getMonth(),0) + "月");
         title.push(getMonthAdd(date.getMonth(), 1) + "月");
-
-        console.log("----------------" + JSON.stringify(title));
 
         return title;
     }
@@ -307,28 +305,28 @@ function loadLineChart(reportMonth) {
                 name: orderStatus[3],
                 data: loadByStatus(3)
 
-            }
+            },
+            {
+                name: orderStatus[4],
+                data: loadByStatus(4)
 
+            }
         ]
     });
 }
 
 
-/**
- *
- * @param value
- * @param step
- * @returns {number}
- */
-function getMonthAdd(value, step) {
+function getMonthAdd(value,step){
 
-    if (!(value + step) % 12) {
-        return 12;
+    var monthValue=0;
+    console.log("value--------"+value);
+    console.log("step--------"+step);
+    if(value+step<=0){
+        monthValue= value+step+12;
     }
-
-    else {
-        return (value + step) % 12;
-
+    if(value+step==1){
+        monthValue= 1;
     }
+    return monthValue;
 
 }

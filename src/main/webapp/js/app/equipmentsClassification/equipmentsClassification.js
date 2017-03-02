@@ -332,10 +332,9 @@ function importClass() {
     //弹出框 输入设备分类
     var cid = getSelectedNodeId();
     $("#importClassModal").modal("show");
-    var split = ",";
+    var split = "\n";
     $("#confitmBtna").on("click", function () {
         var classStr = $("#classStrField").val().trim();
-        console.log("classStr--------------"+classStr);
         var url = "equipmentsClassification/importClass";
         var data = {
             cid: cid,
