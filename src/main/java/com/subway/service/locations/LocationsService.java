@@ -228,6 +228,7 @@ public class LocationsService extends BaseService {
         String location = "";
         for (String classDesc : locArray) {
             //查询是否已经存在 类型和名称确定唯一一个设备类型
+            classDesc=classDesc.trim();
             locationsList = locationsRepository.findByParentAndDescription(cid, classDesc);
             if (locationsList.isEmpty()) {
                 newLoc = new Locations();

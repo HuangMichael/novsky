@@ -370,10 +370,8 @@ function findLocNameById(id) {
     $.ajaxSettings.async = false;
     var object = "";
     var url = "/location/findLocNameById/" + id;
-    console.log("url--------------" + url);
     $.getJSON(url, function (data) {
         object = data;
-        console.log("locName--------------" + JSON.stringify(object));
     });
     return object.locName;
 }
@@ -386,7 +384,7 @@ function importLoc() {
     //弹出框 输入设备分类
     var lid = getSelectedNodeId();
     $("#importLocModal").modal("show");
-    var split = ",";
+    var split = "\n"; //使用换行符分割
     $("#confitmBtna").on("click", function () {
         var locStr = $("#locStrField").val().trim();
         var url = "/location/importLoc";
@@ -395,7 +393,6 @@ function importLoc() {
             locStr: locStr,
             split: split
         };
-        console.log("data---------" + JSON.stringify(data));
         $.post(url, data, function (data) {
             if (data.result) {
                 showMessageBox("info", data["resultDesc"]);
